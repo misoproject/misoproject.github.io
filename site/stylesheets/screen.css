@@ -1,0 +1,48 @@
+/* line 1 */
+body {
+  font-family: Arial;
+  font-size: 10pt;
+}
+
+/* line 6 */
+.larger {
+  font-size: 1.4em;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+/* line 12 */
+.hero-unit {
+  padding: 0;
+  background-color: white;
+  margin-bottom: 20px;
+  display: inline-block;
+  width: 100%;
+}
+/* line 19 */
+.hero-unit div {
+  width: 540px;
+  margin: 0 auto;
+}
+/* line 23 */
+.hero-unit h1 {
+  margin-bottom: 0;
+  padding-top: 20px;
+  font-size: 46px;
+  line-height: 1.2;
+}
+/* line 28 */
+.hero-unit h3 {
+  line-height: 1;
+  font-weight: normal;
+}
+
+/* line 34 */
+.header img {
+  margin-right: 20px;
+}
+
+/* line 37 */
+textarea.code {
+  display: none;
+}

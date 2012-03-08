@@ -1,0 +1,62 @@
+%p
+  To begin working with your dataset, you first need to import your data. You can import either <b>local</b> data (in the form of a variable that happens to contain your data) or <b>remote</b> data (in the form of a url that we'll fetch from.)
+
+%h3 Local Importing
+
+%p
+  Out of the box Dataset can take local data objects or remote urls and import data in almost any common format.
+
+  %ul
+    %li JSON (including jsonp)
+    %li CSV
+    %li TSV (Any delimiter is acceptable, including tabs) 
+%p
+  There is also a growing library of custom data importers such as: 
+
+  %ul
+    %li
+      Google Spreadsheets
+
+%h4 Importing from a local object array
+
+%p
+  If you have an array of json objects, you can easily convert them to a Dataset like so:
+
+  = toRunnableCodeBlock("creation/importingLocalDataArray")
+
+%h4 Importing from a local "strict" format object
+%p
+  If you happen to have your data preprocessed in what we call a "strict" format, you can speed up your import slightly by initializing your Dataset with the <code>strict</code> flag:
+  = toRunnableCodeBlock("creation/importingLocalStrictDataArray")
+
+%h4 Importing from a local delimited string format
+%p
+  If for some reason you actually have all your data as a delimited string on the client side (which is an unlikely but possible,) you can import that into a dataset object too.
+  = toRunnableCodeBlock("creation/importingLocalDelimitedString")
+
+
+%h3 Remote Importing
+%p
+  Most of the time, your data will live somewhere else and you'll want to fetch it via a url. All the above formats would work except you would need to replace your <code>data</code> property with with a <code>url</code> property like so:
+%p
+  %code
+    :plain
+      var ds = new DS.Dataset({
+        url : "http://myserver.com/data/mydata.json"
+      });
+
+%h4 Google Spreadsheet Importing
+%p
+  If you have a <b>published</b> Google Spreadsheet that you would like to import data from, you can do so with the following format:
+
+  = toRunnableCodeBlock("creation/importingGoogleSpreadsheet")
+
+%p
+  The google spreadsheet importer is utilizing the format specified here:
+  =link_to 'http://code.google.com/apis/gdata/samples/spreadsheet_sample.html','http://code.google.com/apis/gdata/samples/spreadsheet_sample.html'
+
+%h3 Custom Importers
+%p
+  You may have noticed how easy it is to set a custom importer and parser in the dataset constructor by specifying the <code>importer</code> and <code>parser</code> properties. The import system can also easily be extended for custom data formats and other APIs. See the "Write Your Own Importers & Parsers" section for more information.
+
+  
