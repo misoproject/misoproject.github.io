@@ -1,26 +1,51 @@
 
 %div.row
-  %div.span2
-    %h2 Nav
+  %div.span2{ :style => 'position:fixed; '}
+    %ul.listnav
+      %li 
+        %a{ :href => '#why' } Why Dataset?
+      %li 
+        %a{ :href => '#dependancies' } Dependencies
+      %li 
+        %a{ :href => '#download' } Download
+      %li 
+        %a{ :href => '#create' } Creating a Dataset
+      %li 
+        %a{ :href => '#fetch' } Fetching Data
+      %li 
+        %a{ :href => '#types' } Data Types
 
-  %div.span10.dataset
+  
+
+  %div.span10.dataset.offset2
     %h1 Dataset
     %p.about
       Dataset is a library that makes it easy to work with data on the client. Dataset makes it painless to import &amp; standardise datsets and then select &amp; manipulate data within them.
 
+    %a{ :href => '#', :name => "why" }
     %h2 Why Dataset:
     = partial("../partials/dataset/why_dataset")
 
+    %a{ :href => '#', :name => "dependancies" }
     %h2 Dependancies:
     = partial("../partials/dataset/dependancies")
 
+    %a{ :href => '#', :name => "download" }
     %h2 Download:
     = partial("../partials/dataset/downloads")
 
+    %a{ :href => '#', :name => "create" }
     %h2 Creating a Dataset:
     = partial("../partials/dataset/creating_dataset")
 
+    %a{ :href => '#', :name => "fetch" }
     %h2 Fetching Data:
-    
+    = partial("../partials/dataset/fetching_data")
+
+    %a{ :href => '#', :name => "types" }
+    %h2 Data Types:
+    = partial("../partials/dataset/data_types")
+
+
 
     
