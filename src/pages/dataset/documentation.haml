@@ -14,8 +14,12 @@
         %a{ :href => '#fetch' } Fetching Data
       %li 
         %a{ :href => '#types' } Data Types
-
-  
+      %li 
+        %a{ :href => '#access' } Accessing Data
+      %li 
+        %a{ :href => '#events' } Events
+      %li 
+        %a{ :href => '#modify' } Modifying Data
 
   %div.span10.dataset.offset2
     %h1 Dataset
@@ -45,6 +49,18 @@
     %a{ :href => '#', :name => "types" }
     %h2 Data Types:
     = partial("../partials/dataset/data_types")
+
+    %a{ :href => '#', :name => "access" }
+    %h2 Accessing Data:
+    = partial("../partials/dataset/accessing_data")
+
+    %a{ :href => '#', :name => "events" }
+    %h2 Events:
+    = partial("../partials/dataset/events")
+
+    %a{ :href => '#', :name => "modify" }
+    %h2 Modifying Data:
+    = partial("../partials/dataset/modifying_data")
 
 
 

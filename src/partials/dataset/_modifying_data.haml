@@ -1,0 +1,73 @@
+%p
+  All data modifications should happen through the following <code>add</code>, <code>remove</code> and <code>update</code> methods.
+
+%h3 Adding a row:
+%p
+  To add a row to your dataset, use the <code>add</code> method.
+  %pre
+    ds.add(rowObject, options);
+
+  = toRunnableCodeBlock("dataset/modify/addRow")
+
+%p
+  Adding a row will trigger the following events in this order:
+  %ul
+    %li <code>add</code>
+    %li <code>change</code>
+  Pass <code>{ silent : true }</code> as the optional <code>options</code> parametere to suppress events.
+
+%h3 Removing a Row:
+%p
+  To remove a row from your dataset, use the <code>remove</code> method. There are two ways to remove rows:
+
+  %ul
+    %li
+      %b By providing a row id:
+      %pre ds.remove(rowId, options);
+      %i Note the row id is the unique <code>_id</code> identifier each row has.
+    %li
+      %b By providing a filter function:
+      %pre ds.remove(rowFilterFunction, options);
+      For example:
+      :plain
+        <pre>
+        // remove all rows where the population is > 1000
+        ds.remove(function(row) {
+          return (row.population > 1000);
+        });
+        </pre>
+      All rows that pass the filter function will be removed.
+%p
+  Either remove call will trigger the following events in this order:
+  %ul
+    %li
+      %code remove
+    %li
+      %code change
+  Pass <code>{ silent : true }</code> as the optional <code>options</code> parametere to suppress events.
+
+%h3 Updating Rows:
+
+%p
+  To update a row, pass the <code>)id</code> of the row along with the changed attributes like so:
+  %pre ds.update(rowId, changedAttributes, options);
+  For example:
+  :plain
+    <pre>
+    ds.update(rowId, {
+      col1 : newVal, col2 : newVal ...
+    });
+    </pre>
+%p
+  A call to <code>update</code> will trigger the following events in this order:
+  %ul
+    %li
+      %code update
+    %li
+      %code change
+  Pass <code>{ silent : true }</code> as the optional <code>options</code> parametere to suppress events.
+
+
+
+
+
