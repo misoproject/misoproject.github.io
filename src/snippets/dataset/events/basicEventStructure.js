@@ -1,6 +1,7 @@
 var ds = new Miso.Dataset({
   data : [
-    { one : 12,  two : 40,  three : 40 }
+    { one : 12,  two : 40,  three : 40 },
+    { one : 10, two : 32, three : 2 }
   ],
   sync : true
 });
@@ -13,8 +14,6 @@ _.when(ds.fetch()).then(function() {
     console.log("Is Update?", Miso.Event.isUpdate(event.deltas[0]));
   });
 
-  // Add two rows - add event will be triggered twice.
-  ds.add({ one : 10, two : 32, three : 2 });
   ds.add({ one : 10, two : 3, three : 24 });
 
   ds.bind("remove", function(event) {
@@ -27,5 +26,4 @@ _.when(ds.fetch()).then(function() {
   ds.remove(function(row) {
     return (row.one === 10);
   });
-
 });

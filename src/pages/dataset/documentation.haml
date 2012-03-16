@@ -1,4 +1,3 @@
-
 %div.row
   %div.span2{ :style => 'position:fixed; '}
     %ul.listnav
@@ -20,9 +19,15 @@
         %a{ :href => '#events' } Events
       %li 
         %a{ :href => '#modify' } Modifying Data
+      %li 
+        %a{ :href => '#sort' } Sorting
+      %li
+        %a{ :href => '#selection' } Selection
+      %li
+        %a{ :href => '#computed_values' } Computed Values
 
   %div.span10.dataset.offset2
-    %h1 Dataset
+    %h1 Dataset Documentation
     %p.about
       Dataset is a library that makes it easy to work with data on the client. Dataset makes it painless to import &amp; standardise datsets and then select &amp; manipulate data within them.
 
@@ -62,6 +67,17 @@
     %h2 Modifying Data:
     = partial("../partials/dataset/modifying_data")
 
+    %a{ :href => '#', :name => "sort" }
+    %h2 Sorting:
+    = partial("../partials/dataset/sorting")
+
+    %a{ :href => '#', :name => "selection" }
+    %h2 Selection:
+    = partial("../partials/dataset/selection")
+
+    %a{ :href => '#', :name => "computed_values" }
+    %h2 Computed Values:
+    = partial("../partials/dataset/computed_values")    
 
 
     
