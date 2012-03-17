@@ -1,0 +1,67 @@
+!!!
+%html
+  :plain
+    <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+    <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+    <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+    <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->    
+
+  %head
+
+    %meta{ :charset => "utf-8" }
+    %meta{ "http-equiv" => "X-UA-Compatible", :content => "IE=edge,chrome=1" }
+    %meta{ :name => "description", :content => "The Miso Project" }
+    %meta{ :name => "name", :content => "The Miso Project" }
+    %meta{ :name => "viewport", :content => "width=device-width" }
+
+    %title The Miso Project
+    
+    %link{ :rel => "stylesheet", :href => "/stylesheets/bootstrap.css" }
+    :plain
+      <style>
+        body {
+          padding-top: 60px;
+          padding-bottom: 40px;
+        }
+      </style>
+    %link{ :rel => "stylesheet", :href => "/stylesheets/bootstrap.responsive.css" }
+    %link{ :rel => "stylesheet", :href => "/stylesheets/codemirror.css" }
+    %link{ :rel => "stylesheet", :href => "/stylesheets/screen.css" }
+
+
+  %body
+
+    %div.navbar.navbar-fixed-top 
+      %div.navbar-inner
+        %div.container
+          
+          %a.btn.btn-navbar{ "data-toggle" => "collapse", "data-target" => ".nav-collapse" }
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          
+          %a.brand{ :href => "#" } 
+            The Miso Project  
+
+          %div.nav-collapse
+            %ul.nav
+              %li.active
+                %a{ :href => "/" } Home
+              %li
+                %a{ :href => "about.html" } About
+              %li
+                %a{ :href => "contact.html" } Contact
+
+    %div.container
+      = yield
+      %footer
+        %p
+          &copy; 2012. The Miso Project, The Guardian, Bocoup.
+    
+    %script{ :src => "/js/jquery.min.js" }
+    %script{ :src => "/js/miso.ds.deps.js" }
+    %script{ :src => "/js/bootstrap/transition.js" }
+    %script{ :src => "/js/bootstrap/collapse.js" }
+    %script{ :src => "/js/codemirror.js"}
+    %script{ :src => "/js/main.js"}
+   

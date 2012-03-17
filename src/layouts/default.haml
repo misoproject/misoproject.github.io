@@ -16,47 +16,24 @@
 
     %title The Miso Project
     
-    %link{ :rel => "stylesheet", :href => "/stylesheets/bootstrap.css" }
-    :plain
-      <style>
-        body {
-          padding-top: 60px;
-          padding-bottom: 40px;
-        }
-      </style>
-    %link{ :rel => "stylesheet", :href => "/stylesheets/bootstrap.responsive.css" }
-    %link{ :rel => "stylesheet", :href => "/stylesheets/codemirror.css" }
     %link{ :rel => "stylesheet", :href => "/stylesheets/screen.css" }
+    %link{ :rel => "stylesheet", :href => "/stylesheets/codemirror.css" }
 
 
   %body
+    %nav
+      %ul
+        %li Miso
+        %li Dataset
+        %li Component Framework
+        %li Component Library
 
-    %div.navbar.navbar-fixed-top 
-      %div.navbar-inner
-        %div.container
-          
-          %a.btn.btn-navbar{ "data-toggle" => "collapse", "data-target" => ".nav-collapse" }
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          
-          %a.brand{ :href => "#" } 
-            The Miso Project  
-
-          %div.nav-collapse
-            %ul.nav
-              %li.active
-                %a{ :href => "/" } Home
-              %li
-                %a{ :href => "about.html" } About
-              %li
-                %a{ :href => "contact.html" } Contact
-
-    %div.container
+    %article
       = yield
-      %footer
-        %p
-          &copy; 2012. The Miso Project, The Guardian, Bocoup.
+
+    %footer
+      %p
+        &copy; 2012. The Miso Project, The Guardian, Bocoup. XX
     
     %script{ :src => "/js/jquery.min.js" }
     %script{ :src => "/js/miso.ds.deps.js" }

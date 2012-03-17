@@ -1,0 +1,28 @@
+@import "frameless";
+
+footer  {
+  min-height: 300px;
+  background-color: #333;
+  width: 100%;
+}
+
+@media screen and (min-width: 30em) {
+
+  #masthead, #introduction, article section, #colophon {
+    width: $cols6;
+  }
+
+  #masthead h1, #masthead p, #introduction span, #follow span {
+    display: block;
+  }
+
+  #grid {
+    height: $cols3;
+  }
+
+  #build figure {
+    height: $cols3;
+  }
+
+}
+
