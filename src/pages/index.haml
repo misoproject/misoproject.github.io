@@ -1,3 +1,32 @@
+- @layout = "front"
+
+=img("/images/logo.png", { :id => 'logo' })
+
+%article
+  %section#intro
+    %p
+      Miso is a toolkit designed to expedite the creation of high-quality reactive interactive and data visualisation content. 
+    %p
+      Miso consists of a client-side dataset library designed to power data visualisations, a component framework for building reusable content and a library of battle-tested components, ready to be assembled together. 
+
+  %section#libraries
+    %ol
+      %li
+        %span
+          Dataset
+        %p
+          Dataset is designed to make managing the data behindclient-side visualisations easy. Dataset manages the loading, parsing, sorting and querying of datasets as well as the creation of derivative datasets. 
+      %li
+        %span
+          Component Framework 
+        %p
+          The Miso Component Framework makes building reuseable, reactive components that are simple to wire together to build complex interactive content easy.
+      %li
+        %span
+          Component Library 
+        %p
+          The component library contains battle-tested pre-built Miso components ranging from nestable slideshows to network diagrams.
+
 -# %div.hero-unit.header
   -# %div
     -# = img("/images/misobowl.jpg", { :width => "150px", :valign => "middle", :align => "left" })
@@ -11,8 +40,8 @@
   -# %p.larger.span12  
     -# Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
     -# tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    -# quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    -# consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      -# quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        -# consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
     -# cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
     -# proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
@@ -26,5 +55,5 @@
 
   -# %div.project.span8
     -# = toRunnableCodeBlock("dataset/creation/basicDatasetCreation")
-    
-      
+
+
