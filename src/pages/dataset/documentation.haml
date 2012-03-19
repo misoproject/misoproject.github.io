@@ -8,6 +8,8 @@
       %li 
         %a{ :href => '#download' } Download
       %li 
+        %a{ :href => '#codeandbugs' } Code & Bugs       
+      %li 
         %a{ :href => '#create' } Creating a Dataset
       %li 
         %a{ :href => '#fetch' } Fetching Data
@@ -42,6 +44,10 @@
     %a{ :href => '#', :name => "download" }
     %h2 Download:
     = partial("../partials/dataset/downloads")
+
+    %a{ :href => '#', :name => "codeandbugs" }
+    %h2 Code & Bugs:
+    = partial("../partials/dataset/code")
 
     %a{ :href => '#', :name => "create" }
     %h2 Creating a Dataset:
