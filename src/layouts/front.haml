@@ -25,9 +25,11 @@
     = yield
 
     %footer
-      %p
-        &copy; 2012. The Miso Project, The Guardian, Bocoup. XX
-    
+      %div.container
+        %div.by
+          =img('/images/guardian.png')
+          =img('/images/bob.png')
+
     %script{ :src => "/js/jquery.min.js" }
     %script{ :src => "/js/miso.ds.deps.js" }
     %script{ :src => "/js/bootstrap/transition.js" }

@@ -1,51 +1,90 @@
 @import "frameless";
 
+.soon {
+  color: #999;
+}
+
 @media screen and (min-width: 30em) {
   #logo {
-    @include width(3);
-    margin-top: $cols1;
-    margin-left: $cols2;
+    float: left;
   }
 
   #intro {
-    @include width(6);
-    margin-left: $cols6;
+    position: relative;
+    @include width(10);
+    overflow: hidden;
+    clear: both;
     font-size: ($font-size + 4) / $em;
     line-height: ($font-size + 4) / $em;
+    margin-top: $cols1;
+    margin-bottom: $cols1;
+    margin-left: auto;
+    margin-right: auto;
     font-family: Georgia;
+    div.text {
+      margin-top: $cols2;
+      float: right;
+      @include width(6);
+    }
   }
 
   footer  {
-    min-height: 300px;
-    // background-color: #333;
+    min-height: $cols3;
+    margin-top: $cols3;
+    font-size: ($font-size + 4) / $em;
+    line-height: ($font-size + 4) / $em;
+
+    background-color: #000;
     color: #fff;
     width: 100%;
+
+    div.container {
+      @include width(10);
+      margin: 0 auto;
+      padding-top: 20px;
+      div.by {
+        @include width(6);
+        float: left;
+        img {
+          float: left;
+          margin-right: 25px;
+        }
+      }
+    }
   }
 
   #libraries {
-    @include width(12);
-    margin-top: $cols2;
-    margin-left: $cols2;
+    @include width(10);
+    font-size: ($font-size + 4) / $em;
+    margin: 0 auto;
 
-    ol li {
-      border-top: 1px solid #bbb;
-      width: 100%;
+    ul li {
+      border-top: 1px solid #ddd;
+      padding-top: $font-size*2;
+      padding-bottom: $font-size*2;
+      list-style-type: none;
       overflow: hidden;
-      height: $cols2;
+      font-family: Georgia;
+
+      svg {
+          width: $cols1;
+          height: 40px;
+          float: left;
+        }
 
       span {
         font-family: helvetica;
         font-weight: bold;
         display: block;
-        height: $cols2;
         float: left;
-        width: $cols4;
+        width: $cols3;
       }
 
       p {
         float: left;
         display: block;
-        margin-left: $cols2;
+        margin-left: $cols1;
+        line-height: ($font-size + 4) / $em;
         width: $cols6;
       }
     }
