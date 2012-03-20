@@ -4,23 +4,99 @@
   color: #999;
 }
 
-@media screen and (min-width: 30em) {
+#intro {
+  @include bigtype();
+  font-family: Georgia;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  clear: both;
+}
+
+#libraries {
+  @include bigtype();
+  margin: 0 auto;
+  ul li {
+    border-top: 1px solid #ddd;
+    padding-top: $font-size*2;
+    padding-bottom: $font-size*2;
+    list-style-type: none;
+    overflow: hidden;
+    font-family: Georgia;
+    span {
+      font-family: helvetica;
+      font-weight: bold;
+    }
+    svg {
+      width: $cols1;
+      height: 40px;
+      float: left;
+    }
+  }
+}
+
+footer  {
+  min-height: $cols3;
+  margin-top: $cols3;
+  @include bigtype();
+
+  background-color: #000;
+  color: #fff;
+  width: 100%;
+
+  div.container {
+    @include width(10);
+    margin: 0 auto;
+    padding-top: 20px;
+    div.by {
+      @include width(6);
+      float: left;
+      img {
+        float: left;
+        margin-right: 25px;
+      }
+    }
+  }
+}
+
+
+@media screen and (min-width: 19em) {
+
+}
+
+@media screen and (min-width: 31em) {
+  #intro {
+    @include width(6);
+  }
+
+  #logo {
+    padding-top: $font-size * 2;
+    margin: 0 auto;
+    display: block;
+    padding-bottom: $font-size * 2;
+  }
+
+  #libraries {
+    @include width(6);
+    padding-top: $font-size*2;
+  }
+
+  footer div.container {
+    @include width(6);
+  }
+}
+
+
+@media screen and (min-width: 54em) {
   #logo {
     float: left;
   }
 
   #intro {
-    position: relative;
     @include width(10);
-    overflow: hidden;
-    clear: both;
-    font-size: ($font-size + 4) / $em;
-    line-height: ($font-size + 4) / $em;
     margin-top: $cols1;
     margin-bottom: $cols1;
-    margin-left: auto;
-    margin-right: auto;
-    font-family: Georgia;
     div.text {
       margin-top: $cols2;
       float: right;
@@ -28,53 +104,12 @@
     }
   }
 
-  footer  {
-    min-height: $cols3;
-    margin-top: $cols3;
-    font-size: ($font-size + 4) / $em;
-    line-height: ($font-size + 4) / $em;
-
-    background-color: #000;
-    color: #fff;
-    width: 100%;
-
-    div.container {
-      @include width(10);
-      margin: 0 auto;
-      padding-top: 20px;
-      div.by {
-        @include width(6);
-        float: left;
-        img {
-          float: left;
-          margin-right: 25px;
-        }
-      }
-    }
-  }
 
   #libraries {
     @include width(10);
-    font-size: ($font-size + 4) / $em;
-    margin: 0 auto;
 
     ul li {
-      border-top: 1px solid #ddd;
-      padding-top: $font-size*2;
-      padding-bottom: $font-size*2;
-      list-style-type: none;
-      overflow: hidden;
-      font-family: Georgia;
-
-      svg {
-          width: $cols1;
-          height: 40px;
-          float: left;
-        }
-
       span {
-        font-family: helvetica;
-        font-weight: bold;
         display: block;
         float: left;
         width: $cols3;
@@ -95,4 +130,19 @@
 
   }
 
+  footer div.container {
+    @include width(10);
+    div.by {
+      @include width(6);
+      float: left;
+      img {
+        float: left;
+        margin-right: 25px;
+      }
+    }
+  }
+
+
 }
+
+

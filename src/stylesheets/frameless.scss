@@ -46,6 +46,11 @@ $cols16: (16 * ($column + $gutter) - $gutter) / $em;
   width: ($cols * ($column + $gutter) - $gutter) / $em;
 }
 
+@mixin bigtype {
+  font-size: ($font-size + 4) / $em;
+  line-height: ($font-size + 4) / $em;
+}
+
 
 /*
 Margin, padding, and border resets
