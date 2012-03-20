@@ -62,10 +62,35 @@ footer  {
 
 
 @media screen and (min-width: 19em) {
+  #intro {
+    @include width(4);
+  }
+
+  #logo {
+    padding-top: $font-size * 2;
+    @include width(4);
+    margin: 0 auto;
+    display: block;
+    padding-bottom: $font-size * 2;
+  }
+
+  #libraries {
+    @include width(4);
+    padding-top: $font-size*2;
+  }
+
+  footer div.container, footer div.container div.by {
+    @include width(4);
+    img {
+      margin: 0 auto;
+      display: block;
+      float: none;
+    }
+  }
 
 }
 
-@media screen and (min-width: 31em) {
+@media screen and (min-width: 32em) {
   #intro {
     @include width(6);
   }
