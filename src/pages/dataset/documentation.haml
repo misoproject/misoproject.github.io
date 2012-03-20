@@ -27,6 +27,8 @@
         %a{ :href => '#selection' } Selection
       %li
         %a{ :href => '#computed_values' } Computed Values
+      %li
+        %a{ :href => '#derived' } Derived Datasets       
 
   %div.span10.dataset.offset2
     %h1 Dataset Documentation
@@ -83,7 +85,11 @@
 
     %a{ :href => '#', :name => "computed_values" }
     %h2 Computed Values:
-    = partial("../partials/dataset/computed_values")    
+    = partial("../partials/dataset/computed_values") 
+
+    %a{ :href => '#', :name => "derived" }
+    %h2 Derived Datasets:
+    = partial("../partials/dataset/derived")     
 
 
     

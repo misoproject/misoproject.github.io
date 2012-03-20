@@ -13,7 +13,7 @@ module MisoHelper
     runnable = params[:runnable]
 
     full_path = File.join(Dir.pwd, 'src', 'snippets', partial.index(".js").nil? ? partial + ".js" : partial)
-    puts full_path
+    puts "Making code block " + full_path
     snippet = "<div class=\"codeblock\"><textarea class=\"code\" id=\"code\" runnable=\"#{runnable}\">\n"
     
     File.open(full_path, 'r') do |f|
@@ -22,7 +22,6 @@ module MisoHelper
     
     # surround existing snippet with proper tags
     snippet += "</textarea></div>"
-    puts snippet
     snippet
   end
 end
