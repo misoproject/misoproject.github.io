@@ -1214,7 +1214,6 @@
             basic derivatives available in Dataset with the plan to add more as they are needed: groupBy
             and movingAverage.
           </p>
-          <h3>API</h3>
           <h3>GroupBy</h3>
           <p>
             A groupBy operation involves splitting the data into groups based on a specific column,
@@ -1340,7 +1339,7 @@
           </p>
           <p>
             Like so:
-            <pre>ds.movingAvg("value");</pre>
+            <pre>ds.movingAverage("value");</pre>
             Will result in the following table:
             <table>
               <tr>
@@ -1372,9 +1371,9 @@
           </p>
           <p>
             Note that you can also specify multiple columns like so:
-            <pre>ds.movingAvg(["A", "B", "C"]);</pre>
+            <pre>ds.movingAverage(["A", "B", "C"]);</pre>
             And an alternate method like so:
-            <pre>ds.movingAvg(["A", "B", "C"], { method : _.sum });</pre>
+            <pre>ds.movingAverage(["A", "B", "C"], { method : _.sum });</pre>
           </p>
           <h3>Syncing Behavior</h3>
           <p>
