@@ -25,6 +25,10 @@ footer  {
   }
 
   div.container {
+    margin-top: $cols1;
+    margin-bottom: 0;
+    min-height: 0;
+    padding: 0;
     img {
       display: block;
       margin-right: 25px;
