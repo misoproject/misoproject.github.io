@@ -1,0 +1,46 @@
+%p
+  To specify a custom importer during dataset instantiation, just set the <code>importer</code> property to the class name of the importer you want. Some importers require custom properties. This section will document the properties you can set that will either cause this importer to be selected or will be required by it to continue.
+%p 
+  Built in Importers include:
+  %ul
+    %li <code>Miso.Importers.Local</code>
+    %li <code>Miso.Importers.Remote</code>
+    %li <code>Miso.Importers.Polling</code>
+    %li <code>Miso.Importers.GoogleSpreadsheet</code>
+%p
+  An importer must implement the following interface:
+  = toDisplayCodeBlock("api/importer")
+
+
+%h3 Miso.Importer.Local
+%p
+  Required dataset instantiation property:
+  %ul
+    %li 
+      data - The local var object containing the data.
+
+%h3 Miso.Importer.Remote
+%p
+  Required dataset instantiation property:
+  %ul
+    %li 
+      url - The url from which to fetch the data.
+    %li
+      jsonp - If the url in question is a jsonp request, set this to true.
+
+%h3 Miso.Importer.Polling
+%p
+  %ul
+    %li 
+      interval - The interval at which each request will be made. This is an approximate interval because until a request returns, the next request will not queue up.
+
+= api("importer.stop()", [],  "Stops the polling.");
+= api("importer.start()", [], "Restarts the polling.");
+
+%h3 Miso.Importer.GoogleSpreadsheet
+%p
+  %ul
+    %li 
+      key - The google spreadsheet key
+    %li
+      worksheet - (optional) An optional worksheet id. Default is always first worksheet.

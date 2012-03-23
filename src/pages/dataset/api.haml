@@ -14,9 +14,7 @@
       %li 
         %a{ :href => '#parsers' } Miso.Parsers    
       %li 
-        %a{ :href => '#event' } Miso.Event
-      %li 
-        %a{ :href => '#events' } Miso.Events
+        %a{ :href => '#event' } Miso.Events
       %li 
         %a{ :href => '#product' } Miso.Product          
       %li 
@@ -42,6 +40,12 @@
     %a{ :href => '#', :name => "types" }
     %h2 Miso.types
     = partial("../partials/api/miso.types")
-  
+      
+    %a{ :href => '#', :name => "importers" }
+    %h2 Miso.Importer
+    = partial("../partials/api/miso.importer")
      
-         
+    %a{ :href => '#', :name => "parsers" }
+    %h2 Miso.Parser
+    = partial("../partials/api/miso.parser")
+    

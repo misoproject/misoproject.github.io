@@ -73,10 +73,7 @@
               <a href='#parsers'>Miso.Parsers</a>
             </li>
             <li>
-              <a href='#event'>Miso.Event</a>
-            </li>
-            <li>
-              <a href='#events'>Miso.Events</a>
+              <a href='#event'>Miso.Events</a>
             </li>
             <li>
               <a href='#product'>Miso.Product</a>
@@ -751,6 +748,146 @@
                       Returns the numeric representation of a <code>time</code> value. Returns <code>valueOf()</code> moment object.
                     </div>
                   </div>
+          <a href='#' name='importers'></a>
+          <h2>Miso.Importer</h2>
+          <p>
+            To specify a custom importer during dataset instantiation, just set the <code>importer</code> property to the class name of the importer you want. Some importers require custom properties. This section will document the properties you can set that will either cause this importer to be selected or will be required by it to continue.
+          </p>
+          <p>
+            Built in Importers include:
+            <ul>
+              <li><code>Miso.Importers.Local</code></li>
+              <li><code>Miso.Importers.Remote</code></li>
+              <li><code>Miso.Importers.Polling</code></li>
+              <li><code>Miso.Importers.GoogleSpreadsheet</code></li>
+            </ul>
+          </p>
+          <p>
+            An importer must implement the following interface:
+            <div class="codeblock"><textarea class="code" id="code" runnable="false">
+            Miso.Importers.MyCustomImporter = function(options) {
+              // save your options
+              // overwrite 'extract' function if you want.
+            };
+            
+            _.extend(Miso.Importers.MyCustomImporter.prototype, {
+              
+              // options should handle a success and error callback.
+              // fetch should return a deferred object if this is a remote
+              // call.
+              // Either one of the callbacks should call the success callback
+              // with the returned data.
+              fetch : function(options) {}
+            });</textarea></div>
+          </p>
+          <h3>Miso.Importer.Local</h3>
+          <p>
+            Required dataset instantiation property:
+            <ul>
+              <li>
+                data - The local var object containing the data.
+              </li>
+            </ul>
+          </p>
+          <h3>Miso.Importer.Remote</h3>
+          <p>
+            Required dataset instantiation property:
+            <ul>
+              <li>
+                url - The url from which to fetch the data.
+              </li>
+              <li>
+                jsonp - If the url in question is a jsonp request, set this to true.
+              </li>
+            </ul>
+          </p>
+          <h3>Miso.Importer.Polling</h3>
+          <p>
+            <ul>
+              <li>
+                interval - The interval at which each request will be made. This is an approximate interval because until a request returns, the next request will not queue up.
+              </li>
+            </ul>
+          </p>
+          <div class="api"><pre>importer.stop()</pre>
+                    <div class='about'>
+                      <h4>Description:</h4>
+                      Stops the polling.
+                    </div>
+                  </div>
+          <div class="api"><pre>importer.start()</pre>
+                    <div class='about'>
+                      <h4>Description:</h4>
+                      Restarts the polling.
+                    </div>
+                  </div>
+          <h3>Miso.Importer.GoogleSpreadsheet</h3>
+          <p>
+            <ul>
+              <li>
+                key - The google spreadsheet key
+              </li>
+              <li>
+                worksheet - (optional) An optional worksheet id. Default is always first worksheet.
+              </li>
+            </ul>
+          </p>
+          <a href='#' name='parsers'></a>
+          <h2>Miso.Parser</h2>
+          <p>
+            To specify a custom parser, during dataset instantiation set the <code>parser</code> property to the class name of the parser you want. Some parsers require some custom properties. This section will document the properties you can set that will either cause this parser to be selected or will be required by it to continue.
+          </p>
+          <p>
+            Built in Parsers include:
+            <ul>
+              <li><code>Miso.Parsers.Strict</code></li>
+              <li><code>Miso.Parsers.Object</code></li>
+              <li><code>Miso.Parsers.Delimited</code></li>
+              <li><code>Miso.Parsers.GoogleSpreadsheet</code></li>
+            </ul>
+          </p>
+          <p>
+            The base <code>Miso.Parser</code> structure is:
+            <div class="codeblock"><textarea class="code" id="code" runnable="false">
+            // Pass in the data you'll be parsing
+            // Take in any potential options you might need for your parser
+            Miso.Parsers.MyCustomParser = function(data, options) {};
+            
+            _.extend(Miso.Parsers.MyCustomParser.prototype, {
+              parse : function(data) {
+            
+                // parse the data here
+                // ...
+            
+                // return the following structure:
+                return {
+                  columns : arrayOfColumnNames,
+                  data    : objectWithColumnToDataArrayMapping
+                };
+              }
+            });</textarea></div>
+          </p>
+          <h3>Miso.Parsers.Strict</h3>
+          <p>
+            <ul>
+              <li>strict - Set this to true when initializing a dataset to indicate the default internal format should be used.</li>
+            </ul>
+          </p>
+          <h3>Miso.Parsers.Object</h3>
+          <p>
+            The object parser expects an array of objects where each key is the column name.
+          </p>
+          <p>
+            <ul>
+              <li>data - The local var containing the data to be parsed.</li>
+            </ul>
+          </p>
+          <h3>Miso.Parsers.Delimited</h3>
+          <p>
+            <ul>
+              <li>delimited - The string that is delimiting the column values.</li>
+            </ul>
+          </p>
         </div>
       </div>
       <footer>
