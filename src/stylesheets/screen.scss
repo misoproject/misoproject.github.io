@@ -1,13 +1,194 @@
 @import "frameless";
 
-footer  {
-  min-height: 300px;
-  // background-color: #333;
-  color: #fff;
-  width: 100%;
+a {
+  color: #000;
+  text-decoration: none;
 }
 
-@media screen and (min-width: 30em) {
+p a {
+  color: #b50d0d;
+}
+
+
+footer  {
+  min-height: $cols4;
+  margin-top: $cols3;
+  clear: both;
+  overflow: hidden;
+
+  background-color: #000;
+  color: #fff;
+  width: 100%;
+
+  h2 {
+    color: #999;
+  }
+
+  div.container {
+    img {
+      display: block;
+      margin-right: 25px;
+    }
+  }
+}
+
+nav {
+  @include bigtype();
+  @include sanserif();
+}
+
+body article, div.container {
+  @include serif();
+  overflow: hidden;
+  margin: 0 auto $cols2 auto;
+  position: relative;
+  min-height: $cols10;
+  p {
+    @include bigtype();
+    margin-bottom: $font-size;
+  }
+  section {
+    border-top: 1px solid #ddd;
+      h2 {
+      @include sanserif();
+      @include normaltype();
+      padding-top: $font-size / 2;
+      padding-bottom: $font-size;
+    }
+  }
+  section.intro {
+    border-top: none;
+  }
+}
+
+@media screen and (max-width: 52.5em ) {
+
+  body article, div.container {
+    @include width( 6 );
+    img.logo {
+      display: block;
+      @include width( 6 );
+      margin: 0 auto;
+      margin: $cols1 auto $cols2 auto;
+    }
+
+    section {
+      margin-top: $cols1;
+      width: 100%;
+      overflow: hidden;
+      h1 {
+        margin-bottom: $font-size;
+      }
+    }
+  }
+
+  footer div.container {
+    @include width(6);
+    section {
+      @include width(6);
+      img {
+        margin: 0 auto;
+      }
+    }
+  }
+
+  nav {
+    width: 100%;
+    ul {
+      border-bottom: $borders;
+    }
+    ul li {
+      width: 100%;
+      padding: $font-size / 2;
+      border-top: $borders;
+      text-align: center;
+    }
+    ul li ul {
+      display: none;
+    }
+  }
+}
+
+
+@media screen and (min-width: 52.5em) {
+
+  body article, div.container {
+    @include width( 12 );
+    margin: $cols1 auto $cols2 auto;
+    div.text {
+      float: right;
+      @include width(6);
+    }
+    .logo {
+      float: left;
+      padding: 0;
+      @include width(6);
+    }
+    section.intro {
+      clear: both;
+      overflow: hidden;
+      height: $cols6;
+      div.text {
+        margin-top: $cols2;
+      }
+      width: auto;
+      margin-bottom: 0;
+      border-top: none;
+    }
+    section {
+      @include width(9);
+      float: right;
+      clear: both;
+      margin-bottom: $cols1;
+      div.content {
+        float: right;
+        @include width( 6 );
+      }
+    }
+  }
+  
+ 
+  nav {
+    top: 408px;
+    position: absolute;
+    overflow: hidden;
+    @include width( 10 );
+    left: 0;
+    ul {
+      @include width( 2 );
+      border-bottom: $borders;
+      float: left;
+      list-style-type: none;
+    }
+    ul li {
+      display: block;
+      width: 100%;
+      border-top: $borders;
+      overflow: hidden;
+      a {
+        line-height: 2;
+        color: #555;
+      }
+        
+      ul {
+        border: none;
+        li {
+          margin-left: $font-size;
+          font-size: ($font-size - 4) / $em;
+          border: none;
+        }
+      }
+
+    }
+  }
+
+  footer div.container {
+    @include width(12);
+    img {
+      float: right;
+      margin-right: 25px;
+    }
+  }
 
 }
 

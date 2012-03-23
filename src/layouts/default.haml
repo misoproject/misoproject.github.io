@@ -7,34 +7,41 @@
     <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->    
 
   %head
-
     %meta{ :charset => "utf-8" }
     %meta{ "http-equiv" => "X-UA-Compatible", :content => "IE=edge,chrome=1" }
     %meta{ :name => "description", :content => "The Miso Project" }
     %meta{ :name => "name", :content => "The Miso Project" }
     %meta{ :name => "viewport", :content => "width=device-width" }
-
     %title The Miso Project
-    
     %link{ :rel => "stylesheet", :href => "/stylesheets/screen.css" }
+    -# %link{ :rel => "stylesheet", :href => "/stylesheets/front.css" }
+    %link{ :rel => "stylesheet", :href => "/stylesheets/dataset.css" }
     %link{ :rel => "stylesheet", :href => "/stylesheets/codemirror.css" }
 
 
   %body
-    %nav
-      %ul
-        %li Miso
-        %li Dataset
-        %li Component Framework
-        %li Component Library
-
-    %article
-      = yield
+    = yield
 
     %footer
-      %p
-        &copy; 2012. The Miso Project, The Guardian, Bocoup. XX
-    
+      %div.container
+        %section
+          %h2
+            A joint project between
+          %div.content
+            %a{ :href => 'http://www.guardian.co.uk/profile/guardian-interactive-department' }
+              =img('/images/guardian.png')
+            %a{ :href => 'http://www.bocoup.com' }
+              =img('/images/bob.png')
+
+        %section
+          %h2
+            With sponsorship from
+          %div.content
+            %a{ :href => 'http://www.guardian.co.uk/development' }
+              =img('/images/global-dev.png')
+            %a{ :href => 'http://www.gatesfoundation.org/' }
+              =img('/images/gates.png')
+
     %script{ :src => "/js/jquery.min.js" }
     %script{ :src => "/js/miso.ds.deps.js" }
     %script{ :src => "/js/bootstrap/transition.js" }
@@ -42,3 +49,4 @@
     %script{ :src => "/js/codemirror.js"}
     %script{ :src => "/js/main.js"}
    
+

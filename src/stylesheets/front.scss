@@ -1,17 +1,6 @@
 @import "frameless";
-
 .soon {
   color: #999;
-}
-
-#intro {
-  @include bigtype();
-  font-family: Georgia;
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  overflow: hidden;
-  clear: both;
 }
 
 #libraries {
@@ -36,31 +25,6 @@
   }
 }
 
-footer  {
-  min-height: $cols3;
-  margin-top: $cols3;
-  @include bigtype();
-
-  background-color: #000;
-  color: #fff;
-  width: 100%;
-
-  div.container {
-    @include width(10);
-    margin: 0 auto;
-    padding-top: 20px;
-    div.by {
-      @include width(6);
-      float: left;
-      img {
-        float: left;
-        margin-right: 25px;
-      }
-    }
-  }
-}
-
-
 @media screen and (min-width: 19em) {
   #intro {
     @include width(4);
@@ -79,15 +43,6 @@ footer  {
     padding-top: $font-size*2;
   }
 
-  footer div.container, footer div.container div.by {
-    @include width(4);
-    img {
-      margin: 0 auto;
-      display: block;
-      float: none;
-    }
-  }
-
 }
 
 @media screen and (min-width: 32em) {
@@ -98,7 +53,8 @@ footer  {
   #logo {
     margin: 0 auto;
     display: block;
-    padding: 0;
+    padding-top: $cols1;
+    padding-bottom: $cols1;
   }
 
   #libraries {
@@ -106,15 +62,13 @@ footer  {
     padding-top: $font-size*2;
   }
 
-  footer div.container {
-    @include width(6);
-  }
 }
 
 
 @media screen and (min-width: 54em) {
   #logo {
     float: left;
+    padding: 0;
   }
 
   #intro {
@@ -153,20 +107,6 @@ footer  {
     }
 
   }
-
-  footer div.container {
-    @include width(10);
-    div.by {
-      @include width(6);
-      float: left;
-      img {
-        float: left;
-        margin-right: 25px;
-      }
-    }
-  }
-
-
 }
 
 

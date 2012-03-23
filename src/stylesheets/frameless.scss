@@ -37,6 +37,9 @@ $cols14: (14 * ($column + $gutter) - $gutter) / $em;
 $cols15: (15 * ($column + $gutter) - $gutter) / $em;
 $cols16: (16 * ($column + $gutter) - $gutter) / $em;
 
+//Colors
+
+$borders: 1px solid #ddd;
 
 //
 // Column-widths in a function, in ems
@@ -49,6 +52,21 @@ $cols16: (16 * ($column + $gutter) - $gutter) / $em;
 @mixin bigtype {
   font-size: ($font-size + 4) / $em;
   line-height: ($font-size + 4) / $em;
+}
+
+@mixin normaltype {
+  font-size: $font-size;
+  line-height: ($font-size) / $em;
+}
+
+
+@mixin sanserif {
+  font-family: "Helvetica Neue LT Pro", "Helvetica Neue", "Helvtica", san-serif;
+  font-weight: bold;
+}
+
+@mixin serif {
+  font-family: Georgia;
 }
 
 
