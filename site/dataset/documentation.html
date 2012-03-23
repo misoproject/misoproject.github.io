@@ -279,6 +279,57 @@
             The google spreadsheet importer is utilizing the format specified here:
             <a href="http://code.google.com/apis/gdata/samples/spreadsheet_sample.html">http://code.google.com/apis/gdata/samples/spreadsheet_sample.html</a>
           </p>
+          <h3>Remote Polling</h3>
+          <p>
+            If you are handling a live data feed, you can initialize your dataset to perform
+            ajax-based polling at regular intervals to fetch your data. There are three different ways in which this data can be merged into your existing dataset:
+            <ul>
+              <li>
+                <b>Appended</b> - All new rows will be appended to the end of the dataset. This is the default behavior.
+              </li>
+              <li>
+                <b>Reset</b> - All the current rows in the dataset will be thrown out and the new rows will be put into the dataset. To enable this, set <code>resetOnFetch</code> to <code>true</code> when initializing your dataset. This will fire a <code>reset</code> event on a syncable dataset.
+              </li>
+              <li>
+                <b>Unique</b> - By specifying a column on which the data is supposed to be unique, new incoming rows will only be added IF the value in that column is unique. To enable this, set <code>uniqueAgainst</code> to the column name you wish to check against. Note, this is an expensive operation!
+              </li>
+            </ul>
+          </p>
+          <div class="codeblock"><textarea class="code" id="code" runnable="true">
+          // We will only make 5 requests in this example
+          var requests = 5, 
+              madeRequests = 0;
+          
+          // query twitter for tweets containing the term "javascript"
+          // and get 5 per page. Note that twitter uses jsonp requests, 
+          // so we toggle that flag too.
+          var ds = new Miso.Dataset({
+            url : "http://search.twitter.com/search.json?q=javascript&rpp=5&callback=",
+            interval : 1000,
+            jsonp : true,
+            // Because of the structure of tweets:
+            // https://dev.twitter.com/docs/api/1/get/search
+            // we actually extract the rows from the returned data first.
+            extract : function(data) {
+              return data.results;
+            }
+          });
+          
+          ds.fetch({
+            success : function() {
+              // track how many requests we've made
+              madeRequests++;
+              // If we reached our max
+              if (madeRequests >= requests) {
+                // stop the importer.
+                this.importer.stop();
+                // output our current collection of tweets
+                console.log(ds.column("text").data);
+              }
+              // update the number of rows we now have.
+              console.log(madeRequests, ds.length);
+            }
+          });</textarea></div>
           <h3>Custom Importers</h3>
           <p>
             You may have noticed how easy it is to set a custom importer and parser in the dataset constructor by specifying the <code>importer</code> and <code>parser</code> properties. The import system can also easily be extended for custom data formats and other APIs. See the "Write Your Own Importers & Parsers" section for more information.
