@@ -93,17 +93,20 @@ $(function() {
     $window.resize(navAdjust);
   }
 
-  $window.bind('resize onorientationchange', function() {
-    if ( $window.width() < 840 ) { 
-      $window.unbind('scroll');
-      //unbind navAdjust but not this function!
-      $window.unbind('resize', navAdjust);
-      $nav.attr('style', '');
-    } else {
-      setupNav();
-    }
-  });
-  $window.trigger('resize');
+
+  if ( $('nav').length !== 0 ) {
+    $window.bind('resize onorientationchange', function() {
+      if ( $window.width() < 840 ) { 
+        $window.unbind('scroll');
+        //unbind navAdjust but not this function!
+        $window.unbind('resize', navAdjust);
+        $nav.attr('style', '');
+      } else {
+        setupNav();
+      }
+    });
+    $window.trigger('resize');
+  }
 
 });
 

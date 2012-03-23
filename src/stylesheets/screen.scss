@@ -29,6 +29,8 @@ footer  {
     margin-bottom: 0;
     min-height: 0;
     padding: 0;
+
+  
     img {
       display: block;
       margin-right: 25px;
@@ -46,6 +48,10 @@ nav {
   }
 }
 
+article.miso section.intro {
+  padding-bottom: $cols1;
+}
+
 body article, div.container {
   @include serif();
   overflow: hidden;
@@ -57,7 +63,15 @@ body article, div.container {
     @include bigtype();
     margin-bottom: $font-size;
   }
+
   section {
+    svg.icon {
+      float: left;
+      width: $cols1;
+      height: 40px;
+      float: left;
+    }
+
     border-top: 1px solid #ddd;
       h2 {
       @include sanserif();
@@ -151,6 +165,12 @@ body article, div.container {
       float: right;
       clear: both;
       margin-bottom: $cols1;
+      h2 span {
+        max-width: $cols2;
+        display: block;
+        float: left;
+        margin-left: 10px;
+      }
       div.content {
         float: right;
         @include width( 6 );
