@@ -35,6 +35,7 @@ footer  {
 nav {
   @include bigtype();
   @include sanserif();
+  z-index: 3000;
   a.active {
     color: #000;
     @include transition( color 400ms ease-in-out );
@@ -44,7 +45,8 @@ nav {
 body article, div.container {
   @include serif();
   overflow: hidden;
-  margin: 0 auto $cols2 auto;
+  margin: 0 auto 0 auto;
+  padding-bottom: $cols2;
   position: relative;
   min-height: $cols10;
   p {
