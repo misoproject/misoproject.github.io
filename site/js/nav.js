@@ -32,7 +32,7 @@ $(function() {
           var $a = $(a);
           var id = $a.attr('href');
           return [ id, $(id).offset().top, $a ];
-        }).reverse()
+        });
 
     $window.scroll(function () {
       var scroll = $window.scrollTop(),
@@ -42,7 +42,7 @@ $(function() {
       //highlight the current section of the page you've scrolled to
       _.each(anchors, function(a) {
         a[2].removeClass('active');
-        if (!done && (a[1] < scroll + height) ) {
+        if (!done && (a[1] >= scroll) ) {
           done = true;
           a[2].addClass('active');
         }
@@ -82,6 +82,12 @@ $(function() {
       }
 
     });
+
+    //Cute little animation on the anchor links
+    $('ul ul a').click(function() {
+      $('html,body').animate({ scrollTop: $( $(this).attr('href') ).offset().top }, 'slow');
+    });
+
 
     //reposition fixed nav on resize
     $window.resize(navAdjust);
