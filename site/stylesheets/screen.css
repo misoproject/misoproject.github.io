@@ -93,3 +93,12 @@ textarea.code {
   background-color: whiteSmoke;
   padding: 3px;
 }
+
+/* line 72 */
+.api {
+  margin-top: 10px;
+  padding-top: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #222222;
+}

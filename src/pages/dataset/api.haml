@@ -1,0 +1,47 @@
+%div.row
+  %div.span2{ :style => 'position:fixed; '}
+    %ul.listnav
+      %li 
+        %a{ :href => '#dataset' } Miso.Dataset
+      %li 
+        %a{ :href => '#column' } Miso.Column        
+      %li 
+        %a{ :href => '#dataview' } Miso.DataView        
+      %li 
+        %a{ :href => '#types' } Miso.types
+      %li 
+        %a{ :href => '#importers' } Miso.Importers
+      %li 
+        %a{ :href => '#parsers' } Miso.Parsers    
+      %li 
+        %a{ :href => '#event' } Miso.Event
+      %li 
+        %a{ :href => '#events' } Miso.Events
+      %li 
+        %a{ :href => '#product' } Miso.Product          
+      %li 
+        %a{ :href => '#derived' } Miso.Derived  
+      %li 
+        %a{ :href => '#builder' } Miso.Builder
+  
+  %div.span10.dataset.offset2
+    %h1 Dataset API
+    
+    %a{ :href => '#', :name => "dataset" }
+    %h2 Miso.Dataset
+    = partial("../partials/api/miso.dataset")
+
+    %a{ :href => '#', :name => "column" }
+    %h2 Miso.Column
+    = partial("../partials/api/miso.column")
+
+    %a{ :href => '#', :name => "dataview" }
+    %h2 Miso.DataView
+    = partial("../partials/api/miso.dataview")
+
+    %a{ :href => '#', :name => "types" }
+    %h2 Miso.types
+    = partial("../partials/api/miso.types")
+  
+     
+         

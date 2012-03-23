@@ -2226,7 +2226,7 @@
       test : function(v) {
         return true;
       },
-       compare : function(s1, s2) {
+      compare : function(s1, s2) {
         if (s1 < s2) { return -1; }
         if (s1 > s2) { return 1;  }
         return 0;
@@ -2541,7 +2541,7 @@
     
   /**
   * This is a generic collection of dataset building utilities
-  * that are used by Miso.Dataset and Miso.View.
+  * that are used by Miso.Dataset and Miso.DataView.
   */
   Miso.Builder = {
 
@@ -2634,12 +2634,19 @@
 
   var Miso = global.Miso;
 
+  /**
+  * A single column in a dataset
+  * Parameters:
+  *   options
+  *     name
+  *     type (from Miso.types)
+  *     data (optional)
+  *     format (for time type.)
+  *     any additional arguments here..
+  * Returns:
+  *   new Miso.Column
+  */
   Miso.Column = function(options) {
-    // copy over:
-    //   type
-    //   name
-    //   format (for "time" type)
-    //   anyOtherTypeOptions... (optional)
     _.extend(this, options);
     this._id = options.id || _.uniqueId();
     this.data = options.data || [];
@@ -2648,25 +2655,45 @@
 
   _.extend(Miso.Column.prototype, {
 
+    /**
+    * Converts any value to this column's type for a given position
+    * in some source array.
+    * Parameters:
+    *   value
+    *   index
+    * Returns: 
+    *   number
+    */
     toNumeric : function(value, index) {
       return Miso.types[this.type].numeric(value, index);  
     },
 
+    /**
+    * Returns the numeric representation of a datum at any index in this 
+    * column.
+    * Parameters:
+    *   index - position in data array
+    * Returns
+    *   number
+    */
     numericAt : function(index) {
       return this.toNumeric(this.data[index], index);
     },
 
+    /**
+    * Coerces the entire column's data to the column type.
+    */
     coerce : function() {
       this.data = _.map(this.data, function(datum) {
         return Miso.types[this.type].coerce(datum, this);
       }, this);
     },
 
-    sum : function() {
+    _sum : function() {
       return _.sum(this.data);
     },
 
-    mean : function() {
+    _mean : function() {
       var m = 0;
       for (var j = 0; j < this.data.length; j++) {
         m += this.numericAt(j);
@@ -2675,11 +2702,11 @@
       return Miso.types[this.type].coerce(m, this);
     },
 
-    median : function() {
+    _median : function() {
       return Miso.types[this.type].coerce(_.median(this.data), this);
     },
 
-    max : function() {
+    _max : function() {
       var max = -Infinity;
       for (var j = 0; j < this.data.length; j++) {
         if (Miso.types[this.type].compare(this.data[j], max) > 0) {
@@ -2690,7 +2717,7 @@
       return Miso.types[this.type].coerce(max, this);
     },
 
-    min : function() {
+    _min : function() {
       var min = Infinity;
       for (var j = 0; j < this.data.length; j++) {
         if (Miso.types[this.type].compare(this.data[j], min) < 0) {
@@ -2702,15 +2729,17 @@
   });
 
   /**
-  * @constructor
-  *
   * Creates a new view.
-  * @param {object} options - initialization parameters:
-  *   parent : parent dataset
-  *   filter : filter specification TODO: document better
+  * Parameters
+  *   options - initialization parameters:
+  *     parent : parent dataset
+  *     filter : filter specification TODO: document better
+  *       columns : column name or multiple names
+  *       rows : rowId or function
+  * Returns
+  *   new Miso.Dataview.
   */
-  Miso.View = function(options) {
-    //rowFilter, columnFilter, parent
+  Miso.DataView = function(options) {
     options = options || (options = {});
 
     if (_.isUndefined(options.parent)) {
@@ -2722,7 +2751,7 @@
     return this;
   };
 
-  _.extend(Miso.View.prototype, {
+  _.extend(Miso.DataView.prototype, {
 
     _initialize: function(options) {
       
@@ -2747,7 +2776,7 @@
 
       // bind to parent if syncable
       if (this.syncable) {
-        this.parent.bind("change", this.sync, this);  
+        this.parent.bind("change", this._sync, this);  
       }
     },
 
@@ -2757,7 +2786,7 @@
     * TODO Should this be moved to sync.js? Not sure I want to separate it
     * But also not sure it still belongs here.
     */
-    sync : function(event) {
+    _sync : function(event) {
       var deltas = event.deltas, eventType = null;
  
       // iterate over deltas and update rows that are affected.
@@ -2833,8 +2862,11 @@
 
     /**
     * Returns a dataset view based on the filtration parameters 
-    * @param {filter} object with optional columns array and filter object/function 
-    * @param {options} options object
+    * Parameters:
+    *   filter - object with optional columns array and filter object/function 
+    *   options - Options.
+    * Returns:
+    *   new Miso.DataView
     */
     where : function(filter, options) {
       options = options || {};
@@ -2842,7 +2874,7 @@
       options.parent = this;
       options.filter = filter || {};
 
-      return new Miso.View(options);
+      return new Miso.DataView(options);
     },
 
     _selectData : function() {
@@ -2880,7 +2912,8 @@
     /**
     * Returns a normalized version of the column filter function
     * that can be executed.
-    * @param {name\array of names} columnFilter - function or column name
+    * Parameters:
+    *   columnFilter - function or column name
     */
     _columnFilter: function(columnFilter) {
       var columnSelector;
@@ -2933,21 +2966,16 @@
     },
 
     /**
-    * @public
     * Returns a dataset view of the given column name
-    * @param {string} name - name of the column to be selected
+    * Parameters:
+    *   name - name of the column to be selected
+    * Returns:
+    *   Miso.Column.
     */
     column : function(name) {
       return this._column(name);
     },
 
-    /**
-    * @private
-    * Column accessor that just returns column object
-    * witout creating a view of it. Used for Products.
-    * @param {string} name - Column name.
-    * @returns {object} column 
-    */
     _column : function(name) {
       if (_.isUndefined(this._columnPositionByName)) { return undefined; }
       var pos = this._columnPositionByName[name];
@@ -2956,10 +2984,13 @@
 
     /**
     * Returns a dataset view of the given columns 
-    * @param {array} filter - an array of column names
+    * Parameters:
+    *   columnsArray - an array of column names
+    * Returns:
+    *   Miso.DataView.
     */    
     columns : function(columnsArray) {
-     return new Miso.View({
+     return new Miso.DataView({
         filter : { columns : columnsArray },
         parent : this
       });
@@ -2967,7 +2998,8 @@
 
     /**
     * Returns the names of all columns, not including id column.
-    * @returns {array} columnNames
+    * Returns:
+    *   columnNames array
     */
     columnNames : function() {
       var cols = _.pluck(this._columns, 'name');
@@ -2988,11 +3020,11 @@
     },
 
     /**
-    * @public
     * Iterates over all rows in the dataset
-    * @param {function} iterator - function that is passed each row
-    * iterator(rowObject, index, dataset)
-    * @param {object} context - options object. Optional.
+    * Paramters:
+    *   iterator - function that is passed each row
+    *              iterator(rowObject, index, dataset)
+    *   context - options object. Optional.
     */    
     each : function(iterator, context) {
       for(var i = 0; i < this.length; i++) {
@@ -3002,9 +3034,10 @@
 
     /**
     * Iterates over each column.
-    * @param {function} iterator - function that is passed each column name
-    * iterator(colName, index, dataset)
-    * @param {object} context - options object. Optional.
+    * Parameters:
+    *   iterator - function that is passed:
+    *              iterator(colName, column, index)
+    *   context - options object. Optional.
     */
     eachColumn : function(iterator, context) {
       // skip id col
@@ -3015,31 +3048,27 @@
     },
 
     /**
-    * @public
     * Returns a single row based on its position (NOT ID.)
-    * @param {number} i - position index
-    * @returns {object} row
+    * Paramters:
+    *   i - position index
+    * Returns:
+    *   row object representation
     */
     rowByPosition : function(i) {
       return this._row(i);
     },
 
     /** 
-    * @public
     * Returns a single row based on its id (NOT Position.)
-    * @param {number} id - unique id
-    * @returns {object} row
+    * Parameters:
+    *   id - unique id
+    * Returns:
+    *   row object representation
     */
     rowById : function(id) {
       return this._row(this._rowPositionById[id]);
     },
 
-    /**
-    * @private
-    * A row retriever based on index position in column data.
-    * @param {number} i - position index
-    * @returns {object} row
-    */
     _row : function(pos) {
       var row = {};
       _.each(this._columns, function(column) {
@@ -3047,15 +3076,6 @@
       });
       return row;   
     },
-
-    /**
-    * @private
-    * Deletes a row from all columns and caches.
-    * Never manually call this. Views are immutable. This is used
-    * by the auto syncing capability. Using this against your view
-    * will result in dataloss. Only datasets can have rows be removed.
-    * @param {number} rowPos - the row to delete at any position
-    */
     _remove : function(rowId) {
       var rowPos = this._rowPositionById[rowId];
 
@@ -3072,12 +3092,6 @@
       return this;
     },
 
-    /**
-    * @private
-    * Adds a row to the appropriate column positions
-    * and updates caches. This should never be called directly!
-    * @param {object} row - A row representation.
-    */
     _add : function(row, options) {
       
       // first coerce all the values appropriatly
@@ -3153,7 +3167,7 @@
     * the same as where
     */    
     rows : function(filter) {
-      return new Miso.View({
+      return new Miso.DataView({
         filter : { rows : filter },
         parent : this
       });
@@ -3167,8 +3181,9 @@
     * License:
     *   Copyright (c) 2009, Jon Bomgardner.
     *   This file is licensed under an MIT style license
-    *
-    * @param {object} options - Optional.
+    * Parameters:
+    *   options - Optional
+    *   
     */    
     sort : function(options) {
       options = options || {};
@@ -3261,7 +3276,7 @@
         swap(this.length - 1,this.length - 2);
       }
 
-      if (this.syncable) {
+      if (this.syncable && options.silent) {
         this.trigger("sort");
       }
     }
@@ -3281,33 +3296,36 @@ Version 0.0.1.2
   var Miso = global.Miso;
 
   /**
-  * @constructor
-  *
   * Instantiates a new dataset.
-  * @param {object} options - optional parameters. 
+  * Parameters:
+  * options - optional parameters. 
+  *   data : "Object - an actual javascript object that already contains the data",  
   *   url : "String - url to fetch data from",
+  *   sync : Set to true to be able to bind to dataset changes. False by default.
   *   jsonp : "boolean - true if this is a jsonp request",
   *   delimiter : "String - a delimiter string that is used in a tabular datafile",
-  *   data : "Object - an actual javascript object that already contains the data",
-  *   table : "Element - a DOM table that contains the data",
-  *   format : "String - optional file format specification, otherwise we'll try to guess",
-  *   recursive : "Boolean - if true build nested arrays of objects as datasets",
   *   strict : "Whether to expect the json in our format or whether to interpret as raw array of objects, default false",
   *   extract : "function to apply to JSON before internal interpretation, optional"
   *   ready : the callback function to act on once the data is fetched. Isn't reuired for local imports
   *           but is required for remote url fetching.
-  *   columns: {
-  *     name : typeName || { type : name, ...additionalProperties }
-  *   }
-  *   sorted : true (optional) - If the dataset is already sorted, pass true
-  *     so that we don't trigger a sort otherwise.
+  *   columns: A way to manually override column type detection. Expects an array of 
+  *            objects of the following structure: 
+  *           { name : 'columnname', type: 'columntype', 
+  *             ... (additional params required for type here.) }
   *   comparator : function (optional) - takes two rows and returns 1, 0, or -1  if row1 is
   *     before, equal or after row2. 
   *   deferred : by default we use underscore.deferred, but if you want to pass your own (like jquery's) just
   *              pass it here.
+  *   importer : The classname of any importer (passes through auto detection based on parameters. 
+  *              For example: <code>Miso.Importers.Polling</code>.
+  *   parser   : The classname of any parser (passes through auto detection based on parameters. 
+  *              For example: <code>Miso.Parsers.Delimited</code>.
+  *   resetOnFetch : set to true if any subsequent fetches after first one should overwrite the
+  *                  current data.
+  *   uniqueAgainst : Set to a column name to check for duplication on subsequent fetches.
+  *   interval : Polling interval. Set to any value in milliseconds to enable polling on a url.
   }
   */
-
   Miso.Dataset = function(options) {
     options = options || (options = {});
     this.length = 0;
@@ -3315,7 +3333,7 @@ Version 0.0.1.2
     return this;
   };
 
-  _.extend(Miso.Dataset.prototype, Miso.View.prototype, {
+  _.extend(Miso.Dataset.prototype, Miso.DataView.prototype, {
 
     /**
     * @private
@@ -3488,7 +3506,7 @@ Version 0.0.1.2
 
     //These are the methods that will be used to determine
     //how to update a dataset's data when fetch() is called
-    applications : {
+    _applications : {
 
       //Update existing values, used the pass column to match 
       //incoming data to existing rows.
@@ -3562,6 +3580,7 @@ Version 0.0.1.2
 
     //Takes a dataset and some data and applies one to the other
     apply : function( data ) {
+      
       var parsed = this.parser.parse( data );
 
       // first time fetch
@@ -3576,7 +3595,7 @@ Version 0.0.1.2
         
         // detect column types, add all rows blindly and cache them.
         Miso.Builder.detectColumnTypes(this, parsed.data);
-        this.applications.blind.call( this, parsed.data );
+        this._applications.blind.call( this, parsed.data );
         
         this.fetched = true;
       
@@ -3587,7 +3606,7 @@ Version 0.0.1.2
         this.reset();
 
         // blindly add the data.
-        this.applications.blind.call( this, parsed.data );
+        this._applications.blind.call( this, parsed.data );
 
       // append
       } else if (this.uniqueAgainst) {
@@ -3597,22 +3616,32 @@ Version 0.0.1.2
           throw new Error("You requested a unique add against a column that doesn't exist.");
         }
 
-        this.applications.againstColumn.call(this, parsed.data);
+        this._applications.againstColumn.call(this, parsed.data);
       
       // polling fetch, just blindly add rows
       } else {
-        this.applications.blind.call( this, parsed.data );
+        this._applications.blind.call( this, parsed.data );
       }
 
       Miso.Builder.cacheRows(this);
     },
 
+    /**
+    * Adds columns to the dataset.
+    */
     addColumns : function( columns ) {
       _.each(columns, function( column ) {
         this.addColumn( column );
       }, this);
     },
 
+    /** 
+    * Adds a single column to the dataset
+    * Parameters:
+    *   column : a set of properties describing a column (name, type, data etc.)
+    * Returns
+    *   Miso.Column object.
+    */
     addColumn : function(column) {
       //don't create a column that already exists
       if ( !_.isUndefined(this.column(column.name)) ) { 
@@ -3630,7 +3659,8 @@ Version 0.0.1.2
     /**
     * Adds an id column to the column definition. If a count
     * is provided, also generates unique ids.
-    * @param count {number} the number of ids to generate.
+    * Parameters:
+    *   count - the number of ids to generate.
     */
     _addIdColumn : function( count ) {
       // if we have any data, generate actual ids.
@@ -3672,12 +3702,12 @@ Version 0.0.1.2
     },
 
     /**
-    * Add a row to the dataset
-    * TODO: multiple rows?
-    * @param {object} row - an object representing a row in the form of:
-    * {columnName: value}
-    * @param {object} options - options
-    *   silent: boolean, do not trigger an add (and thus view updates) event
+    * Add a row to the dataset. Triggers add and change.
+    * Parameters:
+    *   row - an object representing a row in the form of:
+    *         {columnName: value}
+    *   options - options
+    *     silent: boolean, do not trigger an add (and thus view updates) event
     */    
     add : function(row, options) {
       if (!row._id) {
@@ -3693,11 +3723,11 @@ Version 0.0.1.2
     },
 
     /**
-    * Remove all rows that match the filter
-    * TODO: single row by id?
-    * @param {function} filter - function applied to each row
-    * @param {object} options - options. Optional.
-    *   silent: boolean, do not trigger an add (and thus view updates) event
+    * Remove all rows that match the filter. Fires remove and change.
+    * Parameters:
+    *   filter - row id OR function applied to each row to see if it should be removed.
+    *   options - options. Optional.
+    *     silent: boolean, do not trigger an add (and thus view updates) event
     */    
     remove : function(filter, options) {
       filter = this._rowFilter(filter);
@@ -3725,11 +3755,12 @@ Version 0.0.1.2
     },
 
     /**
-    * Update all rows that match the filter
-    * TODO: dynamic values
-    * @param {function} filter - filter rows to be updated
-    * @param {object} newProperties - values to be updated.
-    * @param {object} options - options. Optional.
+    * Update all rows that match the filter. Fires update and change.
+    * Parameters:
+    *   filter - row id OR filter rows to be updated
+    *   newProperties - values to be updated.
+    *   options - options. Optional
+    *     silent - set to true to prevent event triggering..
     */    
     update : function(filter, newProperties, options) {
       filter = this._rowFilter(filter);
@@ -3826,7 +3857,7 @@ Version 0.0.1.2
     * This is a callback method that is responsible for recomputing
     * the value based on the column its closed on.
     */
-    sync : function(event) {
+    _sync : function(event) {
       this.func();
     },
 
@@ -3890,7 +3921,7 @@ Version 0.0.1.2
               throw new Error("Can't sum up time");
             }
           });
-          return _.sum(_.map(columns, function(c) { return c.sum(); }));
+          return _.sum(_.map(columns, function(c) { return c._sum(); }));
         };
       }(columnObjects));
 
@@ -3909,7 +3940,7 @@ Version 0.0.1.2
       var maxFunc = (function(columns) {
         return function() {
 
-          var max = _.max(_.map(columns, function(c) { return c.max(); }));
+          var max = _.max(_.map(columns, function(c) { return c._max(); }));
           
           // save types and type options to later coerce
           var type = columns[0].type;
@@ -3936,7 +3967,7 @@ Version 0.0.1.2
       var minFunc = (function(columns) {
         return function() {
 
-          var min = _.min(_.map(columns, function(c) { return c.min(); }));
+          var min = _.min(_.map(columns, function(c) { return c._min(); }));
 
            // save types and type options to later coerce
           var type = columns[0].type;
@@ -3984,15 +4015,6 @@ Version 0.0.1.2
     },
 
     /*
-    * return a Product with the value of the mode
-    * of the column
-    * @param {column} column on which the value is calculated 
-    */    
-    median : function(column, options) {
-
-    },
-
-    /*
     * return a Product derived by running the passed function
     * @param {column} column on which the value is calculated 
     * @param {producer} function which derives the product after
@@ -4029,7 +4051,7 @@ Version 0.0.1.2
 
       // auto bind to parent dataset if its syncable
       if (this.syncable) {
-        this.bind("change", prod.sync, prod); 
+        this.bind("change", prod._sync, prod); 
         return prod; 
       } else {
         return producer();
@@ -4069,7 +4091,7 @@ Version 0.0.1.2
     if (this.parent.syncable) {
       _.extend(this, Miso.Events);
       this.syncable = true;
-      this.parent.bind("change", this.sync, this);  
+      this.parent.bind("change", this._sync, this);  
     }
 
     return this;
@@ -4077,7 +4099,7 @@ Version 0.0.1.2
 
   // inherit all of dataset's methods.
   _.extend(Miso.Derived.prototype, Miso.Dataset.prototype, {
-    sync : function(event) {
+    _sync : function(event) {
       // recompute the function on an event.
       // TODO: would be nice to be more clever about this at some point.
       this.func.call(this.args);
