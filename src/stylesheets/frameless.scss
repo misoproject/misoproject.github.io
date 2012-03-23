@@ -171,11 +171,11 @@ These are easy to forget
  */
 
 ::selection {
-  background: #c01717;
+  background: #b50d0d;
   color: white;
 }
 ::-moz-selection {
-  background: #c01717;
+  background: #b50d0d;
   color: white;
 }
 
@@ -188,7 +188,7 @@ img::-moz-selection {
 }
 
 body {
-  -webkit-tap-highlight-color: rgb(192,23,23);
+  -webkit-tap-highlight-color: rgb(181, 13, 13);
 }
 
 
