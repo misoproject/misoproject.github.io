@@ -53,12 +53,13 @@ $(function() {
         if (currently_fixed) { 
 
           //if we hit the footer, abs. position till we go back up
-          //150 is a magic number for the padding on the article
-          //175 is that + padding on the nav so there's no jump
-          if ( (scroll + nav_height) > (footer_top - 150) ) {
+          //magic is a magic number for the padding on the article
+          //the +20 is for the padding on the nav so there's no jump
+          var magic = 230;
+          if ( (scroll + nav_height) > (footer_top - magic) ) {
             $nav.css({
               position: 'absolute',
-              top: footer_top - (nav_height+175),
+              top: footer_top - (nav_height + magic + 20),
               left: 0
             });
             current_fixed = false;
