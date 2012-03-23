@@ -59,6 +59,12 @@ $borders: 1px solid #ddd;
   line-height: ($font-size) / $em;
 }
 
+@mixin transition ($transition) {
+  -webkit-transition: $transition;
+  -moz-transition: $transition;
+  -ms-transition: $transition;
+  transition: $transition;
+}
 
 @mixin sanserif {
   font-family: "Helvetica Neue LT Pro", "Helvetica Neue", "Helvtica", san-serif;

@@ -35,6 +35,10 @@ footer  {
 nav {
   @include bigtype();
   @include sanserif();
+  a.active {
+    color: #000;
+    @include transition( color 400ms ease-in-out );
+  }
 }
 
 body article, div.container {
@@ -113,6 +117,7 @@ body article, div.container {
 @media screen and (min-width: 52.5em) {
 
   body article, div.container {
+    position: relative;
     @include width( 12 );
     margin: $cols1 auto $cols2 auto;
     div.text {
@@ -167,15 +172,17 @@ body article, div.container {
       overflow: hidden;
       a {
         line-height: 2;
-        color: #555;
       }
-        
+
       ul {
         border: none;
         li {
           margin-left: $font-size;
           font-size: ($font-size - 4) / $em;
           border: none;
+          a {
+            color: #aaa;
+          }
         }
       }
 
