@@ -1,0 +1,53 @@
+%p
+  A <code>Miso.DataView</code> is an immutable version of dataset. It is the result of selecting a subset of the data using the <code>ds.where</code> call. If the dataset is syncing, this view will be updated when changes take place in the original dataset.
+%p
+  A <code>Miso.Dataset</code> also extends from <code>Miso.DataView</code>. All the methods available on a dataview will also be available on the dataset.  
+
+= api("new Miso.View(options)", |
+  [{ :name => "options", :description => "DataView options", :params => [ |
+  { :name => "parent",  :description => "The parent dataset" }, |
+  { :name => "filter",  :description => "Filtering instructions:", :params => [ |
+  { :name => "columns", :description => "Optional. A filter for columns. A single or multiple column names." }, |
+  { :name => "rows",    :description => "Optional. A filter for rows. A rowId or a filter function that takes in a row and returns true if it fits the criteria or not."} |
+  ] } |
+  ] }],  |
+  "Creates a subset of the original dataset. This view behaves like a regular dataset in that it can be further queried, but it cannot be modified. This should not be manually created as it is created for you when you call the appropriate methods in Miso.Dataset.")
+
+%h3 Miso.DataView Instance Methods
+%p
+  Assume that <code>ds</code> is a reference to an instantiated dataView or dataset.
+
+= api("ds.columnNames()", [], "Returns an array containing the names of the available columns", "Array")
+
+= api("ds.column(name)", [{ :name => "name", :description => "The name of the column to retrieve"}], "Returns a column reference", "Miso.Column")
+
+= api("ds.columns(name)", [{ :name => "columnsArray", :description => "The name of the columns to fetch"}], "Returns a dataview object that is made up from the columns requested only.", "Miso.DataView")
+
+= api("ds.hasColumn(name)", [{ :name => "name", :description => "The name of the column to check the existance of"}], "Returns true if a column by that name exists. False otherwise.", "boolean")
+
+= api("ds.each(iterator, context)", |
+  [{ :name => "iterator", :description => "A function with the following signature: <code>function(row, index, datasetOrView)</code>"}, |
+  { :name => "context", :description => "Optional. The context to be bound to the iterator."}], |
+  "Allows one to iterate over all the rows in the dataset and operate on them. Note that the row object passed to the iterator is not a direct reference to the data. As such, any modifications to it will not actually impact the dataset.")
+
+= api("ds.eachColumn(iterator, context)", |
+  [{ :name => "iterator", :description => "A function with the following signature: <code>function(columnName, columnObject, index)</code>"}, |
+  { :name => "context", :description => "Optional. The context to be bound to the iterator."}], |
+  "Allows one to iterate over all the columns in the dataset and operate on them. Note these are direct references to the columns. Do not directly modify the data this way.")
+
+= api("ds.rowByPosition(i)", [{ :name => "i", :description => "The index of the row to be fetched."}], "Fetches a row object at a specified position. Note that the returned row object is NOT a direct reference to the data and thus any changes to it will not alter the original data.", "Object")
+
+= api("ds.rowById(id)", [{ :name => "id", :description => "The _id of the row to be fetched."}], "Fetches a row object with a specific <code>_id</code>. Note that the returned row object is NOT a direct reference to the data and thus any changes to it will not alter the original data.", "Object")
+= api("ds.rows(filter)", [{ :name => "filter", :description => "An array of rowIds or a filter function that takes in a row and returns true if that row should return, false otherwise."}],"Returns a subset of rows", "Miso.DataView")
+
+= api("ds.sort(options)", [{ :name => "options", :description => "Optional arguments", :params => [{:name => "silent", :description => "Set to true to prevent triggering of sort event"}]}], "Sorts the dataset according to the comparator. One must be defined on the dataset during instantiation or later." , "Miso.DataView")
+
+= api("ds.where(filter, options)", |
+  [{ :name => "filter",  :description => "Filtering instructions:", :params => [ |
+  { :name => "columns", :description => "Optional. A filter for columns. A single or multiple column names." }, |
+  { :name => "rows",    :description => "Optional. A filter for rows. A rowId or a filter function that takes in a row and returns true if it fits the criteria or not."} |
+  ] }, |
+  { :name => "options", :description => "Additional options to passthrough to the view."}], |
+  "Allows you to select a subset of data based on a set of filters")
+
+

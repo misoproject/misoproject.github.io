@@ -1,0 +1,59 @@
+%h3 Columns
+
+Each column in the dataset is of a <code>Miso.Column</code> type. We shall reference it as column for simplicity's sake.
+%p
+  A column has the following properties:
+  %ul
+    %li <code>name</code>
+    %li <code>type</code>
+    %li <code>data</code> - the data array for this column.
+    %li <code>_id</code> - a unique id assigned to this column at parse time.
+
+%p
+  While you can access the data inside dataset by directly accessing the <code>data</code> property on a column, it is NOT recommended as this will
+  not handle any event propagation. Use direct access sparingly. For more information on accessing rows, see the <b>Rows</b> section.
+
+%h4 Getting all column names:
+%pre
+  ds.columnNames();
+Note this will never include the <code>_id</code> column as it is internal to the dataset implementation and you shouldn't be messing with it.
+
+%h4 Getting a column by name:
+%pre
+  ds.column(columnName);
+This returns the actual column object. Note that because the order of columns
+is not guaranteed (or should matter,) the fetching of columns is always done by name.
+
+%h4 Iterating over columns:
+:plain
+  <pre>
+    ds.eachColumn(function(columnName, column, index) {
+      // do what you need here.
+    });
+  </pre>
+
+%h3 Rows
+
+%p
+  Since dataset stores all the data column-wise, sometimes you may want to access a "row" object more easily than by iterating through columns. Note that the row object is not a direct reference to your actual data row (as in, if you modify it, it won't actually trigger a change in your dataset.) To change your dataset, you need to use the `update` method.
+
+%h4 Iterating over rows:
+%p= toRunnableCodeBlock("dataset/access/rows")
+
+%p
+  Note that each row has a unique identifier assiged to it called `_id` in a separate column. Do not attempt to change that value unless you're feeling destructive. That identifier is used for caching purposes and changing it may make your data inaccessible through the API.
+
+%h4 Row by Position:
+%p
+  if you're trying to get the Nth row, you can do so as follows:
+  %pre
+    ds.rowByPosition(5);
+  Note, this will return a row object that will <b>not</b> be a direct reference to your data. This will be a copy.
+
+%h4 Row by id:
+%p
+  If you're trying to get a row with a specific id, you can do so as follows:
+  %pre
+    ds.rowById(423);
+  Note, this will return a row object that will <b>not</b> be a direct reference to your data. This will be a copy.
+

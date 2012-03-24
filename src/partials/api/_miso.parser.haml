@@ -1,0 +1,30 @@
+%p
+  To specify a custom parser, during dataset instantiation set the <code>parser</code> property to the class name of the parser you want. Some parsers require some custom properties. This section will document the properties you can set that will either cause this parser to be selected or will be required by it to continue.
+
+%p 
+  Built in Parsers include:
+  %ul
+    %li <code>Miso.Parsers.Strict</code>
+    %li <code>Miso.Parsers.Object</code>
+    %li <code>Miso.Parsers.Delimited</code>
+    %li <code>Miso.Parsers.GoogleSpreadsheet</code>
+%p
+  The base <code>Miso.Parser</code> structure is:
+  = toDisplayCodeBlock("api/parser.js")
+
+%h3 Miso.Parsers.Strict
+%p
+  %ul
+    %li strict - Set this to true when initializing a dataset to indicate the default internal format should be used.
+
+%h3 Miso.Parsers.Object
+%p
+  The object parser expects an array of objects where each key is the column name.
+%p
+  %ul
+    %li data - The local var containing the data to be parsed.
+
+%h3 Miso.Parsers.Delimited
+%p
+  %ul
+    %li delimited - The string that is delimiting the column values.

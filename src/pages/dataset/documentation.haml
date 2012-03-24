@@ -1,26 +1,124 @@
+%article.dataset
 
-%div.row
-  %div.span2
-    %h2 Nav
+  %nav
+    %ul
+      %li 
+        %a
+          Basics
+      %li
+        %a
+          Examples
+      %li
+        %a
+          Docs
+        %ul    
+          %li 
+            %a{ :href => '#create' } Creating a Dataset
+          %li 
+            %a{ :href => '#fetch' } Fetching Data
+          %li 
+            %a{ :href => '#types' } Data Types
+          %li 
+            %a{ :href => '#access' } Accessing Data
+          %li 
+            %a{ :href => '#events' } Events
+          %li 
+            %a{ :href => '#modify' } Modifying Data
+          %li 
+            %a{ :href => '#sort' } Sorting
+          %li
+            %a{ :href => '#selection' } Selection
+          %li
+            %a{ :href => '#computed_values' } Computed Values
+          %li
+            %a{ :href => '#derived' } Derived Datasets 
+      %li
+        %a
+          API Reference
+      %li
+        %a
+          Github
 
-  %div.span10.dataset
-    %h1 Dataset
+  %section.intro
+    =img("/images/dataset.png", { :class => 'logo' })
+    %div.text &nbsp;
+  %section
+    %h1 Dataset Documentation
     %p.about
       Dataset is a library that makes it easy to work with data on the client. Dataset makes it painless to import &amp; standardise datsets and then select &amp; manipulate data within them.
+  %section
+    %h2 
+      %a#create{ :href => '#create' }
+        Creating a Dataset:
+    %div.content
+      %p
+        = partial("../partials/dataset/creating_dataset")
+  %section
+    %h2 
+      %a#fetch{ :href => '#fetch'}
+        Fetching Data:
+    %div.content
+      %p        
+        = partial("../partials/dataset/fetching_data")
+  %section
+    %h2 
+      %a#types{ :href => '#types' }
+        Data Types:
+    %div.content
+      %p    
+        = partial("../partials/dataset/data_types")
+  %section
+    %h2 
+      %a#access{ :href => '#access' }
+        Accessing Data:
+    %div.content
+      %p    
+        = partial("../partials/dataset/accessing_data")
+  %section
+    %h2 
+      %a#events{ :href => '#events' }
+        Events:
+    %div.content
+      %p    
+        = partial("../partials/dataset/events")
+  %section
+    %h2 
+      %a#modify{ :href => '#modify' }
+        Modifying Data:
+    %div.content
+      %p    
+        = partial("../partials/dataset/modifying_data")
+  %section
+    %h2 
+      %a#sort{ :href => '#sort' }
+        Sorting:
+    %div.content
+      %p    
+        = partial("../partials/dataset/sorting")  
+  %section
+    %h2 
+      %a#selection{ :href => '#selection' }
+        Selection:
+    %div.content
+      %p    
+        = partial("../partials/dataset/selection")
+  %section
+    %h2 
+      %a#computed_values{ :href => '#computed_values' }
+        Computed Values:
+    %div.content
+      %p    
+        = partial("../partials/dataset/computed_values") 
+  %section
+    %h2 
+      %a#derived{ :href => '#derived' }
+        Derived Datasets:
+    %div.content
+      %p    
+        = partial("../partials/dataset/derived")     
 
-    %h2 Why Dataset:
-    = partial("../partials/dataset/why_dataset")
 
-    %h2 Dependancies:
-    = partial("../partials/dataset/dependancies")
-
-    %h2 Download:
-    = partial("../partials/dataset/downloads")
-
-    %h2 Creating a Dataset:
-    = partial("../partials/dataset/creating_dataset")
-
-    %h2 Fetching Data:
+    
     
 
     
