@@ -73,7 +73,7 @@
               <a href='#parsers'>Miso.Parsers</a>
             </li>
             <li>
-              <a href='#event'>Miso.Events</a>
+              <a href='#events'>Miso.Events</a>
             </li>
             <li>
               <a href='#product'>Miso.Product</a>
@@ -888,6 +888,121 @@
               <li>delimited - The string that is delimiting the column values.</li>
             </ul>
           </p>
+          <a href='#' name='events'></a>
+          <h2>Miso.Events</h2>
+          <h3>Miso.Event</h3>
+          <div class="api"><pre>new Miso.Event(deltas)</pre>
+                  <div class="params">
+                  <h4>Params:</h4><li><span class='param'>deltas</span> - <span class='desc'>A collection of deltas representing this event. This could be a mix of events that are not necessarily of the same operation</span></li></div>
+                    <div class="returns">
+                      <h4>Returns:</h4>
+                      <code>Miso.Event</code>
+                    </div>
+                
+                    <div class='about'>
+                      <h4>Description:</h4>
+                      Creates a new event
+                    </div>
+                  </div>
+          <h3>Miso.Event Static API</h3>
+          <div class="api"><pre>Miso.Event.isRemove(delta)</pre>
+                  <div class="params">
+                  <h4>Params:</h4><li><span class='param'>delta</span> - <span class='desc'>An object representing a delta. May have the following properties:</span><ul><li><span class='param'>changed</span> - <span class='desc'>The attributes that changed in this delta.</span></li><li><span class='param'>old</span> - <span class='desc'>The old values of the attributes that changed.</span></li></ul></li></div>
+                    <div class="returns">
+                      <h4>Returns:</h4>
+                      <code>true | false</code>
+                    </div>
+                
+                    <div class='about'>
+                      <h4>Description:</h4>
+                      Returns true if the delta is indicating a row was removed.
+                    </div>
+                  </div>
+          <div class="api"><pre>Miso.Event.isUpdate(delta)</pre>
+                  <div class="params">
+                  <h4>Params:</h4><li><span class='param'>delta</span> - <span class='desc'>An object representing a delta. May have the following properties:</span><ul><li><span class='param'>changed</span> - <span class='desc'>The attributes that changed in this delta.</span></li><li><span class='param'>old</span> - <span class='desc'>The old values of the attributes that changed.</span></li></ul></li></div>
+                    <div class="returns">
+                      <h4>Returns:</h4>
+                      <code>true | false</code>
+                    </div>
+                
+                    <div class='about'>
+                      <h4>Description:</h4>
+                      Returns true if the delta is indicating a row was updated.
+                    </div>
+                  </div>
+          <div class="api"><pre>Miso.Event.isAdd(delta)</pre>
+                  <div class="params">
+                  <h4>Params:</h4><li><span class='param'>delta</span> - <span class='desc'>An object representing a delta. May have the following properties:</span><ul><li><span class='param'>changed</span> - <span class='desc'>The attributes that changed in this delta.</span></li><li><span class='param'>old</span> - <span class='desc'>The old values of the attributes that changed.</span></li></ul></li></div>
+                    <div class="returns">
+                      <h4>Returns:</h4>
+                      <code>true | false</code>
+                    </div>
+                
+                    <div class='about'>
+                      <h4>Description:</h4>
+                      Returns true if the delta is indicating a row was added.
+                    </div>
+                  </div>
+          <h3>Miso.Event Instance API</h3>
+          <p>Assume that <code>e</code> references an instance of a <code>Miso.Event</code>.</p>
+          <div class="api"><pre>e.affectedColumns()</pre>
+                    <div class="returns">
+                      <h4>Returns:</h4>
+                      <code>Array of Column Names</code>
+                    </div>
+                
+                    <div class='about'>
+                      <h4>Description:</h4>
+                      Returns a list of column names that were affected in the event.
+                    </div>
+                  </div>
+          <h3>Miso.Events</h3>
+          <p>
+            A mixin module that adds syncing behavior methods to a dataset. Adds ability to bind, unbind and trigger events. Assume that <code>ds</code> is an instance that has syncable behavior.
+          </p>
+          <p>
+            The events mixin was taken from <a href="http://documentcloud.github.com/backbone/">Backbone.js</a>.
+          </p>
+          <div class="api"><pre>ds.bind(ev, callback, context)</pre>
+                  <div class="params">
+                  <h4>Params:</h4><li><span class='param'>ev</span> - <span class='desc'>The name of the event to bind to</span></li><li><span class='param'>callback</span> - <span class='desc'>The callback to call when the event is triggered</span></li><li><span class='param'>context</span> - <span class='desc'>The context to bind the callback to.</span></li></div>
+                    <div class="returns">
+                      <h4>Returns:</h4>
+                      <code>The object being subscribed to.</code>
+                    </div>
+                
+                    <div class='about'>
+                      <h4>Description:</h4>
+                      Binds a callback to the dataset in question.
+                    </div>
+                  </div>
+          <div class="api"><pre>ds.unbind(ev, callback)</pre>
+                  <div class="params">
+                  <h4>Params:</h4><li><span class='param'>ev</span> - <span class='desc'>The name of the event to remove the bindings of.</span></li><li><span class='param'>callback</span> - <span class='desc'>Optional. If specified, only the specific callback for this event will be removed. Otherwise all callbacks for the event name will be removed.</span></li></div>
+                    <div class="returns">
+                      <h4>Returns:</h4>
+                      <code>The object being unbound from.</code>
+                    </div>
+                
+                    <div class='about'>
+                      <h4>Description:</h4>
+                      Unbinds a particular event and/or a callback.
+                    </div>
+                  </div>
+          <div class="api"><pre>ds.trigger(eventName, *args)</pre>
+                  <div class="params">
+                  <h4>Params:</h4><li><span class='param'>eventName</span> - <span class='desc'>The name of the event that should be triggered.</span></li><li><span class='param'>*args</span> - <span class='desc'>Any additional arguments that should be passed to the callback.</span></li></div>
+                    <div class="returns">
+                      <h4>Returns:</h4>
+                      <code>The object being unbound from.</code>
+                    </div>
+                
+                    <div class='about'>
+                      <h4>Description:</h4>
+                      Triggers a specific event on a dataset. Passes the arguments to it.
+                    </div>
+                  </div>
         </div>
       </div>
       <footer>
