@@ -14,17 +14,6 @@
       @include width(6);
     }
 
-    section.intro {
-      clear: both;
-      overflow: hidden;
-      div.text {
-        margin-top: $cols2;
-      }
-      @include width(12);
-      margin-bottom: 0;
-      border-top: none;
-    }
-
     section {
       @include width(9);
       float: right;
@@ -40,6 +29,23 @@
         display: block;
         float: left;
       }
+
+      &.topper {
+        @include width( 12 );
+        border-top: hidden;
+      }
+
+      &.intro {
+        clear: both;
+        overflow: hidden;
+        div.text {
+          margin-top: $cols2;
+        }
+        @include width(12);
+        margin-bottom: 0;
+        border-top: none;
+      }
+
     }
   }
 

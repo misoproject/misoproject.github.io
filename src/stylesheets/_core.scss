@@ -55,6 +55,14 @@ body article, div.container {
   p {
     margin-bottom: $font-size;
   }
+  code, pre {
+    background-color: #eee;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+  }
+  pre {
+    padding: 0.2em;
+  }
 
   section {
     border-top: 1px solid #ddd;
