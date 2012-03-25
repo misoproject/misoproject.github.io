@@ -8,7 +8,10 @@
         %ul 
           %li
             %a{ :href => '#detail'}
-              In detail
+              In brief 
+          %li
+            %a{ :href => '#dependencies'}
+              Dependencies
           %li
             %a{ :href => '#download'}
               Download
@@ -41,19 +44,22 @@
   %section
     %h2
       %a#detail{ :href => '#detail'} 
-        In detail
+        In brief
     %div.content
       %p
         = partial("../partials/dataset/why_dataset")
-
   %section
+    %h2
+      %a#dependencies{ :href => '#dependencies'}
+        Dependencies
+    %div.content
+      %p= partial("../partials/dataset/dependancies")
+
+  %section.download
     %h2
       %a#download{ :href => '#download'}
         Download
     %div.content
-      %h1 Dependencies
-      %p= partial("../partials/dataset/dependancies")
-      %h1 Download
       %p= partial("../partials/dataset/downloads")
 
 

@@ -1,14 +1,57 @@
 @import "frameless";
 
 a {
-  color: #000;
   text-decoration: none;
 }
 
-p a {
-  color: #b50d0d;
+@mixin colourise( $color ) {
+  section p a, section li a {
+    color: $color;
+  }
+  ::selection {
+    background: $color;
+  }
+  ::-moz-selection {
+    background: $color;
+  }
 }
 
+article.dataset { @include colourise( #248940 ) }
+
+article.miso { 
+  @include colourise( #D35E1D );
+  h2 span {
+    max-width: $cols2;
+    display: block;
+    float: left;
+    margin-left: 10px;
+  }
+}
+
+article.dataset section.download ul li {
+  @include sanserif();
+  display: block;
+  font-weight: normal;
+  font-size: $font-size - 1!important;
+  span {
+    display: block;
+    float: left;
+    width: $cols3;
+  }
+  a {
+    display: block;
+    float: left;
+  }
+  &:before {
+    content: none;
+  }
+  overflow: hidden;
+  width: 100%;
+}
+
+nav a, h2 a {
+  color: #000;
+}
 
 footer  {
   min-height: $cols4;
@@ -48,8 +91,28 @@ nav {
   }
 }
 
-article.miso section.intro {
-  padding-bottom: $cols1;
+article.miso, article.dataset {
+  section.intro {
+    padding-bottom: $cols1;
+  }
+  section {
+    p {
+      @include bigtype();
+    }
+    li {
+      @include bigtype();
+      list-style-type: none;
+      padding-left: 1em;
+      text-indent: -1em;
+      margin-bottom: 0.5em;
+    }
+    li:before {
+      content: "\00BB \0020";
+    }
+  }
+  section.soon {
+    color: #999;
+  }
 }
 
 body article, div.container {
@@ -60,7 +123,6 @@ body article, div.container {
   position: relative;
   min-height: $cols10;
   p {
-    @include bigtype();
     margin-bottom: $font-size;
   }
 
@@ -73,7 +135,11 @@ body article, div.container {
     }
 
     border-top: 1px solid #ddd;
-      h2 {
+    h2 {
+      max-width: $cols3;
+      padding-right: 10px;
+      display: block;
+      float: left;
       @include sanserif();
       @include normaltype();
       padding-top: $font-size / 2;
@@ -82,6 +148,9 @@ body article, div.container {
   }
   section.intro {
     border-top: none;
+    p {
+      @include bigtype();
+    }      
   }
 }
 
@@ -102,6 +171,14 @@ body article, div.container {
       overflow: hidden;
       h1 {
         margin-bottom: $font-size;
+      }
+      h2 {
+        width: $cols6;
+        max-width: $cols6;
+      }
+      svg {
+        margin-right: 10px;
+        margin-bottom: 10px;
       }
     }
   }
@@ -165,12 +242,6 @@ body article, div.container {
       float: right;
       clear: both;
       margin-bottom: $cols1;
-      h2 span {
-        max-width: $cols2;
-        display: block;
-        float: left;
-        margin-left: 10px;
-      }
       div.content {
         float: right;
         @include width( 6 );

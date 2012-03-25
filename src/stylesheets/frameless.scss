@@ -167,32 +167,6 @@ textarea {overflow: auto;}
 
 
 /*
-These are easy to forget
- */
-
-::selection {
-  background: #b50d0d;
-  color: white;
-}
-::-moz-selection {
-  background: #b50d0d;
-  color: white;
-}
-
-img::selection {
-  background: transparent;
-}
-
-img::-moz-selection {
-  background: transparent;
-}
-
-body {
-  -webkit-tap-highlight-color: rgb(181, 13, 13);
-}
-
-
-/*
 Style overrides for IE6-8
 http://jonikorpi.com/leaving-old-IE-behind/
  */

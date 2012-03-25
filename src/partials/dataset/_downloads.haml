@@ -1,16 +1,24 @@
-%h3 With Dependancies:
 %p
-  = link_to 'miso.ds.deps.js', 'https://github.com/misoproject/dataset/tree/master/dist/miso.ds.deps.js' 
-  Development - 0.0.1
+  With Dependancies:
+%ul
+  %li
+    %span
+      Development 0.0.1 :
+    = link_to 'miso.ds.deps.js', 'https://github.com/misoproject/dataset/tree/master/dist/miso.ds.deps.js' 
+  %li
+    %span
+      Production 0.0.1 :
+    = link_to 'miso.ds.deps.min.js', 'https://github.com/misoproject/dataset/tree/master/dist/miso.ds.deps.min.js' 
+%br
 %p
-  = link_to 'miso.ds.deps.min.js', 'https://github.com/misoproject/dataset/tree/master/dist/miso.ds.deps.min.js' 
-  Production Minified - 0.0.1
+  Without Dependancies:
+%ul
+  %li
+    %span
+      Development 0.0.1 :
+    = link_to 'miso.ds.js', 'https://github.com/misoproject/dataset/tree/master/dist/miso.ds.deps.js' 
+  %li
+    %span
+      Production 0.0.1 :
+    = link_to 'miso.ds.min.js', 'https://github.com/misoproject/dataset/tree/master/dist/miso.ds.deps.min.js' 
 
-
-%h3 Without Dependancies:
-%p
-  = link_to 'miso.ds.js', 'https://github.com/misoproject/dataset/tree/master/dist/miso.ds.deps.js' 
-  Development - 0.0.1
-%p
-  = link_to 'miso.ds.min.js', 'https://github.com/misoproject/dataset/tree/master/dist/miso.ds.deps.min.js' 
-  Production Minified - 0.0.1
