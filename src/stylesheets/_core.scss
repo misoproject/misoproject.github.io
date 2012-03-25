@@ -91,10 +91,7 @@ body article, div.container {
   }
 
   section.download ul li {
-    @include sanserif();
     display: block;
-    font-weight: normal;
-    font-size: $font-size - 1!important;
     span {
       display: block;
       float: left;
