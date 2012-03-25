@@ -31,7 +31,7 @@ $(function() {
         anchors = _.map($('nav ul ul li a'), function(a) { 
           var $a = $(a);
           var id = $a.attr('href');
-          return [ id, $(id).offset().top, $a ];
+          return [ id, $(id).offset().top, $a, false ];
         });
 
     $window.scroll(function () {
@@ -41,10 +41,14 @@ $(function() {
 
       //highlight the current section of the page you've scrolled to
       _.each(anchors, function(a) {
-        a[2].removeClass('active');
+        if (a[3] === true) {
+          a[2].removeClass('active');
+          a[3] = false;
+        }
         if (!done && (a[1] >= scroll) ) {
           done = true;
           a[2].addClass('active');
+          a[3] = true;
         }
       });
 
