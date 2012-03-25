@@ -1,0 +1,142 @@
+a { text-decoration: none; }
+
+@mixin colourise( $color ) {
+  section div.content a, div.text a, section span.color { 
+    color: $color; 
+  }
+  ::selection               { background: $color; }
+  ::-moz-selection          { background: $color; }
+}
+
+article.miso    { @include colourise( #D35E1D ); }
+article.dataset { @include colourise( #248940 )  }
+
+@mixin bigtype {
+  font-size: ($font-size + 4) / $em;
+  line-height: ($font-size + 4) / $em;
+}
+
+@mixin normaltype {
+  font-size: $font-size;
+  line-height: ($font-size) / $em;
+}
+
+@mixin sanserif {
+  font-family: "Helvetica Neue LT Pro", "Helvetica Neue", "Helvtica", san-serif;
+  font-weight: bold;
+}
+
+@mixin serif {
+  font-family: "ff-tisa-web-pro","Georgia", serif;
+}
+
+nav {
+  @include bigtype();
+  @include sanserif();
+  z-index: 3000;
+  a {
+    color: #000;
+  }
+  a.active {
+    color: #000;
+    @include transition( color 400ms ease-in-out );
+  }
+}
+
+
+
+body article, div.container {
+  @include serif();
+  overflow: hidden;
+  margin: 0 auto 0 auto;
+  padding-bottom: $cols2;
+  position: relative;
+  min-height: $cols10;
+  p {
+    margin-bottom: $font-size;
+  }
+
+  section {
+    border-top: 1px solid #ddd;
+    h2 {
+      @include sanserif();
+      @include normaltype();
+      padding-top: $font-size / 2;
+      padding-bottom: $font-size;
+      a { color: #000; }
+    }
+
+    li {
+      list-style-type: none;
+      padding-left: 1em;
+      text-indent: -1em;
+      margin-bottom: 0.5em;
+    }
+    li:before {
+      content: "\00BB \0020";
+    }
+
+  }
+
+  section.intro {
+    border-top: none;
+    height: $cols6;
+    padding-bottom: $cols1;
+  }
+
+  section.big{
+    p {
+      @include bigtype();
+    }      
+  }
+
+  section.download ul li {
+    @include sanserif();
+    display: block;
+    font-weight: normal;
+    font-size: $font-size - 1!important;
+    span {
+      display: block;
+      float: left;
+      width: $cols3;
+    }
+    a {
+      display: block;
+      float: left;
+    }
+    &:before {
+      content: none;
+    }
+    overflow: hidden;
+    width: 100%;
+  }
+}
+
+
+footer  {
+  min-height: $cols4;
+  margin-top: $cols3;
+  clear: both;
+  overflow: hidden;
+  background-color: #000;
+  color: #fff;
+  width: 100%;
+
+  h2 {
+    color: #999;
+  }
+
+  div.container {
+    margin-top: $cols1;
+    margin-bottom: 0;
+    min-height: 0;
+    padding: 0;
+
+    img {
+      display: block;
+      margin-right: 25px;
+    }
+  }
+
+}
+

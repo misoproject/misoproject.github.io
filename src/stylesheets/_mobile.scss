@@ -1,0 +1,60 @@
+@media screen and (max-width: 52.5em ) {
+
+  body article, div.container {
+    @include width( 6 );
+    img.logo {
+      display: block;
+      @include width( 6 );
+      margin: 0 auto;
+      margin: $cols1 auto $cols2 auto;
+    }
+
+    section {
+      margin-top: $cols1;
+      width: 100%;
+      overflow: hidden;
+      h1 {
+        margin-bottom: $font-size;
+      }
+      h2 {
+        width: $cols6;
+        max-width: $cols6;
+      }
+      svg {
+        margin-right: 10px;
+        margin-bottom: 10px;
+      }
+      &.intro {
+        height: $cols8;
+      }
+    }
+  }
+
+  footer div.container {
+    @include width(6);
+    section {
+      @include width(6);
+      img {
+        margin: 0 auto;
+      }
+    }
+  }
+
+  nav {
+    width: 100%;
+    ul {
+      border-bottom: $borders;
+    }
+    ul li {
+      width: 100%;
+      padding: $font-size / 2;
+      border-top: $borders;
+      text-align: center;
+    }
+    ul li ul {
+      display: none;
+    }
+  }
+}
+
+

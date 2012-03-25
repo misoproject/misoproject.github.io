@@ -1,6 +1,8 @@
 !!!
 %html
   :plain
+    <script type="text/javascript" src="http://use.typekit.com/aow5drr.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
     <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
     <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
@@ -12,7 +14,8 @@
     %meta{ :name => "description", :content => "The Miso Project" }
     %meta{ :name => "name", :content => "The Miso Project" }
     %meta{ :name => "viewport", :content => "width=device-width" }
-    %title The Miso Project
+    %title 
+      = @page_title 
     %link{ :rel => "stylesheet", :href => "/stylesheets/screen.css" }
     %link{ :rel => "stylesheet", :href => "/stylesheets/codemirror.css" }
 

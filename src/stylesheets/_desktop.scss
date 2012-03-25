@@ -1,0 +1,87 @@
+@media screen and (min-width: 52.5em) {
+
+  body article, div.container {
+    position: relative;
+    @include width( 12 );
+    margin: $cols1 auto $cols2 auto;
+    div.text {
+      float: right;
+      @include width(6);
+    }
+    .logo {
+      float: left;
+      padding: 0;
+      @include width(6);
+    }
+
+    section.intro {
+      clear: both;
+      overflow: hidden;
+      div.text {
+        margin-top: $cols2;
+      }
+      @include width(12);
+      margin-bottom: 0;
+      border-top: none;
+    }
+
+    section {
+      @include width(9);
+      float: right;
+      clear: both;
+      margin-bottom: $cols1;
+      div.content {
+        float: right;
+        @include width( 6 );
+      }
+    }
+
+  }
+
+
+  nav {
+    top: 408px;
+    position: absolute;
+    overflow: hidden;
+    @include width( 10 );
+    left: 0;
+    ul {
+      @include width( 2 );
+      border-bottom: $borders;
+      float: left;
+      list-style-type: none;
+    }
+    ul li {
+      display: block;
+      width: 100%;
+      border-top: $borders;
+      overflow: hidden;
+      a {
+        line-height: 2;
+      }
+
+      ul {
+        border: none;
+        li {
+          margin-left: $font-size;
+          font-size: ($font-size - 4) / $em;
+          border: none;
+          a {
+            color: #aaa;
+          }
+        }
+      }
+
+    }
+  }
+
+  footer div.container {
+    @include width(12);
+    img {
+      float: right;
+      margin-right: 25px;
+    }
+  }
+
+}
+

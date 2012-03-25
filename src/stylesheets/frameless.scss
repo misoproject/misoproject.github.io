@@ -49,15 +49,6 @@ $borders: 1px solid #ddd;
   width: ($cols * ($column + $gutter) - $gutter) / $em;
 }
 
-@mixin bigtype {
-  font-size: ($font-size + 4) / $em;
-  line-height: ($font-size + 4) / $em;
-}
-
-@mixin normaltype {
-  font-size: $font-size;
-  line-height: ($font-size) / $em;
-}
 
 @mixin transition ($transition) {
   -webkit-transition: $transition;
@@ -66,14 +57,6 @@ $borders: 1px solid #ddd;
   transition: $transition;
 }
 
-@mixin sanserif {
-  font-family: "Helvetica Neue LT Pro", "Helvetica Neue", "Helvtica", san-serif;
-  font-weight: bold;
-}
-
-@mixin serif {
-  font-family: Georgia;
-}
 
 
 /*

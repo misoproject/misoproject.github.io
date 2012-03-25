@@ -3,7 +3,7 @@
   %nav
     %ul
       %li 
-        %a
+        %a{ :href => '/dataset' }
           Basics
       %li
         %a
@@ -39,13 +39,8 @@
         %a
           Github
 
-  %section.intro
-    =img("/images/dataset.png", { :class => 'logo' })
-    %div.text &nbsp;
-  %section
-    %h1 Dataset Documentation
-    %p.about
-      Dataset is a library that makes it easy to work with data on the client. Dataset makes it painless to import &amp; standardise datsets and then select &amp; manipulate data within them.
+  = partial("../partials/dataset/intro")
+
   %section
     %h2 
       %a#create{ :href => '#create' }

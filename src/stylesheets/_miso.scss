@@ -1,0 +1,21 @@
+article.miso {
+  svg.icon {
+    float: left;
+    width: $cols1;
+    height: 40px;
+    float: left;
+  }
+  section h2 {
+    max-width: $cols3;
+    padding-right: 10px;
+    display: block;
+    float: left;
+  }
+  section.soon {
+    color: #999;
+  }
+  a {
+    color: #000;
+  }
+}
+

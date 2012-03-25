@@ -1,5 +1,5 @@
+- @page_title = "The Miso Project :: Dataset"
 %article.dataset
-
   %nav
     %ul
       %li 
@@ -19,19 +19,19 @@
             %a{ :href => '#contributing'}
               Contributing
       %li
-        %a
+        %a{ :href => '/dataset/examples' }
           Examples
       %li
-        %a
+        %a{ :href => '/dataset/documentation' }
           Docs
       %li
-        %a
+        %a{ :href => '/dataset/api' }
           API Reference
       %li
-        %a
+        %a{ :href => 'https://github.com/misoproject/dataset' }
           Github
 
-  %section.intro
+  %section.intro.big
     =img("/images/dataset.png", { :class => 'logo' })
     %div.text
       %p
@@ -46,21 +46,20 @@
       %a#detail{ :href => '#detail'} 
         In brief
     %div.content
-      %p
-        = partial("../partials/dataset/why_dataset")
+      = partial("../partials/dataset/why_dataset")
   %section
     %h2
       %a#dependencies{ :href => '#dependencies'}
         Dependencies
     %div.content
-      %p= partial("../partials/dataset/dependancies")
+      = partial("../partials/dataset/dependancies")
 
   %section.download
     %h2
       %a#download{ :href => '#download'}
         Download
     %div.content
-      %p= partial("../partials/dataset/downloads")
+      = partial("../partials/dataset/downloads")
 
 
   %section
