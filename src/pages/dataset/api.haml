@@ -1,0 +1,89 @@
+%article.dataset
+
+  %nav
+    %ul
+      %li 
+        %a{ :href => '/dataset' }
+          Basics
+      %li
+        %a
+          Examples
+      %li
+        %a
+          Docs
+        %ul    
+          %li 
+            %a{ :href => '#dataset' } Miso.Dataset
+          %li 
+            %a{ :href => '#column' } Miso.Column        
+          %li 
+            %a{ :href => '#dataview' } Miso.DataView        
+          %li 
+            %a{ :href => '#types' } Miso.types
+          %li 
+            %a{ :href => '#importers' } Miso.Importers
+          %li 
+            %a{ :href => '#parsers' } Miso.Parsers    
+          %li 
+            %a{ :href => '#events' } Miso.Events
+          %li 
+            %a{ :href => '#product' } Miso.Product          
+          %li 
+            %a{ :href => '#derived' } Miso.Derived  
+          %li 
+            %a{ :href => '#builder' } Miso.Builder
+      %li
+        %a
+          API Reference
+      %li
+        %a
+          Github
+  = partial("../partials/dataset/intro")
+  %section
+    %h2 
+      %a#create{ :href => '#dataset' }
+        Miso.Dataset
+    %div.content
+      = partial("../partials/api/miso.dataset")
+
+  %section
+    %h2 
+      %a#column{ :href => '#column' }
+        Miso.Column
+    %div.content
+      = partial("../partials/api/miso.column")
+
+  %section
+    %h2 
+      %a#dataview{ :href => '#dataview' }
+        Miso.DataView
+    %div.content
+      = partial("../partials/api/miso.dataview")
+
+  %section
+    %h2 
+      %a#types{ :href => '#types' }
+        Miso.types
+    %div.content
+      = partial("../partials/api/miso.types")
+
+  %section
+    %h2 
+      %a#importers{ :href => '#importers' }
+        Miso.Importer
+    %div.content
+      = partial("../partials/api/miso.importer")
+
+  %section
+    %h2 
+      %a#parsers{ :href => '#parsers' }
+        Miso.Parser
+    %div.content
+      = partial("../partials/api/miso.parser")
+  
+  %section
+    %h2 
+      %a#parsers{ :href => '#events' }
+        Miso.Events
+    %div.content
+      = partial("../partials/api/miso.events")

@@ -57,11 +57,10 @@ body article, div.container {
   }
   code, pre {
     background-color: #eee;
-    padding-left: 0.2em;
-    padding-right: 0.2em;
+    padding: 0.3em;
   }
   pre {
-    padding: 0.2em;
+    padding: 0.3em;
   }
 
   section {
@@ -83,7 +82,25 @@ body article, div.container {
     li:before {
       content: "\00BB \0020";
     }
+    table {
+      th {
+        border-bottom: 1px solid #222;
+      }
+      td {
+        padding-left : 2%;
+        border-bottom: 1px solid #ddd;
+      }
+    }
+    .api {
+      border-top: 3px solid #222;
+      margin-top: 10px;
+      padding-top: 10px;
 
+      pre {
+        border: 1px solid #bbb;
+        font-size: 1.2em;
+      }
+    }
   }
 
   section.intro {

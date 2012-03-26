@@ -72,5 +72,3 @@ ds.fetch({
     console.log(this.column("phone").data[0].toString());
   }
 });
-
-
