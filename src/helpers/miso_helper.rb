@@ -62,29 +62,83 @@ module MisoHelper
   # ------
   # Code Block Generators
   # ------
-  def toRunnableCodeBlock(partial)
-    codeblockify({ :partial => partial, :runnable => true })
+
+  # display only
+  def toDisplayCodeBlock(partial, id=nil)
+    codeblockify({ 
+      :partial => partial, 
+      :runnable => false, 
+      :code => true, 
+      :id => id, 
+      :showConsole => false 
+    })
+  end
+  
+  # runnable with console
+  def toRunnableCodeBlock(partial, id=nil)
+    codeblockify({ 
+      :partial => partial, 
+      :runnable => true, 
+      :code => true, 
+      :id => id, 
+      :showConsole => true, 
+      :buttons => "run,reset,clear" 
+    })
   end
 
-  def toDisplayCodeBlock(partial)
-    codeblockify({ :partial => partial, :runnable => false })
+  # runnable with no console
+  def toVisualCodeBlock(partial, id=nil)
+    codeblockify({ 
+      :partial => partial, 
+      :runnable => true, 
+      :code => true, 
+      :id => id, 
+      :showConsole => false, 
+      :buttons => "run,reset" 
+    })
+  end
+
+  # setup script. no visible impact, but attaches to a codeblock. 
+  def toSetupCodeBlock(partial, id) 
+    codeblockify({ 
+      :partial => partial, 
+      :runnable => false, 
+      :code => false, 
+      :selector => id 
+    })
   end
 
   private
   def codeblockify(params)
-    partial = params[:partial]
-    runnable = params[:runnable]
+    partial   = params[:partial]
+    runnable  = params[:runnable]
+    id        = params[:id]      ? "id=\"#{params[:id].gsub('#','')}\"" : ""
+    buttons   = params[:buttons] ? "buttons=\"#{params[:buttons]}\""    : ""
 
     full_path = File.join(Dir.pwd, 'src', 'snippets', partial.index(".js").nil? ? partial + ".js" : partial)
     puts "Making code block " + full_path
-    snippet = "<div class=\"codeblock\"><textarea class=\"code\" id=\"code\" runnable=\"#{runnable}\">\n"
     
+
+    if (params[:code])
+      # make a code block
+      snippet = "<div class=\"codeblock\"><textarea class=\"code\" #{id} runnable=\"#{runnable}\" showConsole=\"#{params[:showConsole]}\" #{buttons}>\n"
+    else
+      # make a pre/post script
+      snippet = "<script type='codemirror' data-selector='#{params[:selector]}'>"
+    end
+    
+    # read file into it.
     File.open(full_path, 'r') do |f|
       snippet += f.read
     end
     
     # surround existing snippet with proper tags
-    snippet += "</textarea></div>"
+    if (params[:code])
+      snippet += "</textarea></div>"
+    else
+      snippet += "</script></div>"
+    end
+
     snippet
   end
 end

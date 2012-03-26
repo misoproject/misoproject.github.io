@@ -1,1 +1,11 @@
-%h1 Examples
+%article.dataset
+  = partial("../partials/dataset/intro")
+
+  %section
+    %h2 
+      %a#create{ :href => '#create' }
+        Base Example 1
+        
+    %div.content
+      = partial("../partials/examples/baseExample")
+  
