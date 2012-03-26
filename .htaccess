@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Miso Project Staging"
+AuthUserFile .htpasswd
+Require valid-user
