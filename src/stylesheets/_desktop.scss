@@ -21,13 +21,7 @@
       margin-bottom: $cols1;
       div.content {
         float: right;
-        @include width( 6 );
-      }
-      h2 {
-        max-width: $cols3;
-        padding-right: 10px;
-        display: block;
-        float: left;
+        @include width( 9 );
       }
 
       &.topper {
