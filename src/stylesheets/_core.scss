@@ -4,8 +4,8 @@ a { text-decoration: none; }
   section div.content a, div.text a, section span.color { 
     color: $color; 
   }
-  ::selection               { background: $color; }
-  ::-moz-selection          { background: $color; }
+  ::selection               { color: #fff; background: $color; }
+  ::-moz-selection          { color: #fff; background: $color; }
 }
 
 article.miso    { @include colourise( #D35E1D ); }

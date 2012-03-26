@@ -15,7 +15,7 @@ Miso.Dataset.prototype.random = function(columnNames) {
     columns.push(this.column(name));
   }, this);
 
-  return this.calculated(columns, function(columns) {
+  return this._calculated(columns, function(columns) {
     
     // return a function that when re-run over a set of
     // columns can recompute the value we're looking for
