@@ -13,32 +13,45 @@
     <meta content='The Miso Project' name='name' />
     <meta content='width=device-width' name='viewport' />
     <title>
-      
+      The Miso Project :: Dataset
     </title>
     <link href='/stylesheets/screen.css' rel='stylesheet' />
     <link href='/stylesheets/codemirror.css' rel='stylesheet' />
   </head>
   <body>
+    
     <article class='dataset'>
       <section class='topper'>
-        <img alt="Dataset" class="logo" src="/images/dataset.png"/>
+        <a href='/dataset'>
+          <img alt="Dataset" class="logo" src="/images/dataset.png"/>
+        </a>
       </section>
-      <section>
-        <h2>
-          <a href='#create' id='create'>
-            Base Example 1
-          </a>
-        </h2>
-        <div class='content'>
-          <div id='example1output'></div>
-          <div>
-            <script type='codemirror' data-selector='#example1'>var x = 10;
-            var el = $('#example1output');</script></div>
-            <div class="codeblock"><textarea class="code" id="example1" runnable="true" showConsole="false" buttons="run,reset">
-            el.html("bla bla bla");</textarea></div>
-          </div>
-        </div>
-      </section>
+      <nav>
+        <ul>
+          <li>
+            <a href='/dataset'>
+              Basics
+            </a>
+            <ul>
+            </ul>
+          </li>
+          <li>
+            <a href='/dataset/examples'>
+              Examples
+            </a>
+          </li>
+          <li>
+            <a href='/dataset/docs'>
+              Docs
+            </a>
+          </li>
+          <li>
+            <a href='/dataset/api'>
+              API Ref
+            </a>
+          </li>
+        </ul>
+      </nav>
     </article>
     <footer>
       <div class='container'>

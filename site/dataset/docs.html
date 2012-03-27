@@ -1,0 +1,1411 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <script type="text/javascript" src="http://use.typekit.com/aow5drr.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+  <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+  <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='The Miso Project' name='description' />
+    <meta content='The Miso Project' name='name' />
+    <meta content='width=device-width' name='viewport' />
+    <title>
+      The Miso Project :: Dataset :: Docs
+    </title>
+    <link href='/stylesheets/screen.css' rel='stylesheet' />
+    <link href='/stylesheets/codemirror.css' rel='stylesheet' />
+  </head>
+  <body>
+    
+    <article class='dataset'>
+      <section class='topper'>
+        <a href='/dataset'>
+          <img alt="Dataset" class="logo" src="/images/dataset.png"/>
+        </a>
+      </section>
+      <section class='normal' id='creating-a-dataset'>
+        <h2>
+          <a>
+            Creating a Dataset
+            
+          </a>
+        </h2>
+        <p>
+          To begin working with your dataset, you first need to import your data. You can import either <b>local</b> data (in the form of a variable that happens to contain your data) or <b>remote</b> data (in the form of a url that we'll fetch from.)
+        </p>
+        <h3>Local Importing</h3>
+        <p>
+          Out of the box Dataset can take local data objects or remote urls and import data in almost any common format.
+          <ul>
+            <li>JSON (including jsonp)</li>
+            <li>CSV</li>
+            <li>TSV (Any delimiter is acceptable, including tabs)</li>
+          </ul>
+        </p>
+        <p>
+          There is also a growing library of custom data importers such as:
+          <ul>
+            <li>
+              Google Spreadsheets
+            </li>
+          </ul>
+        </p>
+        <h4>Importing from a local object array</h4>
+        <p>
+          If you have an array of json objects, you can easily convert them to a Dataset like so:
+          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          var myData = [
+            { state : "Alabama", population : 4802740 },
+            { state : "Massachusetts", population : 6587536 }
+          ];
+          
+          var ds = new Miso.Dataset({
+            data : myData
+          });
+          
+          ds.fetch({ success: function() {
+            console.log("Column Names: ", ds.columnNames());
+          }});</textarea></div>
+        </p>
+        <h4>Importing from a local "strict" format object</h4>
+        <p>
+          If you happen to have your data preprocessed in what we call a "strict" format, you can speed up your import slightly by initializing your Dataset with the <code>strict</code> flag:
+          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          var myData = {
+            columns : [
+              { name : "state", data : ["Alabama", "Massachusetts"] },
+              { name : "population", data : [4802740, 6587536] }
+            ]
+          };
+          
+          var ds = new Miso.Dataset({
+            data : myData,
+            strict: true
+          });
+          
+          ds.fetch({ success: function() {
+            console.log("Column Names: ", ds.columnNames());
+          }});</textarea></div>
+        </p>
+        <h4>Importing from a local delimited string format</h4>
+        <p>
+          If for some reason you actually have all your data as a delimited string on the client side (which is an unlikely but possible,) you can import that into a dataset object too.
+          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          var myData = "state,population\n"+
+                 "Alabala,4802740\n" +
+                 "Massachusetts,6587536";
+          
+          var ds = new Miso.Dataset({
+            data : myData,
+            delimiter : ","
+          });
+          
+          ds.fetch({ success : function() {
+            console.log(ds.columnNames());
+            console.log(ds.column("state").data);
+            console.log(ds.column("population").data);
+          }});</textarea></div>
+        </p>
+        <p>
+          <b>Note</b> You can also import remote delimited data by simply providing a <code>url</code> parameter instead of the <code>data</code> one. <br/>
+          <b>Node</b> You can specify any delimiter string, not just the comma.
+        </p>
+        <h3>Remote Importing</h3>
+        <p>
+          Most of the time, your data will live somewhere else and you'll want to fetch it via a url. All the above formats would work except you would need to replace your <code>data</code> property with with a <code>url</code> property like so:
+        </p>
+        <p>
+          <code>var ds = new DS.Dataset({
+            url : "http://myserver.com/data/mydata.json"
+          });</code>
+        </p>
+        <h4>Google Spreadsheet Importing</h4>
+        <p>
+          If you have a <b>published</b> Google Spreadsheet that you would like to import data from, you can do so with the following format:
+          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          var ds = new Miso.Dataset({
+            importer: Miso.Importers.GoogleSpreadsheet,
+            parser : Miso.Parsers.GoogleSpreadsheet,
+            key : "0Asnl0xYK7V16dFpFVmZUUy1taXdFbUJGdGtVdFBXbFE",
+            worksheet: "1"
+          });
+          
+          ds.fetch({ 
+            success: function() {
+              console.log(ds.columnNames());
+            },
+            error : function() {
+              console.log("Are you sure you are connected to the internet?");
+            }
+          });</textarea></div>
+        </p>
+        <p>
+          The google spreadsheet importer is utilizing the format specified here:
+          <a href="http://code.google.com/apis/gdata/samples/spreadsheet_sample.html">http://code.google.com/apis/gdata/samples/spreadsheet_sample.html</a>
+        </p>
+        <h3>Remote Polling</h3>
+        <p>
+          If you are handling a live data feed, you can initialize your dataset to perform
+          ajax-based polling at regular intervals to fetch your data. There are three different ways in which this data can be merged into your existing dataset:
+          <ul>
+            <li>
+              <b>Appended</b> - All new rows will be appended to the end of the dataset. This is the default behavior.
+            </li>
+            <li>
+              <b>Reset</b> - All the current rows in the dataset will be thrown out and the new rows will be put into the dataset. To enable this, set <code>resetOnFetch</code> to <code>true</code> when initializing your dataset. This will fire a <code>reset</code> event on a syncable dataset.
+            </li>
+            <li>
+              <b>Unique</b> - By specifying a column on which the data is supposed to be unique, new incoming rows will only be added IF the value in that column is unique. To enable this, set <code>uniqueAgainst</code> to the column name you wish to check against. Note, this is an expensive operation!
+            </li>
+          </ul>
+        </p>
+        <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+        // We will only make 5 requests in this example
+        var requests = 5, 
+            madeRequests = 0;
+        
+        // query twitter for tweets containing the term "javascript"
+        // and get 5 per page. Note that twitter uses jsonp requests, 
+        // so we toggle that flag too.
+        var ds = new Miso.Dataset({
+          url : "http://search.twitter.com/search.json?q=javascript&rpp=5&callback=",
+          interval : 1000,
+          jsonp : true,
+          // Because of the structure of tweets:
+          // https://dev.twitter.com/docs/api/1/get/search
+          // we actually extract the rows from the returned data first.
+          extract : function(data) {
+            return data.results;
+          }
+        });
+        
+        ds.fetch({
+          success : function() {
+            // track how many requests we've made
+            madeRequests++;
+            // If we reached our max
+            if (madeRequests >= requests) {
+              // stop the importer.
+              this.importer.stop();
+              // output our current collection of tweets
+              console.log(ds.column("text").data);
+            }
+            // update the number of rows we now have.
+            console.log(madeRequests, ds.length);
+          }
+        });</textarea></div>
+        <h3>Custom Importers</h3>
+        <p>
+          You may have noticed how easy it is to set a custom importer and parser in the dataset constructor by specifying the <code>importer</code> and <code>parser</code> properties. The import system can also easily be extended for custom data formats and other APIs. See the "Write Your Own Importers & Parsers" section for more information.
+        </p>
+      </section>
+      <section class='normal' id='fetching-data'>
+        <h2>
+          <a>
+            Fetching Data
+            
+          </a>
+        </h2>
+        <p>
+          Regardless of how you initialized your dataset (locally or remotely), it needs to be fetched for the data to be available. To begin fetching your data, simply call <code>.fetch()</code> on it.
+        </p>
+        <p>
+          Note that if your data is remote, it is especially imperative that you don't attempt to access your dataset before that call is complete.
+        </p>
+        <p>
+          Data can be fetched in one of three ways:
+        </p>
+        <h3>Pass success/error callbacks:</h3>
+        <p>
+          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          var ds = new Miso.Dataset({
+            data : [
+              { one : 12,  two : 40,  three : 40 },
+              { one : 1,   two : 40,  three : 40 },
+              { one : 102, two : 430, three : 20 }
+            ]
+          });
+          ds.fetch({
+            success : function() {
+              // do things here after data successfully fetched.
+              // note 'this' references the dataset.
+              console.log(this.columnNames());
+            },
+            
+            error : function() {
+              // do things here in case your data fetch fails.
+            }
+          });</textarea></div>
+        </p>
+        <h3>Using Deferreds</h3>
+        <p>
+          If you have more than one dataset you need to wait on, or you might be a fan of using deferreds, you can use them as follows:
+        </p>
+        <p>
+          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          var ds1 = new Miso.Dataset({
+            data : [
+              { one : 12,  two : 40,  three : 40 },
+              { one : 1,   two : 40,  three : 40 },
+              { one : 102, two : 430, three : 20 }
+            ]
+          });
+          var ds2 = new Miso.Dataset({
+            data : [
+              { col1 : 1,  col2 : 400,  col3 : 420 },
+              { col1 : 4,  col2 : 50,   col3 : 4220 },
+              { col1 : 22, col2 : 0,    col3 : 24430 }
+            ]
+          });
+              
+          _.when(ds1.fetch(), ds2.fetch()).then(function() {
+            // do things when both datasets are fetched.
+            // note 'this' is NOT set to the dataset here.
+            console.log(ds1.columnNames(), ds2.columnNames());
+          });</textarea></div>
+        </p>
+        <h4>ready Callback</h4>
+        <p>
+          You can also pass the dataset a <code>ready</code> callback that will be executed once the data is ready to be manipulated. This still requires fetching but allows you to have dataset-specific callbacks vs a single success callback for multiple fetches, for example.
+        </p>
+        <p>
+          Note that the individual ready callbacks are executed first and then the fetch callback gets executed.
+        </p>
+        <p>
+          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          var ds1 = new Miso.Dataset({
+            data : [
+              { one : 12,  two : 40,  three : 40 },
+              { one : 1,   two : 40,  three : 40 },
+              { one : 102, two : 430, three : 20 }
+            ],
+            ready : function() {
+              // do something specific to this dataset here when it's
+              // been fetched
+              console.log(this.columnNames());
+            }
+          });
+          var ds2 = new Miso.Dataset({
+            data : [
+              { col1 : 1,  col2 : 400,  col3 : 420 },
+              { col1 : 4,  col2 : 50,   col3 : 4220 },
+              { col1 : 22, col2 : 0,    col3 : 24430 }
+            ],
+            ready : function() {
+              // do something specific to this dataset here when it's
+              // been fetched
+              console.log(this.length);
+            }
+          });
+              
+          _.when(ds1.fetch(), ds2.fetch()).then(function() {
+            // do things when both datasets are fetched.
+            // note 'this' is NOT set to the dataset here.
+            console.log("Both Datasets Fetched!");
+          });</textarea></div>
+        </p>
+      </section>
+      <section class='normal' id='data-types'>
+        <h2>
+          <a>
+            Data Types
+            
+          </a>
+        </h2>
+        <h3>Built in Types:</h3>
+        <p>
+          Dataset supports the following prebuilt data types:
+          <ul>
+            <li><code>number</code></li>
+            <li><code>string</code></li>
+            <li><code>boolean</code></li>
+            <li><code>time</code></li>
+          </ul>
+          Dataset will attempt and detect the type of each column when the data is being fetched. This will be done by looking at the first few rows of the data.
+        </p>
+        <h3>Overriding Detected Types</h3>
+        <p>
+          Dataset will attempt to detect what the type of your data is. However, if any of your columns are of a <code>time</code> format, it's much more efficient for you to specify that directly as follows:
+        </p>
+        <pre>&#x000A;columns : [&#x000A;  { name : 'columnName', &#x000A;    type : '<known type (see Types Sections)>' &#x000A;    … [any additional type required options here.] &#x000A;  }&#x000A;]</pre>
+        <p>
+          Dataset will take care of the actual type coercion, making it trivial to convert strings to numbers or timestamps to `moment` objects. For example, coercing the timestamp column into a time column and the total column to a numeric type would look like so:
+          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          var ds = new Miso.Dataset({
+            data : [
+              { one : 12,  two : 40,  three : "2012 04_20" },
+              { one : 1,   two : 40,  three : "2011 03_10" },
+              { one : 102, two : 430, three : "2010 10_30" }
+            ],
+            columns : [
+              { name : 'three', type : 'time', format : 'YYYY MM_DD' }
+            ]
+          });
+          ds.fetch({ success : function() {
+            console.log(
+              // assemble all the dates' toString results
+              _.map(
+                this.column('three').data, 
+                function(date) {
+                  return date.toString();
+                }
+              )
+            );
+          }});
+          
+          </textarea></div>
+          <h3>Custom Types</h3>
+          <p>
+            The type system itself can be extended to add new types for your data.
+            The current type set is defined in <code>src/types.js</code>.
+          </p>
+          <p>
+            To define a new type, the required signature is as follows:
+            <div class="codeblock"><textarea class="code"  runnable="false" showConsole="false" >
+            // all types live under the Miso.types namespace.
+            // Beware of overriding existing types. 
+            // Nothing is stopping you from doing that.
+            Miso.types.yourCustomType = {
+            
+              // provide a name for your type.
+              name : 'yourCustomTypeName',
+            
+              // provide a method to test any incoming value for whether it
+              // fits within the scope of this type.
+              // return true if value is of this type. False otherwise.
+              test : function(value) {},
+            
+              // provide a way to compare two values. This will be used by
+              // the sorting algorithm, so be sure to return the correct values:
+              // -1 if value1 < value2
+              // 1 if value1 > value2
+              // 0 if they are equal.
+              compare : function(value1, value2) {},
+            
+              // how would this value be represented numerically? For example
+              // the numeric value of a timestamp is its unix millisecond value.
+              // This is used by the various computational functions of columns
+              // (like min/max.)
+              numeric : function(value) {},
+            
+              // convert an incoming value into this specific type.
+              // should return the value as would be represented by this type.
+              coerce : function(value) {}
+            };</textarea></div>
+          </p>
+          <p>
+            For example, we might define a custom <code>phone</code> type like so:
+            <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+            // dummy phone number class
+            var PhoneNumber = function(areacode, number) {
+              this.areacode = +areacode;
+              this.number = +number;
+              return this;
+            };
+            PhoneNumber.prototype.valueOf = function() {
+              return this.areacode * 10000000 + this.number;
+            };
+            PhoneNumber.prototype.toString = function() {
+              return this.areacode + " " + this.number;
+            };
+            
+            // Phone type. 
+            // Converts a phone type to a phone type
+            Miso.types.phone = {  
+              name : "phone",
+              // match phone numbers of the format:
+              // XXX-XXX-XXXX or XXX XXX XXXX or XXXXXXXXXX
+              regexp : /^(\d{3})[-|\s]?(\d{3})[-|\s]?(\d{4})$/,
+              
+              // tests whether an input string is a phone number
+              test : function(v) {
+                if (typeof v === 'string' || this.regexp.test( v ) ) {
+                  return true;
+                } else {
+                  return false;
+                }
+              },
+            
+              // takes a string and converts it to a Phone type
+              coerce : function(v, options) {
+                if (_.isNull(v)) {
+                  return null;
+                }
+                var split = (options.regexp || this.regexp).exec(v);
+                v = new PhoneNumber(split[1], split[2] + split[3]);
+                return _.isNaN(v) ? null : v;
+              },
+            
+              // compares two PhoneNumbers. First compares by area
+              // code, and then by the phone number
+              compare : function(n1, n2) {
+                var n1Value = n1.valueOf(),
+                    n2Value = n2.valueOf();
+                if (n1Value < n2Value) { return -1; }
+                if (n1Value > n2Value) { return  1; }
+                return 0;
+              },
+            
+              // returns the numeric value of this datatype.
+              numeric : function(number) {
+                return number.valueOf();
+              }
+            };
+            
+            var ds = new Miso.Dataset({
+             data : [
+                { phone : "413 555 5555" },
+                { phone : "413-444-4444" },
+                { phone : "999 555 5555" }
+              ]
+            });
+            ds.fetch({
+              success : function() {
+                // do things here after data successfully fetched.
+                // note 'this' references the dataset.
+                console.log("Column type detected: " + this.column("phone").type);
+                console.log("Am I a PhoneNumber? " + 
+                  (this.column("phone").data[0] instanceof PhoneNumber)
+                );
+                console.log(this.column("phone").data[0].toString());
+              }
+            });</textarea></div>
+          </p>
+        </p>
+      </section>
+      <section class='normal' id='accessing-data'>
+        <h2>
+          <a>
+            Accessing Data
+            
+          </a>
+        </h2>
+        <h3>Columns</h3>
+        Each column in the dataset is of a <code>Miso.Column</code> type. We shall reference it as column for simplicity's sake.
+        <p>
+          A column has the following properties:
+          <ul>
+            <li><code>name</code></li>
+            <li><code>type</code></li>
+            <li><code>data</code> - the data array for this column.</li>
+            <li><code>_id</code> - a unique id assigned to this column at parse time.</li>
+          </ul>
+        </p>
+        <p>
+          While you can access the data inside dataset by directly accessing the <code>data</code> property on a column, it is NOT recommended as this will
+          not handle any event propagation. Use direct access sparingly. For more information on accessing rows, see the <b>Rows</b> section.
+        </p>
+        <h4>Getting all column names:</h4>
+        <pre>ds.columnNames();</pre>
+        Note this will never include the <code>_id</code> column as it is internal to the dataset implementation and you shouldn't be messing with it.
+        <h4>Getting a column by name:</h4>
+        <pre>ds.column(columnName);</pre>
+        This returns the actual column object. Note that because the order of columns
+        is not guaranteed (or should matter,) the fetching of columns is always done by name.
+        <h4>Iterating over columns:</h4>
+        <pre>&#x000A;  ds.eachColumn(function(columnName, column, index) {&#x000A;    // do what you need here.&#x000A;  });</pre>
+        <h3>Rows</h3>
+        <p>
+          Since dataset stores all the data column-wise, sometimes you may want to access a "row" object more easily than by iterating through columns. Note that the row object is not a direct reference to your actual data row (as in, if you modify it, it won't actually trigger a change in your dataset.) To change your dataset, you need to use the `update` method.
+        </p>
+        <h4>Iterating over rows:</h4>
+        <p>
+          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          var ds = new Miso.Dataset({
+            data : [
+              { one : 12,  two : 40},
+              { one : 1,   two : 40},
+              { one : 102, two : 430}
+            ]
+          });
+          ds.fetch({ success : function() {
+            this.each(function(row) {
+              console.log(JSON.stringify(row));
+            });
+          }});</textarea></div>
+        </p>
+        <p>
+          Note that each row has a unique identifier assiged to it called `_id` in a separate column. Do not attempt to change that value unless you're feeling destructive. That identifier is used for caching purposes and changing it may make your data inaccessible through the API.
+        </p>
+        <h4>Row by Position:</h4>
+        <p>
+          if you're trying to get the Nth row, you can do so as follows:
+          <pre>ds.rowByPosition(5);</pre>
+          Note, this will return a row object that will <b>not</b> be a direct reference to your data. This will be a copy.
+        </p>
+        <h4>Row by id:</h4>
+        <p>
+          If you're trying to get a row with a specific id, you can do so as follows:
+          <pre>ds.rowById(423);</pre>
+          Note, this will return a row object that will <b>not</b> be a direct reference to your data. This will be a copy.
+        </p>
+      </section>
+      <section class='normal' id='events'>
+        <h2>
+          <a>
+            Events
+            
+          </a>
+        </h2>
+        <p>
+          Dataset has a very rich event system that allows you to bind to a variety of events on your dataset. By default, this functionality is <b>NOT ENABLED</b>. This is because event bindings are created automatically in certain cases (see more about selection and filtering) and unless that functionality is needed, there's no reason to create the bindings.
+        </p>
+        <p>
+          To enable evented behavior, set the <code>sync</code> property to <code>true</code> when initializing your dataset.
+          <pre>&#x000A;var ds = new Miso.Dataset({&#x000A;  data : [&#x000A;    { one : 12,  two : 40,  three : 40 }&#x000A;  ],&#x000A;  sync : true&#x000A;});</pre>
+        </p>
+        <h3>Default Events</h3>
+        <p>
+          Presently, dataset fires the following events:
+          <table>
+            <tr>
+              <th>Event</th>
+              <th>Fired When</th>
+              <th>Precedence</th>
+            </tr>
+            <tr>
+              <td>
+                <code>add</code>
+              </td>
+              <td>
+                Fired when adding a row to the dataset by calling <code>.add</code>
+              </td>
+              <td>
+                Primary
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>remove</code>
+              </td>
+              <td>
+                Fired when removing a row from the dataset by calling <code>.remove</code>
+              </td>
+              <td>
+                Primary
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>update</code>
+              </td>
+              <td>
+                Fired when updating a row in the dataset by calling <code>.update</code>
+              </td>
+              <td>
+                Primary
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>change</code>
+              </td>
+              <td>
+                Fired when calling <code>.add</code>, <code>.remove</code> or <code>.update</code>
+              </td>
+              <td>
+                Secondary
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>sort</code>
+              </td>
+              <td>
+                Fired when a dataset has been sorted.
+              </td>
+              <td>
+                Primary
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>reset</code>
+              </td>
+              <td>
+                Fired when a dataset has been reset
+              </td>
+              <td>
+                Primary
+              </td>
+            </tr>
+          </table>
+        </p>
+        <p>
+          Any of the default events can be prevented by passing the <code>{ silent : true }</code> flag. See the appropriate methods for further instructions.
+        </p>
+        <h3>Binding</h3>
+        <p>
+          To bind to an event, call <code>bind</code> like so:
+          <pre>ds.bind("add", callback);</pre>
+        </p>
+        <h3>Event Object</h3>
+        <p>
+          When any of the default events trigger (except for <code>sort</code>) an event object gets created and passed down to the callbacks. The event object is structured as follows:
+          <ul>
+            <li>An event is of type <code>Miso.Event</code></li>
+            <li>It has a <code>deltas</code> property that contains all the deltas that were generated for this specific event.</li>
+          </ul>
+        </p>
+        <h3>Deltas</h3>
+        <p>
+          An event is comprised of one or more deltas. Each delta can represent a different operation, allowing a single event to actually represent many modifications.
+        </p>
+        <p>
+          Each delta can look as follows:
+          <pre>&#x000A;{&#x000A;  // the set of attributes that changed&#x000A;  changed : { } or value&#x000A;&#x000A;  // the old values of those attributes&#x000A;  old : { } or value&#x000A;}</pre>
+        </p>
+        <ul>
+          <li>
+            When a row is added, there will only be <code>changed</code> attributes.
+          </li>
+          <li>
+            When a row is removed, there will only be <code>old</code> attributes.
+          </li>
+          <li>
+            When a row is updated, there will be <code>changed</code> and <code>old</code> attributes.
+          </li>
+          <li>
+            In certain cases the values of <code>changed</code> and <code>old</code> may not be an object but rather a numeric value. More on that in the <b>Computed Values</b> section.
+          </li>
+        </ul>
+        <h4>Detecting Delta Types:</h4>
+        <p>
+          You can always check what type of a delta you've recieved by calling any of the following helper methods:
+          <pre>Miso.Event.isRemove(delta);</pre>
+          <pre>Miso.Event.isAdd(delta);</pre>
+          <pre>Miso.Event.isUpdate(delta);</pre>
+        </p>
+        <p>
+          For example:
+          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          var ds = new Miso.Dataset({
+            data : [
+              { one : 12,  two : 40,  three : 40 },
+              { one : 10, two : 32, three : 2 }
+            ],
+            sync : true
+          });
+          
+          _.when(ds.fetch()).then(function() {
+            ds.bind("add", function(event) {
+              console.log(JSON.stringify(event));
+              console.log("Is Add?", Miso.Event.isAdd(event.deltas[0]));
+              console.log("Is Remove?", Miso.Event.isRemove(event.deltas[0]));
+              console.log("Is Update?", Miso.Event.isUpdate(event.deltas[0]));
+            });
+          
+            ds.add({ one : 10, two : 3, three : 24 });
+          
+            ds.bind("remove", function(event) {
+              // We will now have an event with two deltas!
+              console.log(event.deltas);
+              console.log("New Dataset Length", ds.length);
+            });
+          
+            console.log("Pre Remove Dataset Length", ds.length);
+            ds.remove(function(row) {
+              return (row.one === 10);
+            });
+          });</textarea></div>
+        </p>
+        <h3>Custom Events</h3>
+        <p>
+          You can trigger your own custom events on dataset by just calling <code>trigger</code> when needed like so:
+          <pre>ds.trigger("myCustomEvent", arguments...);</pre>
+        </p>
+      </section>
+      <section class='normal' id='sorting'>
+        <h2>
+          <a>
+            Sorting
+            
+          </a>
+        </h2>
+        <p>
+          All data modifications should happen through the following <code>add</code>, <code>remove</code> and <code>update</code> methods.
+        </p>
+        <h3>Adding a row:</h3>
+        <p>
+          To add a row to your dataset, use the <code>add</code> method.
+          <pre>ds.add(rowObject, options);</pre>
+          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          var ds = new Miso.Dataset({
+            data : [
+              { one : 12,  two : 40,  three : 40 }
+            ]
+          }).fetch({
+            success : function() {
+              console.log("Row Count Before Add", this.length);
+              
+              this.add({
+                one : 100,
+                two : 100,
+                three : 100
+              });
+          
+              console.log("Row Count After Add", this.length);
+            }
+          });</textarea></div>
+        </p>
+        <p>
+          Adding a row will trigger the following events in this order:
+          <ul>
+            <li><code>add</code></li>
+            <li><code>change</code></li>
+          </ul>
+          Pass <code>{ silent : true }</code> as the optional <code>options</code> parametere to suppress events.
+        </p>
+        <h3>Removing a Row:</h3>
+        <p>
+          To remove a row from your dataset, use the <code>remove</code> method. There are two ways to remove rows:
+          <ul>
+            <li>
+              <b>By providing a row id:</b>
+              <pre>ds.remove(rowId, options);</pre>
+              <i>Note the row id is the unique <code>_id</code> identifier each row has.</i>
+            </li>
+            <li>
+              <b>By providing a filter function:</b>
+              <pre>ds.remove(rowFilterFunction, options);</pre>
+              For example:
+              <pre>&#x000A;// remove all rows where the population is > 1000&#x000A;ds.remove(function(row) {&#x000A;  return (row.population > 1000);&#x000A;});</pre>
+              All rows that pass the filter function will be removed.
+            </li>
+          </ul>
+        </p>
+        <p>
+          Either remove call will trigger the following events in this order:
+          <ul>
+            <li>
+              <code>remove</code>
+            </li>
+            <li>
+              <code>change</code>
+            </li>
+          </ul>
+          Pass <code>{ silent : true }</code> as the optional <code>options</code> parametere to suppress events.
+        </p>
+        <h3>Updating Rows:</h3>
+        <p>
+          To update a row, pass the <code>)id</code> of the row along with the changed attributes like so:
+          <pre>ds.update(rowId, changedAttributes, options);</pre>
+          For example:
+          <pre>&#x000A;ds.update(rowId, {&#x000A;  col1 : newVal, col2 : newVal ...&#x000A;});</pre>
+        </p>
+        <p>
+          A call to <code>update</code> will trigger the following events in this order:
+          <ul>
+            <li>
+              <code>update</code>
+            </li>
+            <li>
+              <code>change</code>
+            </li>
+          </ul>
+          Pass <code>{ silent : true }</code> as the optional <code>options</code> parametere to suppress events.
+        </p>
+      </section>
+      <section class='normal' id='selection'>
+        <h2>
+          <a>
+            Selection
+            
+          </a>
+        </h2>
+        <p>
+          Dataset makes it easy to select sections of your columns and rows based on either static or function based criteria. Creating a selection will return a subset of your data that will function and be queriable in the same way your original dataset is. We call this subset a <code>View</code>. A view is almost identical a dataset except it is <b>immutable</b>(you can continue selecting subsets but you can't modify the data.)
+        </p>
+        <h3>Columns:</h3>
+        <p>
+          You can create a subset containing only some of the original columns from your dataset like so:
+        </p>
+        <pre>&#x000A;ds.columns(["one", "two"]);</pre>
+        <b>Note</b> selecting a single column this way will create a new dataset-like interface. If you're trying to just get a reference to a specific column in your dataset, just call <code>ds.column("one");</code>
+        <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+        // initialize a new dataset
+        var ds = new Miso.Dataset({
+          data: { columns : [ 
+            { name : "one",   data : [10, 2, 3, 14, 3, 4] },
+            { name : "two",   data : [4,  5, 6, 1,  1, 1] },
+            { name : "three", data : [7,  8, 9, 1,  1, 1] } 
+          ] },
+          strict: true
+        });
+        
+        _.when(ds.fetch()).then(function(){
+          var subset = ds.columns(["one", "two"]);
+          
+          console.log(subset.columnNames());
+        });</textarea></div>
+        <h3>Rows:</h3>
+        <p>
+          A more likely selection is a subset of rows that matches a particular criteria. You can select a row subset like so:
+          <pre>ds.rows(filter);</pre>
+        </p>
+        <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+        // initialize a new dataset
+        var ds = new Miso.Dataset({
+          data: { columns : [ 
+            { name : "one",   data : [10, 2, 3, 14, 3, 4] },
+            { name : "two",   data : [4,  5, 6, 1,  1, 1] },
+            { name : "three", data : [7,  8, 9, 1,  1, 1] } 
+          ] },
+          strict: true
+        });
+        
+        _.when(ds.fetch()).then(function(){
+          // create a subset of rows where the values in
+          // column one are divisible by 2.
+          var subset = ds.rows(function(row) {
+            return (row.one % 2 === 0);
+          });
+          
+          console.log("Subset length", subset.length);
+          console.log(subset.column("one").data);
+          console.log(subset.column("two").data);
+          console.log(subset.column("three").data);
+        });</textarea></div>
+        <h3>Syncing:</h3>
+        <p>
+          If you enabled syncing on your dataset by setting <code>{ sync : true }</code> during instantiation, your views will automatically update to reflect changes in your data. For example:
+          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          // initialize a new dataset
+          var ds = new Miso.Dataset({
+            data: { columns : [ 
+              { name : "one",   data : [10, 2, 3, 14, 3, 4] },
+              { name : "two",   data : [4,  5, 6, 1,  1, 1] },
+              { name : "three", data : [7,  8, 9, 1,  1, 1] } 
+            ] },
+            strict: true,
+            sync : true
+          }), subset;
+          
+          _.when(ds.fetch()).then(function(){
+            // create a subset of rows where the values in
+            // column one are divisible by 2.
+            subset = ds.rows(function(row) {
+              return (row.one % 2 === 0);
+            });
+            
+            // bind to the _subset_ add event. 
+            subset.bind("add", function(event) {
+              console.log(event);
+              console.log(this.column("one").data);
+              console.log(this.column("two").data);
+              console.log(this.column("three").data);
+            });
+          
+            // now add a row to the original dataset that still
+            // passes the filter. Watch it propagate to the view!
+            ds.add({
+              one : 100, two : 100, three : 100
+            });
+          
+            // try to add a row that doesn't pass the filter.
+            // This row will NOT be added to the subset and the
+            // subset add event won't trigger.
+            ds.add({
+              one : 101, two : 100, three : 100
+            });
+          
+          });</textarea></div>
+        </p>
+      </section>
+      <section class='normal' id='computed-values'>
+        <h2>
+          <a>
+            Computed Values
+            
+          </a>
+        </h2>
+        <p>
+          A pretty common requirement is to actually compute some basic statistics about your data.Most of the time those calculations happen on all the values in a specific column or a collection of columns, which is part of why we arrange our data in a column-wise manner. We call a computation that results in a single value a <code>Miso.Product</code>.
+        </p>
+        <p>
+          There are several default computations built in:
+        </p>
+        <h3>Max:</h3>
+        <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+        // initialize a new dataset
+        var ds = new Miso.Dataset({
+          data: { columns : [ 
+            { name : "one",   data : [10, 2, 3, 14, 3, 4] },
+            { name : "two",   data : [40,  5, 6, 1,  1, 1] },
+            { name : "three", data : [400,  5, 6, 1,  1, 1] }
+          ] },
+          strict: true
+        });
+        
+        _.when(ds.fetch()).then(function(){  
+          console.log("Max of one", ds.max("one"));
+          console.log("Max of two", ds.max("two"));
+          console.log("Max of one & two", ds.max(["one", "two"]));
+          console.log("Max of all", ds.max());
+        });</textarea></div>
+        <p>
+          <b>Note</b> that the <code>max</code> can be computed on numeric columns but also time columns!
+          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          // initialize a new dataset
+          var ds = new Miso.Dataset({
+            data: { columns : [ 
+              { name : "one",   data : [10, 2, 3] },
+              { name : "date",  data : ["2011 01 01", "2012 03 05", "2001 02 01"]}
+            ] },
+          
+            columns : [
+              { name : "date", type : "time", format : "YYYY MM DD" }
+            ],
+            strict: true
+          });
+          
+          _.when(ds.fetch()).then(function(){  
+            console.log("Max of one",  ds.max("one"));
+            console.log("Max of date", ds.max("date").format("DD/MM/YYYY"));
+          });</textarea></div>
+        </p>
+        <h3>Min:</h3>
+        <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+        // initialize a new dataset
+        var ds = new Miso.Dataset({
+          data: { columns : [ 
+            { name : "one",   data : [10, 2, 3, 14, 3, 4] },
+            { name : "two",   data : [40,  5, 6, 1,  1, 1] },
+            { name : "three", data : [400,  5, 6, 1,  -1, 1] }
+          ] },
+          strict: true
+        });
+        
+        _.when(ds.fetch()).then(function(){  
+          console.log("min of one", ds.min("one"));
+          console.log("min of two", ds.min("two"));
+          console.log("min of one & two", ds.min(["one", "two"]));
+          console.log("min of all", ds.min());
+        });</textarea></div>
+        <h3>Sum:</h3>
+        <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+        // initialize a new dataset
+        var ds = new Miso.Dataset({
+          data: { columns : [ 
+            { name : "one",   data : [10, 2, 3, 14, 3, 4] },
+            { name : "two",   data : [40,  5, 6, 1,  1, 1] },
+            { name : "three", data : [400,  5, 6, 1,  -1, 1] }
+          ] },
+          strict: true
+        });
+        
+        _.when(ds.fetch()).then(function(){  
+          console.log("sum of one", ds.sum("one"));
+          console.log("sum of two", ds.sum("two"));
+          console.log("sum of one & two", ds.sum(["one", "two"]));
+          console.log("sum of all", ds.sum());
+        });</textarea></div>
+        <p>
+          <b>Note</b> you can't add up dates, so don't try that one.
+        </p>
+        <h3>Mean:</h3>
+        <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+        // initialize a new dataset
+        var ds = new Miso.Dataset({
+          data: { columns : [ 
+            { name : "one",   data : [10, 2, 3] },
+            { name : "date",  data : ["2011 01 01", "2012 03 05", "2001 02 01"]}
+          ] },
+        
+          columns : [
+            { name : "date", type : "time", format : "YYYY MM DD" }
+          ],
+          strict: true
+        });
+        
+        _.when(ds.fetch()).then(function(){  
+          console.log("mean of one",  ds.mean("one"));
+          console.log("mean of date", ds.mean("date").format("DD/MM/YYYY"));
+        });</textarea></div>
+        <h3>Syncing:</h3>
+        <p>
+          If you have enabled syncing on your dataset by setting <code>{ sync : true }</code> during your dataset initialization, you can also subscribe to changes in your computed product.
+        </p>
+        <p>
+          A big change to note here is that if you plan to subscribe to a specific computation, it is no longer a simple result (like a number or a date.) It now becomse a <code>Miso.Product</code> object that you can retrieve the value from like so:
+          <pre>ds.max(["one", "two"]).val();</pre>
+        </p>
+        <p>
+          For example:
+          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          // initialize a new dataset
+          var ds = new Miso.Dataset({
+            data: { columns : [ 
+              { name : "one", data : [10, 2, 3] },
+              { name : "two", data : [1, 20, 3] }
+            ] },
+            sync : true,
+            strict: true
+          });
+          
+          _.when(ds.fetch()).then(function(){  
+          
+            var max = ds.max();
+            console.log("Max of all",  max.val());
+            max.bind("change", function(event) {
+              console.log("New Value", max.val());
+            });
+          
+            ds.add({
+              one : 100, two : 100
+            });
+          });</textarea></div>
+        </p>
+        <h3>Adding your own:</h3>
+        <p>
+          If you want to add your own computations to your dataset, take a look at <code>src/products.js</code> for some examples (like <code>max</code> and <code>min</code>.)
+        </p>
+        <p>
+          For example, if we wanted to implement a product that returned a random value from the dataset, you could do it like so:
+          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          // initialize a new dataset
+          var ds = new Miso.Dataset({
+            data: { columns : [ 
+              { name : "one", data : [10, 2, 3] },
+              { name : "two", data : [1, 20, 3] }
+            ] },
+            strict: true
+          });
+          
+          Miso.Dataset.prototype.random = function(columnNames) {
+            
+            // find all the columns in question
+            var columns = [];
+            _.each(columnNames, function(name) {
+              columns.push(this.column(name));
+            }, this);
+          
+            return this._calculated(columns, function(columns) {
+              
+              // return a function that when re-run over a set of
+              // columns can recompute the value we're looking for
+              return function() {
+          
+                // assemble all the data 
+                // values into a single array temporarily
+                var values = [];
+                _.each(columns, function(column) {
+                  values.push(column.data);
+                }, this);
+          
+                // flatten the values
+                values = _.flatten(values);
+          
+                // get a random value from the total array of values
+                // we gathered.
+                return values[Math.floor(Math.random() * values.length)];
+              }
+            }(columns));
+          };
+          
+          ds.fetch({
+            success : function() {
+              console.log(this.random(["one", "two"]));    
+            }
+          });</textarea></div>
+          <b>Note</b> that this form will also support an actual subscribable product if your dataset is syncable.
+        </p>
+      </section>
+      <section class='normal' id='derived-datasets'>
+        <h2>
+          <a>
+            Derived Datasets
+            
+          </a>
+        </h2>
+        <p>
+          Another pretty common operation is to transform the dataset into another dataset according
+          to a method of some kind, such as grouping rows according to some criteria. When a dataset
+          undergoes a transoformation like that we call it a derivative. There are currently only two
+          basic derivatives available in Dataset with the plan to add more as they are needed: groupBy
+          and movingAverage.
+        </p>
+        <h3>GroupBy</h3>
+        <p>
+          A groupBy operation involves splitting the data into groups based on a specific column,
+          applying a function to the rows in each group and combining the results into a single dataset.
+        </p>
+        <p>
+          For example, when grouping the following dataset by the "state" column:
+          <table>
+            <tr>
+              <th>state</th>
+              <th>value</th>
+            </tr>
+            <tr>
+              <td>MA</td>
+              <td>130000</td>
+            </tr>
+            <tr>
+              <td>MA</td>
+              <td>420</td>
+            </tr>
+            <tr>
+              <td>AZ</td>
+              <td>2900</td>
+            </tr>
+            <tr>
+              <td>AZ</td>
+              <td>4</td>
+            </tr>
+          </table>
+        </p>
+        <p>
+          The result of the call:
+          <pre>ds.groupBy("state", ["value"]);</pre>
+          <table>
+            <tr>
+              <th>state</th>
+              <th>value</th>
+            </tr>
+            <tr>
+              <td>MA</td>
+              <td>130420</td>
+            </tr>
+            <tr>
+              <td>AZ</td>
+              <td>2904</td>
+            </tr>
+          </table>
+        </p>
+        <p>
+          By default the groupBy will sum up the values in the rows, but you can pass any method as an options argument like so:
+          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          var ds = new Miso.Dataset({
+            data : {
+              columns : [
+                { 
+                  name : "state",
+                  type : "string",
+                  data : ["AZ", "AZ", "AZ", "MA", "MA", "MA"]
+                },
+                {
+                  name : "count",
+                  type : "number",
+                  data : [1,2,3,4,5,6]
+                },
+                {
+                  name : "anothercount",
+                  type : "number", 
+                  data : [10,20,30,40,50,60]
+                }
+              ]
+            },
+            strict: true
+          });
+          
+          _.when(ds.fetch()).then(function() {
+            var gb = ds.groupBy("state", ["count", "anothercount"], {
+              // multiply all values
+              method : function(array) {
+                return _.reduce(array, function(memo, num){ 
+                  return memo * num; 
+                }, 1);
+              }
+            });
+          
+            console.log(gb.column("state").data);
+            console.log(gb.column("count").data);
+            console.log(gb.column("anothercount").data);
+          });</textarea></div>
+        </p>
+        <h3>Moving Average</h3>
+        <p>
+          A moving average of size N is a new sequence that is computed by taking the mean (or any other method) of the subsequences of N terms. For example, taking the moving average with a window size of 3 of the following dataset:
+          <table>
+            <tr>
+              <th>key</th>
+              <th>value</th>
+            </tr>
+            <tr>
+              <td>A</td>
+              <td>130000</td>
+            </tr>
+            <tr>
+              <td>B</td>
+              <td>420</td>
+            </tr>
+            <tr>
+              <td>C</td>
+              <td>1000</td>
+            </tr>
+            <tr>
+              <td>D</td>
+              <td>200</td>
+            </tr>
+            <tr>
+              <td>E</td>
+              <td>2900</td>
+            </tr>
+            <tr>
+              <td>F</td>
+              <td>4</td>
+            </tr>
+          </table>
+        </p>
+        <p>
+          Like so:
+          <pre>ds.movingAverage("value");</pre>
+          Will result in the following table:
+          <table>
+            <tr>
+              <th>key</th>
+              <th>value</th>
+              <th>(explanation - NOT IN TABLE)</th>
+            </tr>
+            <tr>
+              <td>C</td>
+              <td>43806</td>
+              <td>(130000 + 420 + 1000)/3</td>
+            </tr>
+            <tr>
+              <td>D</td>
+              <td>540</td>
+              <td>(420 + 1000 + 200)/3</td>
+            </tr>
+            <tr>
+              <td>E</td>
+              <td>1366</td>
+              <td>(1000 + 200 + 2900)/3</td>
+            </tr>
+            <tr>
+              <td>F</td>
+              <td>1034</td>
+              <td>(200 + 2900 + 4)/3</td>
+            </tr>
+          </table>
+        </p>
+        <p>
+          Note that you can also specify multiple columns like so:
+          <pre>ds.movingAverage(["A", "B", "C"]);</pre>
+          And an alternate method like so:
+          <pre>ds.movingAverage(["A", "B", "C"], { method : _.sum });</pre>
+        </p>
+        <h3>Syncing Behavior</h3>
+        <p>
+          If you are creating a derived dataset from a dataset that is syncable, you can
+          subscribe to derived dataset's<code>change</code> event.
+        </p>
+        <p>
+          Because of the inherent nature of a derived dataset, even the smallest change in your original data can cause many changes in your derived dataset. At the moment, those changes are not encompased in a set of deltas. Instead, the derived dataset gets recomputed. This is an expensive operation, but it reduces the code complexity substantially. We are open to discussing a better way of handling this situation, but for now, this works.
+        </p>
+      </section>
+      <nav>
+        <ul>
+          <li>
+            <a href='/dataset'>
+              Basics
+            </a>
+          </li>
+          <li>
+            <a href='/dataset/examples'>
+              Examples
+            </a>
+          </li>
+          <li>
+            <a href='/dataset/docs'>
+              Docs
+            </a>
+            <ul>
+              <li>
+                <a href='#creating-a-dataset'>
+                  Creating a Dataset
+                </a>
+              </li>
+              <li>
+                <a href='#fetching-data'>
+                  Fetching Data
+                </a>
+              </li>
+              <li>
+                <a href='#data-types'>
+                  Data Types
+                </a>
+              </li>
+              <li>
+                <a href='#accessing-data'>
+                  Accessing Data
+                </a>
+              </li>
+              <li>
+                <a href='#events'>
+                  Events
+                </a>
+              </li>
+              <li>
+                <a href='#sorting'>
+                  Sorting
+                </a>
+              </li>
+              <li>
+                <a href='#selection'>
+                  Selection
+                </a>
+              </li>
+              <li>
+                <a href='#computed-values'>
+                  Computed Values
+                </a>
+              </li>
+              <li>
+                <a href='#derived-datasets'>
+                  Derived Datasets
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href='/dataset/api'>
+              API Ref
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </article>
+    <footer>
+      <div class='container'>
+        <section>
+          <h2>
+            A joint project between
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/profile/guardian-interactive-department'>
+              <img alt="Guardian" src="/images/guardian.png"/>
+            </a>
+            <a href='http://www.bocoup.com'>
+              <img alt="Bob" src="/images/bob.png"/>
+            </a>
+          </div>
+        </section>
+        <section>
+          <h2>
+            With sponsorship from
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/development'>
+              <img alt="Global dev" src="/images/global-dev.png"/>
+            </a>
+            <a href='http://www.gatesfoundation.org/'>
+              <img alt="Gates" src="/images/gates.png"/>
+            </a>
+          </div>
+        </section>
+      </div>
+    </footer>
+    <script src='/js/jquery.min.js'></script>
+    <script src='/js/miso.ds.deps.js'></script>
+    <script src='/js/bootstrap/transition.js'></script>
+    <script src='/js/bootstrap/collapse.js'></script>
+    <script src='/js/codemirror.js'></script>
+    <script src='/js/main.js'></script>
+    <script src='/js/nav.js'></script>
+  </body>
+</html>

@@ -13,13 +13,976 @@
     <meta content='The Miso Project' name='name' />
     <meta content='width=device-width' name='viewport' />
     <title>
-      
+      The Miso Project :: Dataset :: API Reference
     </title>
     <link href='/stylesheets/screen.css' rel='stylesheet' />
     <link href='/stylesheets/codemirror.css' rel='stylesheet' />
   </head>
   <body>
+    
     <article class='dataset'>
+      <section class='topper'>
+        <a href='/dataset'>
+          <img alt="Dataset" class="logo" src="/images/dataset.png"/>
+        </a>
+      </section>
+      <section class='normal' id='misodataset'>
+        <h2>
+          <a>
+            Miso.Dataset
+            
+          </a>
+        </h2>
+        <p>
+          A <code>Miso.Dataset</code> also extends from <code>Miso.DataView</code>. All the methods available on a dataview will also be available on the dataset.
+        </p>
+        <div class="api"><pre>new Miso.Dataset(options)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>options</span> - <span class='desc'>Optional arguments</span><ul><li><span class='param'>url</span> - <span class='desc'>A url to a location containing your data.</span></li><li><span class='param'>sync</span> - <span class='desc'>Set to true to be able to bind to dataset changes. False by default.</span></li><li><span class='param'>jsonp</span> - <span class='desc'>When fetching a url, set to true if call is jsonp request.</span></li><li><span class='param'>delimiter</span> - <span class='desc'>If the data is delimited, set to the string that represents the delimiter.</span></li><li><span class='param'>string</span> - <span class='desc'>Set to true if data is in the internal dataset format.</span></li><li><span class='param'>extract</span> - <span class='desc'>Optional passthrough function for the data before it goes into the parser to extract the actual row containing values from a potentially larger set of data.</span></li><li><span class='param'>ready</span> - <span class='desc'>Callback function that will be called once data is fetched. Will be called before success callback on fetch.</span></li><li><span class='param'>columns</span> - <span class='desc'>A way to manually override column type detection. Expects an array of objects of the following structure: <code>{ name : 'columnname', type: 'columntype', ... (additional params required for type here.)}</code> </span></li><li><span class='param'>comparator</span> - <span class='desc'>A function to sort the data by. It will be sorted on fetch and on any successive addition.</span></li><li><span class='param'>deferred</span> - <span class='desc'>A way to provide your own deferred object. It needs to follow the standard deferred signatures.</span></li><li><span class='param'>importer</span> - <span class='desc'>The classname of any importer (passes through auto detection based on parameters. For example: <code>Miso.Importers.Polling</code>.</span></li><li><span class='param'>parser</span> - <span class='desc'>The classname of any parser (passes through auto detection based on parameters. For example: <code>Miso.Parsers.Delimited</code>.</span></li><li><span class='param'>resetOnFetch</span> - <span class='desc'>set to true if any subsequent fetches after first one should overwrite the current data.</span></li><li><span class='param'>uniqueAgainst</span> - <span class='desc'>Set to a column name to check for duplication on subsequent fetches.</span></li><li><span class='param'>interval</span> - <span class='desc'>Polling interval. Set to any value in milliseconds to enable polling on a url.</span></li></ul></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>Miso.Dataset</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Dataset Constructor
+                  </div>
+                </div>
+        <h3>Miso.Dataset Instance Methods</h3>
+        In this section, <code>ds</code> will be considered an instance of <code>Miso.Dataset</code>.
+        <div class="api"><pre>ds.fetch(options)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>options</span> - <span class='desc'>Optional Arguments</span><ul><li><span class='param'>success</span> - <span class='desc'>Success callback to be called when data is fetched. Context is the dataset.</span></li><li><span class='param'>error</span> - <span class='desc'>Error callback to be called when data fetching failed.. Context is the dataset.</span></li></ul></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>Deferred</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Fetches the data and populates the dataset. Even when importing local objects from a var, this needs to be called.
+                  </div>
+                </div>
+        <div class="api"><pre>ds.apply(data)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>data</span> - <span class='desc'>Data to be applied (added or replaceing) to the dataset in whatever format the parser expects</span></li></div>
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Applies the data to the dataset. It can add it blindly, replace all existing or add only unique rows based on a column. This is called in fetch and most likely will never need to be called.
+                  </div>
+                </div>
+        <div class="api"><pre>ds.addColumn(column)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>column</span> - <span class='desc'>Column options</span><ul><li><span class='param'>name</span> - <span class='desc'>Column name</span></li><li><span class='param'>type</span> - <span class='desc'>Column type (string name of type)</span></li><li><span class='param'>format</span> - <span class='desc'>Optiona. Only set if time type. The moment.js format describing the input dates.</span></li><li><span class='param'>id</span> - <span class='desc'>Optional. Sets a custom column _id. We assign one by default.</span></li><li><span class='param'>data</span> - <span class='desc'>Optional. A set of data. By default, set to an empty array.</span></li></ul></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>Miso.Column</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Creates a new column and adds it to the dataset.
+                  </div>
+                </div>
+        <div class="api"><pre>ds.addColumns(columns)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>columns</span> - <span class='desc'>Array of column objects</span></li></div>
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Adds all columns. See <code>ds.addColumn(column)</code> for specification of properties.
+                  </div>
+                </div>
+        <div class="api"><pre>ds.add(row, options)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>row</span> - <span class='desc'>Object representing a new row</span></li><li><span class='param'>options</span> - <span class='desc'>Optional Arguments</span><ul><li><span class='param'>silent</span> - <span class='desc'>Set to true to disable event firing</span></li></ul></li></div>
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Adds a row to the dataset. This will fire <code>add</code> and <code>change</code> events on a syncable dataset.
+                  </div>
+                </div>
+        <div class="api"><pre>ds.remove(filter, options)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>filter</span> - <span class='desc'>Can be one of two things: A row id, or a filter function that takes a row and returns true if that row should be removed or false otherwise.</span></li><li><span class='param'>options</span> - <span class='desc'>Optional Arguments</span><ul><li><span class='param'>silent</span> - <span class='desc'>Set to true to disable event firing</span></li></ul></li></div>
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Removes a row from a dataset. This will fire <code>remove</code> and <code>change</code> events on a syncable dataset.
+                  </div>
+                </div>
+        <div class="api"><pre>ds.update(filter, newProperties, options)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>filter</span> - <span class='desc'>Can be one of two things: A row id, or a filter function that takes a row and returns true if that row should be updated or false otherwise.</span></li><li><span class='param'>newProperties</span> - <span class='desc'>An object representing the values that are changing.</span></li><li><span class='param'>options</span> - <span class='desc'>Optional Arguments</span><ul><li><span class='param'>silent</span> - <span class='desc'>Set to true to disable event firing</span></li></ul></li></div>
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Updates one or more rows in a dataset. This will fire <code>update</code> and <code>change</code> events on a syncable dataset.
+                  </div>
+                </div>
+        <div class="api"><pre>ds.reset()</pre>
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Resets the dataset by removing all the data from the coluns. Fires a <code>reset</code> event.
+                  </div>
+                </div>
+      </section>
+      <section class='normal' id='misocolumn'>
+        <h2>
+          <a>
+            Miso.Column
+            
+          </a>
+        </h2>
+        <div class="api"><pre>new Miso.Column(options)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>options</span> - <span class='desc'>Column options</span><ul><li><span class='param'>name</span> - <span class='desc'>Column name</span></li><li><span class='param'>type</span> - <span class='desc'>Column type (string name of type)</span></li><li><span class='param'>format</span> - <span class='desc'>Optional. Only set if time type. The moment.js format describing the input dates.</span></li><li><span class='param'>id</span> - <span class='desc'>Optional. Sets a custom column _id. We assign one by default.</span></li><li><span class='param'>data</span> - <span class='desc'>Optional. A set of data. By default, set to an empty array.</span></li></ul></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>Miso.Column</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Creates a new column. Doesn't attach it to the dataset by default.
+                  </div>
+                </div>
+        <h3>Miso.Column Instance Methods</h3>
+        In the following section, we shall assume that <code>col</code> references a column that was retrieved from the dataset.
+        <div class="api"><pre>col.toNumeric(value, index)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>value</span> - <span class='desc'>The value to convert to a numeric representation.</span></li><li><span class='param'>index</span> - <span class='desc'>The position of the value wherever it is it came from.</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>number</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    A passthrough method that simply returns the numeric value of any input (in or outside the column) by passing it through the <code>Miso.types.*.numeric</code> methods.
+                  </div>
+                </div>
+        <div class="api"><pre>col.numericAt(index)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>index</span> - <span class='desc'>The position of the value in the data of the column.</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>number</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    A passthrough method that simply returns the numeric value a value in the data of the column by passing it through the <code>Miso.types.*.numeric</code> methods.
+                  </div>
+                </div>
+        <div class="api"><pre>col.coerce()</pre>
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Coerces all the data in the column's data array to the appropriate type.
+                  </div>
+                </div>
+      </section>
+      <section class='normal' id='misodataview'>
+        <h2>
+          <a>
+            Miso.DataView
+            
+          </a>
+        </h2>
+        <p>
+          A <code>Miso.DataView</code> is an immutable version of dataset. It is the result of selecting a subset of the data using the <code>ds.where</code> call. If the dataset is syncing, this view will be updated when changes take place in the original dataset.
+        </p>
+        <p>
+          A <code>Miso.Dataset</code> also extends from <code>Miso.DataView</code>. All the methods available on a dataview will also be available on the dataset.
+        </p>
+        <div class="api"><pre>new Miso.View(options)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>options</span> - <span class='desc'>DataView options</span><ul><li><span class='param'>parent</span> - <span class='desc'>The parent dataset</span></li><li><span class='param'>filter</span> - <span class='desc'>Filtering instructions:</span><ul><li><span class='param'>columns</span> - <span class='desc'>Optional. A filter for columns. A single or multiple column names.</span></li><li><span class='param'>rows</span> - <span class='desc'>Optional. A filter for rows. A rowId or a filter function that takes in a row and returns true if it fits the criteria or not.</span></li></ul></li></ul></li></div>
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Creates a subset of the original dataset. This view behaves like a regular dataset in that it can be further queried, but it cannot be modified. This should not be manually created as it is created for you when you call the appropriate methods in Miso.Dataset.
+                  </div>
+                </div>
+        <h3>Miso.DataView Instance Methods</h3>
+        <p>
+          Assume that <code>ds</code> is a reference to an instantiated dataView or dataset.
+        </p>
+        <div class="api"><pre>ds.columnNames()</pre>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>Array</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Returns an array containing the names of the available columns
+                  </div>
+                </div>
+        <div class="api"><pre>ds.column(name)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>name</span> - <span class='desc'>The name of the column to retrieve</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>Miso.Column</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Returns a column reference
+                  </div>
+                </div>
+        <div class="api"><pre>ds.columns(name)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>columnsArray</span> - <span class='desc'>The name of the columns to fetch</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>Miso.DataView</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Returns a dataview object that is made up from the columns requested only.
+                  </div>
+                </div>
+        <div class="api"><pre>ds.hasColumn(name)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>name</span> - <span class='desc'>The name of the column to check the existance of</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>boolean</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Returns true if a column by that name exists. False otherwise.
+                  </div>
+                </div>
+        <div class="api"><pre>ds.each(iterator, context)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>iterator</span> - <span class='desc'>A function with the following signature: <code>function(row, index, datasetOrView)</code></span></li><li><span class='param'>context</span> - <span class='desc'>Optional. The context to be bound to the iterator.</span></li></div>
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Allows one to iterate over all the rows in the dataset and operate on them. Note that the row object passed to the iterator is not a direct reference to the data. As such, any modifications to it will not actually impact the dataset.
+                  </div>
+                </div>
+        <div class="api"><pre>ds.eachColumn(iterator, context)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>iterator</span> - <span class='desc'>A function with the following signature: <code>function(columnName, columnObject, index)</code></span></li><li><span class='param'>context</span> - <span class='desc'>Optional. The context to be bound to the iterator.</span></li></div>
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Allows one to iterate over all the columns in the dataset and operate on them. Note these are direct references to the columns. Do not directly modify the data this way.
+                  </div>
+                </div>
+        <div class="api"><pre>ds.rowByPosition(i)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>i</span> - <span class='desc'>The index of the row to be fetched.</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>Object</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Fetches a row object at a specified position. Note that the returned row object is NOT a direct reference to the data and thus any changes to it will not alter the original data.
+                  </div>
+                </div>
+        <div class="api"><pre>ds.rowById(id)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>id</span> - <span class='desc'>The _id of the row to be fetched.</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>Object</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Fetches a row object with a specific <code>_id</code>. Note that the returned row object is NOT a direct reference to the data and thus any changes to it will not alter the original data.
+                  </div>
+                </div>
+        <div class="api"><pre>ds.rows(filter)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>filter</span> - <span class='desc'>An array of rowIds or a filter function that takes in a row and returns true if that row should return, false otherwise.</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>Miso.DataView</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Returns a subset of rows
+                  </div>
+                </div>
+        <div class="api"><pre>ds.sort(options)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>options</span> - <span class='desc'>Optional arguments</span><ul><li><span class='param'>silent</span> - <span class='desc'>Set to true to prevent triggering of sort event</span></li></ul></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>Miso.DataView</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Sorts the dataset according to the comparator. One must be defined on the dataset during instantiation or later.
+                  </div>
+                </div>
+        <div class="api"><pre>ds.where(filter, options)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>filter</span> - <span class='desc'>Filtering instructions:</span><ul><li><span class='param'>columns</span> - <span class='desc'>Optional. A filter for columns. A single or multiple column names.</span></li><li><span class='param'>rows</span> - <span class='desc'>Optional. A filter for rows. A rowId or a filter function that takes in a row and returns true if it fits the criteria or not.</span></li></ul></li><li><span class='param'>options</span> - <span class='desc'>Additional options to passthrough to the view.</span></li></div>
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Allows you to select a subset of data based on a set of filters
+                  </div>
+                </div>
+      </section>
+      <section class='normal' id='misotypes'>
+        <h2>
+          <a>
+            Miso.Types
+            
+          </a>
+        </h2>
+        <div class="api"><pre>Miso.typeof(value, options)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>value</span> - <span class='desc'>The value who we are checking the type of</span></li><li><span class='param'>options</span> - <span class='desc'>Optional arguments</span><ul><li><span class='param'>format</span> - <span class='desc'>For <code>time</code> type only. Describes the format.</span></li></ul></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>Miso.Type</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Checks the type of a value
+                  </div>
+                </div>
+        <h3>Miso.types</h3>
+        <p>
+          All data type objects follow the following format:
+          <div class="codeblock"><textarea class="code"  runnable="false" showConsole="false" >
+          // all types live under the Miso.types namespace.
+          // Beware of overriding existing types. 
+          // Nothing is stopping you from doing that.
+          Miso.types.yourCustomType = {
+          
+            // provide a name for your type.
+            name : 'yourCustomTypeName',
+          
+            // provide a method to test any incoming value for whether it
+            // fits within the scope of this type.
+            // return true if value is of this type. False otherwise.
+            test : function(value) {},
+          
+            // provide a way to compare two values. This will be used by
+            // the sorting algorithm, so be sure to return the correct values:
+            // -1 if value1 < value2
+            // 1 if value1 > value2
+            // 0 if they are equal.
+            compare : function(value1, value2) {},
+          
+            // how would this value be represented numerically? For example
+            // the numeric value of a timestamp is its unix millisecond value.
+            // This is used by the various computational functions of columns
+            // (like min/max.)
+            numeric : function(value) {},
+          
+            // convert an incoming value into this specific type.
+            // should return the value as would be represented by this type.
+            coerce : function(value) {}
+          };</textarea></div>
+        </p>
+        <h3>Miso.types.mixed</h3>
+        <div class="api"><pre>Miso.types.mixed.name</pre>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>"mixed"</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Name of <code>mixed</code> value type
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.mixed.coerce(v)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to coerce to a mixed type. Passthrough.</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>Same type as incoming value</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Coerces a value to a <code>mixed</code> value type
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.mixed.test(v)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to test. Always true.</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>true</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Tests whether a value is of <code>mixed</code> type
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.mixed.compare(s1, s2)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>s1</span> - <span class='desc'>First value</span></li><li><span class='param'>s2</span> - <span class='desc'>Second value</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>-1 | 1 | 0</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Compares two <code>mixed</code> type values
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.mixed.numeric(v)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to return the numeric representation of</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>number</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Returns the numeric representation of a <code>mixed</code> value. If it's an integer, then it coerces it. Otherwise it returns 0.
+                  </div>
+                </div>
+        <h3>Miso.types.string</h3>
+        <div class="api"><pre>Miso.types.string.name</pre>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>"string"</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Name of <code>string</code> value type
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.string.coerce(v)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to coerce to a string type.</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>String</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Coerces a value to a <code>string</code> value type
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.string.test(v)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to test</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>true | false</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Tests whether a value is of <code>string</code> type
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.string.compare(s1, s2)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>s1</span> - <span class='desc'>First value</span></li><li><span class='param'>s2</span> - <span class='desc'>Second value</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>-1 | 1 | 0</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Compares two <code>string</code> type values
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.string.numeric(value, index)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>value</span> - <span class='desc'>Value to return the numeric representation of</span></li><li><span class='param'>index</span> - <span class='desc'>Optional index position that will be returned as the representation of this string numerically (useful for categorical mappings to a scale.)</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>number</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Returns the numeric representation of a <code>string</code> value which is the provided index.
+                  </div>
+                </div>
+        <h3>Miso.types.boolean</h3>
+        <div class="api"><pre>Miso.types.boolean.name</pre>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>"boolean"</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Name of <code>boolean</code> value type
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.boolean.coerce(v)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>value</span> - <span class='desc'>Value to coerce to a boolean type.</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>true or false</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Coerces a value to a <code>boolean</code> value type
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.boolean.test(v)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to test.</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>true | false</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Tests whether a value is of <code>boolean</code> type
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.boolean.compare(s1, s2)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>s1</span> - <span class='desc'>First value</span></li><li><span class='param'>s2</span> - <span class='desc'>Second value</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>-1 | 1 | 0</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Compares two <code>boolean</code> type values
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.boolean.numeric(v)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to return the boolean representation of</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>1 | 0</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Returns the numeric representation of a <code>boolean</code> value. 1 for true, 0 for false.
+                  </div>
+                </div>
+        <h3>Miso.types.number</h3>
+        <div class="api"><pre>Miso.types.number.name</pre>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>"number"</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Name of <code>number</code> value type
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.number.coerce(v)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>value</span> - <span class='desc'>Value to coerce to a number type.</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>number</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Coerces a value to a <code>number</code> value type
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.number.test(v)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to test.</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>true | false</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Tests whether a value is of <code>number</code> type
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.number.compare(s1, s2)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>s1</span> - <span class='desc'>First value</span></li><li><span class='param'>s2</span> - <span class='desc'>Second value</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>-1 | 1 | 0</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Compares two <code>number</code> type values
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.number.numeric(v)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to return the number representation of</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>number</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Returns the numeric representation of a <code>number</code> value. Returns value coerced.
+                  </div>
+                </div>
+        <h3>Miso.types.time</h3>
+        <p>
+          The <code>time</code> type utilizes the fantastic moment.js library.
+        </p>
+        <div class="api"><pre>Miso.types.time.name</pre>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>"time"</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Name of <code>time</code> value type
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.time.coerce(v, options)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to coerce to a time type.</span></li><li><span class='param'>options</span> - <span class='desc'>Optional arguments</span><ul><li><span class='param'>format</span> - <span class='desc'>Time format. See Moment.js documentation.</span></li></ul></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>moment</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Coerces a value to a <code>time</code> value type
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.time.test(v)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to test.</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>true | false</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Tests whether a value is of <code>time</code> type
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.time.compare(s1, s2)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>s1</span> - <span class='desc'>First value</span></li><li><span class='param'>s2</span> - <span class='desc'>Second value</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>-1 | 1 | 0</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Compares two <code>time</code> type values
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.types.time.numeric(v)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to return the number representation of</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>number</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Returns the numeric representation of a <code>time</code> value. Returns <code>valueOf()</code> moment object.
+                  </div>
+                </div>
+      </section>
+      <section class='normal' id='misoimporter'>
+        <h2>
+          <a>
+            Miso.Importer
+            
+          </a>
+        </h2>
+        <p>
+          To specify a custom importer during dataset instantiation, just set the <code>importer</code> property to the class name of the importer you want. Some importers require custom properties. This section will document the properties you can set that will either cause this importer to be selected or will be required by it to continue.
+        </p>
+        <p>
+          Built in Importers include:
+          <ul>
+            <li><code>Miso.Importers.Local</code></li>
+            <li><code>Miso.Importers.Remote</code></li>
+            <li><code>Miso.Importers.Polling</code></li>
+            <li><code>Miso.Importers.GoogleSpreadsheet</code></li>
+          </ul>
+        </p>
+        <p>
+          An importer must implement the following interface:
+          <div class="codeblock"><textarea class="code"  runnable="false" showConsole="false" >
+          Miso.Importers.MyCustomImporter = function(options) {
+            // save your options
+            // overwrite 'extract' function if you want.
+          };
+          
+          _.extend(Miso.Importers.MyCustomImporter.prototype, {
+            
+            // options should handle a success and error callback.
+            // fetch should return a deferred object if this is a remote
+            // call.
+            // Either one of the callbacks should call the success callback
+            // with the returned data.
+            fetch : function(options) {}
+          });</textarea></div>
+        </p>
+        <h3>Miso.Importer.Local</h3>
+        <p>
+          Required dataset instantiation property:
+          <ul>
+            <li>
+              data - The local var object containing the data.
+            </li>
+          </ul>
+        </p>
+        <h3>Miso.Importer.Remote</h3>
+        <p>
+          Required dataset instantiation property:
+          <ul>
+            <li>
+              url - The url from which to fetch the data.
+            </li>
+            <li>
+              jsonp - If the url in question is a jsonp request, set this to true.
+            </li>
+          </ul>
+        </p>
+        <h3>Miso.Importer.Polling</h3>
+        <p>
+          <ul>
+            <li>
+              interval - The interval at which each request will be made. This is an approximate interval because until a request returns, the next request will not queue up.
+            </li>
+          </ul>
+        </p>
+        <div class="api"><pre>importer.stop()</pre>
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Stops the polling.
+                  </div>
+                </div>
+        <div class="api"><pre>importer.start()</pre>
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Restarts the polling.
+                  </div>
+                </div>
+        <h3>Miso.Importer.GoogleSpreadsheet</h3>
+        <p>
+          <ul>
+            <li>
+              key - The google spreadsheet key
+            </li>
+            <li>
+              worksheet - (optional) An optional worksheet id. Default is always first worksheet.
+            </li>
+          </ul>
+        </p>
+      </section>
+      <section class='normal' id='misoparser'>
+        <h2>
+          <a>
+            Miso.Parser
+            
+          </a>
+        </h2>
+        <p>
+          To specify a custom parser, during dataset instantiation set the <code>parser</code> property to the class name of the parser you want. Some parsers require some custom properties. This section will document the properties you can set that will either cause this parser to be selected or will be required by it to continue.
+        </p>
+        <p>
+          Built in Parsers include:
+          <ul>
+            <li><code>Miso.Parsers.Strict</code></li>
+            <li><code>Miso.Parsers.Object</code></li>
+            <li><code>Miso.Parsers.Delimited</code></li>
+            <li><code>Miso.Parsers.GoogleSpreadsheet</code></li>
+          </ul>
+        </p>
+        <p>
+          The base <code>Miso.Parser</code> structure is:
+          <div class="codeblock"><textarea class="code"  runnable="false" showConsole="false" >
+          // Pass in the data you'll be parsing
+          // Take in any potential options you might need for your parser
+          Miso.Parsers.MyCustomParser = function(data, options) {};
+          
+          _.extend(Miso.Parsers.MyCustomParser.prototype, {
+            parse : function(data) {
+          
+              // parse the data here
+              // ...
+          
+              // return the following structure:
+              return {
+                columns : arrayOfColumnNames,
+                data    : objectWithColumnToDataArrayMapping
+              };
+            }
+          });</textarea></div>
+        </p>
+        <h3>Miso.Parsers.Strict</h3>
+        <p>
+          <ul>
+            <li>strict - Set this to true when initializing a dataset to indicate the default internal format should be used.</li>
+          </ul>
+        </p>
+        <h3>Miso.Parsers.Object</h3>
+        <p>
+          The object parser expects an array of objects where each key is the column name.
+        </p>
+        <p>
+          <ul>
+            <li>data - The local var containing the data to be parsed.</li>
+          </ul>
+        </p>
+        <h3>Miso.Parsers.Delimited</h3>
+        <p>
+          <ul>
+            <li>delimited - The string that is delimiting the column values.</li>
+          </ul>
+        </p>
+      </section>
+      <section class='normal' id='misoevents'>
+        <h2>
+          <a>
+            Miso.Events
+            
+          </a>
+        </h2>
+        <h3>Miso.Event</h3>
+        <div class="api"><pre>new Miso.Event(deltas)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>deltas</span> - <span class='desc'>A collection of deltas representing this event. This could be a mix of events that are not necessarily of the same operation</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>Miso.Event</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Creates a new event
+                  </div>
+                </div>
+        <h3>Miso.Event Static API</h3>
+        <div class="api"><pre>Miso.Event.isRemove(delta)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>delta</span> - <span class='desc'>An object representing a delta. May have the following properties:</span><ul><li><span class='param'>changed</span> - <span class='desc'>The attributes that changed in this delta.</span></li><li><span class='param'>old</span> - <span class='desc'>The old values of the attributes that changed.</span></li></ul></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>true | false</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Returns true if the delta is indicating a row was removed.
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.Event.isUpdate(delta)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>delta</span> - <span class='desc'>An object representing a delta. May have the following properties:</span><ul><li><span class='param'>changed</span> - <span class='desc'>The attributes that changed in this delta.</span></li><li><span class='param'>old</span> - <span class='desc'>The old values of the attributes that changed.</span></li></ul></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>true | false</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Returns true if the delta is indicating a row was updated.
+                  </div>
+                </div>
+        <div class="api"><pre>Miso.Event.isAdd(delta)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>delta</span> - <span class='desc'>An object representing a delta. May have the following properties:</span><ul><li><span class='param'>changed</span> - <span class='desc'>The attributes that changed in this delta.</span></li><li><span class='param'>old</span> - <span class='desc'>The old values of the attributes that changed.</span></li></ul></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>true | false</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Returns true if the delta is indicating a row was added.
+                  </div>
+                </div>
+        <h3>Miso.Event Instance API</h3>
+        <p>Assume that <code>e</code> references an instance of a <code>Miso.Event</code>.</p>
+        <div class="api"><pre>e.affectedColumns()</pre>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>Array of Column Names</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Returns a list of column names that were affected in the event.
+                  </div>
+                </div>
+        <h3>Miso.Events</h3>
+        <p>
+          A mixin module that adds syncing behavior methods to a dataset. Adds ability to bind, unbind and trigger events. Assume that <code>ds</code> is an instance that has syncable behavior.
+        </p>
+        <p>
+          The events mixin was taken from <a href="http://documentcloud.github.com/backbone/">Backbone.js</a>.
+        </p>
+        <div class="api"><pre>ds.bind(ev, callback, context)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>ev</span> - <span class='desc'>The name of the event to bind to</span></li><li><span class='param'>callback</span> - <span class='desc'>The callback to call when the event is triggered</span></li><li><span class='param'>context</span> - <span class='desc'>The context to bind the callback to.</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>The object being subscribed to.</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Binds a callback to the dataset in question.
+                  </div>
+                </div>
+        <div class="api"><pre>ds.unbind(ev, callback)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>ev</span> - <span class='desc'>The name of the event to remove the bindings of.</span></li><li><span class='param'>callback</span> - <span class='desc'>Optional. If specified, only the specific callback for this event will be removed. Otherwise all callbacks for the event name will be removed.</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>The object being unbound from.</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Unbinds a particular event and/or a callback.
+                  </div>
+                </div>
+        <div class="api"><pre>ds.trigger(eventName, *args)</pre>
+                <div class="params">
+                <h4>Params:</h4><li><span class='param'>eventName</span> - <span class='desc'>The name of the event that should be triggered.</span></li><li><span class='param'>*args</span> - <span class='desc'>Any additional arguments that should be passed to the callback.</span></li></div>
+                  <div class="returns">
+                    <h4>Returns:</h4>
+                    <code>The object being unbound from.</code>
+                  </div>
+              
+                  <div class='about'>
+                    <h4>Description:</h4>
+                    Triggers a specific event on a dataset. Passes the arguments to it.
+                  </div>
+                </div>
+      </section>
       <nav>
         <ul>
           <li>
@@ -28,1026 +991,59 @@
             </a>
           </li>
           <li>
-            <a>
+            <a href='/dataset/examples'>
               Examples
             </a>
           </li>
           <li>
-            <a>
+            <a href='/dataset/docs'>
               Docs
+            </a>
+          </li>
+          <li>
+            <a href='/dataset/api'>
+              API Ref
             </a>
             <ul>
               <li>
-                <a href='#dataset'>Miso.Dataset</a>
+                <a href='#misodataset'>
+                  Miso.Dataset
+                </a>
               </li>
               <li>
-                <a href='#column'>Miso.Column</a>
+                <a href='#misocolumn'>
+                  Miso.Column
+                </a>
               </li>
               <li>
-                <a href='#dataview'>Miso.DataView</a>
+                <a href='#misodataview'>
+                  Miso.DataView
+                </a>
               </li>
               <li>
-                <a href='#types'>Miso.types</a>
+                <a href='#misotypes'>
+                  Miso.Types
+                </a>
               </li>
               <li>
-                <a href='#importers'>Miso.Importers</a>
+                <a href='#misoimporter'>
+                  Miso.Importer
+                </a>
               </li>
               <li>
-                <a href='#parsers'>Miso.Parsers</a>
+                <a href='#misoparser'>
+                  Miso.Parser
+                </a>
               </li>
               <li>
-                <a href='#events'>Miso.Events</a>
-              </li>
-              <li>
-                <a href='#product'>Miso.Product</a>
-              </li>
-              <li>
-                <a href='#derived'>Miso.Derived</a>
-              </li>
-              <li>
-                <a href='#builder'>Miso.Builder</a>
+                <a href='#misoevents'>
+                  Miso.Events
+                </a>
               </li>
             </ul>
-          </li>
-          <li>
-            <a>
-              API Reference
-            </a>
-          </li>
-          <li>
-            <a>
-              Github
-            </a>
           </li>
         </ul>
       </nav>
-      <section class='topper'>
-        <img alt="Dataset" class="logo" src="/images/dataset.png"/>
-      </section>
-      <section>
-        <h2>
-          <a href='#dataset' id='create'>
-            Miso.Dataset
-          </a>
-        </h2>
-        <div class='content'>
-          <p>
-            A <code>Miso.Dataset</code> also extends from <code>Miso.DataView</code>. All the methods available on a dataview will also be available on the dataset.
-          </p>
-          <div class="api"><pre>new Miso.Dataset(options)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>options</span> - <span class='desc'>Optional arguments</span><ul><li><span class='param'>url</span> - <span class='desc'>A url to a location containing your data.</span></li><li><span class='param'>sync</span> - <span class='desc'>Set to true to be able to bind to dataset changes. False by default.</span></li><li><span class='param'>jsonp</span> - <span class='desc'>When fetching a url, set to true if call is jsonp request.</span></li><li><span class='param'>delimiter</span> - <span class='desc'>If the data is delimited, set to the string that represents the delimiter.</span></li><li><span class='param'>string</span> - <span class='desc'>Set to true if data is in the internal dataset format.</span></li><li><span class='param'>extract</span> - <span class='desc'>Optional passthrough function for the data before it goes into the parser to extract the actual row containing values from a potentially larger set of data.</span></li><li><span class='param'>ready</span> - <span class='desc'>Callback function that will be called once data is fetched. Will be called before success callback on fetch.</span></li><li><span class='param'>columns</span> - <span class='desc'>A way to manually override column type detection. Expects an array of objects of the following structure: <code>{ name : 'columnname', type: 'columntype', ... (additional params required for type here.)}</code> </span></li><li><span class='param'>comparator</span> - <span class='desc'>A function to sort the data by. It will be sorted on fetch and on any successive addition.</span></li><li><span class='param'>deferred</span> - <span class='desc'>A way to provide your own deferred object. It needs to follow the standard deferred signatures.</span></li><li><span class='param'>importer</span> - <span class='desc'>The classname of any importer (passes through auto detection based on parameters. For example: <code>Miso.Importers.Polling</code>.</span></li><li><span class='param'>parser</span> - <span class='desc'>The classname of any parser (passes through auto detection based on parameters. For example: <code>Miso.Parsers.Delimited</code>.</span></li><li><span class='param'>resetOnFetch</span> - <span class='desc'>set to true if any subsequent fetches after first one should overwrite the current data.</span></li><li><span class='param'>uniqueAgainst</span> - <span class='desc'>Set to a column name to check for duplication on subsequent fetches.</span></li><li><span class='param'>interval</span> - <span class='desc'>Polling interval. Set to any value in milliseconds to enable polling on a url.</span></li></ul></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>Miso.Dataset</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Dataset Constructor
-                    </div>
-                  </div>
-          <h3>Miso.Dataset Instance Methods</h3>
-          In this section, <code>ds</code> will be considered an instance of <code>Miso.Dataset</code>.
-          <div class="api"><pre>ds.fetch(options)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>options</span> - <span class='desc'>Optional Arguments</span><ul><li><span class='param'>success</span> - <span class='desc'>Success callback to be called when data is fetched. Context is the dataset.</span></li><li><span class='param'>error</span> - <span class='desc'>Error callback to be called when data fetching failed.. Context is the dataset.</span></li></ul></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>Deferred</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Fetches the data and populates the dataset. Even when importing local objects from a var, this needs to be called.
-                    </div>
-                  </div>
-          <div class="api"><pre>ds.apply(data)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>data</span> - <span class='desc'>Data to be applied (added or replaceing) to the dataset in whatever format the parser expects</span></li></div>
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Applies the data to the dataset. It can add it blindly, replace all existing or add only unique rows based on a column. This is called in fetch and most likely will never need to be called.
-                    </div>
-                  </div>
-          <div class="api"><pre>ds.addColumn(column)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>column</span> - <span class='desc'>Column options</span><ul><li><span class='param'>name</span> - <span class='desc'>Column name</span></li><li><span class='param'>type</span> - <span class='desc'>Column type (string name of type)</span></li><li><span class='param'>format</span> - <span class='desc'>Optiona. Only set if time type. The moment.js format describing the input dates.</span></li><li><span class='param'>id</span> - <span class='desc'>Optional. Sets a custom column _id. We assign one by default.</span></li><li><span class='param'>data</span> - <span class='desc'>Optional. A set of data. By default, set to an empty array.</span></li></ul></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>Miso.Column</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Creates a new column and adds it to the dataset.
-                    </div>
-                  </div>
-          <div class="api"><pre>ds.addColumns(columns)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>columns</span> - <span class='desc'>Array of column objects</span></li></div>
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Adds all columns. See <code>ds.addColumn(column)</code> for specification of properties.
-                    </div>
-                  </div>
-          <div class="api"><pre>ds.add(row, options)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>row</span> - <span class='desc'>Object representing a new row</span></li><li><span class='param'>options</span> - <span class='desc'>Optional Arguments</span><ul><li><span class='param'>silent</span> - <span class='desc'>Set to true to disable event firing</span></li></ul></li></div>
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Adds a row to the dataset. This will fire <code>add</code> and <code>change</code> events on a syncable dataset.
-                    </div>
-                  </div>
-          <div class="api"><pre>ds.remove(filter, options)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>filter</span> - <span class='desc'>Can be one of two things: A row id, or a filter function that takes a row and returns true if that row should be removed or false otherwise.</span></li><li><span class='param'>options</span> - <span class='desc'>Optional Arguments</span><ul><li><span class='param'>silent</span> - <span class='desc'>Set to true to disable event firing</span></li></ul></li></div>
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Removes a row from a dataset. This will fire <code>remove</code> and <code>change</code> events on a syncable dataset.
-                    </div>
-                  </div>
-          <div class="api"><pre>ds.update(filter, newProperties, options)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>filter</span> - <span class='desc'>Can be one of two things: A row id, or a filter function that takes a row and returns true if that row should be updated or false otherwise.</span></li><li><span class='param'>newProperties</span> - <span class='desc'>An object representing the values that are changing.</span></li><li><span class='param'>options</span> - <span class='desc'>Optional Arguments</span><ul><li><span class='param'>silent</span> - <span class='desc'>Set to true to disable event firing</span></li></ul></li></div>
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Updates one or more rows in a dataset. This will fire <code>update</code> and <code>change</code> events on a syncable dataset.
-                    </div>
-                  </div>
-          <div class="api"><pre>ds.reset()</pre>
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Resets the dataset by removing all the data from the coluns. Fires a <code>reset</code> event.
-                    </div>
-                  </div>
-        </div>
-      </section>
-      <section>
-        <h2>
-          <a href='#column' id='column'>
-            Miso.Column
-          </a>
-        </h2>
-        <div class='content'>
-          <div class="api"><pre>new Miso.Column(options)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>options</span> - <span class='desc'>Column options</span><ul><li><span class='param'>name</span> - <span class='desc'>Column name</span></li><li><span class='param'>type</span> - <span class='desc'>Column type (string name of type)</span></li><li><span class='param'>format</span> - <span class='desc'>Optional. Only set if time type. The moment.js format describing the input dates.</span></li><li><span class='param'>id</span> - <span class='desc'>Optional. Sets a custom column _id. We assign one by default.</span></li><li><span class='param'>data</span> - <span class='desc'>Optional. A set of data. By default, set to an empty array.</span></li></ul></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>Miso.Column</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Creates a new column. Doesn't attach it to the dataset by default.
-                    </div>
-                  </div>
-          <h3>Miso.Column Instance Methods</h3>
-          In the following section, we shall assume that <code>col</code> references a column that was retrieved from the dataset.
-          <div class="api"><pre>col.toNumeric(value, index)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>value</span> - <span class='desc'>The value to convert to a numeric representation.</span></li><li><span class='param'>index</span> - <span class='desc'>The position of the value wherever it is it came from.</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>number</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      A passthrough method that simply returns the numeric value of any input (in or outside the column) by passing it through the <code>Miso.types.*.numeric</code> methods.
-                    </div>
-                  </div>
-          <div class="api"><pre>col.numericAt(index)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>index</span> - <span class='desc'>The position of the value in the data of the column.</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>number</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      A passthrough method that simply returns the numeric value a value in the data of the column by passing it through the <code>Miso.types.*.numeric</code> methods.
-                    </div>
-                  </div>
-          <div class="api"><pre>col.coerce()</pre>
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Coerces all the data in the column's data array to the appropriate type.
-                    </div>
-                  </div>
-        </div>
-      </section>
-      <section>
-        <h2>
-          <a href='#dataview' id='dataview'>
-            Miso.DataView
-          </a>
-        </h2>
-        <div class='content'>
-          <p>
-            A <code>Miso.DataView</code> is an immutable version of dataset. It is the result of selecting a subset of the data using the <code>ds.where</code> call. If the dataset is syncing, this view will be updated when changes take place in the original dataset.
-          </p>
-          <p>
-            A <code>Miso.Dataset</code> also extends from <code>Miso.DataView</code>. All the methods available on a dataview will also be available on the dataset.
-          </p>
-          <div class="api"><pre>new Miso.View(options)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>options</span> - <span class='desc'>DataView options</span><ul><li><span class='param'>parent</span> - <span class='desc'>The parent dataset</span></li><li><span class='param'>filter</span> - <span class='desc'>Filtering instructions:</span><ul><li><span class='param'>columns</span> - <span class='desc'>Optional. A filter for columns. A single or multiple column names.</span></li><li><span class='param'>rows</span> - <span class='desc'>Optional. A filter for rows. A rowId or a filter function that takes in a row and returns true if it fits the criteria or not.</span></li></ul></li></ul></li></div>
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Creates a subset of the original dataset. This view behaves like a regular dataset in that it can be further queried, but it cannot be modified. This should not be manually created as it is created for you when you call the appropriate methods in Miso.Dataset.
-                    </div>
-                  </div>
-          <h3>Miso.DataView Instance Methods</h3>
-          <p>
-            Assume that <code>ds</code> is a reference to an instantiated dataView or dataset.
-          </p>
-          <div class="api"><pre>ds.columnNames()</pre>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>Array</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Returns an array containing the names of the available columns
-                    </div>
-                  </div>
-          <div class="api"><pre>ds.column(name)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>name</span> - <span class='desc'>The name of the column to retrieve</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>Miso.Column</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Returns a column reference
-                    </div>
-                  </div>
-          <div class="api"><pre>ds.columns(name)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>columnsArray</span> - <span class='desc'>The name of the columns to fetch</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>Miso.DataView</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Returns a dataview object that is made up from the columns requested only.
-                    </div>
-                  </div>
-          <div class="api"><pre>ds.hasColumn(name)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>name</span> - <span class='desc'>The name of the column to check the existance of</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>boolean</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Returns true if a column by that name exists. False otherwise.
-                    </div>
-                  </div>
-          <div class="api"><pre>ds.each(iterator, context)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>iterator</span> - <span class='desc'>A function with the following signature: <code>function(row, index, datasetOrView)</code></span></li><li><span class='param'>context</span> - <span class='desc'>Optional. The context to be bound to the iterator.</span></li></div>
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Allows one to iterate over all the rows in the dataset and operate on them. Note that the row object passed to the iterator is not a direct reference to the data. As such, any modifications to it will not actually impact the dataset.
-                    </div>
-                  </div>
-          <div class="api"><pre>ds.eachColumn(iterator, context)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>iterator</span> - <span class='desc'>A function with the following signature: <code>function(columnName, columnObject, index)</code></span></li><li><span class='param'>context</span> - <span class='desc'>Optional. The context to be bound to the iterator.</span></li></div>
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Allows one to iterate over all the columns in the dataset and operate on them. Note these are direct references to the columns. Do not directly modify the data this way.
-                    </div>
-                  </div>
-          <div class="api"><pre>ds.rowByPosition(i)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>i</span> - <span class='desc'>The index of the row to be fetched.</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>Object</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Fetches a row object at a specified position. Note that the returned row object is NOT a direct reference to the data and thus any changes to it will not alter the original data.
-                    </div>
-                  </div>
-          <div class="api"><pre>ds.rowById(id)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>id</span> - <span class='desc'>The _id of the row to be fetched.</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>Object</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Fetches a row object with a specific <code>_id</code>. Note that the returned row object is NOT a direct reference to the data and thus any changes to it will not alter the original data.
-                    </div>
-                  </div>
-          <div class="api"><pre>ds.rows(filter)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>filter</span> - <span class='desc'>An array of rowIds or a filter function that takes in a row and returns true if that row should return, false otherwise.</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>Miso.DataView</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Returns a subset of rows
-                    </div>
-                  </div>
-          <div class="api"><pre>ds.sort(options)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>options</span> - <span class='desc'>Optional arguments</span><ul><li><span class='param'>silent</span> - <span class='desc'>Set to true to prevent triggering of sort event</span></li></ul></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>Miso.DataView</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Sorts the dataset according to the comparator. One must be defined on the dataset during instantiation or later.
-                    </div>
-                  </div>
-          <div class="api"><pre>ds.where(filter, options)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>filter</span> - <span class='desc'>Filtering instructions:</span><ul><li><span class='param'>columns</span> - <span class='desc'>Optional. A filter for columns. A single or multiple column names.</span></li><li><span class='param'>rows</span> - <span class='desc'>Optional. A filter for rows. A rowId or a filter function that takes in a row and returns true if it fits the criteria or not.</span></li></ul></li><li><span class='param'>options</span> - <span class='desc'>Additional options to passthrough to the view.</span></li></div>
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Allows you to select a subset of data based on a set of filters
-                    </div>
-                  </div>
-        </div>
-      </section>
-      <section>
-        <h2>
-          <a href='#types' id='types'>
-            Miso.types
-          </a>
-        </h2>
-        <div class='content'>
-          <div class="api"><pre>Miso.typeof(value, options)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>value</span> - <span class='desc'>The value who we are checking the type of</span></li><li><span class='param'>options</span> - <span class='desc'>Optional arguments</span><ul><li><span class='param'>format</span> - <span class='desc'>For <code>time</code> type only. Describes the format.</span></li></ul></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>Miso.Type</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Checks the type of a value
-                    </div>
-                  </div>
-          <h3>Miso.types</h3>
-          <p>
-            All data type objects follow the following format:
-            <div class="codeblock"><textarea class="code"  runnable="false" showConsole="false" >
-            // all types live under the Miso.types namespace.
-            // Beware of overriding existing types. 
-            // Nothing is stopping you from doing that.
-            Miso.types.yourCustomType = {
-            
-              // provide a name for your type.
-              name : 'yourCustomTypeName',
-            
-              // provide a method to test any incoming value for whether it
-              // fits within the scope of this type.
-              // return true if value is of this type. False otherwise.
-              test : function(value) {},
-            
-              // provide a way to compare two values. This will be used by
-              // the sorting algorithm, so be sure to return the correct values:
-              // -1 if value1 < value2
-              // 1 if value1 > value2
-              // 0 if they are equal.
-              compare : function(value1, value2) {},
-            
-              // how would this value be represented numerically? For example
-              // the numeric value of a timestamp is its unix millisecond value.
-              // This is used by the various computational functions of columns
-              // (like min/max.)
-              numeric : function(value) {},
-            
-              // convert an incoming value into this specific type.
-              // should return the value as would be represented by this type.
-              coerce : function(value) {}
-            };</textarea></div>
-          </p>
-          <h3>Miso.types.mixed</h3>
-          <div class="api"><pre>Miso.types.mixed.name</pre>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>"mixed"</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Name of <code>mixed</code> value type
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.mixed.coerce(v)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to coerce to a mixed type. Passthrough.</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>Same type as incoming value</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Coerces a value to a <code>mixed</code> value type
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.mixed.test(v)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to test. Always true.</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>true</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Tests whether a value is of <code>mixed</code> type
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.mixed.compare(s1, s2)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>s1</span> - <span class='desc'>First value</span></li><li><span class='param'>s2</span> - <span class='desc'>Second value</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>-1 | 1 | 0</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Compares two <code>mixed</code> type values
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.mixed.numeric(v)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to return the numeric representation of</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>number</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Returns the numeric representation of a <code>mixed</code> value. If it's an integer, then it coerces it. Otherwise it returns 0.
-                    </div>
-                  </div>
-          <h3>Miso.types.string</h3>
-          <div class="api"><pre>Miso.types.string.name</pre>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>"string"</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Name of <code>string</code> value type
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.string.coerce(v)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to coerce to a string type.</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>String</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Coerces a value to a <code>string</code> value type
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.string.test(v)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to test</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>true | false</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Tests whether a value is of <code>string</code> type
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.string.compare(s1, s2)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>s1</span> - <span class='desc'>First value</span></li><li><span class='param'>s2</span> - <span class='desc'>Second value</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>-1 | 1 | 0</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Compares two <code>string</code> type values
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.string.numeric(value, index)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>value</span> - <span class='desc'>Value to return the numeric representation of</span></li><li><span class='param'>index</span> - <span class='desc'>Optional index position that will be returned as the representation of this string numerically (useful for categorical mappings to a scale.)</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>number</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Returns the numeric representation of a <code>string</code> value which is the provided index.
-                    </div>
-                  </div>
-          <h3>Miso.types.boolean</h3>
-          <div class="api"><pre>Miso.types.boolean.name</pre>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>"boolean"</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Name of <code>boolean</code> value type
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.boolean.coerce(v)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>value</span> - <span class='desc'>Value to coerce to a boolean type.</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>true or false</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Coerces a value to a <code>boolean</code> value type
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.boolean.test(v)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to test.</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>true | false</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Tests whether a value is of <code>boolean</code> type
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.boolean.compare(s1, s2)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>s1</span> - <span class='desc'>First value</span></li><li><span class='param'>s2</span> - <span class='desc'>Second value</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>-1 | 1 | 0</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Compares two <code>boolean</code> type values
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.boolean.numeric(v)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to return the boolean representation of</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>1 | 0</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Returns the numeric representation of a <code>boolean</code> value. 1 for true, 0 for false.
-                    </div>
-                  </div>
-          <h3>Miso.types.number</h3>
-          <div class="api"><pre>Miso.types.number.name</pre>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>"number"</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Name of <code>number</code> value type
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.number.coerce(v)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>value</span> - <span class='desc'>Value to coerce to a number type.</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>number</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Coerces a value to a <code>number</code> value type
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.number.test(v)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to test.</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>true | false</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Tests whether a value is of <code>number</code> type
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.number.compare(s1, s2)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>s1</span> - <span class='desc'>First value</span></li><li><span class='param'>s2</span> - <span class='desc'>Second value</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>-1 | 1 | 0</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Compares two <code>number</code> type values
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.number.numeric(v)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to return the number representation of</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>number</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Returns the numeric representation of a <code>number</code> value. Returns value coerced.
-                    </div>
-                  </div>
-          <h3>Miso.types.time</h3>
-          <p>
-            The <code>time</code> type utilizes the fantastic moment.js library.
-          </p>
-          <div class="api"><pre>Miso.types.time.name</pre>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>"time"</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Name of <code>time</code> value type
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.time.coerce(v, options)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to coerce to a time type.</span></li><li><span class='param'>options</span> - <span class='desc'>Optional arguments</span><ul><li><span class='param'>format</span> - <span class='desc'>Time format. See Moment.js documentation.</span></li></ul></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>moment</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Coerces a value to a <code>time</code> value type
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.time.test(v)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to test.</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>true | false</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Tests whether a value is of <code>time</code> type
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.time.compare(s1, s2)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>s1</span> - <span class='desc'>First value</span></li><li><span class='param'>s2</span> - <span class='desc'>Second value</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>-1 | 1 | 0</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Compares two <code>time</code> type values
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.types.time.numeric(v)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>v</span> - <span class='desc'>Value to return the number representation of</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>number</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Returns the numeric representation of a <code>time</code> value. Returns <code>valueOf()</code> moment object.
-                    </div>
-                  </div>
-        </div>
-      </section>
-      <section>
-        <h2>
-          <a href='#importers' id='importers'>
-            Miso.Importer
-          </a>
-        </h2>
-        <div class='content'>
-          <p>
-            To specify a custom importer during dataset instantiation, just set the <code>importer</code> property to the class name of the importer you want. Some importers require custom properties. This section will document the properties you can set that will either cause this importer to be selected or will be required by it to continue.
-          </p>
-          <p>
-            Built in Importers include:
-            <ul>
-              <li><code>Miso.Importers.Local</code></li>
-              <li><code>Miso.Importers.Remote</code></li>
-              <li><code>Miso.Importers.Polling</code></li>
-              <li><code>Miso.Importers.GoogleSpreadsheet</code></li>
-            </ul>
-          </p>
-          <p>
-            An importer must implement the following interface:
-            <div class="codeblock"><textarea class="code"  runnable="false" showConsole="false" >
-            Miso.Importers.MyCustomImporter = function(options) {
-              // save your options
-              // overwrite 'extract' function if you want.
-            };
-            
-            _.extend(Miso.Importers.MyCustomImporter.prototype, {
-              
-              // options should handle a success and error callback.
-              // fetch should return a deferred object if this is a remote
-              // call.
-              // Either one of the callbacks should call the success callback
-              // with the returned data.
-              fetch : function(options) {}
-            });</textarea></div>
-          </p>
-          <h3>Miso.Importer.Local</h3>
-          <p>
-            Required dataset instantiation property:
-            <ul>
-              <li>
-                data - The local var object containing the data.
-              </li>
-            </ul>
-          </p>
-          <h3>Miso.Importer.Remote</h3>
-          <p>
-            Required dataset instantiation property:
-            <ul>
-              <li>
-                url - The url from which to fetch the data.
-              </li>
-              <li>
-                jsonp - If the url in question is a jsonp request, set this to true.
-              </li>
-            </ul>
-          </p>
-          <h3>Miso.Importer.Polling</h3>
-          <p>
-            <ul>
-              <li>
-                interval - The interval at which each request will be made. This is an approximate interval because until a request returns, the next request will not queue up.
-              </li>
-            </ul>
-          </p>
-          <div class="api"><pre>importer.stop()</pre>
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Stops the polling.
-                    </div>
-                  </div>
-          <div class="api"><pre>importer.start()</pre>
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Restarts the polling.
-                    </div>
-                  </div>
-          <h3>Miso.Importer.GoogleSpreadsheet</h3>
-          <p>
-            <ul>
-              <li>
-                key - The google spreadsheet key
-              </li>
-              <li>
-                worksheet - (optional) An optional worksheet id. Default is always first worksheet.
-              </li>
-            </ul>
-          </p>
-        </div>
-      </section>
-      <section>
-        <h2>
-          <a href='#parsers' id='parsers'>
-            Miso.Parser
-          </a>
-        </h2>
-        <div class='content'>
-          <p>
-            To specify a custom parser, during dataset instantiation set the <code>parser</code> property to the class name of the parser you want. Some parsers require some custom properties. This section will document the properties you can set that will either cause this parser to be selected or will be required by it to continue.
-          </p>
-          <p>
-            Built in Parsers include:
-            <ul>
-              <li><code>Miso.Parsers.Strict</code></li>
-              <li><code>Miso.Parsers.Object</code></li>
-              <li><code>Miso.Parsers.Delimited</code></li>
-              <li><code>Miso.Parsers.GoogleSpreadsheet</code></li>
-            </ul>
-          </p>
-          <p>
-            The base <code>Miso.Parser</code> structure is:
-            <div class="codeblock"><textarea class="code"  runnable="false" showConsole="false" >
-            // Pass in the data you'll be parsing
-            // Take in any potential options you might need for your parser
-            Miso.Parsers.MyCustomParser = function(data, options) {};
-            
-            _.extend(Miso.Parsers.MyCustomParser.prototype, {
-              parse : function(data) {
-            
-                // parse the data here
-                // ...
-            
-                // return the following structure:
-                return {
-                  columns : arrayOfColumnNames,
-                  data    : objectWithColumnToDataArrayMapping
-                };
-              }
-            });</textarea></div>
-          </p>
-          <h3>Miso.Parsers.Strict</h3>
-          <p>
-            <ul>
-              <li>strict - Set this to true when initializing a dataset to indicate the default internal format should be used.</li>
-            </ul>
-          </p>
-          <h3>Miso.Parsers.Object</h3>
-          <p>
-            The object parser expects an array of objects where each key is the column name.
-          </p>
-          <p>
-            <ul>
-              <li>data - The local var containing the data to be parsed.</li>
-            </ul>
-          </p>
-          <h3>Miso.Parsers.Delimited</h3>
-          <p>
-            <ul>
-              <li>delimited - The string that is delimiting the column values.</li>
-            </ul>
-          </p>
-        </div>
-      </section>
-      <section>
-        <h2>
-          <a href='#events' id='parsers'>
-            Miso.Events
-          </a>
-        </h2>
-        <div class='content'>
-          <h3>Miso.Event</h3>
-          <div class="api"><pre>new Miso.Event(deltas)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>deltas</span> - <span class='desc'>A collection of deltas representing this event. This could be a mix of events that are not necessarily of the same operation</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>Miso.Event</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Creates a new event
-                    </div>
-                  </div>
-          <h3>Miso.Event Static API</h3>
-          <div class="api"><pre>Miso.Event.isRemove(delta)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>delta</span> - <span class='desc'>An object representing a delta. May have the following properties:</span><ul><li><span class='param'>changed</span> - <span class='desc'>The attributes that changed in this delta.</span></li><li><span class='param'>old</span> - <span class='desc'>The old values of the attributes that changed.</span></li></ul></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>true | false</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Returns true if the delta is indicating a row was removed.
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.Event.isUpdate(delta)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>delta</span> - <span class='desc'>An object representing a delta. May have the following properties:</span><ul><li><span class='param'>changed</span> - <span class='desc'>The attributes that changed in this delta.</span></li><li><span class='param'>old</span> - <span class='desc'>The old values of the attributes that changed.</span></li></ul></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>true | false</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Returns true if the delta is indicating a row was updated.
-                    </div>
-                  </div>
-          <div class="api"><pre>Miso.Event.isAdd(delta)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>delta</span> - <span class='desc'>An object representing a delta. May have the following properties:</span><ul><li><span class='param'>changed</span> - <span class='desc'>The attributes that changed in this delta.</span></li><li><span class='param'>old</span> - <span class='desc'>The old values of the attributes that changed.</span></li></ul></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>true | false</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Returns true if the delta is indicating a row was added.
-                    </div>
-                  </div>
-          <h3>Miso.Event Instance API</h3>
-          <p>Assume that <code>e</code> references an instance of a <code>Miso.Event</code>.</p>
-          <div class="api"><pre>e.affectedColumns()</pre>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>Array of Column Names</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Returns a list of column names that were affected in the event.
-                    </div>
-                  </div>
-          <h3>Miso.Events</h3>
-          <p>
-            A mixin module that adds syncing behavior methods to a dataset. Adds ability to bind, unbind and trigger events. Assume that <code>ds</code> is an instance that has syncable behavior.
-          </p>
-          <p>
-            The events mixin was taken from <a href="http://documentcloud.github.com/backbone/">Backbone.js</a>.
-          </p>
-          <div class="api"><pre>ds.bind(ev, callback, context)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>ev</span> - <span class='desc'>The name of the event to bind to</span></li><li><span class='param'>callback</span> - <span class='desc'>The callback to call when the event is triggered</span></li><li><span class='param'>context</span> - <span class='desc'>The context to bind the callback to.</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>The object being subscribed to.</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Binds a callback to the dataset in question.
-                    </div>
-                  </div>
-          <div class="api"><pre>ds.unbind(ev, callback)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>ev</span> - <span class='desc'>The name of the event to remove the bindings of.</span></li><li><span class='param'>callback</span> - <span class='desc'>Optional. If specified, only the specific callback for this event will be removed. Otherwise all callbacks for the event name will be removed.</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>The object being unbound from.</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Unbinds a particular event and/or a callback.
-                    </div>
-                  </div>
-          <div class="api"><pre>ds.trigger(eventName, *args)</pre>
-                  <div class="params">
-                  <h4>Params:</h4><li><span class='param'>eventName</span> - <span class='desc'>The name of the event that should be triggered.</span></li><li><span class='param'>*args</span> - <span class='desc'>Any additional arguments that should be passed to the callback.</span></li></div>
-                    <div class="returns">
-                      <h4>Returns:</h4>
-                      <code>The object being unbound from.</code>
-                    </div>
-                
-                    <div class='about'>
-                      <h4>Description:</h4>
-                      Triggers a specific event on a dataset. Passes the arguments to it.
-                    </div>
-                  </div>
-        </div>
-      </section>
     </article>
     <footer>
       <div class='container'>
