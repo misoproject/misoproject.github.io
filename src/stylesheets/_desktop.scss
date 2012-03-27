@@ -13,6 +13,9 @@
       padding: 0;
       @include width(6);
     }
+    &.index nav {
+      top: 456px;
+    }
 
     section {
       @include width(9);
@@ -46,7 +49,7 @@
 
   nav {
     z-index: 1000;
-    top: 408px;
+    top: 156px;
     position: absolute;
     overflow: hidden;
     @include width( 10 );
