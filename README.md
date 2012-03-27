@@ -12,6 +12,16 @@ You need the following gems:
 * rake (0.8.7)
 * sass (3.1.6)
 * staticmatic (0.11.1)
+##Setup
+`git submodule init`
+`git submodule update`
+
+## Deploying
+`rake deploy MSG='commit name on production'`
+Message is optional
+
+To hide index.html
+`rake deploy HIDE=yes`
 
 ## Previewing
 
