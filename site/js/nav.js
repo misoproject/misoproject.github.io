@@ -46,26 +46,11 @@ $(window).load(function() {
         anchors = _.sortBy(anchors, function(a) {
           return Math.abs(a[1] - scroll + ( height / 2) );
         });
-        //I made a demo comment here
 
-        // anchors = anchors.sort(function(a, b) {
-        //   //take any that are after the 
-        //   //bottom of the page out of the running
-        //   // console.log(a[1], b[1], scroll);
-        //   var res;
-        //   if ( a[1] > bottom ) { res = 1; }
-
-        //   if ( (a[1] - scroll) < (b[1] - scroll) ) {
-        //     res = -1;
-        //   } else {
-        //     res = 1;
-        //   }
-        //   return res;
-        // });
-
-        anchors[0][2].addClass('active');
-        anchors[0][3] = true;
-
+         if ( anchors[0] !== undefined ) {
+          anchors[0][2].addClass('active');
+          anchors[0][3] = true;
+        }
         _.each(anchors, function(a, i) {
           if ( (i > 0) && (a[3] === true) ) {
             a[2].removeClass('active');
