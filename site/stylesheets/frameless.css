@@ -1,0 +1,145 @@
+/*
+Frameless			<http://framelessgrid.com/>
+by Joni Korpi 		<http://jonikorpi.com/>
+licensed under CC0	<http://creativecommons.org/publicdomain/zero/1.0/>
+ */
+/*
+Margin, padding, and border resets
+except for form elements
+ */
+/* line 71 */
+body, div,
+h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, th, td,
+article, aside, figure, footer, header, hgroup, menu, nav, section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/*
+Consistency fixes
+adopted from http://necolas.github.com/normalize.css/
+ */
+/* line 84 */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, nav, section, audio, canvas, video {
+  display: block;
+}
+
+/* line 88 */
+html {
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+/* line 94 */
+body {
+  min-height: 100%;
+  font-size: 100%;
+}
+
+/* line 96 */
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+/* line 103 */
+sup {
+  top: -0.5em;
+}
+
+/* line 104 */
+sub {
+  bottom: -0.25em;
+}
+
+/* line 106 */
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* line 112 */
+b, strong {
+  font-weight: bold;
+}
+
+/* line 113 */
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+
+/* line 115 */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 120 */
+a img, img {
+  -ms-interpolation-mode: bicubic;
+  border: 0;
+}
+
+/* line 125 */
+input, textarea, button, select {
+  margin: 0;
+  font-size: 100%;
+  line-height: normal;
+  vertical-align: baseline;
+}
+
+/* line 135 */
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+
+/* line 141 */
+input[type="checkbox"],
+input[type="radio"] {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 149 */
+textarea {
+  overflow: auto;
+}
+
+/*
+Style overrides for IE6-8
+http://jonikorpi.com/leaving-old-IE-behind/
+ */
+/*
+An easy way to zoom your entire layout in or out (as long as it's set in ems).
+Just change the media queries to activate them.
+Assuming your base font-size is 16:
+- the first one zooms out by a factor of (16-2)/16 = 0.875
+- the second one zooms in by a factor of (16+2)/16 = 1.125  
+ */
+@media screen and (max-width: 1px) {
+  /* line 171 */
+  body {
+    font-size: 0.875em;
+  }
+}
+@media screen and (max-width: 1px) {
+  /* line 177 */
+  body {
+    font-size: 1.125em;
+  }
+}

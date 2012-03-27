@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <script type="text/javascript" src="http://use.typekit.com/aow5drr.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+  <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+  <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='The Miso Project' name='description' />
+    <meta content='The Miso Project' name='name' />
+    <meta content='width=device-width' name='viewport' />
+    <title>
+      The Miso Project :: Dataset
+    </title>
+    <link href='/stylesheets/screen.css' rel='stylesheet' />
+    <link href='/stylesheets/codemirror.css' rel='stylesheet' />
+  </head>
+  <body>
+    <article class='dataset'>
+      <nav>
+        <ul>
+          <li>
+            <a>
+              Basics
+            </a>
+            <ul>
+              <li>
+                <a href='#detail'>
+                  In brief
+                </a>
+              </li>
+              <li>
+                <a href='#dependencies'>
+                  Dependencies
+                </a>
+              </li>
+              <li>
+                <a href='#download'>
+                  Download
+                </a>
+              </li>
+              <li>
+                <a href='#contributing'>
+                  Contributing
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href='/dataset/examples'>
+              Examples
+            </a>
+          </li>
+          <li>
+            <a href='/dataset/documentation'>
+              Docs
+            </a>
+          </li>
+          <li>
+            <a href='/dataset/api'>
+              API Reference
+            </a>
+          </li>
+          <li>
+            <a href='https://github.com/misoproject/dataset'>
+              Github
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <section class='intro big'>
+        <img alt="Dataset" class="logo" src="/images/dataset.png"/>
+        <div class='text'>
+          <p>
+            Dataset is a javascript library makes managing the data behind client-side visualisations easy, including realtime data. It takes care of loading, parsing, sorting, filtering and querying of datasets as well as the creation of derivative datasets.
+          </p>
+          <p>
+            Dataset is part of the
+            <a href='/'>
+              Miso Toolkit
+            </a>
+          </p>
+        </div>
+      </section>
+      <section>
+        <h2>
+          <a href='#detail' id='detail'>
+            In brief
+          </a>
+        </h2>
+        <div class='content'>
+          <p>
+            Dataset is designed to solve common problems and patterns around client-side dataset manipulation and management:
+          </p>
+          <p>
+            <ul>
+              <li>Importing data from distinct sources into a common format</li>
+              <li>Subselection of data</li>
+              <li>Computing basic products (min, max etc.)</li>
+              <li>Being able to subscribe to changes on the data</li>
+            </ul>
+          </p>
+          <p>
+            Unlike more general client-side model frameworks dataset is designed exclusively for working with matricies/tables of data. This allows dataset to provide a rich set of capabilities bit with this specific use case in mind as well as optimise for large numbers of rows in a standard format.
+          </p>
+        </div>
+      </section>
+      <section>
+        <h2>
+          <a href='#dependencies' id='dependencies'>
+            Dependencies
+          </a>
+        </h2>
+        <div class='content'>
+          <p>
+            <ul>
+              <li><a href="https://github.com/documentcloud/underscore/tags">Underscore.js 1.3.1</a></li>
+              <li><a href="https://github.com/syntagmatic/underscore.math">Underscore.math.js (unknown version)</a></li>
+              <li><a href="https://github.com/wookiehangover/underscore.Deferred">Underscore.deferred.js 0.1.2</a></li>
+              <li><a href="http://momentjs.com/">moment.js 1.4.0</a></li>
+            </ul>
+          </p>
+        </div>
+      </section>
+      <section class='download'>
+        <h2>
+          <a href='#download' id='download'>
+            Download
+          </a>
+        </h2>
+        <div class='content'>
+          <p>
+            With Dependancies:
+          </p>
+          <ul>
+            <li>
+              <span>
+                Development 0.0.1 :
+              </span>
+              <a href="https://github.com/misoproject/dataset/tree/master/dist/miso.ds.deps.js">miso.ds.deps.js</a>
+            </li>
+            <li>
+              <span>
+                Production 0.0.1 :
+              </span>
+              <a href="https://github.com/misoproject/dataset/tree/master/dist/miso.ds.deps.min.js">miso.ds.deps.min.js</a>
+            </li>
+          </ul>
+          <br />
+          <p>
+            Without Dependancies:
+          </p>
+          <ul>
+            <li>
+              <span>
+                Development 0.0.1 :
+              </span>
+              <a href="https://github.com/misoproject/dataset/tree/master/dist/miso.ds.deps.js">miso.ds.js</a>
+            </li>
+            <li>
+              <span>
+                Production 0.0.1 :
+              </span>
+              <a href="https://github.com/misoproject/dataset/tree/master/dist/miso.ds.deps.min.js">miso.ds.min.js</a>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <h2>
+          <a href='#contributing' id='contributing'>
+            Contributing
+          </a>
+        </h2>
+        <div class='content'>
+          <p>
+            <p>
+              Code on Github:
+              <br />
+              <a href="https://github.com/misoproject/dataset">github.com/misoproject/dataset</a>
+            </p>
+            <p>
+              Issues and feature requests:
+              <br />
+              <a href="https://github.com/misoproject/dataset/issues">github.com/misoproject/dataset/issues</a>
+            </p>
+          </p>
+        </div>
+      </section>
+    </article>
+    <footer>
+      <div class='container'>
+        <section>
+          <h2>
+            A joint project between
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/profile/guardian-interactive-department'>
+              <img alt="Guardian" src="/images/guardian.png"/>
+            </a>
+            <a href='http://www.bocoup.com'>
+              <img alt="Bob" src="/images/bob.png"/>
+            </a>
+          </div>
+        </section>
+        <section>
+          <h2>
+            With sponsorship from
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/development'>
+              <img alt="Global dev" src="/images/global-dev.png"/>
+            </a>
+            <a href='http://www.gatesfoundation.org/'>
+              <img alt="Gates" src="/images/gates.png"/>
+            </a>
+          </div>
+        </section>
+      </div>
+    </footer>
+    <script src='/js/jquery.min.js'></script>
+    <script src='/js/miso.ds.deps.js'></script>
+    <script src='/js/bootstrap/transition.js'></script>
+    <script src='/js/bootstrap/collapse.js'></script>
+    <script src='/js/codemirror.js'></script>
+    <script src='/js/main.js'></script>
+    <script src='/js/nav.js'></script>
+  </body>
+</html>
