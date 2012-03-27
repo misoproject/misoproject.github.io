@@ -22,7 +22,6 @@ article.dataset { @include colourise( #248940 )  }
 }
 
 @mixin sanserif {
-  font-family: "Helvetica Neue LT Pro", "Helvetica Neue", "Helvtica", san-serif;
   font-weight: bold;
 }
 
@@ -30,6 +29,9 @@ article.dataset { @include colourise( #248940 )  }
   font-family: "ff-tisa-web-pro","Georgia", serif;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  @include sanserif();
+}
 nav {
   @include bigtype();
   @include sanserif();
@@ -65,9 +67,7 @@ body article, div.container {
     border-top: 1px solid #ddd;
     h2 {
       @include sanserif();
-      @include normaltype();
       padding-top: $font-size / 2;
-      padding-bottom: $font-size;
       a { color: #000!important; }
     }
 
