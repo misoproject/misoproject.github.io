@@ -62,11 +62,9 @@
 
 
   nav {
-    z-index: 1000;
     top: 156px;
     position: absolute;
     overflow: hidden;
-    @include width( 10 );
     left: 0;
     ul {
       @include width( 2 );
