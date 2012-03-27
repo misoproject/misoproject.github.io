@@ -27,6 +27,20 @@
         @include width( 9 );
       }
 
+      div.example {
+        @include width( 4 );
+        clear: none;
+        overflow: hidden;
+        float: left;
+        padding-right: 40px;
+        padding-bottom: 40px;
+        min-height: 500px;
+      }
+
+      &.examples {
+        border-top: none;
+      }
+
       &.topper {
         @include width( 12 );
         border-top: hidden;
