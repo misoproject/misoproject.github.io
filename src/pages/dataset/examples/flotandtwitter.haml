@@ -1,6 +1,9 @@
 - @extra_scripts = capture_haml do
   %script{ :type => "text/javascript", :src => '/js/flot/excanvas.min.js'}
   %script{ :type => "text/javascript", :src => '/js/flot/jquery.flot.min.js'}
-  %script{ :type => "text/javascript", :src => '/js/flot/jquery.flot.stack.min.js'}
+  %script{ :type => "text/javascript", :src => '/js/flot/jquery.flot.pie.min.js'}
 
+%div#pieContainer{ :style => "height: 300px; width: 300px;" }
+  %div{ :style => 'padding-top: 30%; width:50%; margin: 0 auto; font-size: 1.5em' }
+    Click RUN below to see a results chart
 = toRunnableCodeBlock("dataset/examples/flotandtwitter.js")
