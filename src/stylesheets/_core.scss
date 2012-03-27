@@ -77,8 +77,6 @@ body article, div.container {
 
     li {
       list-style-type: none;
-      padding-left: 1em;
-      text-indent: -1em;
       margin-bottom: 0.5em;
     }
     li:before {
@@ -94,9 +92,9 @@ body article, div.container {
       }
     }
     .api {
-      border-top: 3px solid #222;
       margin-top: 10px;
       padding-top: 10px;
+      padding-bottom: 40px;
 
       pre {
         border: 1px solid #bbb;
