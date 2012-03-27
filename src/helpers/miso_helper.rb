@@ -87,30 +87,30 @@ module MisoHelper
   # ------
 
   # display only
-  def toDisplayCodeBlock(partial, id=nil)
+  def toDisplayCodeBlock(partial, id=nil, options={})
     codeblockify({ 
       :partial => partial, 
       :runnable => false, 
       :code => true, 
       :id => id, 
       :showConsole => false 
-    })
+    }.merge(options))
   end
   
   # runnable with console
-  def toRunnableCodeBlock(partial, id=nil)
+  def toRunnableCodeBlock(partial, id=nil, options={})
     codeblockify({ 
       :partial => partial, 
       :runnable => true, 
       :code => true, 
       :id => id, 
       :showConsole => true, 
-      :buttons => "run,reset,clear" 
-    })
+      :buttons => "run,reset,clear"
+    }.merge(options))
   end
 
   # runnable with no console
-  def toVisualCodeBlock(partial, id=nil)
+  def toVisualCodeBlock(partial, id=nil, options={})
     codeblockify({ 
       :partial => partial, 
       :runnable => true, 
@@ -118,7 +118,7 @@ module MisoHelper
       :id => id, 
       :showConsole => false, 
       :buttons => "run,reset" 
-    })
+    }.merge(options))
   end
 
   # setup script. no visible impact, but attaches to a codeblock. 
@@ -144,6 +144,7 @@ module MisoHelper
     runnable  = params[:runnable]
     id        = params[:id]      ? "id=\"#{params[:id].gsub('#','')}\"" : ""
     buttons   = params[:buttons] ? "buttons=\"#{params[:buttons]}\""    : ""
+    globals   = params[:globals] ? "globals=\"#{params[:globals]}\""    : ""
 
     full_path = File.join(Dir.pwd, 'src', 'snippets', partial.index(".js").nil? ? partial + ".js" : partial)
     puts "Making code block " + full_path
@@ -151,7 +152,7 @@ module MisoHelper
 
     if (params[:code])
       # make a code block
-      snippet = "<div class=\"codeblock\"><textarea class=\"code\" #{id} runnable=\"#{runnable}\" showConsole=\"#{params[:showConsole]}\" #{buttons}>\n"
+      snippet = "<div class=\"codeblock\"><textarea class=\"code\" #{id} #{globals} runnable=\"#{runnable}\" showConsole=\"#{params[:showConsole]}\" #{buttons}>\n"
     else
       # make a pre/post script
       snippet = "<script type='codemirror' data-selector='#{params[:selector]}'>"

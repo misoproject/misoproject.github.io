@@ -24,6 +24,7 @@
       indentWithTabs : false,
       runnable : false
     },
+
     globals : ["Miso", "_", "$"]
   };
 
@@ -192,10 +193,18 @@
                   "parent.sandbox=MSIE?this:{eval:function(s){return eval(s)}}<\/script>";
                 
                 // expose globals to iframe
-                $.each(cmconfig.globals, function(prop, val) {
+                var globals = [];
+                if ($(codeblock).attr("globals")) {
+                  globals = $(codeblock).attr("globals").split(",");
+                } else {
+                  globals = cmconfig.globals;
+                }
+
+                $.each(globals, function(prop, val) {
                   val = $.trim(val);
                   iframe[0].contentWindow[val] = window[val];
                 });
+
 
                 // write a script into the <iframe> and create the sandbox
                 frames[frames.length - 1].document.write(sandBoxMarkup);
