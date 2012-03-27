@@ -1,11 +1,7 @@
-%article.dataset
-  = partial("../partials/dataset/intro")
+- @page_title = "The Miso Project :: Dataset"
+= partial('../partials/dataset/nav_config')
 
-  %section
-    %h2 
-      %a#create{ :href => '#create' }
-        Base Example 1
-        
-    %div.content
-      = partial("../partials/examples/baseExample")
-  
+%article.dataset
+  = partial("../partials/dataset/topper")
+  = nav('Basics')
+

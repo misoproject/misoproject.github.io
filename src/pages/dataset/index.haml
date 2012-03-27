@@ -1,38 +1,10 @@
 - @page_title = "The Miso Project :: Dataset"
-%article.dataset
-  %nav
-    %ul
-      %li 
-        %a
-          Basics
-        %ul 
-          %li
-            %a{ :href => '#detail'}
-              In brief 
-          %li
-            %a{ :href => '#dependencies'}
-              Dependencies
-          %li
-            %a{ :href => '#download'}
-              Download
-          %li
-            %a{ :href => '#contributing'}
-              Contributing
-      %li
-        %a{ :href => '/dataset/examples' }
-          Examples
-      %li
-        %a{ :href => '/dataset/documentation' }
-          Docs
-      %li
-        %a{ :href => '/dataset/api' }
-          API Reference
-      %li
-        %a{ :href => 'https://github.com/misoproject/dataset' }
-          Github
+= partial('../partials/dataset/nav_config')
 
+%article.dataset
   %section.intro.big
-    =img("/images/dataset.png", { :class => 'logo' })
+    %a{ :href => '/dataset' }
+      =img("/images/dataset.png", { :class => 'logo' })
     %div.text
       %p
         Dataset is a javascript library makes managing the data behind client-side visualisations easy, including realtime data. It takes care of loading, parsing, sorting, filtering and querying of datasets as well as the creation of derivative datasets.
@@ -41,32 +13,8 @@
         %a{ :href => '/'}
           Miso Toolkit
 
-  %section
-    %h2
-      %a#detail{ :href => '#detail'} 
-        In brief
-    %div.content
-      = partial("../partials/dataset/why_dataset")
-  %section
-    %h2
-      %a#dependencies{ :href => '#dependencies'}
-        Dependencies
-    %div.content
-      = partial("../partials/dataset/dependancies")
-
-  %section.download
-    %h2
-      %a#download{ :href => '#download'}
-        Download
-    %div.content
-      = partial("../partials/dataset/downloads")
-
-
-  %section
-    %h2
-      %a#contributing{ :href => '#contributing'}
-        Contributing
-    %div.content
-      %p
-        = partial("../partials/dataset/code")
-
+  = section('In Detail', 'dataset/why_dataset')
+  = section('Dependencies', 'dataset/dependancies')
+  = section('Download', 'dataset/downloads')
+  = section('Contributing', 'dataset/code')
+  = nav('Basics')

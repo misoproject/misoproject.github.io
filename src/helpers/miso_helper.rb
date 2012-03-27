@@ -1,5 +1,28 @@
 module MisoHelper
 
+  #nav builder
+  def nav(current_section)
+    @sub_nav = [] if @sub_nav.nil?
+    @nav = [] if @nav.nil?
+
+    $stdout.puts @nav
+    partial('../partials/nav', :locals => {
+      :sections => @nav,
+      :current_section => current_section,
+      :sub => @sub_nav
+    })
+  end
+
+  #section helper
+  def section(name, partial)
+    @sub_nav = [] if @sub_nav.nil?
+    @sub_nav << name
+
+    partial('../partials/section', :locals => { 
+      :section_name => name, 
+      :tag => idify(name),
+      :section_content => '../partials/' + partial })
+  end
   # ------
   # API Generators
   # ------
@@ -109,6 +132,13 @@ module MisoHelper
   end
 
   private
+  def idify( name ) 
+    name
+      .downcase
+      .gsub(/\s/,'-')
+      .gsub(/[^A-z0-9-]+/,'')
+  end
+
   def codeblockify(params)
     partial   = params[:partial]
     runnable  = params[:runnable]
