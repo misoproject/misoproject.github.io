@@ -1,9 +1,18 @@
+- @page_title = "The Miso Project :: Dataset :: Examples"
+= partial('../partials/dataset/nav_config')
 - @extra_scripts = capture_haml do
   %script{ :type => "text/javascript", :src => '/js/flot/excanvas.min.js'}
   %script{ :type => "text/javascript", :src => '/js/flot/jquery.flot.min.js'}
   %script{ :type => "text/javascript", :src => '/js/flot/jquery.flot.pie.min.js'}
 
-%div#pieContainer{ :style => "height: 300px; width: 300px;" }
-  %div{ :style => 'padding-top: 30%; width:50%; margin: 0 auto; font-size: 1.5em' }
-    Click RUN below to see a results chart
-= toRunnableCodeBlock("dataset/examples/flotandtwitter.js")
+%article.dataset
+  = partial("../partials/dataset/topper")
+  %section.normal
+    %h2 Remote Polling Twitter & Rendering With Flot
+    %p
+      This example uses the remote poller to query twitter for a specific url (in this case the term 'javascript'.) The data is then manipulated slightly to keep track of how many tweets have urls vs how many don't. On the first request, a new derived group by dataset is created that only contains counts for the two options. As new data comes into the original dataset, the group by is automaticaly updated. When the group by is updated it fires off a change event on which we render an updated pie chart.
+    %div#pieContainer{ :style => "height: 300px; width: 300px;" }
+      %div{ :style => 'padding-top: 30%; width:50%; margin: 0 auto; font-size: 1.5em' }
+        Click RUN below to see a results chart
+    = toRunnableCodeBlock("dataset/examples/flotandtwitter.js")
+    = nav('Examples')
