@@ -1,0 +1,6 @@
+- @extra_scripts = capture_haml do
+  %script{ :type => "text/javascript", :src => '/js/flot/excanvas.min.js'}
+  %script{ :type => "text/javascript", :src => '/js/flot/jquery.flot.min.js'}
+  %script{ :type => "text/javascript", :src => '/js/flot/jquery.flot.stack.min.js'}
+
+= toRunnableCodeBlock("dataset/examples/flotandtwitter.js")
