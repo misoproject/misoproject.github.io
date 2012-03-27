@@ -32,6 +32,10 @@ article.dataset { @include colourise( #248940 )  }
 h1, h2, h3, h4, h5, h6 {
   @include sanserif();
 }
+
+h3, h4 {
+  margin-top: 0.5em;
+}
 nav {
   @include bigtype();
   @include sanserif();
