@@ -16,5 +16,5 @@ var ds2 = new Miso.Dataset({
 _.when(ds1.fetch(), ds2.fetch()).then(function() {
   // do things when both datasets are fetched.
   // note 'this' is NOT set to the dataset here.
-  console.log(ds1.columnNames(), ds2.columnNames());
+  log(ds1.columnNames(), ds2.columnNames());
 });

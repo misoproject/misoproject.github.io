@@ -19,6 +19,6 @@ _.when(ds.fetch()).then(function(){
   ds.sort();
   
   ds.eachColumn(function(columnName) {
-    console.log(ds.column(columnName).data);
+    log(ds.column(columnName).data);
   });
 });

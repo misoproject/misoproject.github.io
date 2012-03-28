@@ -6,6 +6,6 @@ var ds = new Miso.Dataset({
   ]
 });
 ds.fetch({ success : function() {
-  console.log("Columns: ", this.columnNames());
-  console.log("Row Count ", this.length);
+  log("Columns: ", this.columnNames());
+  log("Row Count ", this.length);
 }});

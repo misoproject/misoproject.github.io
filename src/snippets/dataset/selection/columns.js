@@ -11,5 +11,5 @@ var ds = new Miso.Dataset({
 _.when(ds.fetch()).then(function(){
   var subset = ds.columns(["one", "two"]);
   
-  console.log(subset.columnNames());
+  log(subset.columnNames());
 });

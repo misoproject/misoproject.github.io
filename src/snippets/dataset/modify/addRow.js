@@ -4,7 +4,7 @@ var ds = new Miso.Dataset({
   ]
 }).fetch({
   success : function() {
-    console.log("Row Count Before Add", this.length);
+    log("Row Count Before Add", this.length);
     
     this.add({
       one : 100,
@@ -12,6 +12,6 @@ var ds = new Miso.Dataset({
       three : 100
     });
 
-    console.log("Row Count After Add", this.length);
+    log("Row Count After Add", this.length);
   }
 });

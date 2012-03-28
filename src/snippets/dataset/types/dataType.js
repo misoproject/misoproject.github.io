@@ -9,7 +9,7 @@ var ds = new Miso.Dataset({
   ]
 });
 ds.fetch({ success : function() {
-  console.log(
+  log(
     // assemble all the dates' toString results
     _.map(
       this.column('three').data, 
