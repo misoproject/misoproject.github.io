@@ -15,7 +15,7 @@ var ds = new Miso.Dataset({
 
 _.when(ds.fetch()).then(function(){
   ds.eachColumn(function(columnName) {
-    console.log(ds.column(columnName).data);
+    log(ds.column(columnName).data);
   });
 });
 

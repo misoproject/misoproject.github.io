@@ -18,10 +18,10 @@ _.when(ds.fetch()).then(function(){
   
   // bind to the _subset_ add event. 
   subset.bind("add", function(event) {
-    console.log(event);
-    console.log(this.column("one").data);
-    console.log(this.column("two").data);
-    console.log(this.column("three").data);
+    log(event);
+    log(this.column("one").data);
+    log(this.column("two").data);
+    log(this.column("three").data);
   });
 
   // now add a row to the original dataset that still

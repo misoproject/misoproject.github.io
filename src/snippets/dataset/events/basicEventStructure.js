@@ -8,21 +8,21 @@ var ds = new Miso.Dataset({
 
 _.when(ds.fetch()).then(function() {
   ds.bind("add", function(event) {
-    console.log(JSON.stringify(event));
-    console.log("Is Add?", Miso.Event.isAdd(event.deltas[0]));
-    console.log("Is Remove?", Miso.Event.isRemove(event.deltas[0]));
-    console.log("Is Update?", Miso.Event.isUpdate(event.deltas[0]));
+    log(JSON.stringify(event));
+    log("Is Add?", Miso.Event.isAdd(event.deltas[0]));
+    log("Is Remove?", Miso.Event.isRemove(event.deltas[0]));
+    log("Is Update?", Miso.Event.isUpdate(event.deltas[0]));
   });
 
   ds.add({ one : 10, two : 3, three : 24 });
 
   ds.bind("remove", function(event) {
     // We will now have an event with two deltas!
-    console.log(event.deltas);
-    console.log("New Dataset Length", ds.length);
+    log(event.deltas);
+    log("New Dataset Length", ds.length);
   });
 
-  console.log("Pre Remove Dataset Length", ds.length);
+  log("Pre Remove Dataset Length", ds.length);
   ds.remove(function(row) {
     return (row.one === 10);
   });

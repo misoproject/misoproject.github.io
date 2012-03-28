@@ -9,7 +9,7 @@ ds.fetch({
   success : function() {
     // do things here after data successfully fetched.
     // note 'this' references the dataset.
-    console.log(this.columnNames());
+    log(this.columnNames());
   },
   
   error : function() {

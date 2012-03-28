@@ -65,10 +65,10 @@ ds.fetch({
   success : function() {
     // do things here after data successfully fetched.
     // note 'this' references the dataset.
-    console.log("Column type detected: " + this.column("phone").type);
-    console.log("Am I a PhoneNumber? " + 
+    log("Column type detected: " + this.column("phone").type);
+    log("Am I a PhoneNumber? " + 
       (this.column("phone").data[0] instanceof PhoneNumber)
     );
-    console.log(this.column("phone").data[0].toString());
+    log(this.column("phone").data[0].toString());
   }
 });

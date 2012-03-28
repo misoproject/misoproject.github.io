@@ -15,8 +15,8 @@ _.when(ds.fetch()).then(function(){
     return (row.one % 2 === 0);
   });
   
-  console.log("Subset length", subset.length);
-  console.log(subset.column("one").data);
-  console.log(subset.column("two").data);
-  console.log(subset.column("three").data);
+  log("Subset length", subset.length);
+  log(subset.column("one").data);
+  log(subset.column("two").data);
+  log(subset.column("three").data);
 });

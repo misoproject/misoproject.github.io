@@ -8,5 +8,5 @@ var ds = new Miso.Dataset({
 });
 
 ds.fetch({ success : function() {
-  console.log(ds.column("state").data);
+  log(ds.column("state").data);
 }});

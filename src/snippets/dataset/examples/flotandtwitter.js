@@ -43,7 +43,7 @@ ds.fetch({
           series.push({ label : row.hasUrls, data : row.urlCount });
         });
         
-        console.log(series);
+        log(series);
 
         // create a pie chart.
         // For more info see:
