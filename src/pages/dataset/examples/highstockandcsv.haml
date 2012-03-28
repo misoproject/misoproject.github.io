@@ -15,5 +15,6 @@
     %div#lineChartContainer{ :style => "height: 300px; width: 100%;" }
       %div{ :style => 'padding-top: 30%; width:50%; margin: 0 auto; font-size: 1.5em' }
         Click RUN below to see a results chart
-    = toRunnableCodeBlock("dataset/examples/highstockandcsv.js", nil, { :globals => "Miso,_,$,Highcharts" })
+
+    = toRunnableCodeBlock("dataset/examples/highstockandcsv.js", "highstockandcsv", { :globals => "Miso,_,$,Highcharts", :autorun => true })
     = nav('Examples')

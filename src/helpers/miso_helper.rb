@@ -127,7 +127,18 @@ module MisoHelper
       :partial => partial, 
       :runnable => false, 
       :code => false, 
-      :selector => id 
+      :selector => id,
+      :blocktype => "setup"
+    })
+  end
+
+  def toCleanupCodeBlock(partial, id) 
+    codeblockify({ 
+      :partial => partial, 
+      :runnable => false, 
+      :code => false, 
+      :selector => id,
+      :blocktype => "cleanup"
     })
   end
 
@@ -140,11 +151,16 @@ module MisoHelper
   end
 
   def codeblockify(params)
-    partial   = params[:partial]
-    runnable  = params[:runnable]
-    id        = params[:id]      ? "id=\"#{params[:id].gsub('#','')}\"" : ""
-    buttons   = params[:buttons] ? "buttons=\"#{params[:buttons]}\""    : ""
-    globals   = params[:globals] ? "globals=\"#{params[:globals]}\""    : ""
+    partial     = params[:partial]
+    runnable    = params[:runnable] ? "runnable=\"#{params[:runnable]}\""          : ""
+    id          = params[:id]      ? "id=\"#{params[:id].gsub('#','')}\""          : ""
+    buttons     = params[:buttons] ? "buttons=\"#{params[:buttons]}\""             : "buttons=\"none\""
+    globals     = params[:globals] ? "globals=\"#{params[:globals]}\""             : ""
+    runonload   = params[:runonload] ? "runonload=\"#{params[:runonload]}\""       : ""
+    classname   = params[:classname] ? "class=\"#{params[:classname]}\""           : "class=\"code\""
+    showConsole = defined?(params[:showConsole]) ? "showConsole=\"#{params[:showConsole]}\"" : ""
+    showConsole = defined?(params[:sandbox]) ? "sandbox=\"#{params[:sandbox]}\""   : ""
+    autorun     = defined?(params[:autorun]) ? "autorun=\"#{params[:autorun]}\""   : ""
 
     full_path = File.join(Dir.pwd, 'src', 'snippets', partial.index(".js").nil? ? partial + ".js" : partial)
     puts "Making code block " + full_path
@@ -152,10 +168,10 @@ module MisoHelper
 
     if (params[:code])
       # make a code block
-      snippet = "<div class=\"codeblock\"><textarea class=\"code\" #{id} #{globals} runnable=\"#{runnable}\" showConsole=\"#{params[:showConsole]}\" #{buttons}>\n"
+      snippet = "<div class=\"codeblock\"><textarea #{id} #{classname} #{globals} #{runnable} #{showConsole} #{buttons} #{autorun}>\n"
     else
       # make a pre/post script
-      snippet = "<script type='codemirror' data-selector='#{params[:selector]}'>"
+      snippet = "<script type='codemirror/#{params[:blocktype]}' data-selector='#{params[:selector]}'>"
     end
     
     # read file into it.
