@@ -1,3 +1,4 @@
+var log;
 (function() {
 
   var cmconfig = {
@@ -171,7 +172,8 @@
                 if (options.showConsole) {
                   var real_console_log = console.log;
                   
-                  console.log = function() {
+                  // console.log = function() {
+                  log = function() {
                     var messages = [];
                     // Convert all arguments to Strings (Objects will be JSONified).
                     for (var i = 0; i < arguments.length; i++) {
@@ -186,11 +188,6 @@
                     }
                   };
                 }
-
-                var sandBoxMarkup = "<script>"+
-                  "var MSIE/*@cc_on =1@*/;"+ // sniff
-                  "console={ log: parent.console.log };" +
-                  "parent.sandbox=MSIE?this:{eval:function(s){return eval(s)}}<\/script>";
                 
                 // expose globals to iframe
                 var globals = [];
@@ -205,6 +202,17 @@
                   iframe[0].contentWindow[val] = window[val];
                 });
 
+                var sandBoxMarkup = "<script>"+
+                  "var MSIE/*@cc_on =1@*/;"+ // sniff
+                  "console={ log: parent.console.log };";
+
+                $.each(globals, function(prop, val) {
+                  val = $.trim(val);
+                  iframe[0].contentWindow[val] = window[val];
+                  sandBoxMarkup += "val=parent." + val +";";
+                }); 
+
+                sandBoxMarkup += "parent.sandbox=MSIE?this:{eval:function(s){return eval(s)}}<\/script>";
 
                 // write a script into the <iframe> and create the sandbox
                 frames[frames.length - 1].document.write(sandBoxMarkup);
@@ -228,7 +236,9 @@
                 });
 
                 // eval in the sandbox.
-                sandbox.eval(combinedSource);
+                // DON'T USE SANDBOX. FF Broken. :(.
+                // sandbox.eval(combinedSource);
+                eval(combinedSource);
 
                 // get rid of the frame. New Frame for every context.
                 iframe.remove();
