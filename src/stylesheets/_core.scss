@@ -32,6 +32,10 @@ article.dataset { @include colourise( #248940 )  }
 h1, h2, h3, h4, h5, h6 {
   @include sanserif();
 }
+
+h3, h4 {
+  margin-top: 0.5em;
+}
 nav {
   @include bigtype();
   @include sanserif();
@@ -73,8 +77,6 @@ body article, div.container {
 
     li {
       list-style-type: none;
-      padding-left: 1em;
-      text-indent: -1em;
       margin-bottom: 0.5em;
     }
     li:before {
@@ -90,9 +92,9 @@ body article, div.container {
       }
     }
     .api {
-      border-top: 3px solid #222;
       margin-top: 10px;
       padding-top: 10px;
+      padding-bottom: 40px;
 
       pre {
         border: 1px solid #bbb;
