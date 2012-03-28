@@ -40,6 +40,6 @@ Miso.Dataset.prototype.random = function(columnNames) {
 
 ds.fetch({
   success : function() {
-    console.log(this.random(["one", "two"]));    
+    log(this.random(["one", "two"]));    
   }
 });

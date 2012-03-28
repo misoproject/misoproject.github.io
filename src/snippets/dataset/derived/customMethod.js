@@ -31,7 +31,7 @@ _.when(ds.fetch()).then(function() {
     }
   });
 
-  console.log(gb.column("state").data);
-  console.log(gb.column("count").data);
-  console.log(gb.column("anothercount").data);
+  log(gb.column("state").data);
+  log(gb.column("count").data);
+  log(gb.column("anothercount").data);
 });

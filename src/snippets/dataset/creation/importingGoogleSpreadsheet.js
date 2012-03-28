@@ -10,6 +10,6 @@ ds.fetch({
     log(ds.columnNames());
   },
   error : function() {
-    console.log("Are you sure you are connected to the internet?");
+    log("Are you sure you are connected to the internet?");
   }
 });

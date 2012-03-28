@@ -26,9 +26,9 @@ ds.fetch({
       // stop the importer.
       this.importer.stop();
       // output our current collection of tweets
-      console.log(ds.column("text").data);
+      log(ds.column("text").data);
     }
     // update the number of rows we now have.
-    console.log(madeRequests, ds.length);
+    log(madeRequests, ds.length);
   }
 });

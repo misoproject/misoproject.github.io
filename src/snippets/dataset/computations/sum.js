@@ -9,8 +9,8 @@ var ds = new Miso.Dataset({
 });
 
 _.when(ds.fetch()).then(function(){  
-  console.log("sum of one", ds.sum("one"));
-  console.log("sum of two", ds.sum("two"));
-  console.log("sum of one & two", ds.sum(["one", "two"]));
-  console.log("sum of all", ds.sum());
+  log("sum of one", ds.sum("one"));
+  log("sum of two", ds.sum("two"));
+  log("sum of one & two", ds.sum(["one", "two"]));
+  log("sum of all", ds.sum());
 });

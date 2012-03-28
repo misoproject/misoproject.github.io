@@ -9,8 +9,8 @@ var ds = new Miso.Dataset({
 });
 
 _.when(ds.fetch()).then(function(){  
-  console.log("Max of one", ds.max("one"));
-  console.log("Max of two", ds.max("two"));
-  console.log("Max of one & two", ds.max(["one", "two"]));
-  console.log("Max of all", ds.max());
+  log("Max of one", ds.max("one"));
+  log("Max of two", ds.max("two"));
+  log("Max of one & two", ds.max(["one", "two"]));
+  log("Max of all", ds.max());
 });

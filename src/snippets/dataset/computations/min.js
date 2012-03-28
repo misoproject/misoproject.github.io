@@ -9,8 +9,8 @@ var ds = new Miso.Dataset({
 });
 
 _.when(ds.fetch()).then(function(){  
-  console.log("min of one", ds.min("one"));
-  console.log("min of two", ds.min("two"));
-  console.log("min of one & two", ds.min(["one", "two"]));
-  console.log("min of all", ds.min());
+  log("min of one", ds.min("one"));
+  log("min of two", ds.min("two"));
+  log("min of one & two", ds.min(["one", "two"]));
+  log("min of all", ds.min());
 });

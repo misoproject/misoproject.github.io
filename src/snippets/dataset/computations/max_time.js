@@ -12,6 +12,6 @@ var ds = new Miso.Dataset({
 });
 
 _.when(ds.fetch()).then(function(){  
-  console.log("Max of one",  ds.max("one"));
-  console.log("Max of date", ds.max("date").format("DD/MM/YYYY"));
+  log("Max of one",  ds.max("one"));
+  log("Max of date", ds.max("date").format("DD/MM/YYYY"));
 });

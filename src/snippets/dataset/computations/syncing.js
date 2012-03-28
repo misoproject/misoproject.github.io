@@ -11,9 +11,9 @@ var ds = new Miso.Dataset({
 _.when(ds.fetch()).then(function(){  
 
   var max = ds.max();
-  console.log("Max of all",  max.val());
+  log("Max of all",  max.val());
   max.bind("change", function(event) {
-    console.log("New Value", max.val());
+    log("New Value", max.val());
   });
 
   ds.add({

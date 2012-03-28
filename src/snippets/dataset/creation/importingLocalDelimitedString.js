@@ -8,7 +8,7 @@ var ds = new Miso.Dataset({
 });
 
 ds.fetch({ success : function() {
-  console.log(ds.columnNames());
-  console.log(ds.column("state").data);
-  console.log(ds.column("population").data);
+  log(ds.columnNames());
+  log(ds.column("state").data);
+  log(ds.column("population").data);
 }});

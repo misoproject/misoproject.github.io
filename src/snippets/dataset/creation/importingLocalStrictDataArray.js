@@ -11,5 +11,5 @@ var ds = new Miso.Dataset({
 });
 
 ds.fetch({ success: function() {
-  console.log("Column Names: ", ds.columnNames());
+  log("Column Names: ", ds.columnNames());
 }});

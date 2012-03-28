@@ -12,6 +12,6 @@ var ds = new Miso.Dataset({
 });
 
 _.when(ds.fetch()).then(function(){  
-  console.log("mean of one",  ds.mean("one"));
-  console.log("mean of date", ds.mean("date").format("DD/MM/YYYY"));
+  log("mean of one",  ds.mean("one"));
+  log("mean of date", ds.mean("date").format("DD/MM/YYYY"));
 });

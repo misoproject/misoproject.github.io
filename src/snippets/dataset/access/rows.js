@@ -7,6 +7,6 @@ var ds = new Miso.Dataset({
 });
 ds.fetch({ success : function() {
   this.each(function(row) {
-    console.log(JSON.stringify(row));
+    log(JSON.stringify(row));
   });
 }});
