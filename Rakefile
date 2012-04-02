@@ -4,7 +4,7 @@ desc "Deploy Miso website"
 task :deploy do
   msg = ENV['MSG'] || 'production update'
   if ENV['HIDE'].nil?
-    hider = ''
+    hider = 'echo "real deploy"'
   else
     hider = 'mv index.html i.html'
   end
@@ -16,7 +16,7 @@ task :deploy do
     #Build the website and copy to production
     "staticmatic build .",
     "cd production",
-    "git co master",
+    "git checkout master",
     "cp -R ../site/ .",
 
     #hide the index page if specified
