@@ -26,40 +26,82 @@
           <img alt="Dataset" class="logo" src="/images/dataset.png"/>
         </a>
       </section>
-      <section class='examples'>
-        <div class='example'>
-          <a href='/dataset/examples/flotandtwitter.html'>
-            <img src='/images/examples/flottwitter.jpg' />
-            <h2>Remote Polling Twitter & Rendering With Flot</h2>
-            <p>
-              Remotely polls twitter and plots a pie chart (using flot) that shows ratio between the number of tweets with urls vs those without.
-            </p>
-            <p>
-              This example demonstrates: Polling, Group By, Binding.
-            </p>
-          </a>
+      <section class='normal'>
+        <h2>Remote CSV and Highchart</h2>
+        <p>
+          This example pulls a local comma delimited dataset containing world crude oil production since
+          1980 to 2004 and graphs it as a line chart using <a href="http://www.highcharts.com/">Highcharts</a>.
+        </p>
+        <p>
+          This example demonstrates: Remote Importing, Delimited Datasets.
+        </p>
+        <div id='lineChartContainer' style='height: 300px; width: 100%;'>
+          <div style='padding-top: 30%; width:50%; margin: 0 auto; font-size: 1.5em'>
+            Click RUN below to see a results chart
+          </div>
         </div>
-        <div class='example'>
-          <a href='/dataset/examples/highstockandcsv.html'>
-            <img src='/images/examples/highchart.jpg' />
-            <h2>Remote CSV Dataset with Highcharts</h2>
-            <p>
-              Whatever photo booth commodo carles minim, swag ut banksy before they sold out officia marfa quinoa cardigan magna.
-            </p>
-          </a>
-        </div>
-        <div class='example'>
-          <img src='/images/examples/flot.jpg' />
-          <p>
-            Readymade jean shorts quinoa sunt, wolf portland deserunt aute esse incididunt twee. Stumptown mixtape mollit banksy chambray, bushwick odd future art party direct trade. Carles polaroid wayfarers, nesciunt biodiesel artisan proident pickled. Skateboard etsy sriracha anim four loko, commodo culpa.
-          </p>
-        </div>
-        <div class='example'>
-          <img src='/images/examples/flot.jpg' />
-          <p>
-            Readymade jean shorts quinoa sunt, wolf portland deserunt aute esse incididunt twee. Stumptown mixtape mollit banksy chambray, bushwick odd future art party direct trade. Carles polaroid wayfarers, nesciunt biodiesel artisan proident pickled. Skateboard etsy sriracha anim four loko, commodo culpa.
-          </p>
-        </div>
+        <div class="codeblock"><textarea id="highstockandcsv" class="code" globals="Miso,_,$,Highcharts" runnable="true" sandbox="" buttons="run,reset,clear" autorun="true">
+        var ds = new Miso.Dataset({
+          url : "/data/crudeoil.csv",
+          delimiter : ",",
+          columns : [
+            { name : "Year", type : "time", format : "YYYY" }
+          ]
+        });
+        
+        ds.fetch({
+          success : function() {
+            chart = new Highcharts.Chart({
+              chart: {
+                renderTo: 'lineChartContainer',
+                type: 'line',
+                marginRight: 130,
+                marginBottom: 25
+              },
+              title: {
+                text: 'World Crude Oil Barrel Production (1,000) per unit',
+                x: -20 //center
+              },
+              subtitle: {
+                text: 'Source: http://www.infochimps.com/datasets/world-crude-oil-production-1980-to-2004',
+                x: -20
+              },
+              xAxis: {
+                categories: _.map(this.column("Year").data, function(year) { 
+                  return year.format("YY"); 
+                })
+              },
+              yAxis: {
+                title: {
+                  text: this.columnNames()[2]
+                },
+                plotLines: [{
+                  value: 0,
+                  width: 10000,
+                  color: '#808080'
+                }]
+              },
+              tooltip: {
+                formatter: function() {
+                  return '<b>'+ this.series.name +'</b><br/>'+
+                  this.x +': '+ this.y;
+                }
+              },
+              legend: {
+                  layout: 'vertical',
+                  align: 'right',
+                  verticalAlign: 'top',
+                  x: -10,
+                  y: 100,
+                  borderWidth: 0
+              },
+              series: [{
+                  name: 'World Production',
+                  data: this.column("Crude oil production (1000 barrels per day)").data
+              }]
+            });
+          }
+        });</textarea></div>
       </section>
       <nav>
         <ul>
@@ -125,6 +167,6 @@
     <script src='/js/codemirror.js'></script>
     <script src='/js/codeblocks.js'></script>
     <script src='/js/nav.js'></script>
-    
+    <script src='/js/highchart/highcharts.js' type='text/javascript'></script>
   </body>
 </html>

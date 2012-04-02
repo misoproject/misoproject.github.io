@@ -354,7 +354,7 @@
         <h3>Miso.types</h3>
         <p>
           All data type objects follow the following format:
-          <div class="codeblock"><textarea class="code"  runnable="false" showConsole="false" >
+          <div class="codeblock"><textarea  class="code"   sandbox="" buttons="none" autorun="">
           // all types live under the Miso.types namespace.
           // Beware of overriding existing types. 
           // Nothing is stopping you from doing that.
@@ -731,7 +731,7 @@
         </p>
         <p>
           An importer must implement the following interface:
-          <div class="codeblock"><textarea class="code"  runnable="false" showConsole="false" >
+          <div class="codeblock"><textarea  class="code"   sandbox="" buttons="none" autorun="">
           Miso.Importers.MyCustomImporter = function(options) {
             // save your options
             // overwrite 'extract' function if you want.
@@ -821,7 +821,7 @@
         </p>
         <p>
           The base <code>Miso.Parser</code> structure is:
-          <div class="codeblock"><textarea class="code"  runnable="false" showConsole="false" >
+          <div class="codeblock"><textarea  class="code"   sandbox="" buttons="none" autorun="">
           // Pass in the data you'll be parsing
           // Take in any potential options you might need for your parser
           Miso.Parsers.MyCustomParser = function(data, options) {};
@@ -1080,7 +1080,8 @@
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
     <script src='/js/codemirror.js'></script>
-    <script src='/js/main.js'></script>
+    <script src='/js/codeblocks.js'></script>
     <script src='/js/nav.js'></script>
+    
   </body>
 </html>

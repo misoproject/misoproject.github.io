@@ -56,7 +56,7 @@
         <h4>Importing from a local object array</h4>
         <p>
           If you have an array of json objects, you can easily convert them to a Dataset like so:
-          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
           var myData = [
             { state : "Alabama", population : 4802740 },
             { state : "Massachusetts", population : 6587536 }
@@ -67,13 +67,13 @@
           });
           
           ds.fetch({ success: function() {
-            console.log("Column Names: ", ds.columnNames());
+            log("Column Names: ", ds.columnNames());
           }});</textarea></div>
         </p>
         <h4>Importing from a local "strict" format object</h4>
         <p>
           If you happen to have your data preprocessed in what we call a "strict" format, you can speed up your import slightly by initializing your Dataset with the <code>strict</code> flag:
-          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
           var myData = {
             columns : [
               { name : "state", data : ["Alabama", "Massachusetts"] },
@@ -87,13 +87,13 @@
           });
           
           ds.fetch({ success: function() {
-            console.log("Column Names: ", ds.columnNames());
+            log("Column Names: ", ds.columnNames());
           }});</textarea></div>
         </p>
         <h4>Importing from a local delimited string format</h4>
         <p>
           If for some reason you actually have all your data as a delimited string on the client side (which is an unlikely but possible,) you can import that into a dataset object too.
-          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
           var myData = "state,population\n"+
                  "Alabala,4802740\n" +
                  "Massachusetts,6587536";
@@ -104,9 +104,9 @@
           });
           
           ds.fetch({ success : function() {
-            console.log(ds.columnNames());
-            console.log(ds.column("state").data);
-            console.log(ds.column("population").data);
+            log(ds.columnNames());
+            log(ds.column("state").data);
+            log(ds.column("population").data);
           }});</textarea></div>
         </p>
         <p>
@@ -125,7 +125,7 @@
         <h4>Google Spreadsheet Importing</h4>
         <p>
           If you have a <b>published</b> Google Spreadsheet that you would like to import data from, you can do so with the following format:
-          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
           var ds = new Miso.Dataset({
             importer: Miso.Importers.GoogleSpreadsheet,
             parser : Miso.Parsers.GoogleSpreadsheet,
@@ -135,10 +135,10 @@
           
           ds.fetch({ 
             success: function() {
-              console.log(ds.columnNames());
+              log(ds.columnNames());
             },
             error : function() {
-              console.log("Are you sure you are connected to the internet?");
+              log("Are you sure you are connected to the internet?");
             }
           });</textarea></div>
         </p>
@@ -162,7 +162,7 @@
             </li>
           </ul>
         </p>
-        <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+        <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
         // We will only make 5 requests in this example
         var requests = 5, 
             madeRequests = 0;
@@ -191,10 +191,10 @@
               // stop the importer.
               this.importer.stop();
               // output our current collection of tweets
-              console.log(ds.column("text").data);
+              log(ds.column("text").data);
             }
             // update the number of rows we now have.
-            console.log(madeRequests, ds.length);
+            log(madeRequests, ds.length);
           }
         });</textarea></div>
         <h3>Custom Importers</h3>
@@ -220,7 +220,7 @@
         </p>
         <h3>Pass success/error callbacks:</h3>
         <p>
-          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
           var ds = new Miso.Dataset({
             data : [
               { one : 12,  two : 40,  three : 40 },
@@ -232,7 +232,7 @@
             success : function() {
               // do things here after data successfully fetched.
               // note 'this' references the dataset.
-              console.log(this.columnNames());
+              log(this.columnNames());
             },
             
             error : function() {
@@ -245,7 +245,7 @@
           If you have more than one dataset you need to wait on, or you might be a fan of using deferreds, you can use them as follows:
         </p>
         <p>
-          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
           var ds1 = new Miso.Dataset({
             data : [
               { one : 12,  two : 40,  three : 40 },
@@ -264,7 +264,7 @@
           _.when(ds1.fetch(), ds2.fetch()).then(function() {
             // do things when both datasets are fetched.
             // note 'this' is NOT set to the dataset here.
-            console.log(ds1.columnNames(), ds2.columnNames());
+            log(ds1.columnNames(), ds2.columnNames());
           });</textarea></div>
         </p>
         <h4>ready Callback</h4>
@@ -275,7 +275,7 @@
           Note that the individual ready callbacks are executed first and then the fetch callback gets executed.
         </p>
         <p>
-          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
           var ds1 = new Miso.Dataset({
             data : [
               { one : 12,  two : 40,  three : 40 },
@@ -285,7 +285,7 @@
             ready : function() {
               // do something specific to this dataset here when it's
               // been fetched
-              console.log(this.columnNames());
+              log(this.columnNames());
             }
           });
           var ds2 = new Miso.Dataset({
@@ -297,14 +297,14 @@
             ready : function() {
               // do something specific to this dataset here when it's
               // been fetched
-              console.log(this.length);
+              log(this.length);
             }
           });
               
           _.when(ds1.fetch(), ds2.fetch()).then(function() {
             // do things when both datasets are fetched.
             // note 'this' is NOT set to the dataset here.
-            console.log("Both Datasets Fetched!");
+            log("Both Datasets Fetched!");
           });</textarea></div>
         </p>
       </section>
@@ -333,7 +333,7 @@
         <pre>&#x000A;columns : [&#x000A;  { name : 'columnName', &#x000A;    type : '<known type (see Types Sections)>' &#x000A;    … [any additional type required options here.] &#x000A;  }&#x000A;]</pre>
         <p>
           Dataset will take care of the actual type coercion, making it trivial to convert strings to numbers or timestamps to `moment` objects. For example, coercing the timestamp column into a time column and the total column to a numeric type would look like so:
-          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
           var ds = new Miso.Dataset({
             data : [
               { one : 12,  two : 40,  three : "2012 04_20" },
@@ -345,7 +345,7 @@
             ]
           });
           ds.fetch({ success : function() {
-            console.log(
+            log(
               // assemble all the dates' toString results
               _.map(
                 this.column('three').data, 
@@ -364,7 +364,7 @@
           </p>
           <p>
             To define a new type, the required signature is as follows:
-            <div class="codeblock"><textarea class="code"  runnable="false" showConsole="false" >
+            <div class="codeblock"><textarea  class="code"   sandbox="" buttons="none" autorun="">
             // all types live under the Miso.types namespace.
             // Beware of overriding existing types. 
             // Nothing is stopping you from doing that.
@@ -398,7 +398,7 @@
           </p>
           <p>
             For example, we might define a custom <code>phone</code> type like so:
-            <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+            <div class="codeblock"><textarea id="customPhoneType" class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
             // dummy phone number class
             var PhoneNumber = function(areacode, number) {
               this.areacode = +areacode;
@@ -466,13 +466,14 @@
               success : function() {
                 // do things here after data successfully fetched.
                 // note 'this' references the dataset.
-                console.log("Column type detected: " + this.column("phone").type);
-                console.log("Am I a PhoneNumber? " + 
+                log("Column type detected: " + this.column("phone").type);
+                log("Am I a PhoneNumber? " + 
                   (this.column("phone").data[0] instanceof PhoneNumber)
                 );
-                console.log(this.column("phone").data[0].toString());
+                log(this.column("phone").data[0].toString());
               }
             });</textarea></div>
+            <script type='codemirror/cleanup' data-selector='customPhoneType'>delete Miso.types.phone;</script></div>
           </p>
         </p>
       </section>
@@ -513,7 +514,7 @@
         </p>
         <h4>Iterating over rows:</h4>
         <p>
-          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
           var ds = new Miso.Dataset({
             data : [
               { one : 12,  two : 40},
@@ -523,7 +524,7 @@
           });
           ds.fetch({ success : function() {
             this.each(function(row) {
-              console.log(JSON.stringify(row));
+              log(JSON.stringify(row));
             });
           }});</textarea></div>
         </p>
@@ -681,7 +682,7 @@
         </p>
         <p>
           For example:
-          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
           var ds = new Miso.Dataset({
             data : [
               { one : 12,  two : 40,  three : 40 },
@@ -692,21 +693,21 @@
           
           _.when(ds.fetch()).then(function() {
             ds.bind("add", function(event) {
-              console.log(JSON.stringify(event));
-              console.log("Is Add?", Miso.Event.isAdd(event.deltas[0]));
-              console.log("Is Remove?", Miso.Event.isRemove(event.deltas[0]));
-              console.log("Is Update?", Miso.Event.isUpdate(event.deltas[0]));
+              log(JSON.stringify(event));
+              log("Is Add?", Miso.Event.isAdd(event.deltas[0]));
+              log("Is Remove?", Miso.Event.isRemove(event.deltas[0]));
+              log("Is Update?", Miso.Event.isUpdate(event.deltas[0]));
             });
           
             ds.add({ one : 10, two : 3, three : 24 });
           
             ds.bind("remove", function(event) {
               // We will now have an event with two deltas!
-              console.log(event.deltas);
-              console.log("New Dataset Length", ds.length);
+              log(event.deltas);
+              log("New Dataset Length", ds.length);
             });
           
-            console.log("Pre Remove Dataset Length", ds.length);
+            log("Pre Remove Dataset Length", ds.length);
             ds.remove(function(row) {
               return (row.one === 10);
             });
@@ -732,14 +733,14 @@
         <p>
           To add a row to your dataset, use the <code>add</code> method.
           <pre>ds.add(rowObject, options);</pre>
-          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
           var ds = new Miso.Dataset({
             data : [
               { one : 12,  two : 40,  three : 40 }
             ]
           }).fetch({
             success : function() {
-              console.log("Row Count Before Add", this.length);
+              log("Row Count Before Add", this.length);
               
               this.add({
                 one : 100,
@@ -747,7 +748,7 @@
                 three : 100
               });
           
-              console.log("Row Count After Add", this.length);
+              log("Row Count After Add", this.length);
             }
           });</textarea></div>
         </p>
@@ -825,7 +826,7 @@
         </p>
         <pre>&#x000A;ds.columns(["one", "two"]);</pre>
         <b>Note</b> selecting a single column this way will create a new dataset-like interface. If you're trying to just get a reference to a specific column in your dataset, just call <code>ds.column("one");</code>
-        <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+        <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
         // initialize a new dataset
         var ds = new Miso.Dataset({
           data: { columns : [ 
@@ -839,14 +840,14 @@
         _.when(ds.fetch()).then(function(){
           var subset = ds.columns(["one", "two"]);
           
-          console.log(subset.columnNames());
+          log(subset.columnNames());
         });</textarea></div>
         <h3>Rows:</h3>
         <p>
           A more likely selection is a subset of rows that matches a particular criteria. You can select a row subset like so:
           <pre>ds.rows(filter);</pre>
         </p>
-        <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+        <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
         // initialize a new dataset
         var ds = new Miso.Dataset({
           data: { columns : [ 
@@ -864,15 +865,15 @@
             return (row.one % 2 === 0);
           });
           
-          console.log("Subset length", subset.length);
-          console.log(subset.column("one").data);
-          console.log(subset.column("two").data);
-          console.log(subset.column("three").data);
+          log("Subset length", subset.length);
+          log(subset.column("one").data);
+          log(subset.column("two").data);
+          log(subset.column("three").data);
         });</textarea></div>
         <h3>Syncing:</h3>
         <p>
           If you enabled syncing on your dataset by setting <code>{ sync : true }</code> during instantiation, your views will automatically update to reflect changes in your data. For example:
-          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
           // initialize a new dataset
           var ds = new Miso.Dataset({
             data: { columns : [ 
@@ -893,10 +894,10 @@
             
             // bind to the _subset_ add event. 
             subset.bind("add", function(event) {
-              console.log(event);
-              console.log(this.column("one").data);
-              console.log(this.column("two").data);
-              console.log(this.column("three").data);
+              log(event);
+              log(this.column("one").data);
+              log(this.column("two").data);
+              log(this.column("three").data);
             });
           
             // now add a row to the original dataset that still
@@ -928,8 +929,8 @@
         <p>
           There are several default computations built in:
         </p>
-        <h3>Max:</h3>
-        <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+        <h3>Max</h3>
+        <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
         // initialize a new dataset
         var ds = new Miso.Dataset({
           data: { columns : [ 
@@ -941,14 +942,14 @@
         });
         
         _.when(ds.fetch()).then(function(){  
-          console.log("Max of one", ds.max("one"));
-          console.log("Max of two", ds.max("two"));
-          console.log("Max of one & two", ds.max(["one", "two"]));
-          console.log("Max of all", ds.max());
+          log("Max of one", ds.max("one"));
+          log("Max of two", ds.max("two"));
+          log("Max of one & two", ds.max(["one", "two"]));
+          log("Max of all", ds.max());
         });</textarea></div>
         <p>
           <b>Note</b> that the <code>max</code> can be computed on numeric columns but also time columns!
-          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
           // initialize a new dataset
           var ds = new Miso.Dataset({
             data: { columns : [ 
@@ -963,12 +964,12 @@
           });
           
           _.when(ds.fetch()).then(function(){  
-            console.log("Max of one",  ds.max("one"));
-            console.log("Max of date", ds.max("date").format("DD/MM/YYYY"));
+            log("Max of one",  ds.max("one"));
+            log("Max of date", ds.max("date").format("DD/MM/YYYY"));
           });</textarea></div>
         </p>
-        <h3>Min:</h3>
-        <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+        <h3>Min</h3>
+        <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
         // initialize a new dataset
         var ds = new Miso.Dataset({
           data: { columns : [ 
@@ -980,13 +981,13 @@
         });
         
         _.when(ds.fetch()).then(function(){  
-          console.log("min of one", ds.min("one"));
-          console.log("min of two", ds.min("two"));
-          console.log("min of one & two", ds.min(["one", "two"]));
-          console.log("min of all", ds.min());
+          log("min of one", ds.min("one"));
+          log("min of two", ds.min("two"));
+          log("min of one & two", ds.min(["one", "two"]));
+          log("min of all", ds.min());
         });</textarea></div>
-        <h3>Sum:</h3>
-        <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+        <h3>Sum</h3>
+        <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
         // initialize a new dataset
         var ds = new Miso.Dataset({
           data: { columns : [ 
@@ -998,16 +999,16 @@
         });
         
         _.when(ds.fetch()).then(function(){  
-          console.log("sum of one", ds.sum("one"));
-          console.log("sum of two", ds.sum("two"));
-          console.log("sum of one & two", ds.sum(["one", "two"]));
-          console.log("sum of all", ds.sum());
+          log("sum of one", ds.sum("one"));
+          log("sum of two", ds.sum("two"));
+          log("sum of one & two", ds.sum(["one", "two"]));
+          log("sum of all", ds.sum());
         });</textarea></div>
         <p>
           <b>Note</b> you can't add up dates, so don't try that one.
         </p>
-        <h3>Mean:</h3>
-        <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+        <h3>Mean</h3>
+        <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
         // initialize a new dataset
         var ds = new Miso.Dataset({
           data: { columns : [ 
@@ -1022,10 +1023,10 @@
         });
         
         _.when(ds.fetch()).then(function(){  
-          console.log("mean of one",  ds.mean("one"));
-          console.log("mean of date", ds.mean("date").format("DD/MM/YYYY"));
+          log("mean of one",  ds.mean("one"));
+          log("mean of date", ds.mean("date").format("DD/MM/YYYY"));
         });</textarea></div>
-        <h3>Syncing:</h3>
+        <h3>Syncing</h3>
         <p>
           If you have enabled syncing on your dataset by setting <code>{ sync : true }</code> during your dataset initialization, you can also subscribe to changes in your computed product.
         </p>
@@ -1035,7 +1036,7 @@
         </p>
         <p>
           For example:
-          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
           // initialize a new dataset
           var ds = new Miso.Dataset({
             data: { columns : [ 
@@ -1049,9 +1050,9 @@
           _.when(ds.fetch()).then(function(){  
           
             var max = ds.max();
-            console.log("Max of all",  max.val());
+            log("Max of all",  max.val());
             max.bind("change", function(event) {
-              console.log("New Value", max.val());
+              log("New Value", max.val());
             });
           
             ds.add({
@@ -1059,13 +1060,13 @@
             });
           });</textarea></div>
         </p>
-        <h3>Adding your own:</h3>
+        <h3>Adding your own</h3>
         <p>
           If you want to add your own computations to your dataset, take a look at <code>src/products.js</code> for some examples (like <code>max</code> and <code>min</code>.)
         </p>
         <p>
           For example, if we wanted to implement a product that returned a random value from the dataset, you could do it like so:
-          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
           // initialize a new dataset
           var ds = new Miso.Dataset({
             data: { columns : [ 
@@ -1108,7 +1109,7 @@
           
           ds.fetch({
             success : function() {
-              console.log(this.random(["one", "two"]));    
+              log(this.random(["one", "two"]));    
             }
           });</textarea></div>
           <b>Note</b> that this form will also support an actual subscribable product if your dataset is syncable.
@@ -1178,7 +1179,7 @@
         </p>
         <p>
           By default the groupBy will sum up the values in the rows, but you can pass any method as an options argument like so:
-          <div class="codeblock"><textarea class="code"  runnable="true" showConsole="true" buttons="run,reset,clear">
+          <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="">
           var ds = new Miso.Dataset({
             data : {
               columns : [
@@ -1212,9 +1213,9 @@
               }
             });
           
-            console.log(gb.column("state").data);
-            console.log(gb.column("count").data);
-            console.log(gb.column("anothercount").data);
+            log(gb.column("state").data);
+            log(gb.column("count").data);
+            log(gb.column("anothercount").data);
           });</textarea></div>
         </p>
         <h3>Moving Average</h3>
@@ -1405,7 +1406,8 @@
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
     <script src='/js/codemirror.js'></script>
-    <script src='/js/main.js'></script>
+    <script src='/js/codeblocks.js'></script>
     <script src='/js/nav.js'></script>
+    
   </body>
 </html>
