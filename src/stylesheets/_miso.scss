@@ -11,6 +11,7 @@ article.miso {
       padding-right: 10px;
       display: block;
       float: left;
+      font-size: $font-size;
     }
     div.content {
       @include width( 6 );

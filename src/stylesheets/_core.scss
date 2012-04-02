@@ -23,6 +23,7 @@ article.dataset { @include colourise( #248940 )  }
 
 @mixin sanserif {
   font-weight: bold;
+  font-family: "facitweb", "Helvetica Neue", "Helvetica", san-serif;
 }
 
 @mixin serif {
