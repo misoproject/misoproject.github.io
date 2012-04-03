@@ -18,7 +18,7 @@ var ds = new Miso.Dataset({
 
   // fetch only tweets that come after the last tweet we fetched.
   url : function() {
-    var u = "http://search.twitter.com/search.json?q=cats&rpp=100";
+    var u = "http://search.twitter.com/search.json?q=javascript&rpp=100";
     
     // If we have a previous tweet id saved, make sure we restart our query from
     // that point on. This means we might not get the full 100 tweets we want.
