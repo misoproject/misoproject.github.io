@@ -5,22 +5,28 @@ var sequence = 0,
   "question" : /\?/g,
   "exclamation" : /\!/g,
   "ellipsis" : /\.\.\./g
-};
+}, colors = ['rgba(36,137,64,1)', 'rgba(143,188,43,1)', 'rgba(101,132,47,1)'];
 
 var ds = new Miso.Dataset({
+  // poll twitter every second.
+  interval : 1000,
+  jsonp : true,
+
+  // enable syncing behavior since we'll be building a groupBy off of the original
+  // data that we want to have update on every poll.
+  sync : true,
 
   // fetch only tweets that come after the last tweet we fetched.
   url : function() {
-    var u = "http://search.twitter.com/search.json?q=javascript&rpp=100";
+    var u = "http://search.twitter.com/search.json?q=cats&rpp=100";
+    
+    // If we have a previous tweet id saved, make sure we restart our query from
+    // that point on. This means we might not get the full 100 tweets we want.
     if (!_.isUndefined(this.since_id)) {
       u = u + "&since_id=" + this.since_id;
     }
     return u + "&callback=";
   },
-
-  interval : 1000,
-  jsonp : true,
-  sync : true,
 
   // we only actually want the number of urls
   extract : function(data) {
@@ -28,39 +34,61 @@ var ds = new Miso.Dataset({
     // add some properties to the tweets like the number of urls they have
     // and whether they have urls at all.
     _.each(data.results, function(tweet){
+      
+      // for each punctuation type, see if it appears in the tweet. If so
+      // save the number of times it appears. Otherwise just set it to zero
+      // for that tweet.
       _.each(punctuations, function(regex, name) {
         if (regex.test(tweet.text)) {
-          tweet[name] = tweet.text.match(regex).length / data.results.length;
+          tweet[name] = tweet.text.match(regex).length;
         } else {
           tweet[name] = 0;  
         }
-
       });
 
       // save the request sequence id. We are going to group by request.
       tweet.sequence = sequence;
     });
 
+    // save how large this result was. We are going to use it to normalize later to 100
+    // which is the highest number of tweets we can have.
+    this.last_request_size = data.results.length;
+
     // save the last query id
     this.since_id = data.results[data.results.length-1].id_str;
+
     return data.results;
   }
 });
 
-var punctuationDataset = null, paintChart, graph, legend;
+var punctuationDataset, paintChart, graph, legend;
 
 ds.fetch({
-  success : function() {      
-    sequence++;
+  success : function() {   
 
-    if (punctuationDataset === null) {
+    // if this is our first success callback, we need create the
+    // groupBy dataset.
+    if (_.isUndefined(punctuationDataset)) {
       
       // compute a group by that aggregates the tweets into counts for each
       // type of punctuation.
-      punctuationDataset = this.groupBy("sequence", _.keys(punctuations));
+      punctuationDataset = this.groupBy("sequence", _.keys(punctuations), {
+
+        // we are overriding the default sum method to normalize the count
+        // to 100, which is the max amount of tweets. Because we're using since_id
+        // we might actually get a smaller set.
+        method : function(arr) {
+          return (_.sum(arr) / this.parent.importer.last_request_size) * 100;
+        }
+      });
       
+      // define a function painting routine.
       paintChart = function() {
+
+        // clear previously rendered chart here.
         $("#pieContainer").children().remove();
+
+        // create a new graph with the latest version of the data.
         graph = new Rickshaw.Graph({
           element: $("#pieContainer")[0], 
           width: 500, 
@@ -71,14 +99,18 @@ ds.fetch({
            
         graph.render();
       };
-
-      // subscribe to changes to the group by.
-      punctuationDataset.bind("change", paintChart);
     }
     
-    if (sequence >= 3) {
+    // wait for 3 requests to come in before painting original chart
+    // otherwise we are just painting one giant bar....!
+    if (sequence === 3) {
+
+      // subscribe to changes to the group by which will run
+      // the above repaint function.
+      punctuationDataset.bind("change", paintChart);
+      
       // render the chart the first time. Subsequent updates will go through
-      // the change event.
+      // the change event. We are waiting a few 
       paintChart();
 
       // draw legend just once.
@@ -89,20 +121,26 @@ ds.fetch({
         });  
       }
     }
+
+    // increase our request counter.   
+    sequence++;
   }
 });
 
-// because rickshaw expects all the data in x & y formats for every series,
-// we need to transform the data into the following format:
+// because rickshaw expects all the data properties to have the keys 'x' and 'y' for
+// for every series, we need to transform the data from a format like so (if x is 'a' and
+// the series are 'b' and 'c'):
+// [ { a : 1, b : 2, c : 3 }] => [ { data : [ { x : 1, y : 2 } ]}, { data : [ { x : 1, y : 3 } ]}]
 function prepareData(dataset, x, y) {
 
+  // convert the series to an array if it isn't.
   if (!_.isArray(y)) {
     y = [y];
   }
-  var colors = ['rgba(36,137,64,1)', 'rgba(143,188,43,1)', 'rgba(101,132,47,1)'];
   var series = [];
-  _.each(y, function(seriesName, i){
 
+  // for each series, create the required format.
+  _.each(y, function(seriesName, i){
     var s = { data : [] ,  color: colors[i], name : seriesName };
 
     dataset.each(function(row) {
