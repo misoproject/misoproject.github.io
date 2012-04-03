@@ -1,6 +1,8 @@
 .CodeMirror {
-  line-height: 1em;
-  font-family: monospace;
+  line-height: 1.3em!important;
+  font-family: 'Monaco';
+  box-shadow: 0 0 10px rgba(0,0,0,.1);
+  margin-bottom: 10px;
 }
 
 .CodeMirror-scroll {
@@ -69,21 +71,34 @@ span.CodeMirror-selected {
 
 
 .codemirror-result {
-  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0,0,0,.1);
+  color: #63881c;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  line-height: 1.3em!important;
+  font-family: 'Monaco';
+  border-top: 2px solid #f7f7f7;
+  background-color: #fff;
   border-top: none;
   padding: 10px;
-  font-family: monospace; 
 }
+
 .CodeMirror {
-  line-height: 1em;
-  font-family: monospace;
   overflow: auto;
   height: 100%;
-  border: 1px solid #ddd; }
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  background-color: #fff;
+}
+
 .CodeMirror .button {
+  font-family: "facitweb", "Helvetica Neue", "Helvetica", san-serif;
   padding: 5px;
   cursor: pointer;
-  background-color: #ddd;
+  background-color: #333;
+  color: #fff;
   position: relative;
   float: right;
   font-size: 11px;
@@ -97,8 +112,9 @@ span.CodeMirror-selected {
   z-index: 1;
   top: 8px; 
 }
+
 .CodeMirror .button:hover {
-  background-color: #eee; 
+  background-color: #2685ED; 
 }
 .CodeMirror .button.clear {
   margin-right: 102px; 
@@ -114,6 +130,7 @@ span.CodeMirror-selected {
   height: auto;
   overflow-y: hidden;
   overflow-x: auto;
+  padding-top: 20px;
   width: 100%; 
 }
 .CodeMirror-gutter {

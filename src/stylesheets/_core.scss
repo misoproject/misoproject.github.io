@@ -1,3 +1,7 @@
+body {
+  background-color: #f7f7f7;
+}
+
 a { text-decoration: none; }
 
 @mixin colourise( $color ) {
@@ -7,6 +11,8 @@ a { text-decoration: none; }
   ::selection               { color: #fff; background: $color; }
   ::-moz-selection          { color: #fff; background: $color; }
 }
+
+$border-color : #ccc;
 
 article.miso    { @include colourise( #D35E1D ); }
 article.dataset { @include colourise( #248940 )  }
@@ -34,132 +40,88 @@ h1, h2, h3, h4, h5, h6 {
   @include sanserif();
 }
 
-h3, h4 {
-  margin-top: 0.5em;
-}
-nav {
-  @include bigtype();
-  @include sanserif();
-  z-index: 3000;
-  a {
-    color: #000;
-  }
-  a.active {
-    color: #000;
-    @include transition( color 400ms ease-in-out );
-  }
-}
-
-body article, div.container {
+article, div.container {
   @include serif();
   overflow: hidden;
   margin: 0 auto 0 auto;
+  padding-right: 10px;
   padding-bottom: $cols2;
   position: relative;
-  min-height: $cols10;
-  p {
-    margin-bottom: $font-size;
-  }
-  code, pre {
-    background-color: #eee;
-    padding: 0.3em;
-  }
-  pre {
-    padding: 0.3em;
+  @include width(14);
+
+  div.codeblock {
+    float: left;
+    @include width( 8 );
   }
 
   section {
-    border-top: 1px solid #ddd;
-    h2 {
-      @include sanserif();
-      padding-top: $font-size / 2;
-      a { color: #000!important; }
-    }
-
-    li {
-      list-style-type: none;
-      margin-bottom: 0.5em;
-    }
-    li:before {
-      content: "\00BB \0020";
-    }
-    table {
-      th {
-        border-bottom: 1px solid #222;
-      }
-      td {
-        padding-left : 2%;
-        border-bottom: 1px solid #ddd;
-      }
-    }
-    .api {
-      margin-top: 10px;
-      padding-top: 10px;
-      padding-bottom: 40px;
-
-      pre {
-        border: 1px solid #bbb;
-        font-size: 1.2em;
-      }
-    }
-  }
-
-  section.intro {
-    border-top: none;
-    height: $cols6;
-    padding-bottom: $cols1;
-  }
-
-  section.big{
-    p {
-      @include bigtype();
-    }      
-  }
-
-  section.download ul li {
-    display: block;
-    span {
-      display: block;
+    clear: both;
+     &.intro {
+      @include width( 6 );
+      margin-bottom: 40px;
       float: left;
-      width: $cols3;
+      margin-right: 24px;
+      img {
+        margin-bottom: 20px;
+      }
+      p {
+        @include bigtype();
+      }
+        
+    }
+    &.quickstart {
+      width: 100%;
+      overflow: hidden;
+      border-top: 1px solid $border-color;
+      padding-top: 40px;
+      div.left {
+        float: left;
+        @include width( 6 );
+        margin-right: 24px;
+      }
+    }
+  }
+}
+
+nav {
+  padding-top: 15px;
+  @include width(14);
+  color: #666;
+  font-weight: normal!important;
+  margin: 0 auto 0 auto;
+  @include sanserif();
+  height: 100px;
+
+  span {
+    margin-right: 30px;
+    float: left;
+    display: block;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    &.miso {
+      padding-right: 15px;
+      margin-right: 15px;
+      border-right: 1px solid $border-color;
     }
     a {
-      display: block;
-      float: left;
+      color: #000;
     }
-    &:before {
-      content: none;
-    }
-    overflow: hidden;
-    width: 100%;
   }
 }
 
-
-footer  {
-  min-height: $cols4;
-  margin-top: $cols3;
-  clear: both;
-  overflow: hidden;
+footer {
   background-color: #000;
-  color: #fff;
-  width: 100%;
-
+  color: #f7f7f7;
   h2 {
-    color: #999;
+    border-bottom: 1px solid #666;
+    font-size: $font-size;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
   }
-
   div.container {
-    margin-top: $cols1;
-    margin-bottom: 0;
-    min-height: 0;
-    padding: 0;
-
-    img {
-      display: block;
-      margin-right: 25px;
+    padding-top: 30px;
+    section {
+      padding-bottom: 30px;
     }
   }
-
 }
-
