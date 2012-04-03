@@ -1,0 +1,22 @@
+- @page_title = "The Miso Project :: Dataset :: Examples"
+= partial('../partials/dataset/nav_config')
+- @extra_styles = capture_haml do
+  %link{ :rel => "stylesheet", :href => "/stylesheets/rickshaw/rickshaw.css" }
+
+- @extra_scripts = capture_haml do
+  %script{ :type => "text/javascript", :src => '/js/d3/d3.v2.min.js'}
+  %script{ :type => "text/javascript", :src => '/js/rickshaw/rickshaw.js'}
+
+%article.dataset
+  = partial("../partials/dataset/topper")
+  %section.normal
+    %h2 Remote Polling Twitter & Rendering With Rickshaw
+    %p
+      This example uses the remote poller to query twitter for a specific url (in this case the term 'javascript'.) The data is then manipulated slightly to keep track of how many different types of punctuations are used.  On the first request, a new derived group by dataset is created that only contains counts for the punctuations available. As new data comes into the original dataset, the group by is automaticaly updated. When the group by is updated it fires off a change event on which we render an updated chart.
+    %div#legend{ :style => "float:right;"}
+    %div#pieContainer{ :style => "height: 300px; width: 300px;" }
+      %div{ :style => 'padding-top: 30%; width:50%; margin: 0 auto; font-size: 1.5em' }
+        Loading Data...
+    = toRunnableCodeBlock("dataset/examples/rickshawandtwitter.js", nil, { :autorun => true })
+
+  = nav('Examples')

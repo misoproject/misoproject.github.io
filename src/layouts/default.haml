@@ -14,11 +14,10 @@
     %meta{ :name => "description", :content => "The Miso Project" }
     %meta{ :name => "name", :content => "The Miso Project" }
     %meta{ :name => "viewport", :content => "width=device-width" }
-    %title 
-      = @page_title 
+    %title= @page_title 
     %link{ :rel => "stylesheet", :href => "/stylesheets/screen.css" }
     %link{ :rel => "stylesheet", :href => "/stylesheets/codemirror.css" }
-
+    = @extra_styles
 
   %body
     = yield
