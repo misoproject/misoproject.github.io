@@ -231,7 +231,7 @@ window.log;
     if (this.options.showConsole) {
       window.log = CodeBlock.__makeConsoleFunction(this.output);
     }
-
+    this.buildSource();
     eval(this.source);
   };
 
@@ -243,6 +243,8 @@ window.log;
   */
   CodeBlock.prototype.runSandbox = function() {
 
+    this.buildSource();
+    
     // create an iframe sandbox for this element.
     var iframe = $("<iframe>")
       .css("display", "none")
