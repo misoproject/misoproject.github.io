@@ -157,6 +157,9 @@ module MisoHelper
     showConsole = defined?(params[:showConsole]) ? "showConsole=\"#{params[:showConsole]}\"" : ""
     showConsole = defined?(params[:sandbox]) ? "sandbox=\"#{params[:sandbox]}\""   : ""
     autorun     = defined?(params[:autorun]) ? "autorun=\"#{params[:autorun]}\""   : ""
+    callbacksClear  = defined?(params[:callbacksClear]) ? "callbacks-clear=\"#{params[:callbacksClear]}\""   : ""
+    callbacksReset  = defined?(params[:callbacksReset]) ? "callbacks-reset=\"#{params[:callbacksReset]}\""   : ""
+    callbacksRun    = defined?(params[:callbacksRun])   ? "callbacks-run=\"#{params[:callbacksRun]}\""   : ""
 
     full_path = File.join(Dir.pwd, 'src', 'snippets', partial.index(".js").nil? ? partial + ".js" : partial)
     puts "Making code block " + full_path
@@ -164,7 +167,7 @@ module MisoHelper
 
     if (params[:code])
       # make a code block
-      snippet = "<div class=\"codeblock\"><textarea #{id} #{classname} #{globals} #{runnable} #{showConsole} #{buttons} #{autorun}>\n"
+      snippet = "<div class=\"codeblock\"><textarea #{id} #{classname} #{globals} #{runnable} #{showConsole} #{buttons} #{autorun} #{callbacksClear} #{callbacksReset} #{callbacksRun}>\n"
     else
       # make a pre/post script
       snippet = "<script type='codemirror/#{params[:blocktype]}' data-selector='#{params[:selector]}'>"
