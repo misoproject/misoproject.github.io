@@ -83,6 +83,10 @@ article, div.container {
   }
 
   div.codeblock {
+    pre {
+      box-shadow: none;
+      padding: none;
+    }
     float: left;
     @include width( 8 );
   }
