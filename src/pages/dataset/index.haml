@@ -1,19 +1,31 @@
 - @page_title = "The Miso Project :: Dataset"
-= partial('../partials/dataset/nav_config')
 
 %article.dataset
-  %section.intro.big
-    %a{ :href => '/dataset' }
-      =img("/images/dataset.png", { :class => 'logo' })
-    %div.text
+  %section.intro
+    %div.left
+      %img{ :src => '/images/dataset.png' }
       %p
-        Dataset is a javascript library makes managing the data behind client-side visualisations easy, including realtime data. It takes care of loading, parsing, sorting, filtering and querying of datasets as well as the creation of derivative datasets.
-      %p
-        Dataset is part of the 
-        %a{ :href => '/'}
-          Miso Toolkit
+        Dataset makes managing client-side datasets easy. It handles loading, parsing, sorting, querying & manipulating data from anything from a CSV to a Google Spreadsheet painless, including realtime data sources.
+    %div.download
+      %h2
+        Download 
+        %a{ :href => 'github here' }
+          0.1rc1
+      %a.button{ :href => '' }
+        &darr; development
+      %a.button{ :href => '' }
+        &darr; production
+      %a.button{ :href => '' }
+        &darr; production with dependencies
+      
 
-  = section('In Detail', 'dataset/why_dataset')
-  = section('Dependencies', 'dataset/dependancies')
-  = section('Download', 'dataset/downloads')
-  = section('Contributing', 'dataset/code')
+  %section.quickstart
+    %div.left
+      %p
+        Dataset is designed to solve common problems and patterns around client-side dataset manipulation and management:
+      %p
+        Unlike more general client-side model frameworks dataset is designed exclusively for working with matricies/tables of data. This allows dataset to provide a rich set of capabilities bit with this specific use case in mind as well as optimise for large numbers of rows. 
+      %p
+        In addition to helping load and parse your data Dataset makes it easy to query and select that data, creating views which will then automatically update when the underlying data changes. This provides event hooks that make it trivial to create interfaces for realtime data. Dataset also makes it easy to create derivative datasets (ie moving averages, groupings) and products (min, max, mean) that based on the original data, these also automatically update to reflect the underlying dataset. 
+
+    = toRunnableCodeBlock("dataset/examples/quickstart.js", nil, { :autorun => true })

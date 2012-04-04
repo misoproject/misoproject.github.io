@@ -1,6 +1,4 @@
-body {
-  background-color: #f7f7f7;
-}
+
 
 a { text-decoration: none; }
 
@@ -10,12 +8,19 @@ a { text-decoration: none; }
   }
   ::selection               { color: #fff; background: $color; }
   ::-moz-selection          { color: #fff; background: $color; }
+
+  a.button:hover {
+    background-color: $color!important;
+  }
+
 }
 
 $border-color : #ccc;
+$background-color : #f7f7f7;
+$dark-color : #333;
 
 article.miso    { @include colourise( #D35E1D ); }
-article.dataset { @include colourise( #248940 )  }
+article.dataset { @include colourise( #2585EC ); }
 
 @mixin bigtype {
   font-size: ($font-size + 4) / $em;
@@ -56,29 +61,67 @@ article, div.container {
 
   section {
     clear: both;
-     &.intro {
-      @include width( 6 );
+    p {
+      margin-bottom: 1em;
+    }
+    &.intro {
+      padding-bottom: 40px - $font-size;
+      overflow: hidden;
+      border-bottom: 1px solid $border-color;
       margin-bottom: 40px;
       float: left;
-      margin-right: 24px;
       img {
         margin-bottom: 20px;
       }
       p {
         @include bigtype();
       }
-        
+      @include width(14);
+      position: relative;
+
+      div.download {
+        position: absolute;
+        right: 0;
+        bottom: 40px + $font-size;
+        @include width( 8 );
+        @include sanserif();
+        font-size : $font-size - 2;
+        h2 {
+          font-size: $font-size;
+          padding-bottom: 5px;
+        }
+        span {
+          display: block;
+          padding-top: 6px;
+          padding-bottom: 6px;
+        }
+        a.button {
+          display: block;
+          padding: 6px;
+          background-color: $dark-color;
+          font-weight: normal;
+          color: $background-color;
+          border-radius: 5px;
+          margin-right: 6px;
+          float: left;
+          &:last-of-type {
+            margin-right: 0;
+          }
+        }
+      }
     }
+
+    div.left {
+      float: left;
+      @include width( 6 );
+      margin-right: 24px;
+    }
+
     &.quickstart {
+      padding-right: 10px;
       width: 100%;
       overflow: hidden;
-      border-top: 1px solid $border-color;
-      padding-top: 40px;
-      div.left {
-        float: left;
-        @include width( 6 );
-        margin-right: 24px;
-      }
+      padding-top: 10px;
     }
   }
 }
@@ -90,7 +133,7 @@ nav {
   font-weight: normal!important;
   margin: 0 auto 0 auto;
   @include sanserif();
-  height: 100px;
+  height: 70px;
 
   span {
     margin-right: 30px;
