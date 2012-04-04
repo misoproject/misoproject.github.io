@@ -1,0 +1,36 @@
+- @page_title = "The Miso Project :: Dataset :: Guides"
+
+%article.dataset
+  %section.guide
+    %h2
+      Selecting Data
+    %p
+      Dataset makes it easy to select sections of your columns and rows based on either static or function based criteria. Creating a selection will return a subset of your data that will function and be queriable in the same way your original dataset is. We call this subset a <code>View</code>. A view is almost identical a dataset except it is <b>immutable</b>(you can continue selecting subsets but you can't modify the data.) 
+
+
+    %h3 Columns:
+    %p
+      You can create a subset containing only some of the original columns from your dataset like so:
+
+    :plain
+      <pre>
+      ds.columns(["one", "two"]);
+      </pre>
+
+    <b>Note</b> selecting a single column this way will create a new dataset-like interface. If you're trying to just get a reference to a specific column in your dataset, just call <code>ds.column("one");</code>
+
+    = toRunnableCodeBlock("dataset/selection/columns")
+
+    %h3 Rows:
+    %p
+      A more likely selection is a subset of rows that matches a particular criteria. You can select a row subset like so:
+      %pre ds.rows(filter);
+
+    = toRunnableCodeBlock("dataset/selection/rows")
+
+    %h3 Syncing:
+    %p
+      If you enabled syncing on your dataset by setting <code>{ sync : true }</code> during instantiation, your views will automatically update to reflect changes in your data. For example:
+
+      = toRunnableCodeBlock("dataset/selection/syncing")
+        

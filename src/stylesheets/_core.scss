@@ -91,24 +91,39 @@ article, div.container {
     @include monospace();
   }
 
+  pre {
+    @include monospace();
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+  }
+
   section {
     clear: both;
     p {
       margin-bottom: 1em;
     }
-    div.example {
+    div.example, div.guide {
       @include width( 4 );
       float: left;
       margin-right: 24px;
+      margin-bottom: 24px;
       img {
         margin-bottom: 24px;
       }
+      min-height: 150px;
     }
-    &.examples {
+    &.examples, &.guides {
       a {
         color: #000;
       }
       h1 {
+        margin-bottom: 30px;
+      }
+    }
+    &.guide {
+      @include width( 10 );
+      .codeblock {
+        @include width( 10 );
         margin-bottom: 30px;
       }
     }
@@ -266,6 +281,9 @@ nav {
     }
     a {
       color: #000;
+      &:hover {
+        color: #2585EC
+      }
     }
   }
 }

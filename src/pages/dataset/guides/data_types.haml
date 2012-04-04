@@ -1,0 +1,50 @@
+- @page_title = "The Miso Project :: Dataset :: Guides"
+
+%article.dataset
+  %section.guide
+    %h2 
+      Data Types
+    %p 
+      Dataset supports the following prebuilt data types:
+      %ul
+        %li <code>number</code>
+        %li <code>string</code>
+        %li <code>boolean</code>
+        %li <code>time</code>
+
+      Dataset will attempt and detect the type of each column when the data is being fetched. This will be done by looking at the first few rows of the data.
+
+    %h3 Overriding Detected Types
+
+    %p
+      Dataset will attempt to detect what the type of your data is. However, if any of your columns are of a <code>time</code> format, it's much more efficient for you to specify that directly as follows:
+
+    :plain
+      <pre>
+      columns : [
+        { name : 'columnName', 
+          type : '<known type (see Types Sections)>' 
+          … [any additional type required options here.] 
+        }
+      ]
+      </pre>
+
+    %p
+      Dataset will take care of the actual type coercion, making it trivial to convert strings to numbers or timestamps to `moment` objects. For example, coercing the timestamp column into a time column and the total column to a numeric type would look like so:
+
+      = toRunnableCodeBlock("dataset/types/dataType")
+
+      %h3 Custom Types
+      %p
+        The type system itself can be extended to add new types for your data.
+        The current type set is defined in <code>src/types.js</code>.
+      %p
+        To define a new type, the required signature is as follows:
+        = toDisplayCodeBlock("dataset/types/customTypeSignature")
+
+      %p
+        For example, we might define a custom <code>phone</code> type like so:
+        = toRunnableCodeBlock("dataset/types/phoneType", "customPhoneType")
+        = toCleanupCodeBlock("dataset/types/phoneTypeCleanup", "customPhoneType")
+
+          

@@ -86,7 +86,7 @@ ds.fetch({
       paintChart = function() {
 
         // clear previously rendered chart here.
-        $("#pieContainer").children().remove();
+        $("#pieContainer").empty();
 
         // create a new graph with the latest version of the data.
         graph = new Rickshaw.Graph({

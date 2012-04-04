@@ -1,0 +1,38 @@
+- @page_title = "The Miso Project :: Dataset :: Guides"
+
+%article.dataset
+  %section.guide
+    %h2 
+      Fetching Data
+    %p
+      Regardless of how you initialized your dataset (locally or remotely), it needs to be fetched for the data to be available. To begin fetching your data, simply call <code>.fetch()</code> on it. 
+
+    %p
+      Note that if your data is remote, it is especially imperative that you don't attempt to access your dataset before that call is complete.
+
+    %p 
+      Data can be fetched in one of three ways:
+
+    %h3 Pass success/error callbacks:
+    %p
+      = toRunnableCodeBlock("dataset/fetching/callbackFetch")
+
+    %h3 Using Deferreds
+    %p
+      If you have more than one dataset you need to wait on, or you might be a fan of using deferreds, you can use them as follows:
+    %p
+      = toRunnableCodeBlock("dataset/fetching/deferredFetching")
+
+
+    %h4 ready Callback
+    %p
+      You can also pass the dataset a <code>ready</code> callback that will be executed once the data is ready to be manipulated. This still requires fetching but allows you to have dataset-specific callbacks vs a single success callback for multiple fetches, for example.
+    %p
+      Note that the individual ready callbacks are executed first and then the fetch callback gets executed.
+
+    %p
+      = toRunnableCodeBlock("dataset/fetching/readyCallback")
+
+
+
+

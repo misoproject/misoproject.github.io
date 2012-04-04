@@ -1,0 +1,139 @@
+- @page_title = "The Miso Project :: Dataset :: Guides"
+
+%article.dataset
+  %section.guide
+    %h1
+      Events
+
+    %p
+      Dataset has a very rich event system that allows you to bind to a variety of events on your dataset. By default, this functionality is <b>NOT ENABLED</b>. This is because event bindings are created automatically in certain cases (see more about selection and filtering) and unless that functionality is needed, there's no reason to create the bindings.
+    %p
+      To enable evented behavior, set the <code>sync</code> property to <code>true</code> when initializing your dataset.
+      :plain
+        <pre>
+        var ds = new Miso.Dataset({
+          data : [
+            { one : 12,  two : 40,  three : 40 }
+          ],
+          sync : true
+        });
+        </pre>
+
+
+    %h3 Default Events
+    %p
+      Presently, dataset fires the following events:
+      %table
+        %tr
+          %th Event
+          %th Fired When
+          %th Precedence
+        %tr
+          %td
+            %code add
+          %td
+            Fired when adding a row to the dataset by calling <code>.add</code>
+          %td
+            Primary
+
+        %tr
+          %td
+            %code remove
+          %td
+            Fired when removing a row from the dataset by calling <code>.remove</code>
+          %td
+            Primary
+
+        %tr
+          %td
+            %code update
+          %td
+            Fired when updating a row in the dataset by calling <code>.update</code>
+          %td
+            Primary
+
+        %tr
+          %td
+            %code change
+          %td
+            Fired when calling <code>.add</code>, <code>.remove</code> or <code>.update</code>
+          %td
+            Secondary
+
+        %tr
+          %td
+            %code sort
+          %td
+            Fired when a dataset has been sorted.
+          %td
+            Primary
+        %tr
+          %td
+            %code reset
+          %td
+            Fired when a dataset has been reset
+          %td
+            Primary
+    %p
+      Any of the default events can be prevented by passing the <code>{ silent : true }</code> flag. See the appropriate methods for further instructions.
+
+    %h3 Binding
+    %p
+      To bind to an event, call <code>bind</code> like so:
+      %pre
+        ds.bind("add", callback);
+
+    %h3 Event Object
+    %p
+      When any of the default events trigger (except for <code>sort</code>) an event object gets created and passed down to the callbacks. The event object is structured as follows:
+
+      %ul
+        %li An event is of type <code>Miso.Event</code>
+        %li It has a <code>deltas</code> property that contains all the deltas that were generated for this specific event.
+
+    %h3 Deltas
+    %p
+      An event is comprised of one or more deltas. Each delta can represent a different operation, allowing a single event to actually represent many modifications.
+    %p
+      Each delta can look as follows:
+      :plain
+        <pre>
+        {
+          // the set of attributes that changed
+          changed : { } or value
+
+          // the old values of those attributes
+          old : { } or value
+        }
+        </pre>
+    %ul
+      %li
+        When a row is added, there will only be <code>changed</code> attributes.
+      %li 
+        When a row is removed, there will only be <code>old</code> attributes.
+      %li
+        When a row is updated, there will be <code>changed</code> and <code>old</code> attributes.
+      %li
+        In certain cases the values of <code>changed</code> and <code>old</code> may not be an object but rather a numeric value. More on that in the <b>Computed Values</b> section.
+
+    %h4 Detecting Delta Types:
+    %p
+      You can always check what type of a delta you've recieved by calling any of the following helper methods:
+
+      %pre Miso.Event.isRemove(delta);
+      %pre Miso.Event.isAdd(delta);
+      %pre Miso.Event.isUpdate(delta); 
+
+    %p
+      For example:
+      = toRunnableCodeBlock("dataset/events/basicEventStructure")
+
+    %h3 Custom Events
+    %p
+      You can trigger your own custom events on dataset by just calling <code>trigger</code> when needed like so:
+      %pre ds.trigger("myCustomEvent", arguments...);
+
+
+
+
+          
