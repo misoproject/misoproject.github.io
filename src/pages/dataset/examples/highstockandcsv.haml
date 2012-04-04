@@ -3,8 +3,7 @@
 - @extra_scripts = capture_haml do
   %script{ :type => "text/javascript", :src => '/js/highchart/highcharts.js'}
 
-%article.dataset
-  = partial("../partials/dataset/topper")
+%article.dataset.example
   %section.normal
     %h2 Remote CSV and Highchart
     %p
@@ -16,5 +15,4 @@
       %div{ :style => 'padding-top: 30%; width:50%; margin: 0 auto; font-size: 1.5em' }
         Click RUN below to see a results chart
 
-    = toRunnableCodeBlock("dataset/examples/highstockandcsv.js", "highstockandcsv", { :globals => "Miso,_,$,Highcharts", :autorun => true })
-  = nav('Examples')
+  = toRunnableCodeBlock("dataset/examples/highstockandcsv.js", "highstockandcsv", { :globals => "Miso,_,$,Highcharts", :autorun => true })
