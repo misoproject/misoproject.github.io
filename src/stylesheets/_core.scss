@@ -207,6 +207,11 @@ article, div.container {
       border-bottom: 1px solid $border-color;
       margin-bottom: 40px;
       float: left;
+      div.download {
+        position: absolute;
+        right: 0;//: 432px;
+        @include width( 8 );
+      }
       img {
         margin-bottom: 20px;
       }
@@ -216,36 +221,7 @@ article, div.container {
       @include width(14);
       position: relative;
 
-      div.download {
-        position: absolute;
-        right: 0;//: 432px;
-        bottom: 40px;
-        @include width( 8 );
-        @include sanserif();
-        font-size : $font-size - 2;
-        h2 {
-          font-size: $font-size;
-          padding-bottom: 10px;
-        }
-        span {
-          display: block;
-          padding-top: 6px;
-          padding-bottom: 6px;
-        }
-        a.button {
-          display: block;
-          padding: 6px;
-          background-color: #fff;
-          font-weight: normal;
-          color: #333;
-          border-radius: 5px;
-          margin-right: 6px;
-          float: left;
-          &:last-of-type {
-            margin-right: 0;
-          }
-        }
-      }
+      
     }
 
     div.left {
@@ -263,6 +239,36 @@ article, div.container {
   }
 }
 
+div.download {
+  bottom: 40px;
+  @include sanserif();
+  font-size : $font-size - 2;
+  h2 {
+    font-size: $font-size;
+    padding-bottom: 10px;
+  }
+  span {
+    display: block;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+  a.button {
+    display: block;
+    padding: 6px;
+    background-color: #fff;
+    font-weight: normal;
+    color: #333;
+    border-radius: 5px;
+    margin-right: 6px;
+    float: left;
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+  a.button:hover {
+    color: white
+  }
+}
 nav {
   padding-top: 15px;
   @include width(14);
