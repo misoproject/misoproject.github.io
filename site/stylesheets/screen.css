@@ -179,18 +179,29 @@ article.dataset ::-moz-selection {
 }
 
 /* line 33, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold;
+  font-family: "facitweb", "Helvetica Neue", "Helvetica", san-serif;
+}
+
+/* line 37, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+h3, h4 {
+  margin-top: 0.5em;
+}
+
+/* line 40, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 nav {
   font-size: 1.25em;
   line-height: 1.25em;
-  font-family: "Helvetica Neue LT Pro", "Helvetica Neue", "Helvtica", san-serif;
   font-weight: bold;
+  font-family: "facitweb", "Helvetica Neue", "Helvetica", san-serif;
   z-index: 3000;
 }
-/* line 37, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 44, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 nav a {
   color: #000;
 }
-/* line 40, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 47, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 nav a.active {
   color: #000;
   -webkit-transition: color 400ms ease-in-out;
@@ -199,7 +210,7 @@ nav a.active {
   transition: color 400ms ease-in-out;
 }
 
-/* line 46, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 53, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 body article, div.container {
   font-family: "ff-tisa-web-pro","Georgia", serif;
   overflow: hidden;
@@ -208,101 +219,96 @@ body article, div.container {
   position: relative;
   min-height: 43.5em;
 }
-/* line 53, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 60, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 body article p, div.container p {
   margin-bottom: 16px;
 }
-/* line 56, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 63, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 body article code, body article pre, div.container code, div.container pre {
   background-color: #eee;
   padding: 0.3em;
 }
-/* line 60, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 67, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 body article pre, div.container pre {
   padding: 0.3em;
 }
-/* line 64, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 71, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 body article section, div.container section {
   border-top: 1px solid #ddd;
 }
-/* line 66, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 73, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 body article section h2, div.container section h2 {
-  font-family: "Helvetica Neue LT Pro", "Helvetica Neue", "Helvtica", san-serif;
   font-weight: bold;
-  font-size: 16px;
-  line-height: 1em;
+  font-family: "facitweb", "Helvetica Neue", "Helvetica", san-serif;
   padding-top: 8px;
-  padding-bottom: 16px;
 }
-/* line 71, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 76, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 body article section h2 a, div.container section h2 a {
   color: #000!important;
 }
-/* line 74, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 79, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 body article section li, div.container section li {
   list-style-type: none;
-  padding-left: 1em;
-  text-indent: -1em;
   margin-bottom: 0.5em;
 }
-/* line 80, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 83, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 body article section li:before, div.container section li:before {
   content: "\00BB \0020";
 }
-/* line 84, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 87, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 body article section table th, div.container section table th {
   border-bottom: 1px solid #222;
 }
-/* line 87, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 90, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 body article section table td, div.container section table td {
   padding-left: 2%;
   border-bottom: 1px solid #ddd;
 }
-/* line 92, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 95, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 body article section .api, div.container section .api {
-  border-top: 3px solid #222;
   margin-top: 10px;
   padding-top: 10px;
+  padding-bottom: 40px;
 }
-/* line 97, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 100, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 body article section .api pre, div.container section .api pre {
   border: 1px solid #bbb;
   font-size: 1.2em;
 }
-/* line 104, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 107, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 body article section.intro, div.container section.intro {
   border-top: none;
   height: 25.5em;
   padding-bottom: 3em;
 }
-/* line 111, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 114, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 body article section.big p, div.container section.big p {
   font-size: 1.25em;
   line-height: 1.25em;
 }
-/* line 116, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 119, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 body article section.download ul li, div.container section.download ul li {
   display: block;
   overflow: hidden;
   width: 100%;
 }
-/* line 118, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 121, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 body article section.download ul li span, div.container section.download ul li span {
   display: block;
   float: left;
   width: 12em;
 }
-/* line 123, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 126, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 body article section.download ul li a, div.container section.download ul li a {
   display: block;
   float: left;
 }
-/* line 127, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 130, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 body article section.download ul li:before, div.container section.download ul li:before {
   content: none;
 }
 
-/* line 136, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 139, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 footer {
   min-height: 16.5em;
   margin-top: 12em;
@@ -312,18 +318,18 @@ footer {
   color: #fff;
   width: 100%;
 }
-/* line 145, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 148, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 footer h2 {
   color: #999;
 }
-/* line 149, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 152, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 footer div.container {
   margin-top: 3em;
   margin-bottom: 0;
   min-height: 0;
   padding: 0;
 }
-/* line 155, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
+/* line 158, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_core.scss */
 footer div.container img {
   display: block;
   margin-right: 25px;
@@ -364,11 +370,25 @@ footer div.container img {
     width: 39em;
   }
   /* line 30, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
+  body article section div.example, div.container section div.example {
+    width: 16.5em;
+    clear: none;
+    overflow: hidden;
+    float: left;
+    padding-right: 40px;
+    padding-bottom: 40px;
+    min-height: 500px;
+  }
+  /* line 40, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
+  body article section.examples, div.container section.examples {
+    border-top: none;
+  }
+  /* line 44, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
   body article section.topper, div.container section.topper {
     width: 52.5em;
     border-top: hidden;
   }
-  /* line 35, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
+  /* line 49, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
   body article section.intro, div.container section.intro {
     clear: both;
     overflow: hidden;
@@ -376,58 +396,56 @@ footer div.container img {
     margin-bottom: 0;
     border-top: none;
   }
-  /* line 38, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
+  /* line 52, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
   body article section.intro div.text, div.container section.intro div.text {
     margin-top: 7.5em;
   }
 
-  /* line 50, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
+  /* line 64, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
   nav {
-    z-index: 1000;
     top: 156px;
     position: absolute;
     overflow: hidden;
-    width: 43.5em;
     left: 0;
   }
-  /* line 57, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
+  /* line 69, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
   nav ul {
     width: 7.5em;
     border-bottom: 1px solid #dddddd;
     float: left;
     list-style-type: none;
   }
-  /* line 63, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
+  /* line 75, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
   nav ul li {
     display: block;
     width: 100%;
     border-top: 1px solid #dddddd;
     overflow: hidden;
   }
-  /* line 68, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
+  /* line 80, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
   nav ul li a {
     line-height: 2;
   }
-  /* line 72, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
+  /* line 84, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
   nav ul li ul {
     border: none;
   }
-  /* line 74, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
+  /* line 86, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
   nav ul li ul li {
     margin-left: 16px;
     font-size: 0.75em;
     border: none;
   }
-  /* line 78, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
+  /* line 90, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
   nav ul li ul li a {
     color: #aaa;
   }
 
-  /* line 87, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
+  /* line 99, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
   footer div.container {
     width: 52.5em;
   }
-  /* line 89, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
+  /* line 101, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_desktop.scss */
   footer div.container img {
     float: right;
     margin-right: 25px;
@@ -516,16 +534,17 @@ article.miso section h2 {
   padding-right: 10px;
   display: block;
   float: left;
+  font-size: 16px;
 }
-/* line 15, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_miso.scss */
+/* line 16, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_miso.scss */
 article.miso section div.content {
   width: 25.5em;
 }
-/* line 18, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_miso.scss */
+/* line 19, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_miso.scss */
 article.miso section.soon {
   color: #999;
 }
-/* line 22, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_miso.scss */
+/* line 23, /Users/agraul/Projects/Guardian/themisoproject.com/src/stylesheets/_miso.scss */
 article.miso a {
   color: #000;
 }
