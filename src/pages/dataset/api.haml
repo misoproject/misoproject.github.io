@@ -2,13 +2,65 @@
 = partial('../partials/dataset/nav_config')
 
 %article.dataset
-  = partial("../partials/dataset/topper")
-  = section('Miso.Dataset', 'api/miso.dataset')
-  = section('Miso.Column', 'api/miso.column')
-  = section('Miso.DataView', 'api/miso.dataview')
-  = section('Miso.Types', 'api/miso.types')
-  = section('Miso.Importer', 'api/miso.importer')
-  = section('Miso.Parser', 'api/miso.parser')
-  = section('Miso.Events', 'api/miso.events')
-  = nav('API Ref')
+  %section.api
+    %h2
+      Miso.Dataset
+    %p
+      This is some text about Miso.Dataset
+    %ul
+      %li
+        %div.name.signature
+          %code
+            new Miso.Dataset(options)
+        %div.doc
+          %p
+            Authentic enim exercitation, vinyl mustache kogi cupidatat williamsburg kale chips consectetur deserunt gluten-free swag. Austin et terry richardson farm-to-table swag, incididunt put a bird on it in vinyl laboris fixie carles. Ethnic nisi sint et cred umami. Nihil pour-over salvia occaecat odio.
+          %h3
+            Returns
+          %code
+            Miso.Dataset
+          %h3
+            Parameters
+          %ul.params
+            %li
+              %div.name
+                %span
+                  paramName
+              %p
+                In wes anderson ut tumblr
+              %ul
+                %li
+                  %div.name
+                    %span
+                      paramName
+                  %p
+                    In wes anderson ut tumblr ullamco, master cleanse before they sold out street art
+                %li
+                  %div.name
+                    %span
+                      paramName
+                  %p
+                    In wes anderson ut tumblr ullamco, master cleanse before they sold out street art pour-over portland consectetur. Fanny pack irony post-ironic ut food truck jean shorts.
+ 
+ 
+            %li
+              %div.name
+                %span
+                  paramName
+              %p
+                In wes anderson ut tumblr ullamco, master cleanse before they sold out street art pour-over portland consectetur. Fanny pack irony post-ironic ut food truck jean shorts. Ethnic veniam pariatur jean shorts aliqua. 3 wolf moon fugiat carles consectetur readymade do. Cliche sunt reprehenderit, american apparel chambray 
+
+
+    
+
+
+
+  -# = section('Miso.Dataset', 'api/miso.dataset')
+  -# = section('Miso.Column', 'api/miso.column')
+  -# = section('Miso.DataView', 'api/miso.dataview')
+  -# = section('Miso.Types', 'api/miso.types')
+  -# = section('Miso.Importer', 'api/miso.importer')
+  -# = section('Miso.Parser', 'api/miso.parser')
+  -# = section('Miso.Events', 'api/miso.events')
+  -# = nav('API Ref')
 
