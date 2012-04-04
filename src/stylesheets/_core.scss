@@ -112,7 +112,20 @@ article, div.container {
         margin-bottom: 30px;
       }
     }
+
     &.api {
+      h2 {
+        margin-top: 2em;
+        margin-bottom: 0.5em;
+      }
+      div.codeblock {
+        margin-top: 24px;
+        @include width( 14 );
+      }
+      div.codemirror-result {
+        display: none;
+      }
+
       ul {
         list-style: none;
         li {
@@ -120,6 +133,7 @@ article, div.container {
           border-top: 1px solid $border-color;
           width: 100%;
           overflow: hidden;
+          padding-bottom: 20px;
         }
         &.params li {
           border-top: 1px solid #dfdfdf;
@@ -127,7 +141,7 @@ article, div.container {
             display: block;
             height: 100%;
             float: left;
-            @include width( 4 );
+            @include width( 2 );
           }
           span {
             @include monospace();
@@ -138,7 +152,7 @@ article, div.container {
           }
           ul {
             width: 100%;
-            padding-left: 40px;
+            padding-left: 20px;
             margin-bottom: 20px;
             li {
               border-top: 1px solid #eee;
@@ -158,12 +172,12 @@ article, div.container {
         display: block;
         margin-left: 5px;
         float: left;
-        @include width( 4 );
+        @include width( 6 );
       }
       div.doc {
         float: right;
         margin-left: 5px;
-        @include width( 10 );
+        @include width( 8 );
       }
 
     }
