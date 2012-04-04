@@ -5,8 +5,8 @@ theLogo=document.createElement("img"); theLogo.src="http://misoproject.com/image
 theBr=document.createElement("br");
 theDiv.appendChild(theLogo);
 theDiv.appendChild(theBr);
-var top = 10;
-if (typeof window.pageYOffset !== "undefined"){ top += window.pageYOffset; }
+var topscroll = 10;
+if (typeof window.pageYOffset !== "undefined"){ topscroll = window.pageYOffset + 10; }
 var text;
 if (!(/google\.com\/spreadsheet/.test(location.href))) {
   text="You can only use this on a google spreadsheet!";
@@ -32,7 +32,8 @@ if (!(/google\.com\/spreadsheet/.test(location.href))) {
 var thePre=document.createElement("pre");
 thePre.appendChild(document.createTextNode(text));
 theDiv.appendChild(thePre);
-theDiv.style.position="absolute";theDiv.style.left="10px";theDiv.style.top=top+"px";theDiv.style["z-index"]=1000;
+console.log(top);
+theDiv.style.position="absolute";theDiv.style.left="10px";theDiv.style.top=topscroll+"px";theDiv.style["z-index"]=1000;
 theDiv.style["background-color"]="white";
 theDiv.style.padding="20px";
 theDiv.style.border="solid 2px black"; 
