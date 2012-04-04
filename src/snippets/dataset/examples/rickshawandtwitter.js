@@ -91,7 +91,7 @@ ds.fetch({
         // create a new graph with the latest version of the data.
         graph = new Rickshaw.Graph({
           element: $("#pieContainer")[0], 
-          width: 500, 
+          width: 800, 
           height: 270, 
           renderer : 'bar',
           series: prepareData(punctuationDataset, "sequence", _.keys(punctuations))
