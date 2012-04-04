@@ -12,14 +12,14 @@
   = toDisplayCodeBlock("api/importer")
 
 
-%h3 Miso.Importer.Local
+%h2 Miso.Importer.Local
 %p
   Required dataset instantiation property:
   %ul
     %li 
       data - The local var object containing the data.
 
-%h3 Miso.Importer.Remote
+%h2 Miso.Importer.Remote
 %p
   Required dataset instantiation property:
   %ul
@@ -28,16 +28,16 @@
     %li
       jsonp - If the url in question is a jsonp request, set this to true.
 
-%h3 Miso.Importer.Polling
+%h2 Miso.Importer.Polling
 %p
   %ul
     %li 
       interval - The interval at which each request will be made. This is an approximate interval because until a request returns, the next request will not queue up.
+%ul
+  = api("importer.stop()", [],  "Stops the polling.");
+  = api("importer.start()", [], "Restarts the polling.");
 
-= api("importer.stop()", [],  "Stops the polling.");
-= api("importer.start()", [], "Restarts the polling.");
-
-%h3 Miso.Importer.GoogleSpreadsheet
+%h2 Miso.Importer.GoogleSpreadsheet
 %p
   %ul
     %li 

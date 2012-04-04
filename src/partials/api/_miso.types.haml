@@ -1,4 +1,4 @@
-= api("Miso.typeof(value, options)", |
+%ul= api("Miso.typeof(value, options)", |
   [ |
     { :name => 'value', :description => 'The value who we are checking the type of' }, |
     { :name => 'options', :description => 'Optional arguments', :params => [ |
@@ -7,94 +7,99 @@
     }], |
   "Checks the type of a value", "Miso.Type")
 
-%h3 Miso.types
+%h2 Miso.types
 %p
   All data type objects follow the following format:
   = toDisplayCodeBlock("dataset/types/customTypeSignature")
 
-%h3 Miso.types.mixed
-= api("Miso.types.mixed.name", [], "Name of <code>mixed</code> value type", "\"mixed\"")
-= api("Miso.types.mixed.coerce(v)", |
-  [{ :name => "v", :description => "Value to coerce to a mixed type. Passthrough." }], |
-  "Coerces a value to a <code>mixed</code> value type", "Same type as incoming value")
-= api("Miso.types.mixed.test(v)", |
-  [{ :name => "v", :description => "Value to test. Always true." }], |
-  "Tests whether a value is of <code>mixed</code> type", "true")
-= api("Miso.types.mixed.compare(s1, s2)", |
-  [{ :name => "s1", :description => "First value" },  |
-   { :name => "s2", :description => "Second value" }], |
-  "Compares two <code>mixed</code> type values", "-1 | 1 | 0")
-= api("Miso.types.mixed.numeric(v)", |
-  [{ :name => "v", :description => "Value to return the numeric representation of" }], |
-  "Returns the numeric representation of a <code>mixed</code> value. If it's an integer, then it coerces it. Otherwise it returns 0.", "number")  
+%h2 Miso.types.mixed
+%ul
+  = api("Miso.types.mixed.name", [], "Name of <code>mixed</code> value type", "\"mixed\"")
+  = api("Miso.types.mixed.coerce(v)", |
+    [{ :name => "v", :description => "Value to coerce to a mixed type. Passthrough." }], |
+    "Coerces a value to a <code>mixed</code> value type", "Same type as incoming value")
+  = api("Miso.types.mixed.test(v)", |
+    [{ :name => "v", :description => "Value to test. Always true." }], |
+    "Tests whether a value is of <code>mixed</code> type", "true")
+  = api("Miso.types.mixed.compare(s1, s2)", |
+    [{ :name => "s1", :description => "First value" },  |
+     { :name => "s2", :description => "Second value" }], |
+    "Compares two <code>mixed</code> type values", "-1 | 1 | 0")
+  = api("Miso.types.mixed.numeric(v)", |
+    [{ :name => "v", :description => "Value to return the numeric representation of" }], |
+    "Returns the numeric representation of a <code>mixed</code> value. If it's an integer, then it coerces it. Otherwise it returns 0.", "number")  
 
-%h3 Miso.types.string
-= api("Miso.types.string.name", [], "Name of <code>string</code> value type", "\"string\"")
-= api("Miso.types.string.coerce(v)", |
-  [{ :name => "v", :description => "Value to coerce to a string type." }], |
-  "Coerces a value to a <code>string</code> value type", "String")
-= api("Miso.types.string.test(v)", |
-  [{ :name => "v", :description => "Value to test" }], |
-  "Tests whether a value is of <code>string</code> type", "true | false") 
-= api("Miso.types.string.compare(s1, s2)", |
-  [{ :name => "s1", :description => "First value" },  |
-   { :name => "s2", :description => "Second value" }], |
-  "Compares two <code>string</code> type values", "-1 | 1 | 0")
-= api("Miso.types.string.numeric(value, index)", |
-  [{ :name => "value", :description => "Value to return the numeric representation of" }, |
-   { :name => "index", :description => "Optional index position that will be returned as the representation of this string numerically (useful for categorical mappings to a scale.)" }], |
-  "Returns the numeric representation of a <code>string</code> value which is the provided index.", "number")
+%h2 Miso.types.string
+%ul
+  = api("Miso.types.string.name", [], "Name of <code>string</code> value type", "\"string\"")
+  = api("Miso.types.string.coerce(v)", |
+    [{ :name => "v", :description => "Value to coerce to a string type." }], |
+    "Coerces a value to a <code>string</code> value type", "String")
+  = api("Miso.types.string.test(v)", |
+    [{ :name => "v", :description => "Value to test" }], |
+    "Tests whether a value is of <code>string</code> type", "true | false") 
+  = api("Miso.types.string.compare(s1, s2)", |
+    [{ :name => "s1", :description => "First value" },  |
+     { :name => "s2", :description => "Second value" }], |
+    "Compares two <code>string</code> type values", "-1 | 1 | 0")
+  = api("Miso.types.string.numeric(value, index)", |
+    [{ :name => "value", :description => "Value to return the numeric representation of" }, |
+     { :name => "index", :description => "Optional index position that will be returned as the representation of this string numerically (useful for categorical mappings to a scale.)" }], |
+    "Returns the numeric representation of a <code>string</code> value which is the provided index.", "number")
 
-%h3 Miso.types.boolean
-= api("Miso.types.boolean.name", [], "Name of <code>boolean</code> value type", "\"boolean\"")
-= api("Miso.types.boolean.coerce(v)", |
-  [{ :name => "value", :description => "Value to coerce to a boolean type." }], |
-  "Coerces a value to a <code>boolean</code> value type", "true or false")
-= api("Miso.types.boolean.test(v)", |
-  [{ :name => "v", :description => "Value to test." }], |
-  "Tests whether a value is of <code>boolean</code> type", "true | false")
-= api("Miso.types.boolean.compare(s1, s2)", |
-  [{ :name => "s1", :description => "First value" },  |
-   { :name => "s2", :description => "Second value" }], |
-  "Compares two <code>boolean</code> type values", "-1 | 1 | 0")  
-= api("Miso.types.boolean.numeric(v)", |
-  [{ :name => "v", :description => "Value to return the boolean representation of" }], |
-  "Returns the numeric representation of a <code>boolean</code> value. 1 for true, 0 for false.", "1 | 0")
+%h2 Miso.types.boolean
+%ul
+  = api("Miso.types.boolean.name", [], "Name of <code>boolean</code> value type", "\"boolean\"")
+  = api("Miso.types.boolean.coerce(v)", |
+    [{ :name => "value", :description => "Value to coerce to a boolean type." }], |
+    "Coerces a value to a <code>boolean</code> value type", "true or false")
+  = api("Miso.types.boolean.test(v)", |
+    [{ :name => "v", :description => "Value to test." }], |
+    "Tests whether a value is of <code>boolean</code> type", "true | false")
+  = api("Miso.types.boolean.compare(s1, s2)", |
+    [{ :name => "s1", :description => "First value" },  |
+     { :name => "s2", :description => "Second value" }], |
+    "Compares two <code>boolean</code> type values", "-1 | 1 | 0")  
+  = api("Miso.types.boolean.numeric(v)", |
+    [{ :name => "v", :description => "Value to return the boolean representation of" }], |
+    "Returns the numeric representation of a <code>boolean</code> value. 1 for true, 0 for false.", "1 | 0")
 
-%h3 Miso.types.number
-= api("Miso.types.number.name", [], "Name of <code>number</code> value type", "\"number\"")
-= api("Miso.types.number.coerce(v)", |
-  [{ :name => "value", :description => "Value to coerce to a number type." }], |
-  "Coerces a value to a <code>number</code> value type", "number")
-= api("Miso.types.number.test(v)", |
-  [{ :name => "v", :description => "Value to test." }], |
-  "Tests whether a value is of <code>number</code> type", "true | false")
-= api("Miso.types.number.compare(s1, s2)", |
-  [{ :name => "s1", :description => "First value" },  |
-   { :name => "s2", :description => "Second value" }], |
-  "Compares two <code>number</code> type values", "-1 | 1 | 0")  
-= api("Miso.types.number.numeric(v)", |
-  [{ :name => "v", :description => "Value to return the number representation of" }], |
-  "Returns the numeric representation of a <code>number</code> value. Returns value coerced.", "number")
+%h2 Miso.types.number
+%ul
+  = api("Miso.types.number.name", [], "Name of <code>number</code> value type", "\"number\"")
+  = api("Miso.types.number.coerce(v)", |
+    [{ :name => "value", :description => "Value to coerce to a number type." }], |
+    "Coerces a value to a <code>number</code> value type", "number")
+  = api("Miso.types.number.test(v)", |
+    [{ :name => "v", :description => "Value to test." }], |
+    "Tests whether a value is of <code>number</code> type", "true | false")
+  = api("Miso.types.number.compare(s1, s2)", |
+    [{ :name => "s1", :description => "First value" },  |
+     { :name => "s2", :description => "Second value" }], |
+    "Compares two <code>number</code> type values", "-1 | 1 | 0")  
+  = api("Miso.types.number.numeric(v)", |
+    [{ :name => "v", :description => "Value to return the number representation of" }], |
+    "Returns the numeric representation of a <code>number</code> value. Returns value coerced.", "number")
 
 
-%h3 Miso.types.time
+%h2 Miso.types.time
 %p
   The <code>time</code> type utilizes the fantastic moment.js library.
-= api("Miso.types.time.name", [], "Name of <code>time</code> value type", "\"time\"")
-= api("Miso.types.time.coerce(v, options)", |
-  [{ :name => "v", :description => "Value to coerce to a time type." }, |
-    { :name => "options", :description => "Optional arguments", :params => [ |
-      { :name => "format", :description => "Time format. See Moment.js documentation." } | 
-    ] }], |
-  "Coerces a value to a <code>time</code> value type", "moment")
-= api("Miso.types.time.test(v)", |
-  [{ :name => "v", :description => "Value to test." }], |
-  "Tests whether a value is of <code>time</code> type", "true | false")
-= api("Miso.types.time.compare(s1, s2)", |
-  [{ :name => "s1", :description => "First value" },  |
-   { :name => "s2", :description => "Second value" }], |
-  "Compares two <code>time</code> type values", "-1 | 1 | 0")  
-= api("Miso.types.time.numeric(v)", |
-  [{ :name => "v", :description => "Value to return the number representation of" }], |
-  "Returns the numeric representation of a <code>time</code> value. Returns <code>valueOf()</code> moment object.", "number")     
+%ul
+  = api("Miso.types.time.name", [], "Name of <code>time</code> value type", "\"time\"")
+  = api("Miso.types.time.coerce(v, options)", |
+    [{ :name => "v", :description => "Value to coerce to a time type." }, |
+      { :name => "options", :description => "Optional arguments", :params => [ |
+        { :name => "format", :description => "Time format. See Moment.js documentation." } | 
+      ] }], |
+    "Coerces a value to a <code>time</code> value type", "moment")
+  = api("Miso.types.time.test(v)", |
+    [{ :name => "v", :description => "Value to test." }], |
+    "Tests whether a value is of <code>time</code> type", "true | false")
+  = api("Miso.types.time.compare(s1, s2)", |
+    [{ :name => "s1", :description => "First value" },  |
+     { :name => "s2", :description => "Second value" }], |
+    "Compares two <code>time</code> type values", "-1 | 1 | 0")  
+  = api("Miso.types.time.numeric(v)", |
+    [{ :name => "v", :description => "Value to return the number representation of" }], |
+    "Returns the numeric representation of a <code>time</code> value. Returns <code>valueOf()</code> moment object.", "number")     
