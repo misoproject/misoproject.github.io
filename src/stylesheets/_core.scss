@@ -5,6 +5,9 @@ a { text-decoration: none; }
 @mixin colourise( $color ) {
   section a, div.text a, section span.color { 
     color: $color; 
+    &:hover {
+      color: $color; 
+    }     
   }
   ::selection               { color: #fff; background: $color; }
   ::-moz-selection          { color: #fff; background: $color; }
@@ -64,9 +67,20 @@ article, div.container {
   overflow: hidden;
   margin: 0 auto 0 auto;
   padding-right: 10px;
+  padding-left: 10px;
   padding-bottom: $cols2;
   position: relative;
   @include width(14);
+
+  &.example {
+    p {
+      @include width ( 7 );
+    }
+    div.codeblock {
+      margin-top: 24px;
+      @include width( 14 );
+    }
+  }
 
   div.codeblock {
     float: left;
@@ -81,6 +95,22 @@ article, div.container {
     clear: both;
     p {
       margin-bottom: 1em;
+    }
+    div.example {
+      @include width( 4 );
+      float: left;
+      margin-right: 24px;
+      img {
+        margin-bottom: 24px;
+      }
+    }
+    &.examples {
+      a {
+        color: #000;
+      }
+      h1 {
+        margin-bottom: 30px;
+      }
     }
     &.api {
       ul {

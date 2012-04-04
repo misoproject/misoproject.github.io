@@ -20,7 +20,7 @@ ds.fetch({
         x: -20 //center
       },
       subtitle: {
-        text: 'Source: http://www.infochimps.com/datasets/world-crude-oil-production-1980-to-2004',
+        text: 'Src: http://www.infochimps.com/datasets/world-crude-oil-production-1980-to-2004',
         x: -20
       },
       xAxis: {
