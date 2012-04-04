@@ -1,8 +1,15 @@
+//Load Uranium Production Data
 var ds = new Miso.Dataset({
-  url : "/data/crudeoil.csv",
+  url : "/data/uranium.csv",
   delimiter : ",",
   columns : [
     { name : "Year", type : "time", format : "YYYY" }
   ]
 });
-log('a');
+
+//Select the rows in the '80s
+ds.each(function(row) {
+  log(JSON.stringify(row));
+});
+
+//Find their average
