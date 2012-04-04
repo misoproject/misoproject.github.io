@@ -15,4 +15,8 @@
     %div#pieContainer{ :style => "height: 300px; width: 600px;" }
       %div{ :style => 'padding-top: 30%; width:90%; margin: 0 auto; font-size: 1.5em' }
         Please wait 3 seconds - Loading Data...
-  = toRunnableCodeBlock("dataset/examples/rickshawandtwitter.js", nil, { :autorun => true })
+  
+  - callback="var x = function barf() { window.ds.importer.stop(); setTimeout(function() { $('#legend').children().remove(); $('#pieContainer').children().remove(); $('#pieContainer').html('<h3>You Stopped The Currently Running Script. Click Run to Start Again.</h3>'); }, 2000); }; x();"
+
+  = toCleanupCodeBlock("dataset/examples/rickshawandtwitter_cleanup.js", "rtcode" )
+  = toRunnableCodeBlock("dataset/examples/rickshawandtwitter.js", "rtcode", { :autorun => true, :callbacksClear => callback, :callbacksReset => callback, :callbacksRun => "function b() { $('#pieContainer').html('<b>Gathering data. Wait 3 seconds...</b>');}"  })

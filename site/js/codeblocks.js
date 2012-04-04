@@ -77,6 +77,18 @@ window.log;
       }
     }
 
+    // grab all callbacks.
+    this.callbacks = {};
+    if (!!this.el.attr("callbacks-clear")) {
+      this.callbacks.clear = this.el.attr("callbacks-clear");
+    }
+    if (!!this.el.attr("callbacks-reset")) {
+      this.callbacks.reset = this.el.attr("callbacks-reset");
+    }
+    if (!!this.el.attr("callbacks-run")) {
+      this.callbacks.run = this.el.attr("callbacks-run");
+    }
+
     // split buttons
     this.options.buttons = this.options.buttons.split(",");
 
@@ -213,6 +225,12 @@ window.log;
     if (this.output !== null) {
       this.output.html("");
     }
+
+    // do we have any callbacks? if so, call those.
+    if (this.callbacks.clear) {
+      eval(this.callbacks.clear);
+    }
+
   };
 
   /**
@@ -220,6 +238,9 @@ window.log;
   */
   CodeBlock.prototype.reset = function() {
     this.editor.setValue(this.el.html());
+    if (this.callbacks.reset) {
+      eval(this.callbacks.reset);
+    }
   };
 
   /**
@@ -231,7 +252,7 @@ window.log;
     if (this.options.showConsole) {
       window.log = CodeBlock.__makeConsoleFunction(this.output);
     }
-    this.buildSource();
+
     eval(this.source);
   };
 
@@ -243,8 +264,6 @@ window.log;
   */
   CodeBlock.prototype.runSandbox = function() {
 
-    this.buildSource();
-    
     // create an iframe sandbox for this element.
     var iframe = $("<iframe>")
       .css("display", "none")
