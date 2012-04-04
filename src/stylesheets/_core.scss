@@ -19,6 +19,10 @@ $border-color : #ccc;
 $background-color : #f7f7f7;
 $dark-color : #333;
 
+body {
+  background-color: $background-color;
+}
+
 article.miso    { @include colourise( #D35E1D ); }
 article.dataset { @include colourise( #2585EC ); }
 
@@ -41,6 +45,16 @@ article.dataset { @include colourise( #2585EC ); }
   font-family: "ff-tisa-web-pro","Georgia", serif;
 }
 
+@mixin monospace {
+  font-family: 'Monaco';
+  background-color: #fff;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+  padding-bottom: 0.2em;
+  padding-top: 0.2em;
+  box-shadow: 0 0 5px rgba(0,0,0,.1);
+}
+
 h1, h2, h3, h4, h5, h6 {
   @include sanserif();
 }
@@ -59,11 +73,71 @@ article, div.container {
     @include width( 8 );
   }
 
+  code {
+    @include monospace();
+  }
+
   section {
     clear: both;
     p {
       margin-bottom: 1em;
     }
+    &.api {
+      ul {
+        list-style: none;
+        li {
+          padding-top: 10px;
+          border-top: 1px solid $border-color;
+          width: 100%;
+          overflow: hidden;
+        }
+        &.params li {
+          border-top: 1px solid #dfdfdf;
+          div.name {
+            display: block;
+            height: 100%;
+            float: left;
+            @include width( 4 );
+          }
+          span {
+            @include monospace();
+          }
+          p {
+            float: left;
+            @include width( 6 );
+          }
+          ul {
+            width: 100%;
+            padding-left: 40px;
+            margin-bottom: 20px;
+            li {
+              border-top: 1px solid #eee;
+              div.name {
+                margin-left: 10px;
+              }
+            }
+          }
+        }
+      }
+      h3 {
+        margin-bottom: $font-size / 4;
+        margin-top: $font-size;
+      }
+      div.signature {
+        height: 100%;
+        display: block;
+        margin-left: 5px;
+        float: left;
+        @include width( 4 );
+      }
+      div.doc {
+        float: right;
+        margin-left: 5px;
+        @include width( 10 );
+      }
+
+    }
+
     &.intro {
       padding-bottom: 40px - $font-size;
       overflow: hidden;
@@ -81,14 +155,14 @@ article, div.container {
 
       div.download {
         position: absolute;
-        right: 0;
-        bottom: 40px + $font-size;
+        right: 0;//: 432px;
+        bottom: 40px;
         @include width( 8 );
         @include sanserif();
         font-size : $font-size - 2;
         h2 {
           font-size: $font-size;
-          padding-bottom: 5px;
+          padding-bottom: 10px;
         }
         span {
           display: block;
@@ -98,9 +172,9 @@ article, div.container {
         a.button {
           display: block;
           padding: 6px;
-          background-color: $dark-color;
+          background-color: #fff;
           font-weight: normal;
-          color: $background-color;
+          color: #333;
           border-radius: 5px;
           margin-right: 6px;
           float: left;
