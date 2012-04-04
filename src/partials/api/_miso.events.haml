@@ -1,28 +1,30 @@
-%h3 Miso.Event
+%h2 Miso.Event
 
-= api("new Miso.Event(deltas)", [{ :name => "deltas", :description => "A collection of deltas representing this event. This could be a mix of events that are not necessarily of the same operation"}], "Creates a new event", "Miso.Event")
+%ul
+  = api("new Miso.Event(deltas)", [{ :name => "deltas", :description => "A collection of deltas representing this event. This could be a mix of events that are not necessarily of the same operation"}], "Creates a new event", "Miso.Event")
 
-%h3 Miso.Event Static API
+  %h2 Miso.Event Static API
 
-= api("Miso.Event.isRemove(delta)", [{ :name => "delta", :description => "An object representing a delta. May have the following properties:", :params => [{:name => "changed", :description => "The attributes that changed in this delta."}, {:name => "old", :description => "The old values of the attributes that changed."}]}], "Returns true if the delta is indicating a row was removed.", "true | false")
+  = api("Miso.Event.isRemove(delta)", [{ :name => "delta", :description => "An object representing a delta. May have the following properties:", :params => [{:name => "changed", :description => "The attributes that changed in this delta."}, {:name => "old", :description => "The old values of the attributes that changed."}]}], "Returns true if the delta is indicating a row was removed.", "true | false")
 
-= api("Miso.Event.isUpdate(delta)", [{ :name => "delta", :description => "An object representing a delta. May have the following properties:", :params => [{:name => "changed", :description => "The attributes that changed in this delta."}, {:name => "old", :description => "The old values of the attributes that changed."}]}], "Returns true if the delta is indicating a row was updated.", "true | false")
+  = api("Miso.Event.isUpdate(delta)", [{ :name => "delta", :description => "An object representing a delta. May have the following properties:", :params => [{:name => "changed", :description => "The attributes that changed in this delta."}, {:name => "old", :description => "The old values of the attributes that changed."}]}], "Returns true if the delta is indicating a row was updated.", "true | false")
 
-= api("Miso.Event.isAdd(delta)", [{ :name => "delta", :description => "An object representing a delta. May have the following properties:", :params => [{:name => "changed", :description => "The attributes that changed in this delta."}, {:name => "old", :description => "The old values of the attributes that changed."}]}], "Returns true if the delta is indicating a row was added.", "true | false")
+  = api("Miso.Event.isAdd(delta)", [{ :name => "delta", :description => "An object representing a delta. May have the following properties:", :params => [{:name => "changed", :description => "The attributes that changed in this delta."}, {:name => "old", :description => "The old values of the attributes that changed."}]}], "Returns true if the delta is indicating a row was added.", "true | false")
 
-%h3 Miso.Event Instance API
+%h2 Miso.Event Instance API
 %p Assume that <code>e</code> references an instance of a <code>Miso.Event</code>.
 
-= api("e.affectedColumns()", [], "Returns a list of column names that were affected in the event.", "Array of Column Names")
+%ul= api("e.affectedColumns()", [], "Returns a list of column names that were affected in the event.", "Array of Column Names")
 
-%h3 Miso.Events
+%h2 Miso.Events
 %p
   A mixin module that adds syncing behavior methods to a dataset. Adds ability to bind, unbind and trigger events. Assume that <code>ds</code> is an instance that has syncable behavior.
 %p
   The events mixin was taken from <a href="http://documentcloud.github.com/backbone/">Backbone.js</a>.
 
-= api("ds.bind(ev, callback, context)", [{:name => "ev", :description => "The name of the event to bind to"}, {:name => "callback", :description => "The callback to call when the event is triggered"}, {:name => "context", :description => "The context to bind the callback to."}], "Binds a callback to the dataset in question.", "The object being subscribed to.")
+%ul
+  = api("ds.bind(ev, callback, context)", [{:name => "ev", :description => "The name of the event to bind to"}, {:name => "callback", :description => "The callback to call when the event is triggered"}, {:name => "context", :description => "The context to bind the callback to."}], "Binds a callback to the dataset in question.", "The object being subscribed to.")
 
-= api("ds.unbind(ev, callback)", [{:name => "ev", :description => "The name of the event to remove the bindings of."}, {:name => "callback", :description => "Optional. If specified, only the specific callback for this event will be removed. Otherwise all callbacks for the event name will be removed."}], "Unbinds a particular event and/or a callback.", "The object being unbound from.")
+  = api("ds.unbind(ev, callback)", [{:name => "ev", :description => "The name of the event to remove the bindings of."}, {:name => "callback", :description => "Optional. If specified, only the specific callback for this event will be removed. Otherwise all callbacks for the event name will be removed."}], "Unbinds a particular event and/or a callback.", "The object being unbound from.")
 
-= api("ds.trigger(eventName, *args)", [{:name => "eventName", :description => "The name of the event that should be triggered."}, {:name => "*args", :description => "Any additional arguments that should be passed to the callback."}], "Triggers a specific event on a dataset. Passes the arguments to it.", "The object being unbound from.")
+  = api("ds.trigger(eventName, *args)", [{:name => "eventName", :description => "The name of the event that should be triggered."}, {:name => "*args", :description => "Any additional arguments that should be passed to the callback."}], "Triggers a specific event on a dataset. Passes the arguments to it.", "The object being unbound from.")

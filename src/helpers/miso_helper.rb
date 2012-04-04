@@ -14,13 +14,14 @@ module MisoHelper
   end
 
   #section helper
-  def section(name, partial)
+  def section(name, partial, section_class="normal")
     @sub_nav = [] if @sub_nav.nil?
     @sub_nav << name
 
     partial('../partials/section', :locals => { 
       :section_name => name, 
       :tag => idify(name),
+      :section_class => section_class,
       :section_content => '../partials/' + partial })
   end
   # ------
@@ -32,43 +33,38 @@ module MisoHelper
   # description : text
   # ret
   def api(signature, params=[], description=nil, ret=nil)
-    snippet = %[<div class="api"><pre>#{signature}</pre>]
+    snippet = %[<li><div class="name signature"><code>#{signature}</code></div><div class="doc">]
+    if (description)
+      snippet +=%[
+        <p>#{description}</p>
+      ]
+    end
+    if (ret)
+      snippet +=%[
+        <h3>Returns</h3>
+        <code>#{ret}</code>
+      ]
+    end
     if (params.length > 0)
       snippet += %[
-        <div class="params">
-        <h4>Params:</h4>]
+        <h3>Parameters</h3><ul class="params">]
     
       params.each do |param|
         snippet += buildParam(param)
       end
 
-      snippet += "</div>"
+      snippet += %[</ul>]
     end
-    if (ret)
-      snippet +=%[
-          <div class="returns">
-            <h4>Returns:</h4>
-            <code>#{ret}</code>
-          </div>
-      ]
-    end
-    if (description)
-      snippet +=%[
-          <div class='about'>
-            <h4>Description:</h4>
-            #{description}
-          </div>
-        </div>
-      ]
-    end
+    
+    snippet += "</div></li>"
     snippet
   end
 
   def buildParam(param)
-    p = "<li><span class='param'>" + param[:name] + "</span> - "
+    p = "<li><div class='name'><span>" + param[:name] + "</span></div>"
 
     if (param[:description])
-      p += "<span class='desc'>" + param[:description] + "</span>"
+      p += "<p>" + param[:description] + "</p>"
     end
 
     if (param[:params])
