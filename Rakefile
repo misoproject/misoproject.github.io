@@ -46,3 +46,20 @@ task :deploy do
   # puts go.join(' && ')
 end
 
+desc "Copy over dataset build files"
+task :copyfiles do
+  rootdir = ENV['DIR']
+  if (ENV['DIR'].nil?)
+    puts "Set DIR= to your website folder"
+    return -1;
+  end
+
+  process = [
+    "cp #{rootdir}/dist/LASTBUILD ./site/downloads",
+    "cp #{rootdir}/dist/miso.ds.dev.zip ./site/downloads",
+    "cp #{rootdir}/dist/miso.ds.min.js ./site/downloads" ,
+    "cp #{rootdir}/dist/miso.ds.deps.min.js ./site/downloads",
+  ]
+
+  `#{ process.join(' && ') }`
+end 
