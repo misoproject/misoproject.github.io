@@ -23,17 +23,9 @@
     %div.left
       %p
         Dataset is designed to solve common problems and patterns around client-side dataset manipulation and management:
-<<<<<<< HEAD
       %p
         Unlike more general client-side model frameworks dataset is designed exclusively for working with matricies/tables of data. This allows dataset to provide a rich set of capabilities bit with this specific use case in mind as well as optimise for large numbers of rows. 
       %p
         In addition to helping load and parse your data Dataset makes it easy to query and select that data, creating views which will then automatically update when the underlying data changes. This provides event hooks that make it trivial to create interfaces for realtime data. Dataset also makes it easy to create derivative datasets (ie moving averages, groupings) and products (min, max, mean) that based on the original data, these also automatically update to reflect the underlying dataset. 
-
-=======
-      %p
-        Unlike more general client-side model frameworks dataset is designed exclusively for working with matricies/tables of data. This allows dataset to provide a rich set of capabilities bit with this specific use case in mind as well as optimise for large numbers of rows. 
-      %p
-        In addition to helping load and parse your data Dataset makes it easy to query and select that data, creating views which will then automatically update when the underlying data changes. This provides event hooks that make it trivial to create interfaces for realtime data. Dataset also makes it easy to create derivative datasets (ie moving averages, groupings) and products (min, max, mean) that based on the original data, these also automatically update to reflect the underlying dataset. 
->>>>>>> e65aacefcc5b25209c453f40adf023311a5c83dd
 
     = toRunnableCodeBlock("dataset/examples/quickstart.js", nil, { :autorun => true })
