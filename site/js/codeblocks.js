@@ -237,7 +237,7 @@ window.log;
   * Reset to original content
   */
   CodeBlock.prototype.reset = function() {
-    this.editor.setValue(this.el.html());
+    this.editor.setValue(this.originalBody);
     if (this.callbacks.reset) {
       eval(this.callbacks.reset);
     }
@@ -331,7 +331,11 @@ window.log;
     }
 
     // append actual editor body.
-    this.source += this.editor.getValue();
+    if (typeof this.originalBody === "undefined") {
+      this.originalBody = this.editor.getValue();
+    }
+
+    this.source += this.originalBody;
 
     // Seek out and cache all cleanup scripts
     if (this.el.attr("id")) {
