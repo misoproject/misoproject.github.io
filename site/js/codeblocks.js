@@ -252,7 +252,7 @@ window.log;
     if (this.options.showConsole) {
       window.log = CodeBlock.__makeConsoleFunction(this.output);
     }
-
+    this.buildSource();
     eval(this.source);
   };
 
@@ -302,7 +302,7 @@ window.log;
 
     // write a script into the <iframe> and create the sandbox
     frames[frames.length - 1].document.write(sandBoxMarkup);
-
+    this.buildSource();
     sandbox.eval(this.source);
 
     // get rid of the frame. New Frame for every context.
