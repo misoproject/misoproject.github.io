@@ -105,16 +105,22 @@ article, div.container {
     clear: both;
     p {
       margin-bottom: 1em;
+      color: black;
     }
     div.example, div.guide {
       @include width( 4 );
+      padding: 10px;
       float: left;
       margin-right: 24px;
       margin-bottom: 24px;
       img {
         margin-bottom: 24px;
       }
-      min-height: 150px;
+      min-height: 120px;
+    }
+    div.guide:hover {
+      background-color: white;
+      box-shadow: 0 0 5px rgba(0,0,0,.1);
     }
     &.examples, &.guides {
       a {
