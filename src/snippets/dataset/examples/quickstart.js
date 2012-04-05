@@ -1,9 +1,7 @@
 //Load Uranium CSV File. Looks like:
 // year,value
 // 1980,43.7
-// 1981,38.47
 // ...
-// 2005,2.69
 var ds = new Miso.Dataset({
   url : "/data/uranium.csv",
   delimiter : ",",
@@ -14,15 +12,15 @@ var ds = new Miso.Dataset({
 
 ds.fetch({
   success: function() {
-    //Select the rows in the '80s
+    //Select rows in the 80's &amp; find their average
     var uraniumInThe80s = this.where({ 
       rows : function(row) {
-        return (row.year >= moment("1980") && 
-                row.year < moment("1990"));
+        return (row.year >= moment([1980]) && 
+                row.year < moment([1990]));
       }
-    });
+    }).mean("value");
 
-    // output their average
-    log("Average:", uraniumInThe80s.mean("value"));
+    log("80's Average:", uraniumInThe80s);
+    log("Total Average:", ds.mean('value') );
   }
 });
