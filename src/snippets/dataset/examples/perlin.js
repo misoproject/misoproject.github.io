@@ -10,14 +10,14 @@ var matrix = new Miso.Dataset();
 
 // we are going to create a column for all the Y values
 for (var row = 0; row < x_size; row++) {
-  var columnObject = matrix.addColumn({ 
+  matrix.addColumn({ 
     name : row, 
     type : 'number' 
   });
 }
 
 // now make some values!
-for (var column = 0; column < x_size; column++) {
+for (var column = 0; column < y_size; column++) {
   var rowObject = {};
   matrix.eachColumn(function(columnName, columnObject, rowindex) {
     rowObject[columnName] = sn.noise(column, rowindex);
