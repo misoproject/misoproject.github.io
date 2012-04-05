@@ -1,6 +1,6 @@
 .CodeMirror {
   line-height: 1.3em!important;
-  font-family: 'Monaco';
+  font-family: 'Monaco', 'DejaVu Sans Mono', monospace;
   box-shadow: 0 0 10px rgba(0,0,0,.1);
   margin-bottom: 10px;
 }
