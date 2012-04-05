@@ -14,7 +14,7 @@
     <meta content='The Miso Project' name='description' />
     <meta content='The Miso Project' name='name' />
     <meta content='width=device-width' name='viewport' />
-    <title>The Miso Project :: Dataset</title>
+    <title>The Miso Project :: Dataset :: Guides</title>
     <link href='/stylesheets/screen.css' rel='stylesheet' />
     <link href='/stylesheets/codemirror.css' rel='stylesheet' />
     
@@ -54,74 +54,79 @@
     </nav>
     <a href="http://github.com/misoproject/dataset"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
     <article class='dataset'>
-      <section class='intro'>
-        <div class='left'>
-          <img src='/images/dataset.png' />
+      <section class='guide'>
+        <h2>
+          Accessing Data
+          <h3>Columns</h3>
+          Each column in the dataset is of a <code>Miso.Column</code> type. We shall reference it as column for simplicity's sake.
           <p>
-            Dataset makes managing client-side datasets easy. It handles loading, parsing, sorting, querying &amp; manipulating data from anything from a CSV to a Google Spreadsheet painless, including realtime data sources.
+            A column has the following properties:
+            <ul>
+              <li><code>name</code></li>
+              <li><code>type</code></li>
+              <li><code>data</code> - the data array for this column.</li>
+              <li><code>_id</code> - a unique id assigned to this column at parse time.</li>
+            </ul>
           </p>
-        </div>
-        <div class='download'>
+          <p>
+            While you can access the data inside dataset by directly accessing the <code>data</code> property on a column, it is NOT recommended as this will
+            not handle any event propagation. Use direct access sparingly. For more information on accessing rows, see the <b>Rows</b> section.
+          </p>
+        </h2>
+        <h4>Getting all column names:</h4>
+        <pre>ds.columnNames();</pre>
+        Note this will never include the <code>_id</code> column as it is internal to the dataset implementation and you shouldn't be messing with it.
+        <h4>Getting a column by name:</h4>
+        <pre>ds.column(columnName);</pre>
+        This returns the actual column object. Note that because the order of columns
+        is not guaranteed (or should matter,) the fetching of columns is always done by name.
+        <h4>Iterating over columns:</h4>
+        <pre>&#x000A;  ds.eachColumn(function(columnName, column, index) {&#x000A;    // do what you need here.&#x000A;  });</pre>
+        <h3>Rows</h3>
+        <p>
+          Since dataset stores all the data column-wise, sometimes you may want to access a "row" object more easily than by iterating through columns. Note that the row object is not a direct reference to your actual data row (as in, if you modify it, it won't actually trigger a change in your dataset.) To change your dataset, you need to use the `update` method.
+        </p>
+        <h4>Iterating over rows:</h4>
+        <p>
+          <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+          var ds = new Miso.Dataset({
+            data : [
+              { one : 12,  two : 40},
+              { one : 1,   two : 40},
+              { one : 102, two : 430}
+            ]
+          });
+          ds.fetch({ success : function() {
+            this.each(function(row) {
+              log(JSON.stringify(row));
+            });
+          }});</textarea></div>
+        </p>
+        <p>
+          Note that each row has a unique identifier assiged to it called `_id` in a separate column. Do not attempt to change that value unless you're feeling destructive. That identifier is used for caching purposes and changing it may make your data inaccessible through the API.
+        </p>
+        <h4>Row by Position:</h4>
+        <p>
+          if you're trying to get the Nth row, you can do so as follows:
+          <pre>ds.rowByPosition(5);</pre>
+          Note, this will return a row object that will <b>not</b> be a direct reference to your data. This will be a copy.
+        </p>
+        <h4>Row by id:</h4>
+        <p>
+          If you're trying to get a row with a specific id, you can do so as follows:
+          <pre>ds.rowById(423);</pre>
+          Note, this will return a row object that will <b>not</b> be a direct reference to your data. This will be a copy.
+        </p>
+        <a href='/dataset/guides/data_types' style='float:left;'>
           <h2>
-            Download
-            <a href='github here'>
-              0.1rc1
-            </a>
+            &laquo; Data Types
           </h2>
-          <a class='button' href='/downloads/miso.ds.dev.zip' onclick="_gaq.push(['_trackEvent', 'Downloads', 'Development Zip Bundle']);">
-            &darr; development
-          </a>
-          <a class='button' href='/downloads/miso.ds.min.js' onclick="_gaq.push(['_trackEvent', 'Downloads', 'Minified Production (No Deps)']);">
-            &darr; production
-          </a>
-          <a class='button' href='/downloads/miso.ds.deps.min.js' onclick="_gaq.push(['_trackEvent', 'Downloads', 'Minified Production (With Deps)']);">
-            &darr; production with dependencies
-          </a>
-        </div>
-      </section>
-      <section class='quickstart'>
-        <div class='left'>
-          <p>
-            Dataset is designed to solve common problems and patterns around client-side dataset traversal, manipulation and management.
-          </p>
-          <p>
-            Unlike more general client-side model frameworks dataset is designed exclusively for working with matricies/tables of data. This allows dataset to provide a rich set of capabilities with this specific use case in mind & optimise for large numbers of rows.
-          </p>
-          <p>
-            In addition to helping load and parse data Dataset makes it easy to query and select subsets of data, creating &quot;views&quot; that automatically update when the underlying data changes. By binding to events, it's trivial to create interfaces to realtime or user-manipulated data. Dataset provides some basic computations such as min and max and derivatives such as groupings and moving averages.
-          </p>
-          <p>
-            Dataset was created in a way that allows a high degree of extension. We are looking forward to expanding our array of importers, parsers and computational methods.
-          </p>
-        </div>
-        <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="true" callbacks-clear="" callbacks-reset="" callbacks-run="">
-        //Load Uranium CSV File. Looks like:
-        // year,value
-        // 1980,43.7
-        // ...
-        var ds = new Miso.Dataset({
-          url : "/data/uranium.csv",
-          delimiter : ",",
-          columns : [
-            { name : "year", type : "time", format : "YYYY" }
-          ]
-        });
-        
-        ds.fetch({
-          success: function() {
-            //Select rows in the 80's &amp; find their average
-            var uraniumInThe80s = this.where({ 
-              rows : function(row) {
-                return (row.year >= moment([1980]) && 
-                        row.year < moment([1990]));
-              }
-            }).mean("value");
-        
-            log("80's Average:", uraniumInThe80s);
-            log("Total Average:", ds.mean('value') );
-          }
-        });
-        </textarea></div>
+        </a>
+        <a href='/dataset/guides/events' style='float:right;'>
+          <h2>
+            Events &raquo;
+          </h2>
+        </a>
       </section>
     </article>
     <footer>

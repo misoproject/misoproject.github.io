@@ -5,7 +5,7 @@
     %div.left
       %img{ :src => '/images/dataset.png' }
       %p
-        Dataset makes managing client-side datasets easy. It handles loading, parsing, sorting, querying &amp; manipulating data from anything from a CSV to a Google Spreadsheet painless, including realtime data sources.
+        Dataset makes managing client-side datasets easy. It handles loading, parsing, sorting, querying & manipulating data from all sorts of sources. Painlessly pull in anything from a 100,000 row CSV to realtime feeds. Google Spreadsheets supported too
     %div.download
       %h2
         Download 
@@ -22,11 +22,11 @@
   %section.quickstart
     %div.left
       %p
-        Dataset is designed to solve common problems and patterns around client-side dataset traversal, manipulation and management.
+        Data access lies at the heart of a great deal of interactive content. Dataset solves common problems with the traversal, manipulation and management of that data
       %p
-        Unlike more general client-side model frameworks dataset is designed exclusively for working with matricies/tables of data. This allows dataset to provide a rich set of capabilities with this specific use case in mind & optimise for large numbers of rows.
+        Unlike client-side frameworks that focus on entity modelling, Dataset is designed exclusively for working with matrices/tables of data. This allows a rich set of number crunching capabilities and helps optimise the handling of large numbers of rows
       %p
-        In addition to helping load and parse data Dataset makes it easy to query and select subsets of data, creating &quot;views&quot; that automatically update when the underlying data changes. By binding to events, it's trivial to create interfaces to realtime or user-manipulated data. Dataset provides some basic computations such as min and max and derivatives such as groupings and moving averages.
+        In addition to helping load and parse data, Dataset makes it easy to query and select subsets of data, creating "views" that automatically update when the underlying data changes. By binding to events, it's easy to create interfaces onto realtime or user-manipulated data. Dataset provides some standard computations such as min and max and derivatives such as groupings and moving averages.
       %p
         Dataset was created in a way that allows a high degree of extension. We are looking forward to expanding our array of importers, parsers and computational methods.
-    = toRunnableCodeBlock("dataset/examples/quickstart.js", nil, { :autorun => true })
+    = toRunnableCodeBlock("dataset/examples/quickstart.js", nil, { :autorun => false })

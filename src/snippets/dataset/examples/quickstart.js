@@ -1,4 +1,4 @@
-//Load Uranium CSV File. Looks like:
+//Load Uranium Production CSV File, looks like:
 // year,value
 // 1980,43.7
 // ...

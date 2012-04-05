@@ -14,7 +14,7 @@
     <meta content='The Miso Project' name='description' />
     <meta content='The Miso Project' name='name' />
     <meta content='width=device-width' name='viewport' />
-    <title>The Miso Project :: Dataset</title>
+    <title>The Miso Project :: Dataset :: Guides</title>
     <link href='/stylesheets/screen.css' rel='stylesheet' />
     <link href='/stylesheets/codemirror.css' rel='stylesheet' />
     
@@ -54,74 +54,103 @@
     </nav>
     <a href="http://github.com/misoproject/dataset"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
     <article class='dataset'>
-      <section class='intro'>
-        <div class='left'>
-          <img src='/images/dataset.png' />
-          <p>
-            Dataset makes managing client-side datasets easy. It handles loading, parsing, sorting, querying &amp; manipulating data from anything from a CSV to a Google Spreadsheet painless, including realtime data sources.
-          </p>
-        </div>
-        <div class='download'>
+      <section class='guide'>
+        <h2>
+          Modifying Data
+        </h2>
+        <p>
+          All data modifications should happen through the following <code>add</code>, <code>remove</code> and <code>update</code> methods.
+        </p>
+        <h3>Adding a row:</h3>
+        <p>
+          To add a row to your dataset, use the <code>add</code> method.
+          <pre>ds.add(rowObject, options);</pre>
+          <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+          var ds = new Miso.Dataset({
+            data : [
+              { one : 12,  two : 40,  three : 40 }
+            ]
+          }).fetch({
+            success : function() {
+              log("Row Count Before Add", this.length);
+              
+              this.add({
+                one : 100,
+                two : 100,
+                three : 100
+              });
+          
+              log("Row Count After Add", this.length);
+            }
+          });</textarea></div>
+        </p>
+        <p>
+          Adding a row will trigger the following events in this order:
+          <ul>
+            <li><code>add</code></li>
+            <li><code>change</code></li>
+          </ul>
+          Pass <code>{ silent : true }</code> as the optional <code>options</code> parametere to suppress events.
+        </p>
+        <h3>Removing a Row:</h3>
+        <p>
+          To remove a row from your dataset, use the <code>remove</code> method. There are two ways to remove rows:
+          <ul>
+            <li>
+              <b>By providing a row id:</b>
+              <pre>ds.remove(rowId, options);</pre>
+              <i>Note the row id is the unique <code>_id</code> identifier each row has.</i>
+            </li>
+            <li>
+              <b>By providing a filter function:</b>
+              <pre>ds.remove(rowFilterFunction, options);</pre>
+              For example:
+              <pre>&#x000A;// remove all rows where the population is > 1000&#x000A;ds.remove(function(row) {&#x000A;  return (row.population > 1000);&#x000A;});</pre>
+              All rows that pass the filter function will be removed.
+            </li>
+          </ul>
+        </p>
+        <p>
+          Either remove call will trigger the following events in this order:
+          <ul>
+            <li>
+              <code>remove</code>
+            </li>
+            <li>
+              <code>change</code>
+            </li>
+          </ul>
+          Pass <code>{ silent : true }</code> as the optional <code>options</code> parametere to suppress events.
+        </p>
+        <h3>Updating Rows:</h3>
+        <p>
+          To update a row, pass the <code>)id</code> of the row along with the changed attributes like so:
+          <pre>ds.update(rowId, changedAttributes, options);</pre>
+          For example:
+          <pre>&#x000A;ds.update(rowId, {&#x000A;  col1 : newVal, col2 : newVal ...&#x000A;});</pre>
+        </p>
+        <p>
+          A call to <code>update</code> will trigger the following events in this order:
+          <ul>
+            <li>
+              <code>update</code>
+            </li>
+            <li>
+              <code>change</code>
+            </li>
+          </ul>
+          Pass <code>{ silent : true }</code> as the optional <code>options</code> parametere to suppress events.
+        </p>
+        <a href='/dataset/guides/events' style='float:left;'>
           <h2>
-            Download
-            <a href='github here'>
-              0.1rc1
-            </a>
+            &laquo; Events
           </h2>
-          <a class='button' href='/downloads/miso.ds.dev.zip' onclick="_gaq.push(['_trackEvent', 'Downloads', 'Development Zip Bundle']);">
-            &darr; development
-          </a>
-          <a class='button' href='/downloads/miso.ds.min.js' onclick="_gaq.push(['_trackEvent', 'Downloads', 'Minified Production (No Deps)']);">
-            &darr; production
-          </a>
-          <a class='button' href='/downloads/miso.ds.deps.min.js' onclick="_gaq.push(['_trackEvent', 'Downloads', 'Minified Production (With Deps)']);">
-            &darr; production with dependencies
-          </a>
-        </div>
-      </section>
-      <section class='quickstart'>
-        <div class='left'>
-          <p>
-            Dataset is designed to solve common problems and patterns around client-side dataset traversal, manipulation and management.
-          </p>
-          <p>
-            Unlike more general client-side model frameworks dataset is designed exclusively for working with matricies/tables of data. This allows dataset to provide a rich set of capabilities with this specific use case in mind & optimise for large numbers of rows.
-          </p>
-          <p>
-            In addition to helping load and parse data Dataset makes it easy to query and select subsets of data, creating &quot;views&quot; that automatically update when the underlying data changes. By binding to events, it's trivial to create interfaces to realtime or user-manipulated data. Dataset provides some basic computations such as min and max and derivatives such as groupings and moving averages.
-          </p>
-          <p>
-            Dataset was created in a way that allows a high degree of extension. We are looking forward to expanding our array of importers, parsers and computational methods.
-          </p>
-        </div>
-        <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="true" callbacks-clear="" callbacks-reset="" callbacks-run="">
-        //Load Uranium CSV File. Looks like:
-        // year,value
-        // 1980,43.7
-        // ...
-        var ds = new Miso.Dataset({
-          url : "/data/uranium.csv",
-          delimiter : ",",
-          columns : [
-            { name : "year", type : "time", format : "YYYY" }
-          ]
-        });
-        
-        ds.fetch({
-          success: function() {
-            //Select rows in the 80's &amp; find their average
-            var uraniumInThe80s = this.where({ 
-              rows : function(row) {
-                return (row.year >= moment([1980]) && 
-                        row.year < moment([1990]));
-              }
-            }).mean("value");
-        
-            log("80's Average:", uraniumInThe80s);
-            log("Total Average:", ds.mean('value') );
-          }
-        });
-        </textarea></div>
+        </a>
+        <a href='/dataset/guides/selection' style='float:right;'>
+          <h2>
+            Selecting Data &raquo;
+          </h2>
+        </a>
       </section>
     </article>
     <footer>
