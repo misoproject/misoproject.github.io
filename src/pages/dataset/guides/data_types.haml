@@ -34,17 +34,23 @@
 
       = toRunnableCodeBlock("dataset/types/dataType")
 
-      %h3 Custom Types
-      %p
-        The type system itself can be extended to add new types for your data.
-        The current type set is defined in <code>src/types.js</code>.
-      %p
-        To define a new type, the required signature is as follows:
-        = toDisplayCodeBlock("dataset/types/customTypeSignature")
+    %h3 Custom Types
+    %p
+      The type system itself can be extended to add new types for your data.
+      The current type set is defined in <code>src/types.js</code>.
+    %p
+      To define a new type, the required signature is as follows:
+      = toDisplayCodeBlock("dataset/types/customTypeSignature")
 
-      %p
-        For example, we might define a custom <code>phone</code> type like so:
-        = toRunnableCodeBlock("dataset/types/phoneType", "customPhoneType")
-        = toCleanupCodeBlock("dataset/types/phoneTypeCleanup", "customPhoneType")
+    %p
+      For example, we might define a custom <code>phone</code> type like so:
+      = toRunnableCodeBlock("dataset/types/phoneType", "customPhoneType")
+      = toCleanupCodeBlock("dataset/types/phoneTypeCleanup", "customPhoneType")
 
-          
+    %a{ :href => '/dataset/guides/fetching', :style => 'float:left;' }
+      %h2
+        &laquo; Fetching Data 
+
+    %a{ :href => '/dataset/guides/accessing_data', :style => 'float:right;' }
+      %h2
+        Accessing Data &raquo;
