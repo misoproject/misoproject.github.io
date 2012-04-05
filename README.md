@@ -56,6 +56,16 @@ staticmatic build .
 = toDisplayCodeBlock("creation/importingLocalStrictDataArray")
 ```
 
+## Deployment
+
+Getting files over from dataset
+
+`rake copyfiles DIR=../Dataset`
+
+Deploying to github pages:
+
+`rake deploy HIDE=true MSG="new layout and lots of excitement"`
+
 ## Notes
 
 * Some stylesheets live in site/stylesheets and don't have a sass equivalent. For all application level styles, **only edit screen.sass** which is under src/stylesheets.
