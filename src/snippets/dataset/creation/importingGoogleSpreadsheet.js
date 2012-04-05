@@ -1,12 +1,12 @@
 var ds = new Miso.Dataset({
-  importer: Miso.Importers.GoogleSpreadsheet,
+  importer : Miso.Importers.GoogleSpreadsheet,
   parser : Miso.Parsers.GoogleSpreadsheet,
   key : "0Asnl0xYK7V16dFpFVmZUUy1taXdFbUJGdGtVdFBXbFE",
-  worksheet: "1"
+  worksheet : "1"
 });
 
 ds.fetch({ 
-  success: function() {
+  success : function() {
     log(ds.columnNames());
   },
   error : function() {
