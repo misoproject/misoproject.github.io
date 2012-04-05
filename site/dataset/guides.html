@@ -14,7 +14,7 @@
     <meta content='The Miso Project' name='description' />
     <meta content='The Miso Project' name='name' />
     <meta content='width=device-width' name='viewport' />
-    <title>The Miso Project :: Dataset</title>
+    <title>The Miso Project :: Dataset :: Guides</title>
     <link href='/stylesheets/screen.css' rel='stylesheet' />
     <link href='/stylesheets/codemirror.css' rel='stylesheet' />
     
@@ -53,75 +53,108 @@
       </span>
     </nav>
     <a href="http://github.com/misoproject/dataset"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
-    <article class='dataset'>
-      <section class='intro'>
-        <div class='left'>
-          <img src='/images/dataset.png' />
-          <p>
-            Dataset makes managing client-side datasets easy. It handles loading, parsing, sorting, querying &amp; manipulating data from anything from a CSV to a Google Spreadsheet painless, including realtime data sources.
-          </p>
-        </div>
-        <div class='download'>
-          <h2>
-            Download
-            <a href='github here'>
-              0.1rc1
-            </a>
-          </h2>
-          <a class='button' href='/downloads/miso.ds.dev.zip' onclick="_gaq.push(['_trackEvent', 'Downloads', 'Development Zip Bundle']);">
-            &darr; development
-          </a>
-          <a class='button' href='/downloads/miso.ds.min.js' onclick="_gaq.push(['_trackEvent', 'Downloads', 'Minified Production (No Deps)']);">
-            &darr; production
-          </a>
-          <a class='button' href='/downloads/miso.ds.deps.min.js' onclick="_gaq.push(['_trackEvent', 'Downloads', 'Minified Production (With Deps)']);">
-            &darr; production with dependencies
+    <article class='dataset guides'>
+      <section>
+        <div class='guide'>
+          <a href='/dataset/guides/quickstart'>
+            <h2>
+              Quick Start!
+            </h2>
+            <p>
+              Start here to get your environment ready to go.
+            </p>
           </a>
         </div>
-      </section>
-      <section class='quickstart'>
-        <div class='left'>
-          <p>
-            Dataset is designed to solve common problems and patterns around client-side dataset traversal, manipulation and management.
-          </p>
-          <p>
-            Unlike more general client-side model frameworks dataset is designed exclusively for working with matricies/tables of data. This allows dataset to provide a rich set of capabilities with this specific use case in mind & optimise for large numbers of rows.
-          </p>
-          <p>
-            In addition to helping load and parse data Dataset makes it easy to query and select subsets of data, creating &quot;views&quot; that automatically update when the underlying data changes. By binding to events, it's trivial to create interfaces to realtime or user-manipulated data. Dataset provides some basic computations such as min and max and derivatives such as groupings and moving averages.
-          </p>
-          <p>
-            Dataset was created in a way that allows a high degree of extension. We are looking forward to expanding our array of importers, parsers and computational methods.
-          </p>
+        <div class='guide'>
+          <a href='/dataset/guides/creating'>
+            <h2>
+              Creating a Dataset
+            </h2>
+            <p>
+              Covers creation, importing, parsing and polling &rarr;
+            </p>
+          </a>
         </div>
-        <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="true" callbacks-clear="" callbacks-reset="" callbacks-run="">
-        //Load Uranium CSV File. Looks like:
-        // year,value
-        // 1980,43.7
-        // ...
-        var ds = new Miso.Dataset({
-          url : "/data/uranium.csv",
-          delimiter : ",",
-          columns : [
-            { name : "year", type : "time", format : "YYYY" }
-          ]
-        });
-        
-        ds.fetch({
-          success: function() {
-            //Select rows in the 80's &amp; find their average
-            var uraniumInThe80s = this.where({ 
-              rows : function(row) {
-                return (row.year >= moment([1980]) && 
-                        row.year < moment([1990]));
-              }
-            }).mean("value");
-        
-            log("80's Average:", uraniumInThe80s);
-            log("Total Average:", ds.mean('value') );
-          }
-        });
-        </textarea></div>
+        <div class='guide'>
+          <a href='/dataset/guides/fetching'>
+            <h2>
+              Fetching Data
+            </h2>
+            <p>
+              Pulling in remote data and loading local data &rarr;
+            </p>
+          </a>
+        </div>
+        <div class='guide'>
+          <a href='/dataset/guides/data_types'>
+            <h2>
+              Data Types
+            </h2>
+            <p>
+              How the types in Dataset work and how to define custom types &rarr;
+            </p>
+          </a>
+        </div>
+        <div class='guide'>
+          <a href='/dataset/guides/accessing_data'>
+            <h2>
+              Accessing Data
+            </h2>
+            <p>
+              Getting your data back out &rarr;
+            </p>
+          </a>
+        </div>
+        <div class='guide'>
+          <a href='/dataset/guides/events'>
+            <h2>
+              Events
+            </h2>
+            <p>
+              Events, event binding and triggering &rarr;
+            </p>
+          </a>
+        </div>
+        <div class='guide'>
+          <a href='/dataset/guides/modifying_data'>
+            <h2>
+              Modifying Data
+            </h2>
+            <p>
+              Modifying your data once it is in dataset &rarr;
+            </p>
+          </a>
+        </div>
+        <div class='guide'>
+          <a href='/dataset/guides/selection'>
+            <h2>
+              Selecting Data
+            </h2>
+            <p>
+              Querying data inside a dataset and creating views &rarr;
+            </p>
+          </a>
+        </div>
+        <div class='guide'>
+          <a href='/dataset/guides/products'>
+            <h2>
+              Computed Values
+            </h2>
+            <p>
+              Creating products from datasets - mins, max, &amp; means as well as creating your own &rarr;
+            </p>
+          </a>
+        </div>
+        <div class='guide'>
+          <a href='/dataset/guides/derived'>
+            <h2>
+              Derived Datasets
+            </h2>
+            <p>
+              Creating datasets derived from existing datasets such as moving averages and how to create your own &rarr;
+            </p>
+          </a>
+        </div>
       </section>
     </article>
     <footer>
