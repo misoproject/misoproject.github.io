@@ -56,15 +56,11 @@ staticmatic build .
 = toDisplayCodeBlock("creation/importingLocalStrictDataArray")
 ```
 
-## Deployment
+## Updating Dataset Builds Before Deploying
 
 Getting files over from dataset
 
 `rake copyfiles DIR=../Dataset`
-
-Deploying to github pages:
-
-`rake deploy HIDE=true MSG="new layout and lots of excitement"`
 
 ## Notes
 
