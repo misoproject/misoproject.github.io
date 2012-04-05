@@ -178,7 +178,7 @@ window.log;
     if (this.options.showConsole) {
       this.output = $('<div>', {
         "class" : cmconfig.classes.codemirrorresult
-      }).appendTo($(wrapper).parent());
+      }).prependTo($(wrapper).parent());
     }
 
     // do we have any buttons?
