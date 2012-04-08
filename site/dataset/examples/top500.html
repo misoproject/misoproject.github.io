@@ -14,7 +14,7 @@
     <meta content='The Miso Project' name='description' />
     <meta content='The Miso Project' name='name' />
     <meta content='width=device-width' name='viewport' />
-    <title>The Miso Project :: Dataset</title>
+    <title>The Miso Project :: Dataset :: Examples</title>
     <link href='/stylesheets/screen.css' rel='stylesheet' />
     <link href='/stylesheets/codemirror.css' rel='stylesheet' />
     
@@ -54,73 +54,32 @@
     </nav>
     <a href="http://github.com/misoproject/dataset"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
     <article class='dataset'>
-      <section class='intro'>
-        <div class='left'>
-          <img src='/images/dataset.png' />
-          <p>
-            Dataset makes managing client-side datasets easy. It handles loading, parsing, sorting, querying & manipulating data from all sorts of sources. Painlessly pull in anything from a 100,000 row CSV to realtime feeds. Google Spreadsheets supported too
-          </p>
+      <h1>Custom products</h1>
+      <section class='normal'>
+        <div id='output' style='height: 300px; width: 300px;'>
+          <p></p>
         </div>
-        <div class='download'>
-          <h2>
-            Download
-            <a href='github here'>
-              0.1rc1
-            </a>
-          </h2>
-          <a class='button' href='/downloads/miso.ds.dev.zip' onclick="_gaq.push(['_trackEvent', 'Downloads', 'Development Zip Bundle']);">
-            &darr; development
-          </a>
-          <a class='button' href='/downloads/miso.ds.min.js' onclick="_gaq.push(['_trackEvent', 'Downloads', 'Minified Production (No Deps)']);">
-            &darr; production
-          </a>
-          <a class='button' href='/downloads/miso.ds.deps.min.js' onclick="_gaq.push(['_trackEvent', 'Downloads', 'Minified Production (With Deps)']);">
-            &darr; production with dependencies
-          </a>
-        </div>
-      </section>
-      <section class='quickstart'>
-        <div class='left'>
-          <p>
-            Data access lies at the heart of a great deal of interactive content. Dataset solves common problems with the traversal, manipulation and management of that data
-          </p>
-          <p>
-            Unlike client-side frameworks that focus on entity modelling, Dataset is designed exclusively for working with matrices/tables of data. This allows a rich set of number crunching capabilities and helps optimise the handling of large numbers of rows
-          </p>
-          <p>
-            In addition to helping load and parse data, Dataset makes it easy to query and select subsets of data, creating "views" that automatically update when the underlying data changes. By binding to events, it's easy to create interfaces onto realtime or user-manipulated data. Dataset provides some standard computations such as min and max and derivatives such as groupings and moving averages.
-          </p>
-          <p>
-            Dataset was created in a way that allows a high degree of extension. We are looking forward to expanding our array of importers, parsers and computational methods.
-          </p>
-        </div>
-        <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="false" callbacks-clear="" callbacks-reset="" callbacks-run="">
-        //Load Uranium Production CSV File, looks like:
-        // year,value
-        // 1980,43.7
-        // ...
+        <div class="codeblock"><textarea  class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="true" callbacks-clear="" callbacks-reset="" callbacks-run="">
         var ds = new Miso.Dataset({
-          url : "/data/uranium.csv",
-          delimiter : ",",
-          columns : [
-            { name : "year", type : "time", format : "YYYY" }
-          ]
+          url : "/data/top500.csv",
+          delimiter : ","
         });
         
         ds.fetch({
           success: function() {
-            //Select rows in the 80's &amp; find their average
-            var uraniumInThe80s = this.where({ 
-              rows : function(row) {
-                return (row.year >= moment([1980]) && 
-                        row.year < moment([1990]));
-              }
-            }).mean("value");
-        
-            log("80's Average:", uraniumInThe80s);
-            log("Total Average:", ds.mean('value') );
+            console.log(ds.rowByPosition(0), 'xx');
+            $el.append([
+              'The most powerful supercomputer in the world belongs to',
+            ].join(' '));
           }
         });
+        
+        function num( val ) {
+          return "<span class='number'>" + val + "</span>";
+        }
+        var $el = $('#output p');
+        
+        console.log('x');
         </textarea></div>
       </section>
     </article>
