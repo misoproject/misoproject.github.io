@@ -1,0 +1,17 @@
+- @page_title = "The Miso Project :: Dataset :: Examples"
+
+%article.dataset.example
+  %section.normal
+    %h2 Perlin Noise Generation
+    %p
+      Using the SimpleNoise algorithm identified <a href="https://gist.github.com/304522">here</a>, we are generating a matrix of 50x50 blocks the color of which maps to the generated noise value (which is somewhere between -1 and 1.) The noise blocks are
+      rendered rendered entirely using divs.
+    %div#legend{ :style => "float:right;"}
+    %div#perlinContainer{ :style => "height: 300px; width: 600px;" }
+      %div{ :style => 'padding-top: 30%; width:90%; margin: 0 auto; font-size: 1.5em' }
+        Rendering blocks!
+  
+  - callback="var x = function barf(){ $('#pieContainer').children().remove(); $('#perlinContainer').html('<h3>Rendering blocks!</h3>'); }; x();"
+
+  = toSetupCodeBlock("dataset/examples/perlin_setup.js", "perlin" )
+  = toRunnableCodeBlock("dataset/examples/perlin.js", "perlin", { :autorun => true, :callbacksClear => callback, :callbacksReset => callback, :callbacksRun => "callback" })
