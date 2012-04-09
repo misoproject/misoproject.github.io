@@ -54,6 +54,46 @@
 
       = toRunnableCodeBlock("dataset/derived/customMethod.js")
 
+    %h3 CountBy
+
+    %p
+      A countBy operation involves counting the number of occurances of each unique value in a specified column. Those values
+      are then set as another column called "count."
+
+    %p
+      For example, when counting the following dataset by the "state" column:
+      %table
+        %tr
+          %th state
+          %th value
+        %tr
+          %td MA
+          %td 130000
+        %tr
+          %td MA
+          %td 420
+        %tr
+          %td AZ
+          %td 2900
+        %tr
+          %td AZ
+          %td 4
+
+    %p
+      The result of the call:
+      %pre ds.countBy("state");
+
+      %table
+        %tr
+          %th state
+          %th count
+        %tr
+          %td MA
+          %td 2
+        %tr
+          %td AZ
+          %td 2
+
     %h3 Moving Average
 
     %p
