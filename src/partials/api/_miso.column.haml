@@ -3,6 +3,7 @@
     [{ :name => "options",    :description => "Column options", :params => [ |
     { :name => "name", :description => "Column name" }, |
     { :name => "type", :description => "Column type (string name of type)" }, |
+    { :name => "before", :description => "A function to pre-process a column's value before it is coerced. Signature is <code>function(value)</code>" }, |
     { :name => "format", :description => "Optional. Only set if time type. The moment.js format describing the input dates." }, |
     { :name => "id", :description => "Optional. Sets a custom column _id. We assign one by default." }, |
     { :name => "data", :description => "Optional. A set of data. By default, set to an empty array." } |
