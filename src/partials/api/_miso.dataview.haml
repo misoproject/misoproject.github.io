@@ -40,9 +40,10 @@
   = api("ds.rowByPosition(i)", [{ :name => "i", :description => "The index of the row to be fetched."}], "Fetches a row object at a specified position. Note that the returned row object is NOT a direct reference to the data and thus any changes to it will not alter the original data.", "Object")
 
   = api("ds.rowById(id)", [{ :name => "id", :description => "The _id of the row to be fetched."}], "Fetches a row object with a specific <code>_id</code>. Note that the returned row object is NOT a direct reference to the data and thus any changes to it will not alter the original data.", "Object")
+  
   = api("ds.rows(filter)", [{ :name => "filter", :description => "An array of rowIds or a filter function that takes in a row and returns true if that row should return, false otherwise."}],"Returns a subset of rows", "Miso.DataView")
 
-  = api("ds.sort(options)", [{ :name => "options", :description => "Optional arguments", :params => [{:name => "silent", :description => "Set to true to prevent triggering of sort event"}]}], "Sorts the dataset according to the comparator. One must be defined on the dataset during instantiation or later." , "Miso.DataView")
+  = api("ds.sort(options)", [{ :name => "options", :description => "Optional arguments", :params => [{:name => "silent", :description => "Set to true to prevent triggering of sort event"}, {:name => "comparator", :description => "A comparator function that should return -1, 0 or 1. Signature is <code>function(row1, row2)</code>. This function will be saved as the dataset's default comparator."}]}], "Sorts the dataset according to the comparator. One must be defined on the dataset during instantiation or later." , "Miso.DataView")
 
   = api("ds.where(filter, options)", |
     [{ :name => "filter",  :description => "Filtering instructions:", :params => [ |
@@ -52,4 +53,14 @@
     { :name => "options", :description => "Additional options to passthrough to the view."}], |
     "Allows you to select a subset of data based on a set of filters")
 
+%h2 Derived Functions
+
+Derived functions are available on original Miso.Datasets, Miso.DataViews and other Miso.Derived instances.
+
+%ul
+  = api("ds.groupBy(byColumn, columns, options)", [{ :name => 'byColumn', :description => "The name of the column to group by"}, { :name => 'columns', :description => "Single string or array of column names to be grouped."}, { :name => 'options', :description => "Optional arguments", :params => [{ :name => 'method', :description => "Function that specifies the way in which the columns are aggregated. The default is sum. The function signature is <code>function(arr)</code>. It should return a single result."}, { :name => 'preprocess', :description => "A function to be applied to each byColumn value before the binning happens. Function signature is <code>function(value)</code>. It should return a value."}]}], "Groups rows by the values in a given column", "Miso.Derived")  
+
+  = api("ds.movingAverage(columns, size, options)", [{ :name => "columns", :description => "The columns to compute a moving average over."}, { :name => "size", :description => "The size of your moving average window (the number of rows to average per row.)"}, { :name => "options", :description => "Optional arguments", :params => [{ :name => "method", :description => "The method by which the moving average will be computed. The default is mean."}]}], "Returns a derived dataset in which the specified columns have a moving average computed over them of a specified size.", "Miso.Derived")
+
+  = api("ds.countBy(byColumn, options)", [{ :name => "byColumn", :description => "The column whose unique occurances are being counted."}, { :name => 'options', :description => "Optional arguments."}], "Returns a new derived dataset that contains the original byColumn and a count column that returns the number of occurances each unique value in the byColumn contained.", "Miso.Derived")
 
