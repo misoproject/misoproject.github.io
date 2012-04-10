@@ -29,8 +29,12 @@ _.extend(GH.CommitsParser.prototype, Miso.Parsers.prototype, {
 });
 
 var ds = new Miso.Dataset({
-  url : "https://api.github.com/repos/iros/deck.js-codemirror/commits",
+  url : "https://api.github.com/repos/iros/deck.js-codemirror/commits?callback=",
+  jsonp : "true",
   parser : GH.CommitsParser,
+  extract : function(response) {
+    return response.data;
+  },
   columns : [
     { 
       name : 'date', 
