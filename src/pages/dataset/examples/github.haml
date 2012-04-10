@@ -1,0 +1,16 @@
+- @page_title = "The Miso Project :: Dataset :: Examples"
+- @extra_scripts = capture_haml do
+  %script{ :type => "text/javascript", :src => '/js/sparklines/jquery.sparkline.min.js'}
+
+%article.dataset.example
+  %section.normal
+    %h2 jQuery Sparklines with Github API
+    %p
+      This example shows the commit history of the Dataset project by pulling
+      the commit history from github and displaying it as a simple bar graph using the jQuery sparkline library.
+    %p
+      This example demonstrates: Remote Importing, Group by with a custom method and column before callbacks.
+    %div#barChartContainer{ :style => "height: 100px; width: 50%;" }
+      Fetching github data...
+
+  = toRunnableCodeBlock("dataset/examples/github.js", "github", { :autorun => true })
