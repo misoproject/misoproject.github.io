@@ -310,7 +310,9 @@ window.log;
 
   };
 
-  CodeBlock.prototype.buildSource = function() {
+  CodeBlock.prototype.buildSource = function(original) {
+
+    original = original || false;
     var hiddenScripts = [], cleanupScripts = [];
 
     this.source = "";
@@ -335,7 +337,12 @@ window.log;
       this.originalBody = this.editor.getValue();
     }
 
-    this.source += this.originalBody;
+    if (original) {
+      this.source += this.originalBody;  
+    } else {
+      this.source += this.editor.getValue();
+    }
+    
 
     // Seek out and cache all cleanup scripts
     if (this.el.attr("id")) {
