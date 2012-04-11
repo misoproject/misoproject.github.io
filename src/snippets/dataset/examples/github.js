@@ -57,14 +57,7 @@ var ds = new Miso.Dataset({
 
 ds.fetch({ success : function() {
 
-  var commitsByDay = this.groupBy("date", ["sha"], { 
-    // we want the result of this group by to actually just be the number of
-    // commits that match each date. We could accomplish this also with a countBy
-    // but we wanted to demonstrate the power of the method property.
-    method : function(array) {
-      return array.length;
-    }
-  });
+  var commitsByDay = this.countBy("date");
 
   // even though we're aggregating by week, we might actually not have 
   // counts for certain weeks! We're trying to build a consistent time series of 
@@ -83,7 +76,7 @@ ds.fetch({ success : function() {
     if (rowForDate.length === 0) {
       commitsByDay.add({
         date : firstDate,
-        sha  : "0"
+        count  : 0
       });
     }
 
@@ -100,7 +93,7 @@ ds.fetch({ success : function() {
   }});
 
   $('#barChartContainer').children().remove();
-  $('#barChartContainer').sparkline(commitsByDay.column('sha').data, {
+  $('#barChartContainer').sparkline(commitsByDay.column('count').data, {
     type : 'line',
     height: '100px',
     width: $('#barChartContainer').width()
