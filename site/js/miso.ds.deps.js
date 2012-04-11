@@ -1,5 +1,5 @@
 /**
-* Miso.Dataset - v0.1.0 - 4/9/2012
+* Miso.Dataset - v0.1.0 - 4/11/2012
 * http://github.com/misoproject/dataset
 * Copyright (c) 2012 Alex Graul, Irene Ros;
 * Dual Licensed: MIT, GPL
@@ -2190,7 +2190,7 @@
 })(this);
 
 /**
-* Miso.Dataset - v0.1.0 - 4/9/2012
+* Miso.Dataset - v0.1.0 - 4/11/2012
 * http://github.com/misoproject/dataset
 * Copyright (c) 2012 Alex Graul, Irene Ros;
 * Dual Licensed: MIT, GPL
@@ -2243,12 +2243,14 @@
     string : {
       name : "string",
       coerce : function(v) {
-        return _.isNull(v) ? null : v.toString();
+        return v == null ? null : v.toString();
       },
       test : function(v) {
         return (v === null || typeof v === "undefined" || typeof v === 'string');
       },
       compare : function(s1, s2) {
+        if (s1 == null && s2 != null) { return -1; }
+        if (s1 != null && s2 == null) { return 1; }
         if (s1 < s2) { return -1; }
         if (s1 > s2) { return 1;  }
         return 0;
@@ -2277,6 +2279,9 @@
         }
       },
       compare : function(n1, n2) {
+        if (n1 == null && n2 != null) { return -1; }
+        if (n1 != null && n2 == null) { return 1; }
+        if (n1 == null && n2 == null) { return 0; }
         if (n1 === n2) { return 0; }
         return (n1 < n2 ? -1 : 1);
       },
@@ -2302,6 +2307,9 @@
         }
       },
       compare : function(n1, n2) {
+        if (n1 == null && n2 != null) { return -1; }
+        if (n1 != null && n2 == null) { return 1; }
+        if (n1 == null && n2 == null) { return 0; }
         if (n1 === n2) { return 0; }
         return (n1 < n2 ? -1 : 1);
       },
@@ -4330,10 +4338,11 @@ Version 0.0.1.2
         args : arguments
       });
 
+      var parentByColumn = this.column(byColumn);
       //add columns
       d.addColumn({
         name : byColumn,
-        type : this.column(byColumn).type
+        type : parentByColumn.type
       });
       d.addColumn({ name : 'count', type : 'numeric' });
       d.addColumn({ name : '_oids', type : 'numeric' });
@@ -4344,8 +4353,18 @@ Version 0.0.1.2
           _oids = d._column('_oids').data,
           _ids = d._column('_id').data;
 
+      function findIndex(names, datum, type) {
+        var i;
+        for(i = 0; i < names.length; i++) {
+          if (Miso.types[type].compare(names[i], datum) === 0) {
+            return i;
+          }
+        }
+        return -1;
+      }
+
       this.each(function(row) {
-        var index = _.indexOf(names, row[byColumn]);
+        var index = findIndex(names, row[byColumn], parentByColumn.type);
         if ( index === -1 ) {
           names.push( row[byColumn] );
           _ids.push( _.uniqueId() );
@@ -5147,72 +5166,92 @@ Version 0.0.1.2
         // we actually save the value.
         var columnIndex = -1;
 
-        // Keep looping over the regular expression matches
-        // until we can no longer find a match.
-        while (arrMatches = delimiterPattern.exec(strData)){
+        // track which row we're on
+        var rowIndex = 0;
 
-          // Get the delimiter that was found.
-          var strMatchedDelimiter = arrMatches[ 1 ];
+        try {
 
-          // Check to see if the given delimiter has a length
-          // (is not the start of string) and if it matches
-          // field delimiter. If id does not, then we know
-          // that this delimiter is a row delimiter.
-          if ( strMatchedDelimiter.length &&
-            ( strMatchedDelimiter !== strDelimiter )){
-              // we have reached a new row.
+          // Keep looping over the regular expression matches
+          // until we can no longer find a match.
+          while (arrMatches = delimiterPattern.exec(strData)){
 
-              // We are clearly done computing columns.
-              columnCountComputed = true;
+            // Get the delimiter that was found.
+            var strMatchedDelimiter = arrMatches[ 1 ];
 
-              // when we're done with a row, reset the row index to 0
-              columnIndex = 0;
-            } else {
+            // Check to see if the given delimiter has a length
+            // (is not the start of string) and if it matches
+            // field delimiter. If id does not, then we know
+            // that this delimiter is a row delimiter.
+            if ( strMatchedDelimiter.length &&
+              ( strMatchedDelimiter !== strDelimiter )){
+                
+                // we have reached a new row.
+                rowIndex++;
 
-              // Find the number of columns we're fetching and
-              // create placeholders for them.
-              if (!columnCountComputed) {
-                columnCount++;
+                // if we caught less items than we expected, throw an error
+                if (columnIndex < columnCount-1) {
+                  rowIndex--;
+                  throw new Error("Not enough items in row");
+                }
+
+                // We are clearly done computing columns.
+                columnCountComputed = true;
+
+                // when we're done with a row, reset the row index to 0
+                columnIndex = 0;
+              } else {
+
+                // Find the number of columns we're fetching and
+                // create placeholders for them.
+                if (!columnCountComputed) {
+                  columnCount++;
+                }
+
+                columnIndex++;
               }
 
-              columnIndex++;
-            }
 
+              // Now that we have our delimiter out of the way,
+              // let's check to see which kind of value we
+              // captured (quoted or unquoted).
+              var strMatchedValue = null;
+              if (arrMatches[ 2 ]){
 
-            // Now that we have our delimiter out of the way,
-            // let's check to see which kind of value we
-            // captured (quoted or unquoted).
-            var strMatchedValue = null;
-            if (arrMatches[ 2 ]){
+                // We found a quoted value. When we capture
+                // this value, unescape any double quotes.
+                strMatchedValue = arrMatches[ 2 ].replace(
+                  new RegExp( "\"\"", "g" ),
+                  "\""
+                );
 
-              // We found a quoted value. When we capture
-              // this value, unescape any double quotes.
-              strMatchedValue = arrMatches[ 2 ].replace(
-                new RegExp( "\"\"", "g" ),
-                "\""
-              );
+              } else {
 
-            } else {
-
-              // We found a non-quoted value.
-              strMatchedValue = arrMatches[ 3 ];
-            }
-
-            // Now that we have our value string, let's add
-            // it to the data array.
-            if (columnCountComputed) {
-
-              if (strMatchedValue === '') {
-                strMatchedValue = null;
+                // We found a non-quoted value.
+                strMatchedValue = arrMatches[ 3 ];
               }
 
-              columnData[columns[columnIndex]].push(strMatchedValue);
-            
-            } else {
-              // we are building the column names here
-              columns.push(strMatchedValue);
-              columnData[strMatchedValue] = [];
-            }
+              // Now that we have our value string, let's add
+              // it to the data array.
+              if (columnCountComputed) {
+
+                if (strMatchedValue === '') {
+                  strMatchedValue = null;
+                }
+
+                if (typeof columnData[columns[columnIndex]] === "undefined") {
+                  throw new Error("Too many items in row"); 
+                }
+                
+                columnData[columns[columnIndex]].push(strMatchedValue);
+              
+              } else {
+                // we are building the column names here
+                columns.push(strMatchedValue);
+                columnData[strMatchedValue] = [];
+              }
+          }
+        } catch (e) {
+          throw new Error("Error while parsing delimited data on row " + rowIndex + ". Message: " + e.message);
         }
 
         // Return the parsed data.
