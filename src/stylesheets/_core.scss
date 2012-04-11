@@ -176,74 +176,7 @@ article, div.container {
       }
     }
 
-    &.api {
-      h2 {
-        margin-top: 2em;
-        margin-bottom: 0.5em;
-      }
-      div.codeblock {
-        margin-top: 24px;
-        @include width( 14 );
-      }
-      div.codemirror-result {
-        display: none;
-      }
-
-      ul {
-        list-style: none;
-        li {
-          padding-top: 10px;
-          border-top: 1px solid $border-color;
-          width: 100%;
-          overflow: hidden;
-          padding-bottom: 20px;
-        }
-        &.params li {
-          border-top: 1px solid #dfdfdf;
-          div.name {
-            display: block;
-            height: 100%;
-            float: left;
-            @include width( 2 );
-          }
-          span {
-            @include monospace();
-          }
-          p {
-            float: left;
-            @include width( 6 );
-          }
-          ul {
-            width: 100%;
-            padding-left: 20px;
-            margin-bottom: 20px;
-            li {
-              border-top: 1px solid #eee;
-              div.name {
-                margin-left: 10px;
-              }
-            }
-          }
-        }
-      }
-      h3 {
-        margin-bottom: $font-size / 4;
-        margin-top: $font-size;
-      }
-      div.signature {
-        height: 100%;
-        display: block;
-        margin-left: 5px;
-        float: left;
-        @include width( 6 );
-      }
-      div.doc {
-        float: right;
-        margin-left: 5px;
-        @include width( 8 );
-      }
-
-    }
+   
 
     &.intro {
       padding-bottom: 40px - $font-size;
@@ -264,8 +197,6 @@ article, div.container {
       }
       @include width(14);
       position: relative;
-
-      
     }
 
     div.left {
@@ -313,6 +244,98 @@ div.download {
     color: white
   }
 }
+
+article.api {
+  section {
+    @include width(10);
+    margin-left: 24px;
+    float: left;
+    clear: none;
+
+    div.bar {
+      overflow: hidden;
+      width: 100%;
+      padding: 5px;
+      @include sanserif();
+      color: #fff;
+      background-color: #333;
+      h3 {
+        float: left;
+        font-size: $font-size;
+      }
+      span.returns {
+        float: right;
+        color: #ddd;
+        span.object {
+          padding-left: 10px;
+          font-style: italic;
+        }
+      }
+    }
+
+    ul.parameters {
+      list-style: none;
+      li {
+        div.head {
+          width: 100%;
+          overflow: hidden;
+        }
+        span {
+          display: block;
+          float: left;
+          &.name {
+            @include monospace();
+          }
+          &.type {
+            float: right;
+            @include monospace();
+          }
+          &.optional {
+            float: right;
+            font-style: italic;
+            margin-left: 10px;
+            color: #666;
+          }
+          &.required {
+            float: right;
+            margin-left: 10px;
+            font-weight: bold;
+          }
+        }
+        p {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  div.nav{
+    @include width(3);
+    float: left;
+    @include sanserif();
+    background-color: #fff;
+    min-height: 500px;
+    ul {
+      padding: 10px;
+      list-style: none;
+      li {
+        margin-bottom: 0.2em;
+      }
+      li.constructor {
+        font-weight: normal;
+        margin-bottom: 1em;
+      }
+      ul {
+        padding-top: 0;
+        padding-right: 0;
+        ul {
+          font-weight: normal;
+        }
+      }
+    }
+  }
+}
+
 nav {
   padding-top: 15px;
   @include width(14);

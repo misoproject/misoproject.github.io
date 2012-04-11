@@ -1,0 +1,7 @@
+- @page_title = "The Miso Project :: Dataset :: Examples"
+%article.dataset
+  %h1 Custom products
+  %section.normal
+    %div#output{ :style => "height: 300px; width: 300px;" }
+      %p
+    = toRunnableCodeBlock("dataset/examples/top500.js",nil, :autorun => true)

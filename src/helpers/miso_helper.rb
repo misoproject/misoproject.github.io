@@ -33,7 +33,7 @@ module MisoHelper
   # description : text
   # ret
   def api(signature, params=[], description=nil, ret=nil)
-    snippet = %[<li><div class="name signature"><code>#{signature}</code></div><div class="doc">]
+    snippet = %[<li><code class='signature'>#{signature}</code><div class="doc">]
     if (description)
       snippet +=%[
         <p>#{description}</p>

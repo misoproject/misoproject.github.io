@@ -68,14 +68,29 @@
         ds.fetch({
           success: function() {
             console.log(ds.rowByPosition(0), 'xx');
+            foo = ds;
+        
+            counts = ds.countBy('Country').sort({ comparator: function(r1, r2) {
+              if ( r1.counts > r2.counts ) {return 1;}
+              if ( r1.counts < r2.counts ) {return -1;}
+              return 0;
+            }});
+            console.log(counts);
+        
             $el.append([
-              'The most powerful supercomputer in the world belongs to',
+              'The most powerful supercomputer in the world belongs to ',
+              num( ds.rowByPosition(0).Country ),
+              ' and the second most powerful to ',
+              num( ds.rowByPosition(1).Country ),
+              ' and ', counts.rowByPosition(0).Country,
+              'has the most supercomputers in the top500'
+        
             ].join(' '));
           }
         });
         
         function num( val ) {
-          return "<span class='number'>" + val + "</span>";
+          return "<span style='color: #FAD;'>" + val + "</span>";
         }
         var $el = $('#output p');
         
