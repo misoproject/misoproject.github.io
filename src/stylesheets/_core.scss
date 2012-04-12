@@ -107,7 +107,7 @@ article, div.container {
       margin-bottom: 1em;
       color: black;
     }
-    div.example, div.guide {
+    div.example, div.tutorial {
       @include width( 4 );
       padding: 10px;
       float: left;
@@ -118,11 +118,11 @@ article, div.container {
       }
       min-height: 120px;
     }
-    div.guide:hover {
+    div.tutorial:hover {
       background-color: white;
       box-shadow: 0 0 5px rgba(0,0,0,.1);
     }
-    &.examples, &.guides {
+    &.examples, &.tutorials {
       a {
         color: #000;
         img {
@@ -133,7 +133,7 @@ article, div.container {
         margin-bottom: 30px;
       }
     }
-    &.guide {
+    &.tutorial {
       @include width( 10 );
       .codeblock {
         @include width( 10 );
