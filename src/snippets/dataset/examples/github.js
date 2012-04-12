@@ -5,7 +5,7 @@ var GH = {};
 // to handle any future Github commit data.
 GH.CommitsParser = function(options) {
   options = options || {}; 
-}
+};
 
 // a custom parser only needs extend the base Miso.Parsers.prototype
 // and provide a parse method that takes in the data and returns
@@ -22,7 +22,7 @@ _.extend(GH.CommitsParser.prototype, Miso.Parsers.prototype, {
     _.each(data, function(c) {
       dataColumns.sha.push(c.sha);
       dataColumns.date.push(c.commit.committer.date);
-      dataColumns.committer.push(c.committer.login)
+      dataColumns.committer.push(c.committer.login);
     });
 
     return {
@@ -83,9 +83,11 @@ ds.fetch({ success : function() {
   while(firstDate < lastDate) {
     
     // check, do we have a row for this date?
-    var rowForDate = commitsByDay.where({ rows : function(row) {
-      return row.date.valueOf() === firstDate;
-    }})
+    var rowForDate = commitsByDay.where({ 
+      rows : function(row) {
+        return row.date.valueOf() === firstDate;
+      }
+    });
 
     // if not, then just add a row with a zero count.
     if (rowForDate.length === 0) {
