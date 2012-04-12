@@ -1,14 +1,15 @@
 // JOIN MY LINES then update the actual bookmarklet url
 var theDiv=document.createElement("div"),key=null,worksheet=0;
 theDiv.id="miso.dataset.bookmarklet";
-theLogo=document.createElement("img"); theLogo.src="http://misoproject.com/images/logo.png";
+theLogo=document.createElement("img"); theLogo.src="http://misoproject.com/images/logo.png"; 
+theLogo.width="220";
 theBr=document.createElement("br");
 theDiv.appendChild(theLogo);
 theDiv.appendChild(theBr);
 var topscroll = 10;
 if (typeof window.pageYOffset !== "undefined"){ topscroll = window.pageYOffset + 10; }
 var text;
-if (!(/google\.com\/spreadsheet/.test(location.href))) {
+if (!(/google\.com/.test(location.href)) && !(/spreadsheet/.test(location.href))) {
   text="You can only use this on a google spreadsheet!";
 } else {
   if (/key=([A-Za-z0-9]+)[&|#]:?/.test(location.href)){key = /key=([A-Za-z0-9]+)[&|#]:?/.exec(location.href)[1];}
