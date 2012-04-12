@@ -180,7 +180,7 @@ module MisoHelper
     
     # surround existing snippet with proper tags
     if (params[:code])
-      snippet += "</textarea></div>"
+      snippet += "</textarea><div class=\"helptext\">You can edit the code in this block and rerun it.</div></div>"
     else
       snippet += "</script></div>"
     end
