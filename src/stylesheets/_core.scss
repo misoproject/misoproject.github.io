@@ -138,6 +138,9 @@ article, div.container {
       .codeblock {
         @include width( 10 );
         margin-bottom: 30px;
+        textarea {
+          display: none;
+        }
       }
       h3 {
         margin-top: 40px;
