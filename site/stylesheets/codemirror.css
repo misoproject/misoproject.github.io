@@ -130,7 +130,7 @@ span.CodeMirror-selected {
   height: auto;
   overflow-y: hidden;
   overflow-x: auto;
-  padding-top: 30px;
+  /*padding-top: 30px;*/
   width: 100%; 
 }
 .CodeMirror-gutter {

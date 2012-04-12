@@ -16,7 +16,7 @@ window.log;
     },
 
     codemirror : {
-      lineNumbers : false,
+      lineNumbers : true,
       theme : "default",
       mode : "javascript",
       theme : "default",
