@@ -2,7 +2,7 @@
 // Take in any potential options you might need for your parser
 Miso.Parsers.MyCustomParser = function(data, options) {};
 
-_.extend(Miso.Parsers.MyCustomParser.prototype, {
+_.extend(Miso.Parsers.MyCustomParser.prototype, Miso.Parsers.prototype, {
   parse : function(data) {
 
     // parse the data here
