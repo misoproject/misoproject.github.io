@@ -139,6 +139,12 @@ article, div.container {
         @include width( 10 );
         margin-bottom: 30px;
       }
+      h3 {
+        margin-top: 40px;
+      }
+      h4 {
+        margin-top: 20px;
+      }
     }
 
     &.api {
