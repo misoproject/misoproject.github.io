@@ -1,14 +1,16 @@
 // initialize a new dataset
 var ds = new Miso.Dataset({
-  data: { columns : [ 
-    { name : "one", data : [10, 2, 3] },
-    { name : "two", data : [1, 20, 3] }
-  ] },
+  data: { 
+    columns : [ 
+      { name : "one", data : [10, 2, 3] },
+      { name : "two", data : [1, 20, 3] }
+    ] 
+  },
   sync : true,
   strict: true
 });
 
-_.when(ds.fetch()).then(function(){  
+_.when(ds.fetch()).then(function() {  
 
   var max = ds.max();
   log("Max of all",  max.val());

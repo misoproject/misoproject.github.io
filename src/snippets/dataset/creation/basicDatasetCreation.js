@@ -5,7 +5,9 @@ var ds = new Miso.Dataset({
     { one : 102, two : 430, three : 20 }
   ]
 });
-ds.fetch({ success : function() {
-  log("Columns: ", this.columnNames());
-  log("Row Count ", this.length);
-}});
+ds.fetch({ 
+  success : function() {
+    log("Columns: ", this.columnNames());
+    log("Row Count ", this.length);
+  }
+});

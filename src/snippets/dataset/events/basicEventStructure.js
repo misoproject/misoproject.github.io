@@ -7,6 +7,7 @@ var ds = new Miso.Dataset({
 });
 
 _.when(ds.fetch()).then(function() {
+  
   ds.bind("add", function(event) {
     log(JSON.stringify(event));
     log("Is Add?", Miso.Event.isAdd(event.deltas[0]));

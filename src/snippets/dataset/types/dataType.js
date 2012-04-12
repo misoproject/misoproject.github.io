@@ -8,15 +8,17 @@ var ds = new Miso.Dataset({
     { name : 'three', type : 'time', format : 'YYYY MM_DD' }
   ]
 });
-ds.fetch({ success : function() {
-  log(
-    // assemble all the dates' toString results
-    _.map(
-      this.column('three').data, 
-      function(date) {
-        return date.toString();
-      }
-    )
-  );
-}});
+ds.fetch({ 
+  success : function() {
+    log(
+      // assemble all the dates' toString results
+      _.map(
+        this.column('three').data, 
+        function(date) {
+          return date.toString();
+        }
+      )
+    );
+  }
+});
 

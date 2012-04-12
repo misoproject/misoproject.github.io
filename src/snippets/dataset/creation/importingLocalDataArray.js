@@ -7,6 +7,8 @@ var ds = new Miso.Dataset({
   data : myData
 });
 
-ds.fetch({ success : function() {
-  log("Column Names: ", ds.columnNames());
-}});
+ds.fetch({ 
+  success : function() {
+    log("Column Names: ", ds.columnNames());
+  }
+});

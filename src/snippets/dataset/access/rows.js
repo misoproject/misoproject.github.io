@@ -5,8 +5,10 @@ var ds = new Miso.Dataset({
     { one : 102, two : 430}
   ]
 });
-ds.fetch({ success : function() {
-  this.each(function(row) {
-    log(JSON.stringify(row));
-  });
-}});
+ds.fetch({ 
+  success : function() {
+    this.each(function(row) {
+      log(JSON.stringify(row));
+    });
+  }
+});

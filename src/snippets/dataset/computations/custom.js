@@ -1,9 +1,11 @@
 // initialize a new dataset
 var ds = new Miso.Dataset({
-  data: { columns : [ 
-    { name : "one", data : [10, 2, 3] },
-    { name : "two", data : [1, 20, 3] }
-  ] },
+  data: { 
+    columns : [ 
+      { name : "one", data : [10, 2, 3] },
+      { name : "two", data : [1, 20, 3] }
+    ] 
+  },
   strict: true
 });
 
