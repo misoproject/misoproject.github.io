@@ -1,21 +1,25 @@
+
 var GH = {};
+
+// to parse the incomming github data we are creating a custom parser
+// to handle any future Github commit data.
 GH.CommitsParser = function(options) {
   options = options || {}; 
 }
 
+// a custom parser only needs extend the base Miso.Parsers.prototype
+// and provide a parse method that takes in the data and returns
+// an object containint a column name array and a data object
+// containing the data for each column.
 _.extend(GH.CommitsParser.prototype, Miso.Parsers.prototype, {
   parse : function(data) {
+
     // we really only want to grab a few data points from the entire
     // api call result.
     var columns     = ['sha', 'date', 'committer'],
-        dataColumns = {};
+        dataColumns = { sha : [], date : [], committer : [] };
 
     _.each(data, function(c) {
-
-      dataColumns.sha       = dataColumns.sha || [];
-      dataColumns.date      = dataColumns.date || [];
-      dataColumns.committer = dataColumns.committer || [];
-
       dataColumns.sha.push(c.sha);
       dataColumns.date.push(c.commit.committer.date);
       dataColumns.committer.push(c.committer.login)
@@ -31,18 +35,28 @@ _.extend(GH.CommitsParser.prototype, Miso.Parsers.prototype, {
 var ds = new Miso.Dataset({
   url : "https://api.github.com/repos/iros/deck.js-codemirror/commits?callback=",
   jsonp : "true",
-  parser : GH.CommitsParser,
+  // the extract method will be called once the import is done, before
+  // we try to parse it because the github callback is actually under a 
+  // property called 'data' in the response.
   extract : function(response) {
     return response.data;
   },
+  parser : GH.CommitsParser,  
   columns : [
     { 
       name : 'date', 
       type : 'time', 
+      
+      // This is the format we're going to output the data from the
+      // before function, NOT the incoming data. 
       format : 'YYYY-MM-DD', 
+      
+      // Before we actually parse the dates, let's roll them back to the
+      // beginning of the week since we just want the count of commits
+      // per week.
       before : function(date) {
-        // let's roll the dates back to the beginning of the week, since we
-        // just want the count of commits per week.
+        
+        // this is the format the data actually comes in from github in.
         var incomingFormat = 'YYYY-MM-DDThh:mm:ssZZ';
         var d = moment(date, incomingFormat);
 
@@ -57,6 +71,7 @@ var ds = new Miso.Dataset({
 
 ds.fetch({ success : function() {
 
+  // Aggregate the commit count by the date.
   var commitsByDay = this.countBy("date");
 
   // even though we're aggregating by week, we might actually not have 
@@ -92,6 +107,7 @@ ds.fetch({ success : function() {
     if (row1.date.valueOf() === row2.date.valueOf()) { return  0; }
   }});
 
+  // Clear any existing sparklines in the div.
   $('#barChartContainer').children().remove();
   $('#barChartContainer').sparkline(commitsByDay.column('count').data, {
     type : 'line',
