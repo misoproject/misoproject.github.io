@@ -3,7 +3,7 @@ Miso.Importers.MyCustomImporter = function(options) {
   // overwrite 'extract' function if you want.
 };
 
-_.extend(Miso.Importers.MyCustomImporter.prototype, {
+_.extend(Miso.Importers.MyCustomImporter.prototype, Miso.Importers.prototype, {
   
   // options should handle a success and error callback.
   // fetch should return a deferred object if this is a remote
