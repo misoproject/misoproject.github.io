@@ -9,7 +9,8 @@
     %h3 In the Browser
     %p
       To get dataset into your web development environment, follow the following steps:
-      %b Download the right build for your environment:
+    %div.indent-1  
+      %h4 Download the right build for your environment:
       %div{ :style => 'width:100%; display:inline-block;' }
         %div.download{ :style => 'width:100%;'}
           %a.button{ :href => '/downloads/miso.ds.dev.zip', :onclick => "_gaq.push(['_trackEvent', 'Miso.Dataset', Downloads', 'Development Zip Bundle']);" }
@@ -21,47 +22,65 @@
           %a.button{ :href => 'http://github.com/misoproject/dataset' }
             &rarr; on github
 
-    %p
-      %b Include dependencies if you need them:
-      If you chose to include the production version without built in dependencies, you may need to include them yourself. Dataset requires the following libraries:
-
-      %ul
-        %li= link_to 'Underscore.js 1.3.1','https://github.com/documentcloud/underscore/tags'
-        %li= link_to 'Underscore.math.js (unknown version)','https://github.com/syntagmatic/underscore.math'
-        %li= link_to 'Underscore.deferred.js 0.1.2','https://github.com/wookiehangover/underscore.Deferred'
-        %li= link_to 'moment.js 1.4.0','http://momentjs.com/'
-
-    %b Include the appropriate script tags:
-    %pre
-      &lt;script type=&#39;text/javascript&#39; src=&#39;/your/js/files/miso.ds.deps.min.js&#39;&gt;&lt;/script&gt;
-    
-    %b Start using Miso.Dataset in your code!
-    %p
-      You should now have access to the <code>Miso.Dataset</code> object in your code. Proceed to the other tutorials.
+      %h4 Include the appropriate script tags:
+      %p 
+        = toHTMLCodeBlock("dataset/quickstart/index.html")
+      
+      
+      %h4 Start using Miso.Dataset in your code!
+      %p
+        You should now have access to the <code>Miso.Dataset</code> object in your code.
 
 
     %h3 In Node.js
-    %b Install appropriate package:
-    %pre npm install miso.dataset
-    %b Use the library in code:
-    :plain
-      <pre>
-      var Miso = require("miso.dataset");
-      var ds = new Miso.Dataset...
-      </pre>
-    %h3 Use Google Spreadsheets a Lot?
-    %p
-      Drag this button to your toolbar and anytime you're viewing a google spreadsheet that is publicly published,
-      just click it to grab some code to get you started!
-    %p
-      %div{ :style => 'width:100%; display:inline-block;' }
-        %div.download{ :style => 'width:100%;'}
-          <a class="button" title="Miso.Dataset This Spread" href='javascript:var theDiv=document.createElement("div"),key=null,worksheet=0; theDiv.id="miso.dataset.bookmarklet"; theLogo=document.createElement("img"); theLogo.src="http://misoproject.com/images/logo.png"; theLogo.width="220"; theBr=document.createElement("br"); theDiv.appendChild(theLogo); theDiv.appendChild(theBr); var topscroll = 10; if (typeof window.pageYOffset !== "undefined"){ topscroll = window.pageYOffset + 10; } var text; if (!(/google\.com/.test(location.href)) && !(/spreadsheet/.test(location.href))) {text="You can only use this on a google spreadsheet!"; } else {if (/key=([A-Za-z0-9]+)[&|#]:?/.test(location.href)){key = /key=([A-Za-z0-9]+)[&|#]:?/.exec(location.href)[1];} if (/gid=([0-9]+)/.test(location.href)){worksheet = /gid=([0-9]+)/.exec(location.href)[1];} theDiv.appendChild(document.createTextNode("Use the following code to access this spreadsheet! (Note it must be published.)")); text="var ds = new Miso.Dataset({\n"+ "  key : \"" + key + "\",\n" + "  worksheet : \"" + worksheet + "\",\n" + "  importer: Miso.Importers.GoogleSpreadsheet,\n"+ "  parser : Miso.Parsers.GoogleSpreadsheet\n"+ "});\n"+ "ds.fetch({\n"+ "  success : function() {\n"+ "    // your success callback here!\n"+ "  },\n"+ "  error : function() {\n"+ "    // your error callback here!\n"+ "  }\n"+ "});"; } var thePre=document.createElement("pre"); thePre.appendChild(document.createTextNode(text)); theDiv.appendChild(thePre); console.log(top); theDiv.style.position="absolute";theDiv.style.left="10px";theDiv.style.top=topscroll+"px";theDiv.style["z-index"]=1000; theDiv.style["background-color"]="white"; theDiv.style.padding="20px"; theDiv.style.border="solid 2px black"; var theClose=document.createElement("a"); theClose.href="#"; theClose.appendChild(document.createTextNode("Close")); theClose.onclick=function() { document.body.removeChild(document.getElementById("miso.dataset.bookmarklet")); }; theDiv.appendChild(theClose); document.body.appendChild(theDiv); void(0);'>Spreadsheet &rarr; Dataset</a>
-    %p 
-      The following dialog should appear in your window when you click the bookmarklet on a google spreadsheet.
-    %p 
-      %img{ :src => '/images/bookmarklet.gif' }
+    %div.indent-1
+      %h4 Install appropriate package:
+      %pre npm install miso.dataset
+      %h4 Use the library in code:
+      :plain
+        <pre>
+        var Miso = require("miso.dataset");
+        var ds = new Miso.Dataset...
+        </pre>
 
+    %h3 Dependencies
+    %div.indent-1
+      %p
+        If you chose to include the production version without built in dependencies, you may need to include them yourself. Dataset requires the following libraries:
+        %ul
+          %li= link_to 'Underscore.js 1.3.1','https://github.com/documentcloud/underscore/tags'
+          %li= link_to 'Underscore.math.js (unknown version)','https://github.com/syntagmatic/underscore.math'
+          %li= link_to 'Underscore.deferred.js 0.1.2','https://github.com/wookiehangover/underscore.Deferred'
+          %li= "#{link_to 'moment.js 1.4.0','http://momentjs.com/'} (for 'time' data type)"
+
+    %h2 Creating Your First Dataset
+    %div.indent-1
+      %p
+        There are many ways to import your data into Dataset, but here are a few common examples that should get you going. For
+        full instructions see the <a href="/dataset/tutorials/creating.html">Creating a Dataset</a> tutorial.
+
+      %h3 Creating a Basic Dataset
+      %p
+        In this example we are going to create a dataset that is based on a collection of objects, each representing a row.
+        Let's assume you have a local var that contains the following array of objects:
+        %p
+          = toDisplayCodeBlock("dataset/quickstart/data.js")
+        %div
+          %p 
+            You can then create your dataset like so:
+            = toSetupCodeBlock("dataset/quickstart/data.js", "quickstart-dataset")
+            = toRunnableCodeBlock("dataset/quickstart/dataset.js", "quickstart-dataset")
+    %div.indent-1  
+      %h3 Creating a Dataset from a Remote Source
+      %p
+        In this example, we are going to retrieve a set of data that is located at the following url: 
+        %a{ :href => "http://misoproject.com/data/crudeoil.csv" }
+          http://misoproject.com/data/crudeoil.csv
+      %p
+        Note that the data above is comma, delimited. You can create a dataset against this url like so.
+
+        = toRunnableCodeBlock("dataset/quickstart/crudeoil.js")
+    
     %a{ :href => '/dataset/tutorials/creating', :style => 'text-align:right;' }
       %h2
         Creating a Dataset &raquo;
