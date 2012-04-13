@@ -13,7 +13,7 @@ if (!(/google\.com/.test(location.href)) && !(/spreadsheet/.test(location.href))
   text="You can only use this on a google spreadsheet!";
 } else {
   if (/key=([A-Za-z0-9]+)[&|#]:?/.test(location.href)){key = /key=([A-Za-z0-9]+)[&|#]:?/.exec(location.href)[1];}
-  if (/gid=([0-9]+)/.test(location.href)){worksheet = /gid=([0-9]+)/.exec(location.href)[1];}
+  if (/gid=([0-9]+)/.test(location.href)){worksheet = 1+(+/gid=([0-9]+)/.exec(location.href)[1]);}
   theDiv.appendChild(document.createTextNode("Use the following code to access this spreadsheet! (Note it must be published.)"));
   text="var ds = new Miso.Dataset({\n"+
   "  key : \"" + key + "\",\n" +

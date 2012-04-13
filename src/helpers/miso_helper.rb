@@ -117,6 +117,18 @@ module MisoHelper
     }.merge(options))
   end
 
+  # def html block
+  def toHTMLCodeBlock(partial, id=nil, options={})
+    codeblockify({
+      :mode => "text/html",
+      :partial => partial,
+      :runnable => false,
+      :code => true,
+      :id => id,
+      :showConsole => false
+    }.merge(options))
+  end
+
   # setup script. no visible impact, but attaches to a codeblock. 
   def toSetupCodeBlock(partial, id) 
     codeblockify({ 
@@ -148,26 +160,27 @@ module MisoHelper
 
   def codeblockify(params)
     partial     = params[:partial]
+    mode        = defined?(params[:mode]) ? "mode=\"#{params[:mode]}\"" : "mode=\"javascript\""
     runnable    = params[:runnable] ? "runnable=\"#{params[:runnable]}\""          : ""
     id          = params[:id]      ? "id=\"#{params[:id].gsub('#','')}\""          : ""
     buttons     = params[:buttons] ? "buttons=\"#{params[:buttons]}\""             : "buttons=\"none\""
     globals     = params[:globals] ? "globals=\"#{params[:globals]}\""             : ""
     runonload   = params[:runonload] ? "runonload=\"#{params[:runonload]}\""       : ""
     classname   = params[:classname] ? "class=\"#{params[:classname]}\""           : "class=\"code\""
-    showConsole = defined?(params[:showConsole]) ? "showConsole=\"#{params[:showConsole]}\"" : ""
-    showConsole = defined?(params[:sandbox]) ? "sandbox=\"#{params[:sandbox]}\""   : ""
+    showConsole = defined?(params[:showConsole]) ? "showConsole=\"#{params[:showConsole]}\"" : "showConsole=false"
+    sandbox     = defined?(params[:sandbox]) ? "sandbox=\"#{params[:sandbox]}\""   : ""
     autorun     = defined?(params[:autorun]) ? "autorun=\"#{params[:autorun]}\""   : ""
     callbacksClear  = defined?(params[:callbacksClear]) ? "callbacks-clear=\"#{params[:callbacksClear]}\""   : ""
     callbacksReset  = defined?(params[:callbacksReset]) ? "callbacks-reset=\"#{params[:callbacksReset]}\""   : ""
     callbacksRun    = defined?(params[:callbacksRun])   ? "callbacks-run=\"#{params[:callbacksRun]}\""   : ""
 
-    full_path = File.join(Dir.pwd, 'src', 'snippets', partial.index(".js").nil? ? partial + ".js" : partial)
+    full_path = File.join(Dir.pwd, 'src', 'snippets', partial.index(".js").nil? && partial.index(".html").nil? ? partial + ".js" : partial)
     puts "Making code block " + full_path
     
 
     if (params[:code])
       # make a code block
-      snippet = "<div class=\"codeblock\"><textarea #{id} #{classname} #{globals} #{runnable} #{showConsole} #{buttons} #{autorun} #{callbacksClear} #{callbacksReset} #{callbacksRun}>\n"
+      snippet = "<div class=\"codeblock\"><textarea #{id} #{classname} #{mode} #{globals} #{runnable} #{showConsole} #{buttons} #{autorun} #{callbacksClear} #{callbacksReset} #{callbacksRun}>\n"
     else
       # make a pre/post script
       snippet = "<script type='codemirror/#{params[:blocktype]}' data-selector='#{params[:selector]}'>"
@@ -179,8 +192,10 @@ module MisoHelper
     end
     
     # surround existing snippet with proper tags
-    if (params[:code])
+    if (params[:code] && params[:runnable])
       snippet += "</textarea><div class=\"helptext\">You can edit the code in this block and rerun it.</div></div>"
+    elsif (params[:code] && !params[:runnable])
+      snippet += "</textarea></div>"
     else
       snippet += "</script></div>"
     end
