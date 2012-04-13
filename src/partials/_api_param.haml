@@ -1,0 +1,17 @@
+%li
+  %div.head
+    %span.name
+      = param['name']
+
+    - klass = param['required'] ? 'required' : 'optional'
+    %span.type
+      = param['type']
+    %span{ :class => klass }
+      = klass
+
+  %p
+    = hamlify( param['description'] )
+  - if param['params']
+    %ul
+      - param['params'].each do |param|
+        = partial('/partials/_api_param', :locals => { :param => param })

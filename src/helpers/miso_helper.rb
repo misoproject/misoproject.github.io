@@ -4,13 +4,17 @@ module MisoHelper
 
 
   def api_section(file)
+    @api = [] unless @api
     base = File.join(File.dirname(__FILE__), '..', 'other')
     data = YAML.load_file("#{base}/#{file}")
-    $stdout.puts data
-    html = ''
+    @api << data
+    partial('/partials/_api_section', 
+            :locals => { :data => data })
+  end
 
-    #Header
-    html += "<h2 id='#{idify(data['name'])}'>#{data['name']}</h2>"
+  def methods( method_array )
+    method_array.map do |method|
+      methods['params'] = [] unless method['params']
 
     partial('../partials/section', :locals => { 
       :section_name => name, 
@@ -47,18 +51,17 @@ module MisoHelper
         snippet += buildParam(param)
       end
 
-    html += "<h3>Object Methods</h3>"
-    html += methods(data['methods'])
+  def params( params )
+    $stdout.puts 'PLX'+params.length.to_s
+    params.map do |param|
+      partial('/partials/_api_param', 
+              :locals => { :param => param })
+      params( param['params'] ) if param['params']
+    end.join('')
   end
 
-  def methods( method_array )
-    method_array.map do |method|
-      html = ["<div class='head'>",
-              "<span class='signature'>#{method['signature']}</span>",
-              "<span class='returns'>Returns<span class='object'>#{method['returns']}</span></span>",
-              "</div>"
-             ].join
-    end
+  def hamlify( text )
+    @staticmatic.generate_html_from_template_source(text)
   end
   # ------
   # Code Block Generators

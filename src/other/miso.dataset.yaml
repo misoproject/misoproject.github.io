@@ -6,7 +6,7 @@ description: >
 methods:
 -
   name: 'constructor'
-  description: >
+  description: |
     Miso.Dataset is the main object you will instantiate to create a new dataset.
     A <code>Miso.Dataset</code> also extends from <code>Miso.DataView</code>. All the methods available on a <code>Miso.DataView</code> will also be available on the dataset.
 
@@ -18,23 +18,28 @@ methods:
     name: 'options'
     type: 'Object'
     required: true,
-    description: 'Object containing all the initialization configuration for the dataset'
+    description: >
+      Object containing all the initialization configuration for the dataset.
+    
     params:
     -
       name: url
       type: String
-      description: 'A url to a location containing your data.'
+      description: 'The url of a remote file containing your data, used for remote importers'
     -
       name: sync
       type: Boolean
       default: false
       description: >
-        When <code>true</code> it enables binding to dataset changes. See 
+        When <code>true</code> it enables binding to dataset changes. See the importing and parsing
+        guide for more information about how to use.
     -
       name: jsonp
       type: Boolean
       default: false
-      description: 'Whether a require request should use <a href="http://en.wikipedia.org/wiki/JSONP">jsonp</a>'
+      description: >
+        Whether a remote request should use <a href="http://en.wikipedia.org/wiki/JSONP">jsonp</a> to
+        enable cross-domain requests.
     -
       name: delimiter
       type: String

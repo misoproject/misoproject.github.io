@@ -247,10 +247,26 @@ div.download {
 
 article.api {
   section {
-    @include width(10);
+    @include width(11);
     margin-left: 24px;
-    float: left;
+    float: right;
     clear: none;
+    h3.instance {
+      margin-top: 50px;
+    }
+
+    div.codeblock {
+      margin-top: 24px;
+      @include width( 10 );
+      margin-bottom: 24px;
+      div.codemirror-result {
+        display: none;
+      }
+      div.CodeMirror-scroll {
+        padding-top: 0;
+      }
+    }
+
 
     div.bar {
       overflow: hidden;
@@ -262,6 +278,7 @@ article.api {
       h3 {
         float: left;
         font-size: $font-size;
+      
       }
       span.returns {
         float: right;
@@ -276,10 +293,23 @@ article.api {
     ul.parameters {
       list-style: none;
       li {
+        margin-bottom: 48px;
+        p code {
+          background-color: transparent;
+          box-shadow: none;
+        }
         div.head {
           width: 100%;
           overflow: hidden;
         }
+        ul {
+          list-style: none;
+          li {
+            padding-left: 40px;
+            margin-bottom: 2px;
+          }
+        }
+
         span {
           display: block;
           float: left;
@@ -288,17 +318,16 @@ article.api {
           }
           &.type {
             float: right;
+            margin-left: 10px;
             @include monospace();
           }
           &.optional {
             float: right;
             font-style: italic;
-            margin-left: 10px;
             color: #666;
           }
           &.required {
             float: right;
-            margin-left: 10px;
             font-weight: bold;
           }
         }
@@ -311,26 +340,34 @@ article.api {
 
   div.nav{
     @include width(3);
-    float: left;
+    float: right;
     @include sanserif();
     background-color: #fff;
     min-height: 500px;
     ul {
-      padding: 10px;
+      padding-left: 10px;
+      padding-top: 10px;
+      padding-right: 10px;
       list-style: none;
-      li {
-        margin-bottom: 0.2em;
+      margin-bottom: 0.5em;
+      &.object {
+        padding-left: 0;
       }
-      li.constructor {
-        font-weight: normal;
-        margin-bottom: 1em;
+      span.instance {
+        padding-left: 10px;
+      }
+      li {
+        padding-bottom: 0;
+        margin-bottom: 0.2em;
       }
       ul {
         padding-top: 0;
         padding-right: 0;
-        ul {
+        li {
+          padding-left: 10px;
           font-weight: normal;
         }
+
       }
     }
   }
