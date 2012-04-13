@@ -1,0 +1,183 @@
+---
+name: 'Miso.Dataset'
+description: >
+  Miso.Dataset is the core of dataset yada.
+
+methods:
+-
+  name: 'constructor'
+  description: >
+    Miso.Dataset is the main object you will instantiate to create a new dataset.
+    A <code>Miso.Dataset</code> also extends from <code>Miso.DataView</code>. All the methods available on a <code>Miso.DataView</code> will also be available on the dataset.
+
+  signature: 'new Miso.Dataset( options )'
+  returns: 'Miso.Dataset'
+  example: 'miso_dataset_constructor'
+  params:
+  -
+    name: 'options'
+    type: 'Object'
+    required: true,
+    description: 'Object containing all the initialization configuration for the dataset'
+    params:
+    -
+      name: url
+      type: String
+      description: 'A url to a location containing your data.'
+    -
+      name: sync
+      type: Boolean
+      default: false
+      description: >
+        When <code>true</code> it enables binding to dataset changes. See 
+    -
+      name: jsonp
+      type: Boolean
+      default: false
+      description: 'Whether a require request should use <a href="http://en.wikipedia.org/wiki/JSONP">jsonp</a>'
+    -
+      name: delimiter
+      type: String
+      #TODO Link to delimited parser
+      description: 'When using the delimited parser this is used to set a custom field delimiter'
+    -
+      name: strict
+      type: Boolean
+      default: false
+      #TODO Link to strict parser
+      description: 'Whether the incoming data is in the strict format - shorthand for using the Strict parser'
+    -
+      name: extract
+      type: Function
+      #TODO Link to importer/parser guide
+      description: 'Optional function used to pre-process raw data'
+    -
+      name: ready
+      type: Function
+      #TODO Link to importer/parser guide
+      description: 'Callback function that will be called once data is fetched. Will be called before success callback on fetch.'
+    -
+      name: columns
+      type: Object
+      #TODO Link to importer/parser guide
+      description: >
+        A way to manually override column type detection. Expects an array of objects of the following structure: <code>{ name : 'columnname', type: 'columntype', ... (additional params required for type here.)}</code> 
+    -
+      name: comparator
+      type: Function
+      #TODO Link up example
+      description: >
+        A function to sort the data by. It will be sorted on fetch and on any successive addition.
+        = toDisplayCodeBlock("dataset/sort_example")
+    -
+      name: deferred
+      type: Function
+      #TODO Link to deferred example
+      description: >
+        A way to provide your own deferred object. It needs to follow the standard deferred signatures.
+    -
+      name: importer
+      type: Miso.Importer
+      #TODO Link importing/parsing guide
+      description: >
+        The classname of any importer (passes through auto detection based on parameters. For example: <code>Miso.Importers.Polling</code>.
+    -
+      name: parser
+      type: Miso.Parser
+      #TODO Link importing/parsing guide
+      description: >
+        The classname of any parser (passes through auto detection based on parameters. For example: <code>Miso.Parsers.Delimited</code>.
+    -
+      name: resetOnFetch
+      type: Boolean
+      description: >
+        Set to true if any subsequent fetches after first one should overwrite the current data.
+    -
+      name: uniqueAgainst
+      type: String
+      description: >
+        Set to a column name to check for duplication on subsequent fetches.
+    -
+      name: interval
+      type: Integer
+      description: >
+        Polling interval. Set to any value in milliseconds to enable polling on a url.
+
+
+instance_methods:
+-
+  name: fetch
+  signature: 'ds.fetch( options )'
+  returns: Deferred
+  description: >
+    Fetches the data and populates the dataset. Even when importing local objects from a var, this needs to be called.
+  params:
+  -
+    name: options
+    type: Object
+    description: 'optional arguments'
+    params:
+    -
+      name: success
+      type: Function
+      description: 'Success callback to be called when data is fetched. Context is the dataset.'
+    -
+      name: error
+      type: Function
+      description: 'Error callback to be called when data fetching fails. Context is the dataset.'
+
+-
+  name: apply
+  signature: 'ds.apply( data )'
+  returns: undefined
+  description:
+    Applies the data to the dataset. It can add it blindly, replace all existing or add only unique rows based on a column. This is called in fetch and most likely will never need to be called.
+  params:
+  -
+    name: data
+    type: Object
+    required: true
+    #TODO Link to importing/parsing guide
+    description: >
+      Data to be applied (added or replacing) to the dataset in whatever format the parser expects
+
+-
+  name: addColumn
+  signature: 'ds.addColumn( column )'
+  returns: Miso.Column
+  description:
+    Creates a new column and adds it to the dataset.
+  params:
+  -
+    name: column
+    type: Object
+    required: true
+    description: 'Column options'
+    params:
+    -
+      name: name
+      type: String
+      required: true
+      description: Column name
+    -
+      name: type
+      required: true
+      type: String
+      description: String name of column type
+    -
+      name: format
+      type: String
+      #TODO link to moment.js guide
+      description: >
+        Only used for columns of the type <code>time</code>. The moment.js format describing the input dates.
+    -
+      name: _id 
+      type: String
+      description: >
+        Sets a custom column _id. We assign one by default.
+    -
+      name: data
+      type: Array
+      description: >
+        Optional. An array of column data. By default, set to an empty array.
+

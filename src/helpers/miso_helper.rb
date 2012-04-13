@@ -1,22 +1,16 @@
+require 'yaml'
+
 module MisoHelper
 
-  #nav builder
-  def nav(current_section)
-    @sub_nav = [] if @sub_nav.nil?
-    @nav = [] if @nav.nil?
 
-    $stdout.puts @nav
-    partial('../partials/nav', :locals => {
-      :sections => @nav,
-      :current_section => current_section,
-      :sub => @sub_nav
-    })
-  end
+  def api_section(file)
+    base = File.join(File.dirname(__FILE__), '..', 'other')
+    data = YAML.load_file("#{base}/#{file}")
+    $stdout.puts data
+    html = ''
 
-  #section helper
-  def section(name, partial, section_class="normal")
-    @sub_nav = [] if @sub_nav.nil?
-    @sub_nav << name
+    #Header
+    html += "<h2 id='#{idify(data['name'])}'>#{data['name']}</h2>"
 
     partial('../partials/section', :locals => { 
       :section_name => name, 
@@ -53,31 +47,19 @@ module MisoHelper
         snippet += buildParam(param)
       end
 
-      snippet += %[</ul>]
-    end
-    
-    snippet += "</div></li>"
-    snippet
+    html += "<h3>Object Methods</h3>"
+    html += methods(data['methods'])
   end
 
-  def buildParam(param)
-    p = "<li><div class='name'><span>" + param[:name] + "</span></div>"
-
-    if (param[:description])
-      p += "<p>" + param[:description] + "</p>"
+  def methods( method_array )
+    method_array.map do |method|
+      html = ["<div class='head'>",
+              "<span class='signature'>#{method['signature']}</span>",
+              "<span class='returns'>Returns<span class='object'>#{method['returns']}</span></span>",
+              "</div>"
+             ].join
     end
-
-    if (param[:params])
-      p += "<ul>"
-      param[:params].each do |param|
-        p += buildParam(param)
-      end
-      p += "</ul>"
-    end
-
-    p += "</li>"
   end
-
   # ------
   # Code Block Generators
   # ------
