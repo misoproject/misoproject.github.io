@@ -14,8 +14,6 @@ module MisoHelper
 
   def methods( name, method_array, instance = false )
     method_array.map do |method|
-      methods['params'] = [] unless method['params']
-
       partial('/partials/_api_methods', 
               :locals => { :method => method, :object => name, :instance => instance })
     end.join('')
@@ -50,7 +48,6 @@ module MisoHelper
       end
 
   def params( params )
-    $stdout.puts 'PLX'+params.length.to_s
     params.map do |param|
       partial('/partials/_api_param', 
               :locals => { :param => param })

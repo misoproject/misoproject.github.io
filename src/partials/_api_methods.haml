@@ -8,8 +8,9 @@
         = method['returns']
   %p
     = hamlify( method['description'] )
-  %h3
-    Parameters
-  %ul.parameters
-    - method['params'].each do |param|
-      = partial('/partials/_api_param', :locals => { :param => param })
+  - if method['params']
+    %h3
+      Parameters
+    %ul.parameters
+      - method['params'].each do |param|
+        = partial('/partials/_api_param', :locals => { :param => param })

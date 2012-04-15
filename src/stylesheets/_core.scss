@@ -53,9 +53,8 @@ article.dataset { @include colourise( #2585EC ); }
   background-color: #fff;
   padding-left: 0.3em;
   padding-right: 0.3em;
-  padding-bottom: 0.2em;
-  padding-top: 0.2em;
-  box-shadow: 0 0 5px rgba(0,0,0,.1);
+  padding-bottom: 0.1em;
+  padding-top: 0.1em;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -257,11 +256,8 @@ article.api {
 
     div.codeblock {
       margin-top: 24px;
-      @include width( 10 );
+      @include width( 11 );
       margin-bottom: 24px;
-      div.codemirror-result {
-        display: none;
-      }
       div.CodeMirror-scroll {
         padding-top: 0;
       }
@@ -294,10 +290,6 @@ article.api {
       list-style: none;
       li {
         margin-bottom: 48px;
-        p code {
-          background-color: transparent;
-          box-shadow: none;
-        }
         div.head {
           width: 100%;
           overflow: hidden;

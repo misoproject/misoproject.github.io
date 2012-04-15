@@ -1,15 +1,16 @@
 ---
 name: 'Miso.Dataset'
-description: >
-  Miso.Dataset is the core of dataset yada.
+description: |
+  Miso.Dataset is the main object you will instantiate to create a new dataset.
+  A <code>Miso.Dataset</code> also extends from <code>Miso.DataView</code>. All the methods available on a <code>Miso.DataView</code> will also be available on the dataset.
 
 methods:
 -
   name: 'constructor'
   description: |
-    Miso.Dataset is the main object you will instantiate to create a new dataset.
-    A <code>Miso.Dataset</code> also extends from <code>Miso.DataView</code>. All the methods available on a <code>Miso.DataView</code> will also be available on the dataset.
-
+    Returns a new dataset. See the creating datasets guide for detailed information.
+    = toRunnableCodeBlock("api/miso.dataset.constructor")
+  #TODO Link to creating datasets guide
   signature: 'new Miso.Dataset( options )'
   returns: 'Miso.Dataset'
   example: 'miso_dataset_constructor'
@@ -19,7 +20,7 @@ methods:
     type: 'Object'
     required: true,
     description: >
-      Object containing all the initialization configuration for the dataset.
+      Object containing all the initial configuration for the dataset.
     
     params:
     -
@@ -30,9 +31,9 @@ methods:
       name: sync
       type: Boolean
       default: false
+      #TODO link events/sync guide
       description: >
-        When <code>true</code> it enables binding to dataset changes. See the importing and parsing
-        guide for more information about how to use.
+        When <code>true</code> it enables binding to dataset changes. 
     -
       name: jsonp
       type: Boolean
@@ -44,7 +45,9 @@ methods:
       name: delimiter
       type: String
       #TODO Link to delimited parser
-      description: 'When using the delimited parser this is used to set a custom field delimiter'
+      description: |
+        When using the delimited parser this is used to set a custom field delimiter 
+        such as <br><code> delimiter: '||' </code> for CSV files such as <code>value1||value2</code>
     -
       name: strict
       type: Boolean
@@ -73,7 +76,6 @@ methods:
       #TODO Link up example
       description: >
         A function to sort the data by. It will be sorted on fetch and on any successive addition.
-        = toDisplayCodeBlock("dataset/sort_example")
     -
       name: deferred
       type: Function
@@ -114,8 +116,12 @@ instance_methods:
   name: fetch
   signature: 'ds.fetch( options )'
   returns: Deferred
-  description: >
-    Fetches the data and populates the dataset. Even when importing local objects from a var, this needs to be called.
+  description: |
+    Fetches the data and populates the dataset. Even when importing local objects from a var
+    this needs to be called before data can be accessed. Fetch returns a 
+    %a{ :href => 'https://github.com/wookiehangover/underscore.Deferred' } deferred
+    which makes it simple to chain operations off async data requests.
+    = toRunnableCodeBlock("api/miso.dataset.fetch")
   params:
   -
     name: options
@@ -135,8 +141,10 @@ instance_methods:
   name: apply
   signature: 'ds.apply( data )'
   returns: undefined
-  description:
-    Applies the data to the dataset. It can add it blindly, replace all existing or add only unique rows based on a column. This is called in fetch and most likely will never need to be called.
+  description: |
+    Applies the data to the dataset. It can add it blindly, replace all existing or add only unique rows 
+    based on a column. This is called internally by fetch and most likely will never need to be directly by a user.
+    = toRunnableCodeBlock("api/miso.dataset.apply")
   params:
   -
     name: data
@@ -150,8 +158,9 @@ instance_methods:
   name: addColumn
   signature: 'ds.addColumn( column )'
   returns: Miso.Column
-  description:
+  description: |
     Creates a new column and adds it to the dataset.
+    = toRunnableCodeBlock("api/miso.dataset.addcolumn")
   params:
   -
     name: column
@@ -185,4 +194,89 @@ instance_methods:
       type: Array
       description: >
         Optional. An array of column data. By default, set to an empty array.
+
+-
+  name: add
+  signature: 'ds.add( row, options )'
+  returns: ds
+  description: |
+    Adds a row to the dataset. This will fire <code>add</code> and <code>change</code> 
+    events on a syncable dataset.
+    = toRunnableCodeBlock("api/miso.dataset.add")
+  params:
+  -
+    name: row
+    type: Object
+    required: true
+    description: 'Object representing a new row'
+  -
+    name: options
+    type: Object
+    description: 'Options object'
+    params:
+    -
+      name: silent
+      type: Boolean
+      description: 'Set to true to disable an add event being triggered'
+
+-
+  name: remove
+  signature: 'ds.remove( filter, options )'
+  returns: ds
+  description: |
+    Removes rows matching the passed filter from the dataset. This will fire <code>remove</code> 
+    and <code>change</code> events on a syncable dataset.
+    = toRunnableCodeBlock("api/miso.dataset.remove")
+  params:
+  -
+    name: filter
+    type: Function
+    required: true
+    description: 'Can be one of two things: A row id, or a filter function that takes a row and returns true if that row should be removed or false otherwise.'
+  -
+    name: options
+    type: Object
+    description: 'Options object'
+    params:
+    -
+      name: silent
+      type: Boolean
+      description: 'Set to true to disable event firing'
+
+-
+  name: update
+  signature: 'ds.update( filter, newProperties, options )'
+  returns: ds
+  description: |
+    Updates one or more rows in a dataset. This will fire <code>update</code> and <code>change</code> events on a syncable dataset. 
+    = toRunnableCodeBlock("api/miso.dataset.update")
+  params:
+  -
+    name: filter
+    type: Function
+    required: true
+    description: 'Can be one of two things: A row id, or a filter function that takes a row and returns true if that row should be removed or false otherwise.'
+  -
+    name: newProperties
+    type: Object
+    required: true
+    description: 'An object representing the values that are changing.'
+ 
+  -
+    name: options
+    type: Object
+    description: 'Options object'
+    params:
+    -
+      name: silent
+      type: Boolean
+      description: 'Set to true to disable event firing'
+
+-
+  name: reset
+  signature: 'ds.reset()'
+  returns: ds
+  description: |
+    Updates one or more rows in a dataset. This will fire <code>update</code> and <code>change</code> events on a syncable dataset. 
+    = toRunnableCodeBlock("api/miso.dataset.reset")
 
