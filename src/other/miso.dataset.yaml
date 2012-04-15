@@ -6,13 +6,13 @@ description: |
 
 methods:
 -
-  name: 'constructor'
+  name: constructor
   description: |
     Returns a new dataset. See the creating datasets guide for detailed information.
     = toRunnableCodeBlock("api/miso.dataset.constructor")
   #TODO Link to creating datasets guide
   signature: 'new Miso.Dataset( options )'
-  returns: 'Miso.Dataset'
+  returns: Miso.Dataset
   params:
   -
     name: 'options'
