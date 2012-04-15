@@ -314,11 +314,13 @@ article.api {
             @include monospace();
           }
           &.optional {
+            line-height: 1.1;
             float: right;
             font-style: italic;
             color: #666;
           }
           &.required {
+            line-height: 1.05;
             float: right;
             font-weight: bold;
           }

@@ -1,0 +1,172 @@
+---
+name: 'Miso.Dataview'
+description: |
+  A <code>Miso.DataView</code> is an immutable version of dataset. It is the result of selecting a subset of the data using the <code>ds.where</code> call. If the dataset is syncing, this view will be updated when changes take place in the original dataset.
+  A <code>Miso.Dataset</code> also extends from <code>Miso.DataView</code>. All the methods available on a dataview will also be available on the dataset.  
+instance_methods:
+-
+  name: 'columnNames'
+  signature: 'ds.columnNames()'
+  description: |
+    Returns an array containing the names of all columns
+    = toRunnableCodeBlock("api/miso.dataview.columnnames")
+  returns: 'Array'
+-
+  name: 'column'
+  signature: 'ds.column( name )'
+  description: |
+    Returns a reference to a column object
+    = toRunnableCodeBlock("api/miso.dataview.column")
+  returns: 'Array'
+  params:
+  -
+    name: 'name'
+    type: 'String'
+    required: true,
+    description: >
+      Name of Column to be returned
+
+-
+  name: 'columns'
+  signature: 'ds.columns( nameArray )'
+  description: |
+    Shorthand for ds.where({ columns : nameArray });
+    = toRunnableCodeBlock("api/miso.dataview.columns")
+  returns: 'Miso.Dataview'
+  params: 
+  -
+    name: nameArray
+    type: Array
+    required: true
+    description: 'Array of column names to select for the view'
+-
+  name: 'hasColumn'
+  signature: 'ds.hasColumn( name )'
+  description: |
+    Checks for the existance of a column and returns true/false
+    = toRunnableCodeBlock("api/miso.dataview.hascolumn")
+  returns: 'Boolean'
+  params: 
+  -
+    name: name
+    type: String
+    required: true
+    description: 'Name of column to check for'
+-
+  name: 'eachColumn'
+  signature: 'ds.eachColumn( iterator, context )'
+  description: |
+    Iterate over all columns. Direct column references, not arrays so modifying
+    data may cause internal inconsistencies.
+    = toRunnableCodeBlock("api/miso.dataview.eachColumn")
+  returns: 'Boolean'
+  params: 
+  -
+    name: iterator
+    type: Function
+    required: true
+    description: >
+      A function with the following signature: <code>function(columnName, columnObject, index)</code>'
+  -
+    name: context
+    type: Object
+    description: >
+      The context to be bound to the iterator.
+
+-
+  name: 'rowByPosition'
+  signature: 'ds.rowByPosition( position )'
+  description: |
+    Fetches a row object at a specified position. Note that the returned row object is NOT a direct reference to the data and thus any changes to it will not alter the original data.
+    = toRunnableCodeBlock("api/miso.dataview.rowbyposition")
+  returns: 'Object'
+  params: 
+  -
+    name: position
+    required: true
+    type: Integer
+    description: Position of row
+
+-
+  name: 'rowById'
+  signature: 'ds.rowById( id )'
+  description: |
+    Fetches a row object with a specific <code>_id</code>. Note that the returned row object is NOT a direct reference to the data and thus any changes to it will not alter the original data.
+    = toRunnableCodeBlock("api/miso.dataview.rowbyid")
+  returns: 'Object'
+  params: 
+  -
+    name: id
+    required: true
+    type: Integer
+    description: id of row to be returned
+-
+  name: 'rows'
+  signature: 'ds.rows( rowFilter )'
+  description: |
+    Shorthand for 
+    %a{ :href => '#misodataview_i_where' } ds.where({ rows : rowFilter }); 
+    If run with no filter will return all rows.
+    = toRunnableCodeBlock("api/miso.dataview.rows")
+  returns: 'Miso.Dataview'
+  params: 
+  -
+    name: rowFilter
+    type: Array || Function
+    description: >
+      An array of rowIds or a filter function that takes in a row and returns true if that row should return, false otherwise.
+
+-
+  name: 'sort'
+  signature: 'ds.sort( options )'
+  description: |
+    Sorts the dataset according to the comparator. A comparator can either be passed 
+    in as part of the options object or have been defined on the dataset already, for 
+    example as part of the initialization block.
+    = toRunnableCodeBlock("api/miso.dataview.sort")
+  returns: 'Miso.Dataview'
+  params: 
+  -
+    name: options
+    type: Object
+    description: >
+      Options object
+    params:
+    -
+      name: comparator
+      type: Function
+      description: |
+        Function used to sort the dataset, uses the same return structure as a 
+        standard 
+        %a{ :href => 'http://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/sort' } javascript sort
+    -
+      name: silent
+      type: Boolean
+      description: >
+        Default false, set true to supress the firing of a sort event.
+-
+  name: 'where'
+  signature: 'ds.where( filters, options)'
+  description:  |
+    Where is used to create Dataviews, subsets of data based on a set of filters. 
+    Filtration can be applied to both rows & columns and for syncing datasets changes 
+    in the parent dataset from which the dataview was created will be reflected in the
+    dataview.
+    = toRunnableCodeBlock("api/miso.dataview.where")
+  returns: Miso.Dataview
+  params:
+  -
+    name: filters
+    type: Object
+    description: Options object
+    params:
+    -
+      name: columns
+      type: String || Array
+      description: A filter for columns. A single or multiple column names.
+    -
+      name: rows
+      type: Array || Function
+      description: |
+        A filter for rows. A rowId or a filter function that takes in a row and returns 
+        true if it passes the criteria.

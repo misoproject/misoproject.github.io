@@ -13,7 +13,6 @@ methods:
   #TODO Link to creating datasets guide
   signature: 'new Miso.Dataset( options )'
   returns: 'Miso.Dataset'
-  example: 'miso_dataset_constructor'
   params:
   -
     name: 'options'
@@ -275,7 +274,7 @@ instance_methods:
 -
   name: reset
   signature: 'ds.reset()'
-  returns: ds
+  returns: undefined
   description: |
     Updates one or more rows in a dataset. This will fire <code>update</code> and <code>change</code> events on a syncable dataset. 
     = toRunnableCodeBlock("api/miso.dataset.reset")

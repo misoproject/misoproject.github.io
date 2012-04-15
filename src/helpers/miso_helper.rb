@@ -4,7 +4,6 @@ module MisoHelper
 
 
   def api_section(file)
-    @api = [] unless @api
     base = File.join(File.dirname(__FILE__), '..', 'other')
     data = YAML.load_file("#{base}/#{file}")
     @api << data
