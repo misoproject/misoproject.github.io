@@ -12,15 +12,13 @@ module MisoHelper
             :locals => { :data => data })
   end
 
-  def methods( method_array )
+  def methods( name, method_array, instance = false )
     method_array.map do |method|
       methods['params'] = [] unless method['params']
 
-    partial('../partials/section', :locals => { 
-      :section_name => name, 
-      :tag => idify(name),
-      :section_class => section_class,
-      :section_content => '../partials/' + partial })
+      partial('/partials/_api_methods', 
+              :locals => { :method => method, :object => name, :instance => instance })
+    end.join('')
   end
   # ------
   # API Generators
@@ -137,10 +135,16 @@ module MisoHelper
 
   private
   def idify( name ) 
-    name
-      .downcase
-      .gsub(/\s/,'-')
-      .gsub(/[^A-z0-9-]+/,'')
+    name = [name] unless name.class == Array
+    name.reject! do |part|
+      part.empty?
+    end
+    name.map do |part|
+      part
+        .downcase
+        .gsub(/\s/,'-')
+        .gsub(/[^A-z0-9-]+/,'')
+    end.join('_')
   end
 
   def codeblockify(params)

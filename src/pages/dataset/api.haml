@@ -8,14 +8,15 @@
     %ul
       - @api.each do |obj|
         %li
-          %a
+          %a{ :href => '#' + idify( obj['name'] ) }
             = obj['name']
 
           - if obj['methods']
             %ul.object
               - obj['methods'].each do |method|
                 %li
-                  = method['name']
+                  %a{ :href => '#' +  idify( [obj['name'], method['name'] ] ) }
+                    = method['name']
 
           - if obj['instance_methods']
             %span.instance
@@ -23,26 +24,8 @@
             %ul
               - obj['instance_methods'].each do |method|
                 %li
-                  %a
+                  %a{ :href => '#' + idify( [ obj['name'], 'i', method['name'] ] ) }
                     = method['name']
-
-
-            
-      -# %ul
-        -# %li.constructor
-          -# Constructor
-        -# %li
-          -# %a 
-            -# Instance Methods
-            -# %ul
-              -# %li
-                -# fetch
-              -# %li
-                -# apply
-              -# %li
-                -# addColumn
-
-
 
   -# = section('Miso.Dataset', 'api/miso.dataset', "api")
   -# = section('Miso.Column', 'api/miso.column', "api")

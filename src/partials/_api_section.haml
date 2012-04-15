@@ -1,14 +1,14 @@
-%section.api
-  %h2{ :id => idify(data['name']) } 
+%section.api{ :id => idify(data['name']) }
+  %h2 
     = data['name']
 
   %p
     = hamlify( data['description'] )
 
   - if data['methods']
-    = methods( data['methods'] )
+    = methods( data['name'], data['methods'] )
 
   - if data['instance_methods']
     %h3.instance
       Instance Methods
-    = methods( data['instance_methods'] )
+    = methods( data['name'], data['instance_methods'], true )
