@@ -17,34 +17,6 @@ module MisoHelper
               :locals => { :method => method, :object => name, :instance => instance })
     end.join('')
   end
-  # ------
-  # API Generators
-  # ------
-
-  # signature: ds.somecall(p1, p2, p3)
-  # params: [{:name => 'p1', :type => 'string', :description => 'bla', :params => [](optional)}]
-  # description : text
-  # ret
-  def api(signature, params=[], description=nil, ret=nil)
-    snippet = %[<li><code class='signature'>#{signature}</code><div class="doc">]
-    if (description)
-      snippet +=%[
-        <p>#{description}</p>
-      ]
-    end
-    if (ret)
-      snippet +=%[
-        <h3>Returns</h3>
-        <code>#{ret}</code>
-      ]
-    end
-    if (params.length > 0)
-      snippet += %[
-        <h3>Parameters</h3><ul class="params">]
-    
-      params.each do |param|
-        snippet += buildParam(param)
-      end
 
   def params( params )
     params.map do |param|
