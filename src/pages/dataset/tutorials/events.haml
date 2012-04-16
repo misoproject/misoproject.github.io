@@ -2,8 +2,8 @@
 
 %article.dataset
   %section.tutorial
-    %h1
-      Events
+    %h2
+      Syncronization & Events
 
     %p
       Dataset has a very rich event system that allows you to bind to a variety of events on your dataset. By default, this functionality is <b>NOT ENABLED</b>. This is because event bindings are created automatically in certain cases (see more about selection and filtering) and unless that functionality is needed, there's no reason to create the bindings.
@@ -19,6 +19,29 @@
         });
         </pre>
 
+    %h3 What are the effects of sync:true?
+    %p
+      By setting sync to true, you are enabling syncronization of data between your original Dataset and anything derived from it such as:
+      %ul
+        %li
+          %a{ :href => '/dataset/tutorials/accessing_data.html' }
+            DataViews
+          %br
+          Any selection created using rows, columns or where will get updated according to the original
+          changes in dataset. Any changes created to the DataView will trigger the appropriate events.
+        %li
+          %a{ :href => '/dataset/tutorials/products.html' }
+            Products
+          %br
+          Any changes to the original data will cause products to recompute their value. Products of a Dataset
+          that has sync set to true, are actual objects (vs just computed values.) To get their values
+          you need to call <code>.val()</code>.
+        %li
+          %a{ :href => '/dataset/tutorials/derived.html' }
+            Derived Datasets
+          %br
+          Any derived dataset will be recomputed when changes occur in the dataset. This is the least efficient of
+          the event-driven changes, because the entire derived dataset gets recomputed.
 
     %h3 Default Events
     %p

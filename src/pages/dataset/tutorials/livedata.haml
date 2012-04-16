@@ -21,4 +21,11 @@
         <code>uniqueAgainst</code> to the column name you wish to check against. Note, 
         this is an expensive operation!
 
-    = toRunnableCodeBlock("dataset/creation/polling")      
+    = toRunnableCodeBlock("dataset/creation/polling")
+
+    %h3 Syncronization
+    %p
+      If you have <code>sync</code> set to <code>true</code> when initializing your dataset, then
+      fetch calls that append data in either the default manner or unique manner will trigger the "add"
+      event. The resetOnFetch will trigger the "reset" event before triggering the "add" event.
+      In all cases, the "add" event will be triggered once for all rows that were added.
