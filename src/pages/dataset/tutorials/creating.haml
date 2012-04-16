@@ -77,8 +77,9 @@
             = toRunnableCodeBlock("dataset/fetching/callbackFetch")
 
           %p
-            2. Using Deferreds - If you have more than one dataset you need to wait on, or you might be a fan of using 
-            deferreds, you can use them as follows:
+            2. Using Deferreds - Dataset makes use of the <a href="https://github.com/wookiehangover/underscore.Deferred">
+            Underscore.Deferred</a> extension. Calling <code>fetch()</code> actualy returns a deferred object that you can then
+            use, for example, if you have more than one dataset you need to wait on. You can use deferreds as follows:
             = toRunnableCodeBlock("dataset/fetching/deferredFetching")
 
           %p
