@@ -59,7 +59,7 @@ instance_methods:
     Iterate over all columns. Direct column references, not arrays so modifying
     data may cause internal inconsistencies.
     = toRunnableCodeBlock("api/miso.dataview.eachColumn")
-  returns: 'Boolean'
+  returns: ''
   params: 
   -
     name: iterator
@@ -72,7 +72,26 @@ instance_methods:
     type: Object
     description: >
       The context to be bound to the iterator.
-
+-
+  name: 'each'
+  signature: 'ds.each( iterator, context )'
+  description: |
+    Iterate over all rows. Each row is not a direct reference to the data
+    and thus should not be altered in any way.
+    = toRunnableCodeBlock("api/miso.dataview.each")
+  returns: ''
+  params: 
+  -
+    name: iterator
+    type: Function
+    required: true
+    description: >
+      A function with the following signature: <code>function(row, rowIndex)</code>'
+  -
+    name: context
+    type: Object
+    description: >
+      The context to be bound to the iterator.
 -
   name: 'rowByPosition'
   signature: 'ds.rowByPosition( position )'
