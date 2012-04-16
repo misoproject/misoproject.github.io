@@ -6,7 +6,7 @@ methods:
   name: constructor
   returns: Miso.Importer
   signature: new Miso.Importer.Local( options )
-  description: 'f'
+  description: ''
   params:
   -
     name: options

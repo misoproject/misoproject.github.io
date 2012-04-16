@@ -3,9 +3,10 @@ var ds = new Miso.Dataset({
           { one : 2, two : 5, three : 8 },
         ]
 });
-ds.fetch();
 
-var rowOneID = ds.column('_id').data[1]
+ds.fetch({ success: function() {
+  var rowOneID = this.column('_id').data[1]
 
-log( ds.rowById( rowOneID ) );
+  log( ds.rowById( rowOneID ) );
+}});
 

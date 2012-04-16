@@ -3,12 +3,15 @@ var ds = new Miso.Dataset({
           { one : 2, two : 5, three : 8 },
         ]
 });
-ds.fetch();
 
-log( ds.column('two').data );
+ds.fetch({success: function() {
 
-ds.update(function(row) {
-  return row.three === 7;
-}, { two: 99 });
+  log( this.column('two').data );
 
-log( ds.column('two').data );
+  this.update(function(row) {
+    return row.three === 7;
+  }, { two: 99 });
+
+  log( this.column('two').data );
+
+}});

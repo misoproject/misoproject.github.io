@@ -1,11 +1,13 @@
 var ds = new Miso.Dataset({
   data: [ { one : 1, two : 4, three : 7 } ]
 })
-ds.fetch();
+ds.fetch({
+  success: function() {
+    this.addColumn({
+      type: 'string',
+      name: 'four'
+    });
 
-ds.addColumn({
-  type: 'string',
-  name: 'four'
+    log( this.columnNames() );
+  }
 });
-
-log( ds.columnNames() );
