@@ -5,81 +5,174 @@
     %h2 
       Creating a Dataset
     %p
-      To begin working with your dataset, you first need to import your data. You can import either <b>local</b> data (in the form of a variable that happens to contain your data) or <b>remote</b> data (in the form of a url that you can fetch from.)
+      In the <a href="/dataset/tutorials/quickstart">quick start</a> guide we created a few basic datasets, but
+      Dataset has a set of powerful facilities that allow for importing data and parsing it in a variety of ways. 
+      This section will explain how Dataset actually gets data, and transforms it to a Dataset object you can use.
 
-    %h3 Local Importing
+    %div.indent-1
+      %h3 Instantiating a new Miso.Dataset
+      %p
+        To create a new dataset from any source, you must call <code>new Miso.Dataset</code> first. There is a variety of
+        parameters you can pass, all of which are outlined in the <a href="/dataset/api.html#misodataset_constructor">API Docs</a>.
+        In this guide, we will outline how some of those properties can be used and the general flow Dataset goes through
+        to create a Dataset instance with your data.
+
+      %h3 The Dataset Workflow
+      %p
+        When you initialize a Dataset and then call fetch, there is a series of operations that take place. It's
+        important to understand them so that you can intercept them where needed.
+
+      %div.indent-1
+        %h4 Specifying your importer and parser
+
+        %p  
+          An <b>importer</b> is responsible for getting the data from a source of any kind. Some are very simple and just retrieve it from
+          a local variable. Some are more complex and go get it from a url, for example. To see how to create your own, 
+          read the <a href="#customimporter">Creating Custom Importer</a> section below.
+        %p
+          A <b>parser</b> then takes the data that the importer fetched, and converts it to a format we are expecting
+          in dataset. All of Dataset's parsers must return the same format, which is how we can then convert it to
+          a Dataset object. To see how to create your own, 
+          read the <a href="#customparser">Creating Custom Parser</a> section below.
+
+        %p
+          When you initialize your Dataset instance, the appropriate properties are saved
+          and Dataset will pick an <code>importer</code> and <code>parser</code> for you unless
+          you specify them directly as properties. See the <a href="/dataset/tutorials/googlespreadsheets">Google
+          spreadsheet</a> tutorial for an example of this.
+        %p
+          By default, you must provide one of the following:
+        %div.indent-1
+          %p
+            1. <code>data</code> - A var (or actual data structure) representing your data.
+            = toRunnableCodeBlock("dataset/creation/basicDatasetCreation.js")
+          %p
+            2. <code>url</code> - A url from which the data will be fetched. If the request should be a jsonp request, also
+            set <code>jsonp:true</code>. It's worth noting that <code>url</code> can also be set to a function that returns
+            a string url.
+            = toRunnableCodeBlock("dataset/quickstart/crudeoil.js")
+
+        %p
+          Importers and parsers are actually entirely separate from each other, meaning you can have your data on the server or already loaded as a var and still
+          use the same parser. This independence from each other, means you can mix and match them as your application requires.
+            
+
+        %h4 Calling fetch
+        %p
+          Calling <code>.fetch</code> on your dataset instance actually starts the data preparation process.
+          Until you do that <b>your dataset will not contain any data</b>!
+        %p
+          Even if your data is local, you need to call fetch. This is not only for consistancy, but also because
+          you might have a mix of datasets (some of which are remote) and you want to act on the successful return
+          of them all. <code>fetch</code> gives you a deferred you can use in that case.
+        %p 
+          Data can be fetched in one of two ways:
+        %div.indent-1
+          %p
+            1. Pass success/error callbacks:
+            = toRunnableCodeBlock("dataset/fetching/callbackFetch")
+
+          %p
+            2. Using Deferreds - If you have more than one dataset you need to wait on, or you might be a fan of using 
+            deferreds, you can use them as follows:
+            = toRunnableCodeBlock("dataset/fetching/deferredFetching")
+
+          %p
+            Passing an <code>error</code> callback is important when fetching remote data.
+
+        %h4 Extracting actual data from importer
+        %p
+          When the data is successfully retrieved by the <code>importer</code>, it passes it to the parser. At this point
+          you can intercept this passing of the result directly by defining an <code>extract</code> method, that is useful if your data
+          array is actually nested somewhere within the response and you need to retrieve it. For example:
+
+          = toRunnableCodeBlock("dataset/creation/extract.js")
+
+        %h4 How data is added to Dataset
+        %p
+          The parser takes the data in, and parsers into a standard format. It then decides how the data should
+          be put into the dataset:
+
+        %ul
+          %li
+            If this is a new dataset - it just populates it with the data.
+          %li
+            If this is an existing dataset and new data is being added it decides based on flags you can set.
+            %br
+            &rarr; By default, the data is added as new rows.
+            %br
+            &rarr; If you set the <code>uniqueAgainst</code> to a column name, only rows in which that column value
+            is unique will be added. 
+            %br
+            &rarr; If you set the <code>resetOnFetch</code> flag, on subsequent fetches, the data will be wiped and 
+            the new data will be added.
+
+        %h4 Overriding Data Types
+        %p
+          Once the data is returned from the parser, it needs to be coerced into the appropriate types. 
+        %p
+          Dataset supports the following prebuilt data types: <b>number</b>, <b>string</b>, <b>boolean</b> and <b>time</b>.
+        %p
+          If no types
+          were specified during instantiation, Dataset will attempt to detect the types of the data. Specifying the types
+          is faster and more reliable. You can specify types like so:
+
+          = toRunnableCodeBlock("dataset/types/dataType.js")
+
+        %p
+          For more information about types, check out the <a href="/dataset/tutorials/data_types.html">data types tutorial</a>.
+
+
+        %h4 Intercepting data before coersion 
+        %p
+          Sometimes your data comes in with a strage format. For example, maybe you have a column with dollar amounts in it
+          but you really want to treat that column as a numeric column. Without creating a custom type (which is a great
+          way to create reusable types,) you could actually set a <code>before</code> filter function on your column
+          type that will get called before the data gets coerced. For example:
+
+          = toRunnableCodeBlock("dataset/creation/before.js")
+     
+        %h4 Sorting the data
+        %p
+          Once the data has been parsed and coerced to the proper type, if a <code>comparator</code> function was provided
+          the data will be sorted according to that function. 
+
+          = toRunnableCodeBlock("dataset/sorting/comparatorOnInit.js")
+
+        %h4 Ready callback
+        %p
+          Once the data has been parsed, coerced and sorted (if needbe,) it is ready to be used. Before the <code>success</code>
+          callback passed to <code>fetch</code> is called, you can specify a <code>ready</code> callback when creating your dataset
+          that will fire beforehand. 
+
+          = toRunnableCodeBlock("dataset/fetching/readyCallback.js")
+
+  
+    
+    %h3 Creating Custom Importers
+    %a{ :href => "#", :name => "customimporter"}
+    %p
+      You may have noticed how easy it is to set a custom importer and parser in the dataset constructor by specifying 
+      the <code>importer</code> and <code>parser</code> properties. The import system can also easily be extended 
+      for custom data formats and other APIs.
+    %div.indent-1
+      An importer must extend the following interface:
+      = toDisplayCodeBlock("api/importer.js")
 
     %p
-      Out of the box Dataset can take local data objects or remote urls and import data in almost any common format.
+      For examples of the available importers, see the github repo directory containing the available
+      <a href="https://github.com/misoproject/dataset/tree/master/src/importers"> importers</a>.
 
-      %ul
-        %li JSON (including jsonp)
-        %li CSV
-        %li TSV (Any delimiter is acceptable, including tabs) 
+    
+    %h3 Creating Custom Parsers
+    %a{ :href => "#", :name => "customparser"}
     %p
-      There is also a growing library of custom data importers such as: 
-
-      %ul
-        %li
-          Google Spreadsheets
-
-    %h4 Importing from a local object array
-
-    %p
-      If you have an array of json objects, you can easily convert them to a Dataset like so:
-
-      = toRunnableCodeBlock("dataset/creation/importingLocalDataArray")
-
-    %h4 Importing from a local "strict" format object
-    %p
-      If you happen to have your data preprocessed in what we call a "strict" format, you can speed up your import slightly by initializing your Dataset with the <code>strict</code> flag:
-      = toRunnableCodeBlock("dataset/creation/importingLocalStrictDataArray")
-
-    %h4 Importing from a local delimited string format
-    %p
-      If for some reason you actually have all your data as a delimited string on the client side (which is an unlikely but possible,) you can import that into a dataset object too.
-      = toRunnableCodeBlock("dataset/creation/importingLocalDelimitedString")
-
-    %p
-      <b>Note</b> You can also import remote delimited data by simply providing a <code>url</code> parameter instead of the <code>data</code> one. <br/>
-      <b>Note</b> You can specify any delimiter string, not just the comma.
-
-    %h3 Remote Importing
-    %p
-      Most of the time, your data will live somewhere else and you'll want to fetch it via a url. All the above formats would work except you would need to replace your <code>data</code> property with with a <code>url</code> property like so:
-    %p
-      %code
-        :plain
-          var ds = new DS.Dataset({
-            url : "http://myserver.com/data/mydata.json"
-          });
-
-    %h4 Google Spreadsheet Importing
-    %p
-      If you have a <b>published</b> Google Spreadsheet that you would like to import data from, you can do so with the following format:
-
-      = toRunnableCodeBlock("dataset/creation/importingGoogleSpreadsheet")
-
-    %p
-      The google spreadsheet importer is utilizing the format specified here:
-      =link_to 'http://code.google.com/apis/gdata/samples/spreadsheet_sample.html','http://code.google.com/apis/gdata/samples/spreadsheet_sample.html'
-
-    %h3 Remote Polling
-    %p
-      If you are handling a live data feed, you can initialize your dataset to perform
-      ajax-based polling at regular intervals to fetch your data. There are three different ways in which this data can be merged into your existing dataset:
-      %ul
-        %li
-          <b>Appended</b> - All new rows will be appended to the end of the dataset. This is the default behavior.
-        %li
-          <b>Reset</b> - All the current rows in the dataset will be thrown out and the new rows will be put into the dataset. To enable this, set <code>resetOnFetch</code> to <code>true</code> when initializing your dataset. This will fire a <code>reset</code> event on a syncable dataset.
-        %li
-          <b>Unique</b> - By specifying a column on which the data is supposed to be unique, new incoming rows will only be added IF the value in that column is unique. To enable this, set <code>uniqueAgainst</code> to the column name you wish to check against. Note, this is an expensive operation!
-
-    = toRunnableCodeBlock("dataset/creation/polling")      
-    %h3 Custom Importers
-    %p
-      You may have noticed how easy it is to set a custom importer and parser in the dataset constructor by specifying the <code>importer</code> and <code>parser</code> properties. The import system can also easily be extended for custom data formats and other APIs. See the "Write Your Own Importers & Parsers" section for more information.
+      More likely than not your data might be in a format that requires some custom parsing. The easiest
+      way to do that is to create a parser of your own. To see an example of a custom importer, check out
+      the <a href="/dataset/examples/github.html">Github Example</a>.
+    %div.indent-1
+      A custom parser must follow the following structure:
+      = toDisplayCodeBlock("api/parser.js")
 
 
     %a{ :href => '/dataset/tutorials/quickstart', :style => 'float:left;' }

@@ -1,14 +1,27 @@
 Miso.Importers.MyCustomImporter = function(options) {
   // save your options
-  // overwrite 'extract' function if you want.
+  // overwrite 'extract' function if you want
+  // but don't forget users can overwrite that when
+  // instantiating a new Dataset.
 };
 
-_.extend(Miso.Importers.MyCustomImporter.prototype, Miso.Importers.prototype, {
-  
-  // options should handle a success and error callback.
-  // fetch should return a deferred object if this is a remote
-  // call.
-  // Either one of the callbacks should call the success callback
-  // with the returned data.
-  fetch : function(options) {}
-});
+_.extend(
+  Miso.Importers.MyCustomImporter.prototype, 
+  Miso.Importers.prototype, 
+  {
+    
+    // required method fetch must be defined.
+    // options should have a success and error callback.
+    // On successful data retrieval, the fetch should call
+    // the success callback with the returned data.
+    fetch : function(options) {
+      
+      // retrieve data
+      //    ....
+
+      // if data is successfully returned, pass it to
+      //    options.success like so:
+      options.success( this.extract(data) );
+    }
+  }
+);

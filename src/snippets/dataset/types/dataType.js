@@ -1,24 +1,16 @@
 var ds = new Miso.Dataset({
   data : [
-    { one : 12,  two : 40,  three : "2012 04_20" },
-    { one : 1,   two : 40,  three : "2011 03_10" },
-    { one : 102, two : 430, three : "2010 10_30" }
+    { count : 12,  total : "40",  timestamp : "2012 04_20" },
+    { count : 1,   total : "40",  timestamp : "2011 03_10" },
+    { count : 102, total : "430", timestamp : "2010 10_30" }
   ],
   columns : [
-    { name : 'three', type : 'time', format : 'YYYY MM_DD' }
+    { name : 'total', type : 'number' },
+    { name : 'timestamp', type : 'time', format : 'YYYY MM_DD' }
   ]
 });
 ds.fetch({ 
   success : function() {
-    log(
-      // assemble all the dates' toString results
-      _.map(
-        this.column('three').data, 
-        function(date) {
-          return date.toString();
-        }
-      )
-    );
+    log(this.toJSON());
   }
 });
-

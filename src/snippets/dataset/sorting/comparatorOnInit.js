@@ -20,4 +20,3 @@ _.when(ds.fetch()).then(function(){
     log(ds.column(columnName).data);
   });
 });
-

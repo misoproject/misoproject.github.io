@@ -1,5 +1,5 @@
 var ds = new Miso.Dataset({
-  url : 'http://misoproject.com/data/crudeoil.csv',
+  url : '/data/crudeoil.csv',
   delimiter : ','
 });
 

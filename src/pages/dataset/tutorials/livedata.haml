@@ -1,0 +1,24 @@
+- @page_title = "The Miso Project :: Dataset :: Tutorials"
+
+%article.dataset
+  %section.tutorial
+    %h2 
+      Live Data - Remote Polling
+    %p
+      If you are handling a live data feed, you can initialize your dataset to perform
+      ajax-based polling at regular intervals to fetch your data. There are three different 
+      ways in which this data can be merged into your existing dataset:
+    %ul
+      %li
+        <b>Appended</b> (default) - All new rows will be appended to the end of the dataset.
+      %li
+        <b>Reset</b> - All the current rows in the dataset will be thrown out and the new rows will be put into 
+        the dataset. To enable this, set <code>resetOnFetch</code> to <code>true</code> when initializing
+        your dataset. This will fire a <code>reset</code> event on a syncable dataset.
+      %li
+        <b>Unique</b> - By specifying a column on which the data is supposed to be unique, new incoming 
+        rows will only be added IF the value in that column is unique. To enable this, set 
+        <code>uniqueAgainst</code> to the column name you wish to check against. Note, 
+        this is an expensive operation!
+
+    = toRunnableCodeBlock("dataset/creation/polling")      

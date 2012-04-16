@@ -3,34 +3,44 @@
 %article.dataset
   %section.tutorial
     %h2 
-      Data Types
-    %p 
-      Dataset supports the following prebuilt data types:
+      Data Columns & Types
+    %p
+      A Dataset is made up of Miso.Column objects, that each have a name, type and corresponding data. More about
+      the Miso.Column type can be found <a href="/dataset/api.html#misocolumn">in the API Docs</a>.
+    %p
+      By default, unless specified otherwise, Dataset will attempt to detect the column type itself by
+      looking through the first few rows of the data and checking which type it fits under.
+    %div.indent-1 
+      Dataset has some prebuild Miso.types:
       %ul
         %li <code>number</code>
         %li <code>string</code>
         %li <code>boolean</code>
         %li <code>time</code>
 
-      Dataset will attempt and detect the type of each column when the data is being fetched. This will be done by looking at the first few rows of the data.
-
     %h3 Overriding Detected Types
 
     %p
-      Dataset will attempt to detect what the type of your data is. However, if any of your columns are of a <code>time</code> format, it's much more efficient for you to specify that directly as follows:
+      Dataset will attempt to detect what the type of your data is. However, it is more efficient to just
+      tell it what your column types are and if any of your columns are of a <code>time</code> format, 
+      it's important to specify the format the time will be coming in as.
+      To specify the type of a column, set the <code>columns</code> property like so:
 
     :plain
       <pre>
       columns : [
         { name : 'columnName', 
-          type : '<known type (see Types Sections)>' 
-          … [any additional type required options here.] 
+          type : '<known type (see Types Sections)>',
+          … any additional optional type required properties here.
         }
       ]
       </pre>
 
     %p
-      Dataset will take care of the actual type coercion, making it trivial to convert strings to numbers or timestamps to `moment` objects. For example, coercing the timestamp column into a time column and the total column to a numeric type would look like so:
+      Dataset will take care of the actual type coercion, making it trivial to convert strings to 
+      numbers or timestamps to <code>moment</code> objects. For example, coercing an incoming 
+      timestamp string column into a time column and the total column to a numeric 
+      type would look like so:
 
       = toRunnableCodeBlock("dataset/types/dataType")
 

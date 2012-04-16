@@ -7,7 +7,7 @@ var ds1 = new Miso.Dataset({
   ready : function() {
     // do something specific to this dataset here when it's
     // been fetched
-    log(this.columnNames());
+    log("ds1 columns: " + this.columnNames());
   }
 });
 var ds2 = new Miso.Dataset({
@@ -19,7 +19,7 @@ var ds2 = new Miso.Dataset({
   ready : function() {
     // do something specific to this dataset here when it's
     // been fetched
-    log(this.length);
+    log("ds2 length: " + this.length);
   }
 });
     
