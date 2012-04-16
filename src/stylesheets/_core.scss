@@ -3,7 +3,7 @@
 a { text-decoration: none; }
 
 @mixin colourise( $color ) {
-  section a, div.text a, section span.color { 
+  a, div.text a, section span.color { 
     color: $color; 
     &:hover {
       color: $color; 
@@ -245,9 +245,13 @@ div.download {
 }
 
 article.api {
-  section {
+  div.api_wrapper {
+    float: right;
     @include width(11);
     margin-left: 24px;
+  }
+  section {
+    @include width(11);
     float: right;
     clear: none;
     h3.instance {
