@@ -173,7 +173,9 @@ instance_methods:
 -
   name: groupBy
   signature: ds.groupBy(byColumn, columns, options)
-  description: Groups rows by the values in a given column
+  description: |
+    Groups rows by the values in a given column
+    = toRunnableCodeBlock("api/miso.dataview.groupBy")
   params:
   -
     name: byColumn
@@ -197,7 +199,9 @@ instance_methods:
 -
   name: countBy
   signature: ds.countBy(byColumn, options)
-  description: Returns a new derived dataset that contains the original byColumn and a count column that returns the number of occurances each unique value in the byColumn contained.
+  description: |
+    Returns a new derived dataset that contains the original byColumn and a count column that returns the number of occurances each unique value in the byColumn contained.
+    = toRunnableCodeBlock("api/miso.dataview.countBy")
   params:
   -
     name: byColumn
@@ -212,7 +216,9 @@ instance_methods:
 -
   name: movingAverage
   signature: ds.movingAverage(columns, size, options)
-  description: Returns a derived dataset in which the specified columns have a moving average computed over them of a specified size.
+  description: |
+    Returns a derived dataset in which the specified columns have a moving average computed over them of a specified size.
+
   params: 
   -
     name: columns
