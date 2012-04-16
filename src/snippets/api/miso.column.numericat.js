@@ -4,6 +4,5 @@ var col = new Miso.Column({
   data: [true, false, false, true] 
 });
 
-log ( col.numericAt(0) );
-log ( col.numericAt(1) );
-
+log (col.numericAt(0));
+log (col.numericAt(1));

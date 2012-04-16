@@ -1,6 +1,8 @@
 var ds = new Miso.Dataset({
-  data: [ { one : 1, two : 4, three : 7 } ]
-})
+  data: [ 
+    { one : 1, two : 4, three : 7 } 
+  ]
+});
 ds.fetch({
   success: function() {
     this.addColumn({
@@ -8,6 +10,6 @@ ds.fetch({
       name: 'four'
     });
 
-    log( this.columnNames() );
+    log(this.columnNames());
   }
 });
