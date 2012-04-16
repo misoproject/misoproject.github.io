@@ -1,0 +1,20 @@
+---
+name: Miso.Importer.Polling
+description: Import local data already in the environment
+methods:
+-
+  name: constructor
+  returns: Miso.Importer
+  signature: new Miso.Importer.Polling( options )
+  description: ''
+  params:
+  -
+    name: options
+    description: Options object
+    type: Object
+    params:
+    -
+      name: interval 
+      type: Integer
+      description: Frequency (in milliseconds) with which to fetch data
+  

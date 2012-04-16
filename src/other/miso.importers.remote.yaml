@@ -1,0 +1,24 @@
+---
+name: Miso.Importer.Remote
+description: Import data from remote files via an AJAX request
+methods:
+-
+  name: constructor
+  returns: Miso.Importer
+  signature: new Miso.Importer.Remote( options )
+  description: ''
+  params:
+  -
+    name: options
+    type: Object
+    description: Options object
+    params:
+    -
+      name: url
+      type: string
+      description: url from which to fetch data
+    -
+      name: jsonp
+      type: Boolean
+      description: Set to true for jsonp requests
+

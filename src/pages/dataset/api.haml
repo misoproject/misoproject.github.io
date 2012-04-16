@@ -6,6 +6,18 @@
   = api_section('miso.dataset.yaml')
   = api_section('miso.dataview.yaml')
   = api_section('miso.column.yaml')
+  = api_section('miso.importers.yaml')
+  = api_section('miso.types.yaml')
+  = api_section('miso.types.mixed.yaml')
+  = api_section('miso.types.string.yaml')
+  = api_section('miso.types.number.yaml')
+  = api_section('miso.types.boolean.yaml')
+  = api_section('miso.types.time.yaml')
+  = api_section('miso.importers.yaml')
+  = api_section('miso.importers.local.yaml')
+  = api_section('miso.importers.remote.yaml')
+  = api_section('miso.importers.polling.yaml')
+  = api_section('miso.importers.googlespreadsheet.yaml')
 
   %div.nav
     %ul
@@ -30,10 +42,6 @@
                   %a{ :href => '#' + idify( [ obj['name'], 'i', method['name'] ] ) }
                     = method['name']
 
-  -# = section('Miso.Dataset', 'api/miso.dataset', "api")
-  -# = section('Miso.Column', 'api/miso.column', "api")
-  -# = section('Miso.DataView', 'api/miso.dataview', "api")
-  -# = section('Miso.Types', 'api/miso.types', "api")
   -# = section('Miso.Importer', 'api/miso.importer', "api")
   -# = section('Miso.Parser', 'api/miso.parser', "api")
   -# = section('Miso.Events', 'api/miso.events', "api")

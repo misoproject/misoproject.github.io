@@ -1,0 +1,61 @@
+---
+name: 'Miso.types.mixed'
+description: |
+  Miso types are used to set and manage the data types on columns. These sets of
+  functions handle testing what type data is and coercing it into the correct format
+  for a given type. The type system is completely extensible, making it easy to create
+  rich custom types for your data when it would be helpful to do so.
+methods:
+-
+  name: name
+  returns: 'string'
+  signature: Miso.types.mixed.name()
+  description: Returns the name of the mixed type, ie <code>'mixed'</code>. Used internally.
+-
+  name: coerce
+  signature: Miso.types.mixed.coerce( value )
+  returns: Any
+  description: Coerces the value, given the is the mixed type it's a passthrough.
+  params: 
+  -
+    name: value
+    type: Any
+    description: Value to be coerced
+-
+  name: test
+  signature: Miso.types.mixed.test( value )
+  description: Tests whether the value is of the given type. Given this is the mixed type it will always be true
+  returns: true
+  params: 
+  -
+    name: value
+    type: Any
+    description: Value to be tested 
+
+-
+  name: compare
+  signature: Miso.types.mixed.compare( value1, value2 )
+  returns: Integer
+  description: Compares two <code>mixed</code> type values
+  params:
+  -
+    name: value1
+    type: Any
+    description: First value to be compared
+  -
+    name: value2
+    type: Any
+    description: Second value to be compared
+
+-
+  name: numeric
+  signature: Miso.types.mixed.numeric( value )
+  returns: Integer
+  description: Returns the numeric representation of a <code>mixed</code> value. If it's an integer, then it coerces it. Otherwise it returns 0.
+  params: 
+  -
+    name: value
+    type: Any
+    description: Value to be coerced to numeric
+
+

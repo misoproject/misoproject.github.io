@@ -1,0 +1,24 @@
+---
+name: Miso.Importer.Goog..
+description: Import directly from google spreadsheets
+methods:
+-
+  name: constructor
+  returns: Miso.Importer
+  signature: new Miso.Importer.GoogleSpreadsheet( options )
+  description: ''
+  params:
+  -
+    name: options
+    type: Object
+    description: Options object
+    params:
+    -
+      name: key
+      required: true
+      type: string
+      description: The google spreadsheet key
+    -
+      name: worksheet
+      type: String
+      description: An optional worksheet id. Default is always first worksheet.
