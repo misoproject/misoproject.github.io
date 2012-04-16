@@ -3,11 +3,14 @@ var ds = new Miso.Dataset({
           { one : 2, two : 5, three : 8 },
         ]
 });
-ds.fetch();
 
-log( ds.column('two').data );
+ds.fetch({success: function() {
 
-ds.reset();
+  log( this.column('two').data );
 
-log( ds.column('two').data );
+  this.reset();
+
+  log( this.column('two').data );
+
+}});
 

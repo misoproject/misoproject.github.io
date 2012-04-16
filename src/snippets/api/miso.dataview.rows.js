@@ -3,11 +3,13 @@ var ds = new Miso.Dataset({
           { one : 2, two : 5, three : 8 },
         ]
 });
-ds.fetch();
 
-var rowTwo = ds.rows(function(row) {
-  return row.one === 2;
-});
+ds.fetch({ success: function() {
 
-log( rowTwo.columnNames() );
-log( rowTwo.length );
+  var rowTwo = ds.rows(function(row) {
+    return row.one === 2;
+  });
+
+  log( rowTwo.columnNames() );
+  log( rowTwo.length );
+}});

@@ -1,0 +1,55 @@
+---
+name: 'Miso.types.number'
+description: The number type is used for columns of numbers.
+methods:
+-
+  name: name
+  returns: 'number'
+  signature: Miso.types.number.name()
+  description: Returns the name of the number type, ie <code>'number'</code>. Used internally.
+-
+  name: coerce
+  signature: Miso.types.number.coerce( value )
+  returns: Any
+  description: Coerces the value to a number, a passthrough.
+  params: 
+  -
+    name: value
+    type: Any
+    description: Value to be coerced
+-
+  name: test
+  signature: Miso.types.number.test( value )
+  description: Tests whether the value is a number. 
+  returns: true
+  params: 
+  -
+    name: value
+    type: Any
+    description: Value to be tested 
+
+-
+  name: compare
+  signature: Miso.types.number.compare( value1, value2 )
+  returns: Integer
+  description: Compares two <code>number</code> type values
+  params:
+  -
+    name: value1
+    type: Any
+    description: First value to be compared
+  -
+    name: value2
+    type: Any
+    description: Second value to be compared
+
+-
+  name: numeric
+  signature: Miso.types.number.numeric( value, indexPosition )
+  returns: Integer
+  description: Returns the numeric representation of a <code>number</code> which will be..the number.
+  params: 
+  -
+    name: value
+    type: Any
+    description: Value to be coerced to numeric

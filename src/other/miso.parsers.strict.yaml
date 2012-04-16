@@ -1,0 +1,20 @@
+---
+name: Miso.Parsers.Strict
+description: Import local data already in the environment
+methods:
+-
+  name: constructor
+  returns: Miso.Importer
+  signature: new Miso.Importer.Local( options )
+  description: 'f'
+  params:
+  -
+    name: options
+    type: Object
+    description: Options object
+    params:
+    -
+      name: data
+      type: Array
+      description: local object containing your data
+

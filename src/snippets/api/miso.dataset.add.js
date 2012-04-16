@@ -1,9 +1,13 @@
 var ds = new Miso.Dataset({
   data: [ { one : 1, two : 4, three : 7 } ]
 });
-ds.fetch();
+ds.fetch({
+  success: function() {
+    this.add({ one: 44, two: 9 });
 
-ds.add({ one: 44, two: 9 });
+    log( this.column('two').data );
+    log( this.column('three').data );
+  }
+});
 
-log( ds.column('two').data );
-log( ds.column('three').data );
+

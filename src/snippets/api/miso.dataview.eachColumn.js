@@ -3,8 +3,9 @@ var ds = new Miso.Dataset({
           { one : 2, two : 5, three : 8 },
         ]
 });
-ds.fetch();
 
-ds.eachColumn(function(colName, colObject, index) {
-  log( colName );
-});
+ds.fetch({ success: function() {
+  this.eachColumn(function(colName, colObject, index) {
+    log( colName );
+  });
+}});

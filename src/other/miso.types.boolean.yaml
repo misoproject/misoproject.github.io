@@ -1,0 +1,63 @@
+---
+name: 'Miso.types.boolean'
+description: The boolean type is used for columns of true/false booleans.
+methods:
+-
+  name: name
+  returns: 'boolean'
+  signature: Miso.types.boolean.name()
+  description: Returns the name of the boolean type, ie <code>'boolean'</code>. Used internally.
+-
+  name: coerce
+  signature: Miso.types.boolean.coerce( value )
+  returns: Any
+  description: Coerces the value to a boolean, uses javascript truthy/falsy.
+  params: 
+  -
+    name: value
+    type: Any
+    description: Value to be coerced
+-
+  name: test
+  signature: Miso.types.boolean.test( value )
+  description: Tests whether the value is a boolean. 
+  returns: true
+  params: 
+  -
+    name: value
+    type: Any
+    description: Value to be tested 
+
+-
+  name: compare
+  signature: Miso.types.boolean.compare( value1, value2 )
+  returns: Integer
+  description: Compares two <code>boolean</code> type values
+  params:
+  -
+    name: value1
+    type: Any
+    description: First value to be compared
+  -
+    name: value2
+    type: Any
+    description: Second value to be compared
+
+-
+  name: numeric
+  signature: Miso.types.boolean.numeric( value, indexPosition )
+  returns: Integer
+  description: Returns the numeric representation of a <code>boolean</code> value - false is 0, true 1.
+  params: 
+  -
+    name: value
+    type: Any
+    description: Value to be coerced to numeric
+  -
+    name: indexPosition
+    type: Integer
+    description: Column position of boolean value, is the value that will be returned.
+
+
+
+

@@ -170,3 +170,70 @@ instance_methods:
       description: |
         A filter for rows. A rowId or a filter function that takes in a row and returns 
         true if it passes the criteria.
+-
+  name: groupBy
+  signature: ds.groupBy(byColumn, columns, options)
+  description: |
+    Groups rows by the values in a given column
+    = toRunnableCodeBlock("api/miso.dataview.groupBy")
+  params:
+  -
+    name: byColumn
+    type: String
+    required: true
+    description: Name of the column by which to group
+  -
+    name: columns
+    required: true
+    type: Array
+    description: A string of a column column or an array of column names to be groups
+  -
+    name: options
+    type: Object
+    description: Options object
+    params:
+    -
+      name: method
+      type: Function
+      description: Function that specifies the way in which the columns are aggregated. The default is sum. The function signature is <code>function(arr)</code>. It should return a single result.
+-
+  name: countBy
+  signature: ds.countBy(byColumn, options)
+  description: |
+    Returns a new derived dataset that contains the original byColumn and a count column that returns the number of occurances each unique value in the byColumn contained.
+    = toRunnableCodeBlock("api/miso.dataview.countBy")
+  params:
+  -
+    name: byColumn
+    type: String
+    description: The column to count instances again.
+    required: true
+  -
+    name: options
+    type: Object
+    description: Options object
+
+-
+  name: movingAverage
+  signature: ds.movingAverage(columns, size, options)
+  description: |
+    Returns a derived dataset in which the specified columns have a moving average computed over them of a specified size.
+
+  params: 
+  -
+    name: columns
+    type: Array
+    description: The columns to compute a moving average over.
+  -
+    name: size
+    description: The size of your moving average window (the number of rows to average per row.)
+    type: Integer
+  -
+    name: options
+    type: Object
+    description: Options object
+    params:
+    -
+      name: method
+      type: Function
+      description: The method by which the moving average will be computed. The default is mean.
