@@ -247,11 +247,10 @@ div.download {
 article.api {
   div.api_wrapper {
     float: right;
-    @include width(11);
-    margin-left: 24px;
+    @include width(10);
   }
   section {
-    @include width(11);
+    @include width(10);
     float: right;
     clear: none;
     h3.instance {
@@ -263,7 +262,7 @@ article.api {
 
     div.codeblock {
       margin-top: 24px;
-      @include width( 11 );
+      @include width( 10 );
       margin-bottom: 24px;
       div.CodeMirror-scroll {
         padding-top: 0;
@@ -339,12 +338,18 @@ article.api {
     }
   }
 
-  div.nav{
-    @include width(3);
+   div.nav_wrapper {
+    @include width(4);
     float: right;
+    position: fixed;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  div.nav{
+    @include width(4);
     @include sanserif();
     background-color: #fff;
-    min-height: 500px;
     ul {
       padding-left: 10px;
       padding-top: 10px;
@@ -358,6 +363,10 @@ article.api {
         padding-left: 10px;
       }
       li {
+        a {
+          display: block;
+          width: 100%;
+        }
         padding-bottom: 0;
         margin-bottom: 0.2em;
       }
