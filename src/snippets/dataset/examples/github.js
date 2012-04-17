@@ -3,9 +3,7 @@ var GH = {};
 
 // to parse the incomming github data we are creating a custom parser
 // to handle any future Github commit data.
-GH.CommitsParser = function(options) {
-  options = options || {}; 
-};
+GH.CommitsParser = function(options) {};
 
 // a custom parser only needs extend the base Miso.Parsers.prototype
 // and provide a parse method that takes in the data and returns
@@ -110,11 +108,13 @@ ds.fetch({ success : function() {
   }});
 
   // Clear any existing sparklines in the div.
-  $('#barChartContainer').children().remove();
-  $('#barChartContainer').sparkline(commitsByDay.column('count').data, {
-    type : 'line',
-    height: '100px',
-    width: $('#barChartContainer').width()
-  }); 
+  var barContainer = $('#barChartContainer');
+  barContainer.empty()
+    .sparkline(commitsByDay.column('count').data, {
+      type : 'line',
+      height: '100px',
+      width: barContainer.width()
+    }
+  ); 
 
 }});
