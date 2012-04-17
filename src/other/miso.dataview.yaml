@@ -191,6 +191,7 @@ instance_methods:
         true if it passes the criteria.
 -
   name: groupBy
+  returns: Miso.Derived
   signature: ds.groupBy(byColumn, columns, options)
   description: |
     Groups rows by the values in a given column
@@ -218,6 +219,7 @@ instance_methods:
 -
   name: countBy
   signature: ds.countBy(byColumn, options)
+  returns: Miso.Derived
   description: |
     Returns a new derived dataset that contains the original byColumn and a count column that returns the number of occurances each unique value in the byColumn contained.
     = toRunnableCodeBlock("api/miso.dataview.countBy")
@@ -235,6 +237,7 @@ instance_methods:
 -
   name: movingAverage
   signature: ds.movingAverage(columns, size, options)
+  returns: Miso.Derived
   description: |
     Returns a derived dataset in which the specified columns have a moving average computed over them of a specified size.
 
@@ -256,3 +259,64 @@ instance_methods:
       name: method
       type: Function
       description: The method by which the moving average will be computed. The default is mean.
+-
+  name: min
+  signature: ds.min( column )
+  returns: Number || Miso.Product
+  description: |
+    If the dataset has <code>sync</code> enabled this will return a <code>Miso.Product</code> that can
+    be used to bind events to and access the current value. Otherwise it will return the current 
+    value - the lowest numeric value in that column
+    = toRunnableCodeBlock("api/miso.dataview.min")
+  params:
+  -
+    name: column
+    type: String
+    required: true
+    description: Name of the column on which to find the min
+-
+  name: max
+  signature: ds.max( column )
+  returns: Number || Miso.Product
+  description: |
+    If the dataset has <code>sync</code> enabled this will return a <code>Miso.Product</code> that can
+    be used to bind events to and access the current value. Otherwise it will return the current 
+    value - the highest numeric value in that column
+    = toRunnableCodeBlock("api/miso.dataview.max")
+  params:
+  -
+    name: column
+    type: String
+    required: true
+    description: Name of the column on which to find the max
+
+-
+  name: sum
+  signature: ds.sum( column )
+  returns: Number || Miso.Product
+  description: |
+    If the dataset has <code>sync</code> enabled this will return a <code>Miso.Product</code> that can
+    be used to bind events to and access the current value. Otherwise it will return the current 
+    value - the sum of the numeric form of the values in the column.
+    = toRunnableCodeBlock("api/miso.dataview.sum")
+  params:
+  -
+    name: column
+    type: String
+    required: true
+    description: Name of the column on which to add up the sum
+-
+  name: mean
+  signature: ds.mean( column )
+  returns: Number || Miso.Product
+  description: |
+    If the dataset has <code>sync</code> enabled this will return a <code>Miso.Product</code> that can
+    be used to bind events to and access the current value. Otherwise it will return the current 
+    value - the mean or average of the numeric form of the values in the column.
+    = toRunnableCodeBlock("api/miso.dataview.mean")
+  params:
+  -
+    name: column
+    type: String
+    required: true
+    description: Name of the column on which to find the mean
