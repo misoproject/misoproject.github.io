@@ -24,8 +24,8 @@ methods:
     params:
     -
       name: url
-      type: String
-      description: 'The url of a remote file containing your data, used for remote importers'
+      type: String || Function
+      description: 'The url of a remote file or a function returning a string for a url containing your data, used for remote importers'
     -
       name: sync
       type: Boolean
