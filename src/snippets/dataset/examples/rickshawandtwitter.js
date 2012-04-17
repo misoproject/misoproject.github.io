@@ -4,7 +4,7 @@ var sequence = 0,
   punctuations = {
   "question" : /\?/g,
   "exclamation" : /\!/g,
-  "ellipsis" : /\.\.\./g
+  "ellipsis" : /\.{3,}|\u2026/g
 }, colors = ['rgba(36,137,64,1)', 'rgba(143,188,43,1)', 'rgba(101,132,47,1)'];
 
 var ds = new Miso.Dataset({
@@ -22,8 +22,8 @@ var ds = new Miso.Dataset({
     
     // If we have a previous tweet id saved, make sure we restart our query from
     // that point on. This means we might not get the full 100 tweets we want.
-    if (!_.isUndefined(this.since_id)) {
-      u = u + "&since_id=" + this.since_id;
+    if (!_.isUndefined(this.sinceId)) {
+      u = u + "&since_id=" + this.sinceId;
     }
     return u + "&callback=";
   },
@@ -52,10 +52,10 @@ var ds = new Miso.Dataset({
 
     // save how large this result was. We are going to use it to normalize later to 100
     // which is the highest number of tweets we can have.
-    this.last_request_size = data.results.length;
+    this.lastRequestSize = data.results.length;
 
     // save the last query id
-    this.since_id = data.results[data.results.length-1].id_str;
+    this.sinceId = data.results[data.results.length-1].id_str;
 
     return data.results;
   }
@@ -78,7 +78,7 @@ ds.fetch({
         // to 100, which is the max amount of tweets. Because we're using since_id
         // we might actually get a smaller set.
         method : function(arr) {
-          return (_.sum(arr) / this.parent.importer.last_request_size) * 100;
+          return (_.sum(arr) / this.parent.importer.lastRequestSize) * 100;
         }
       });
       
@@ -86,11 +86,12 @@ ds.fetch({
       paintChart = function() {
 
         // clear previously rendered chart here.
-        $("#pieContainer").empty();
+        var pieContainer = $("#pieContainer");
+        pieContainer.empty();
 
         // create a new graph with the latest version of the data.
         graph = new Rickshaw.Graph({
-          element: $("#pieContainer")[0], 
+          element: pieContainer[0], 
           width: 500, 
           height: 270, 
           renderer : 'bar',
@@ -137,10 +138,9 @@ function prepareData(dataset, x, y) {
   if (!_.isArray(y)) {
     y = [y];
   }
-  var series = [];
 
   // for each series, create the required format.
-  _.each(y, function(seriesName, i){
+  return _.map(y, function(seriesName, i){
     var s = { data : [] ,  color: colors[i], name : seriesName };
 
     dataset.each(function(row) {
@@ -150,7 +150,6 @@ function prepareData(dataset, x, y) {
       s.data.push(p);
     });
 
-    series.push(s);
+    return s;
   });
-  return series;
 }
