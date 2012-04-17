@@ -1,0 +1,60 @@
+---
+name: Miso.Events
+description: |
+  Miso.Events is a mixin used to add event binding/triggering functionality to many parts of
+  dataset.
+instance_methods:
+-
+  name: bind
+  signature: obj.bind(event, callback, context)
+  returns: obj
+  description: |
+    Used to bind events to the given object
+    = toRunnableCodeBlock("api/miso.events.bind")
+  params:
+  -
+    name: event
+    type: String
+    required: true
+    description: Name of event to be bound to
+  -
+    name: callback
+    type: Function
+    required: true
+    description: function to be called when the event is triggered
+  -
+    name: context
+    type: Object
+    description: context in which the callback function will be run.
+
+-
+  name: unbind
+  signature: obj.unbind(event, callback)
+  returns: obj
+  description: |
+    Unbind callbacks from an event, if no callback is given all callbacks will be
+    unbound from the event.
+    = toRunnableCodeBlock("api/miso.events.unbind")
+  params:
+  -
+    name: event
+    type: String
+    required: true
+    description: Event from which to unbind callback(s)
+  -
+    name: callback
+    type: Function
+    description: Callback to be removed from the event.
+-
+  name: trigger
+  signature: obj.trigger(event)
+  returns: obj
+  description: |
+    Trigger a given event on the object
+    = toRunnableCodeBlock("api/miso.events.bind")
+  params:
+  -
+    name: event
+    type: String
+    required: true
+    description: Name of the event to be triggered
