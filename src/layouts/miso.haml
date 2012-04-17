@@ -7,6 +7,11 @@
     <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->    
 
   %head
+    :plain
+      <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <![endif]-->
+
     %script{ :type => 'text/javascript', :src => 'http://use.typekit.com/aow5drr.js' }
     %script{ :type => 'text/javascript' }
       try{ Typekit.load(); } catch(e) { console.log('xxxx',e); }
