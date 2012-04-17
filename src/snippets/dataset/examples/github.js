@@ -31,8 +31,8 @@ _.extend(GH.CommitsParser.prototype, Miso.Parsers.prototype, {
 });
 
 var ds = new Miso.Dataset({
-  url : "https://api.github.com/repos/misoproject/dataset/commits?callback=",
-  jsonp : "true",
+  url : 'https://api.github.com/repos/misoproject/dataset/commits?callback=',
+  jsonp : true,
   // the extract method will be called once the import is done, before
   // we try to parse it because the github callback is actually under a 
   // property called 'data' in the response.
@@ -67,54 +67,57 @@ var ds = new Miso.Dataset({
   ]
 });
 
-ds.fetch({ success : function() {
+ds.fetch({ 
+  success : function() {
 
-  // Aggregate the commit count by the date.
-  var commitsByDay = this.countBy("date");
+    // Aggregate the commit count by the date.
+    var commitsByDay = this.countBy('date'),
 
-  // even though we're aggregating by week, we might actually not have 
-  // counts for certain weeks! We're trying to build a consistent time series of 
-  // week long intervals, so let's fill it in with zeros.
-  var lastDate  = commitsByDay.rowByPosition(0).date.subtract('days', 7),
-      firstDate = lastDate.subtract('months', 3);
+        // even though we're aggregating by week, we might actually not have 
+        // counts for certain weeks! We're trying to build a consistent time series of 
+        // week long intervals, so let's fill it in with zeros.
+        lastDate  = commitsByDay.rowByPosition(0).date.subtract('days', 7),
+        firstDate = lastDate.subtract('months', 3),
+        barContainer = $('#barChartContainer');
 
-  while(firstDate < lastDate) {
-    
-    // check, do we have a row for this date?
-    var rowForDate = commitsByDay.where({ 
-      rows : function(row) {
-        return row.date.valueOf() === firstDate;
-      }
-    });
-
-    // if not, then just add a row with a zero count.
-    if (rowForDate.length === 0) {
-      commitsByDay.add({
-        date : firstDate,
-        count  : 0
+    while(firstDate < lastDate) {
+      
+      // check, do we have a row for this date?
+      var rowsForDate = commitsByDay.where({ 
+        rows : function(row) {
+          return row.date.valueOf() === firstDate;
+        }
       });
+
+      // if not, then just add a row with a zero count.
+      if (rowsForDate.length === 0) {
+        commitsByDay.add({
+          date : firstDate,
+          count  : 0
+        });
+      }
+
+      // keep incrementing the date until we pass our end date.
+      firstDate.add('days', 7);
     }
 
-    // keep incrementing the date until we pass our end date.
-    firstDate.add('days', 7);
+    // now, we should make sure the list is sorted by dates, since we've been arbitrarily
+    // adding rows of 0s to the end!
+    commitsByDay.sort({ comparator : function(row1, row2) {
+      if (row1.date.valueOf() < row2.date.valueOf())   { return -1; }
+      if (row1.date.valueOf() > row2.date.valueOf())   { return  1; }
+      if (row1.date.valueOf() === row2.date.valueOf()) { return  0; }
+    }});
+
+    // Clear any existing sparklines in the div.
+   
+    barContainer.empty()
+      .sparkline(commitsByDay.column('count').data, {
+        type : 'line',
+        height: '100px',
+        width: barContainer.width()
+      }
+    ); 
+
   }
-
-  // now, we should make sure the list is sorted by dates, since we've been arbitrarily
-  // adding rows of 0s to the end!
-  commitsByDay.sort({ comparator : function(row1, row2) {
-    if (row1.date.valueOf() < row2.date.valueOf())   { return -1; }
-    if (row1.date.valueOf() > row2.date.valueOf())   { return  1; }
-    if (row1.date.valueOf() === row2.date.valueOf()) { return  0; }
-  }});
-
-  // Clear any existing sparklines in the div.
-  var barContainer = $('#barChartContainer');
-  barContainer.empty()
-    .sparkline(commitsByDay.column('count').data, {
-      type : 'line',
-      height: '100px',
-      width: barContainer.width()
-    }
-  ); 
-
-}});
+});
