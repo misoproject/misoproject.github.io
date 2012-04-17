@@ -5,9 +5,12 @@
   <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
   <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
   <head>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
     <script src='http://use.typekit.com/aow5drr.js' type='text/javascript'></script>
     <script type='text/javascript'>
-      try{ Typekit.load(); } catch(e) { console.log('xxxx',e); }
+      try{ Typekit.load(); } catch(e) {}
     </script>
     <meta charset='utf-8' />
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
@@ -28,7 +31,7 @@
       </span>
       <span>
         <a href='/dataset'>
-          Basics
+          Home
         </a>
       </span>
       <span>
@@ -37,8 +40,8 @@
         </a>
       </span>
       <span>
-        <a href='/dataset/guides.html'>
-          Guides
+        <a href='/dataset/tutorials.html'>
+          Tutorials
         </a>
       </span>
       <span>
@@ -247,7 +250,7 @@
       };
       
       $('#perlinContainer').children().remove();</script></div>
-      <div class="codeblock"><textarea id="perlin" class="code"  runnable="true" sandbox="" buttons="run,reset,clear" autorun="true" callbacks-clear="var x = function barf(){ $('#pieContainer').children().remove(); $('#perlinContainer').html('<h3>Rendering blocks!</h3>'); }; x();" callbacks-reset="var x = function barf(){ $('#pieContainer').children().remove(); $('#perlinContainer').html('<h3>Rendering blocks!</h3>'); }; x();" callbacks-run="callback">
+      <div class="codeblock"><textarea id="perlin" class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="true" callbacks-clear="var x = function barf(){ $('#pieContainer').children().remove(); $('#perlinContainer').html('<h3>Rendering blocks!</h3>'); }; x();" callbacks-reset="var x = function barf(){ $('#pieContainer').children().remove(); $('#perlinContainer').html('<h3>Rendering blocks!</h3>'); }; x();" callbacks-run="callback">
       // define the dimensions of our grid
       var x_size = 50;
       var y_size = 50;
@@ -329,7 +332,7 @@
           cont.fadeIn("slow");
         }, i * 100);
       });
-      </textarea></div>
+      </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
     </article>
     <footer>
       <div class='container'>
@@ -342,7 +345,7 @@
               <img alt="Guardian" src="/images/guardian.png"/>
             </a>
             <a href='http://www.bocoup.com'>
-              <img alt="Bob" src="/images/bob.png"/>
+              <img alt="Bocoup horizontal 614" src="/images/bocoup-horizontal-614.gif"/>
             </a>
           </div>
         </section>
@@ -362,6 +365,7 @@
       </div>
     </footer>
     <script src='/js/jquery.min.js'></script>
+    <script src='/js/nav.js'></script>
     <script src='/js/miso.ds.deps.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>

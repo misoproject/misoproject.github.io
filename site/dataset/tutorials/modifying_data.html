@@ -17,7 +17,7 @@
     <meta content='The Miso Project' name='description' />
     <meta content='The Miso Project' name='name' />
     <meta content='width=device-width' name='viewport' />
-    <title>The Miso Project :: Dataset :: Examples</title>
+    <title>The Miso Project :: Dataset :: Tutorials</title>
     <link href='/stylesheets/screen.css' rel='stylesheet' />
     <link href='/stylesheets/codemirror.css' rel='stylesheet' />
     
@@ -57,58 +57,108 @@
     </nav>
     <a href="http://github.com/misoproject/dataset"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
     <article class='dataset'>
-      <h1>Custom products</h1>
-      <section class='normal'>
-        <div id='output' style='height: 300px; width: 300px;'>
-          <p></p>
-        </div>
-        <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="true" callbacks-clear="" callbacks-reset="" callbacks-run="">
-        var ds = new Miso.Dataset({
-          url : "/data/top500.csv",
-          delimiter : ","
-        });
-        
-        ds.fetch({
-          success: function() {
-        
-            var counts = ds.countBy('Country').sort({ comparator: function(r1, r2) {
-              if ( r1.counts > r2.counts ) {return 1;}
-              if ( r1.counts < r2.counts ) {return -1;}
-              return 0;
-            }});
-        
-            var topCoreCount = ds.groupBy('Country', ["Effeciency (%)", ]);
-        
-            $el.append([
-              'The most powerful supercomputer in the world belongs to ',
-              num( ds.rowByPosition(0).Country ),
-              ' and the second most powerful to ',
-              num( ds.rowByPosition(1).Country ),
-              '. The', num ( counts.rowByPosition(0).Country ),
-              'has the most supercomputers in the top500 with ',
-              num( counts.rowByPosition(0).count ), ', the highest rated being',
-              function() {
-                var top = ds.rowById(counts.rowByPosition(0)._oids[0]);
-                return [top.Name, 'at', top.Site, ' , built in ', top.Year,
-                        'by', top.Manufacturer].join(' ')
-              }(),
-        
-        
-              'The supercomputers in the top500 have an average of',
-              num( ds.mean('Total Cores').toFixed() ),
-              'cores running at', num( ds.mean('Processor Speed (MHz)').toFixed() ),
-              'Mhz'
-            ].join(' '));
-          }
-        });
-        
-        function num( val ) {
-          return "<span style='color: #00f; font-weight: bold;'>" + val + "</span>";
-        }
-        var $el = $('#output p');
-        
-        console.log('x');
-        </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+      <section class='tutorial'>
+        <h2>
+          Modifying Data
+        </h2>
+        <p>
+          All data modifications should happen through the following <code>add</code>, <code>remove</code> and <code>update</code> methods.
+        </p>
+        <h3>Adding a row:</h3>
+        <p>
+          To add a row to your dataset, use the <code>add</code> method.
+          <pre>ds.add(rowObject, options);</pre>
+          <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+          var ds = new Miso.Dataset({
+            data : [
+              { one : 12,  two : 40,  three : 40 }
+            ]
+          }).fetch({
+            success : function() {
+              log("Row Count Before Add", this.length);
+              
+              this.add({
+                one : 100,
+                two : 100,
+                three : 100
+              });
+          
+              log("Row Count After Add", this.length);
+            }
+          });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+        </p>
+        <h3>Removing a Row:</h3>
+        <p>
+          To remove a row from your dataset, use the <code>remove</code> method. There are two ways to remove rows:
+          <ul>
+            <li>
+              <b>By providing a row id:</b>
+              <pre>ds.remove(rowId, options);</pre>
+              <i>Note the row id is the unique <code>_id</code> identifier each row has.</i>
+            </li>
+            <li>
+              <b>By providing a filter function:</b>
+              <pre>ds.remove(rowFilterFunction, options);</pre>
+              For example:
+              <pre>&#x000A;// remove all rows where the population is > 1000&#x000A;ds.remove(function(row) {&#x000A;  return (row.population > 1000);&#x000A;});</pre>
+              All rows that pass the filter function will be removed.
+            </li>
+          </ul>
+        </p>
+        <h3>Updating Rows:</h3>
+        <p>
+          To update a row, pass the <code>)id</code> of the row along with the changed attributes like so:
+          <pre>ds.update(rowId, changedAttributes, options);</pre>
+          For example:
+          <pre>&#x000A;ds.update(rowId, {&#x000A;  col1 : newVal, col2 : newVal ...&#x000A;});</pre>
+        </p>
+        <h3>Syncronization</h3>
+        <p>
+          If you set <code>sync : true</code> when creating your dataset. The following events will be triggered:
+        </p>
+        <p>
+          Adding a row will trigger the following events in this order:
+          <ul>
+            <li><code>add</code></li>
+            <li><code>change</code></li>
+          </ul>
+        </p>
+        <p>
+          Either remove call will trigger the following events in this order:
+          <ul>
+            <li>
+              <code>remove</code>
+            </li>
+            <li>
+              <code>change</code>
+            </li>
+          </ul>
+        </p>
+        <p>
+          A call to <code>update</code> will trigger the following events in this order:
+          <ul>
+            <li>
+              <code>update</code>
+            </li>
+            <li>
+              <code>change</code>
+            </li>
+          </ul>
+        </p>
+        <p>
+          You can always pass <code>{ silent : true }</code> as the optional <code>options</code> parametere to suppress events.
+          For more information about events, see the <a href="/dataset/tutorials/events.html">events tutorial</a>.
+        </p>
+        <a href='/dataset/tutorials/events' style='float:left;'>
+          <h2>
+            &laquo; Events
+          </h2>
+        </a>
+        <a href='/dataset/tutorials/products' style='float:right;'>
+          <h2>
+            Computed Values &raquo;
+          </h2>
+        </a>
       </section>
     </article>
     <footer>

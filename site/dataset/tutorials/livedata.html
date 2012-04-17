@@ -17,7 +17,7 @@
     <meta content='The Miso Project' name='description' />
     <meta content='The Miso Project' name='name' />
     <meta content='width=device-width' name='viewport' />
-    <title>The Miso Project :: Dataset :: Examples</title>
+    <title>The Miso Project :: Dataset :: Tutorials</title>
     <link href='/stylesheets/screen.css' rel='stylesheet' />
     <link href='/stylesheets/codemirror.css' rel='stylesheet' />
     
@@ -57,58 +57,83 @@
     </nav>
     <a href="http://github.com/misoproject/dataset"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
     <article class='dataset'>
-      <h1>Custom products</h1>
-      <section class='normal'>
-        <div id='output' style='height: 300px; width: 300px;'>
-          <p></p>
-        </div>
-        <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="true" callbacks-clear="" callbacks-reset="" callbacks-run="">
+      <section class='tutorial'>
+        <h2>
+          Live Data - Remote Polling
+        </h2>
+        <p>
+          If you are handling a live data feed, you can initialize your dataset to perform
+          ajax-based polling at regular intervals to fetch your data. There are three different
+          ways in which this data can be merged into your existing dataset:
+        </p>
+        <ul>
+          <li>
+            <b>Appended</b> (default) - All new rows will be appended to the end of the dataset.
+          </li>
+          <li>
+            <b>Reset</b> - All the current rows in the dataset will be thrown out and the new rows will be put into
+            the dataset. To enable this, set <code>resetOnFetch</code> to <code>true</code> when initializing
+            your dataset. This will fire a <code>reset</code> event on a syncable dataset.
+          </li>
+          <li>
+            <b>Unique</b> - By specifying a column on which the data is supposed to be unique, new incoming
+            rows will only be added IF the value in that column is unique. To enable this, set
+            <code>uniqueAgainst</code> to the column name you wish to check against. Note,
+            this is an expensive operation!
+          </li>
+        </ul>
+        <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+        // We will only make 5 requests in this example
+        var requests = 5, 
+            madeRequests = 0;
+        
+        // query twitter for tweets containing the term "javascript"
+        // and get 5 per page. Note that twitter uses jsonp requests, 
+        // so we toggle that flag too.
         var ds = new Miso.Dataset({
-          url : "/data/top500.csv",
-          delimiter : ","
-        });
-        
-        ds.fetch({
-          success: function() {
-        
-            var counts = ds.countBy('Country').sort({ comparator: function(r1, r2) {
-              if ( r1.counts > r2.counts ) {return 1;}
-              if ( r1.counts < r2.counts ) {return -1;}
-              return 0;
-            }});
-        
-            var topCoreCount = ds.groupBy('Country', ["Effeciency (%)", ]);
-        
-            $el.append([
-              'The most powerful supercomputer in the world belongs to ',
-              num( ds.rowByPosition(0).Country ),
-              ' and the second most powerful to ',
-              num( ds.rowByPosition(1).Country ),
-              '. The', num ( counts.rowByPosition(0).Country ),
-              'has the most supercomputers in the top500 with ',
-              num( counts.rowByPosition(0).count ), ', the highest rated being',
-              function() {
-                var top = ds.rowById(counts.rowByPosition(0)._oids[0]);
-                return [top.Name, 'at', top.Site, ' , built in ', top.Year,
-                        'by', top.Manufacturer].join(' ')
-              }(),
-        
-        
-              'The supercomputers in the top500 have an average of',
-              num( ds.mean('Total Cores').toFixed() ),
-              'cores running at', num( ds.mean('Processor Speed (MHz)').toFixed() ),
-              'Mhz'
-            ].join(' '));
+          url : "http://search.twitter.com/search.json?q=javascript&rpp=5&callback=",
+          interval : 1000,
+          jsonp : true,
+          // Because of the structure of tweets:
+          // https://dev.twitter.com/docs/api/1/get/search
+          // we actually extract the rows from the returned data first.
+          extract : function(data) {
+            return data.results;
           }
         });
         
-        function num( val ) {
-          return "<span style='color: #00f; font-weight: bold;'>" + val + "</span>";
-        }
-        var $el = $('#output p');
-        
-        console.log('x');
-        </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+        ds.fetch({
+          success : function() {
+            // track how many requests we've made
+            madeRequests++;
+            // If we reached our max
+            if (madeRequests >= requests) {
+              // stop the importer.
+              this.importer.stop();
+              // output our current collection of tweets
+              log(ds.column("text").data);
+            }
+            // update the number of rows we now have.
+            log(madeRequests, ds.length);
+          }
+        });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+        <h3>Syncronization</h3>
+        <p>
+          If you have <code>sync</code> set to <code>true</code> when initializing your dataset, then
+          fetch calls that append data in either the default manner or unique manner will trigger the "add"
+          event. The resetOnFetch will trigger the "reset" event before triggering the "add" event.
+          In all cases, the "add" event will be triggered once for all rows that were added.
+        </p>
+        <a href='/dataset/tutorials/creating' style='float:left;'>
+          <h2>
+            &laquo; Creating a Dataset
+          </h2>
+        </a>
+        <a href='/dataset/tutorials/data_types' style='float:right;'>
+          <h2>
+            Data Types &raquo;
+          </h2>
+        </a>
       </section>
     </article>
     <footer>

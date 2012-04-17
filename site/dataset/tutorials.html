@@ -17,7 +17,7 @@
     <meta content='The Miso Project' name='description' />
     <meta content='The Miso Project' name='name' />
     <meta content='width=device-width' name='viewport' />
-    <title>The Miso Project :: Dataset :: Examples</title>
+    <title>The Miso Project :: Dataset :: Tutorials</title>
     <link href='/stylesheets/screen.css' rel='stylesheet' />
     <link href='/stylesheets/codemirror.css' rel='stylesheet' />
     
@@ -56,59 +56,109 @@
       </span>
     </nav>
     <a href="http://github.com/misoproject/dataset"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
-    <article class='dataset'>
-      <h1>Custom products</h1>
-      <section class='normal'>
-        <div id='output' style='height: 300px; width: 300px;'>
-          <p></p>
+    <article class='dataset tutorials'>
+      <section>
+        <div class='tutorial'>
+          <a href='/dataset/tutorials/quickstart'>
+            <h2>
+              Quick Start
+            </h2>
+            <p>
+              Start here to get your environment ready to go.
+            </p>
+          </a>
         </div>
-        <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="true" callbacks-clear="" callbacks-reset="" callbacks-run="">
-        var ds = new Miso.Dataset({
-          url : "/data/top500.csv",
-          delimiter : ","
-        });
-        
-        ds.fetch({
-          success: function() {
-        
-            var counts = ds.countBy('Country').sort({ comparator: function(r1, r2) {
-              if ( r1.counts > r2.counts ) {return 1;}
-              if ( r1.counts < r2.counts ) {return -1;}
-              return 0;
-            }});
-        
-            var topCoreCount = ds.groupBy('Country', ["Effeciency (%)", ]);
-        
-            $el.append([
-              'The most powerful supercomputer in the world belongs to ',
-              num( ds.rowByPosition(0).Country ),
-              ' and the second most powerful to ',
-              num( ds.rowByPosition(1).Country ),
-              '. The', num ( counts.rowByPosition(0).Country ),
-              'has the most supercomputers in the top500 with ',
-              num( counts.rowByPosition(0).count ), ', the highest rated being',
-              function() {
-                var top = ds.rowById(counts.rowByPosition(0)._oids[0]);
-                return [top.Name, 'at', top.Site, ' , built in ', top.Year,
-                        'by', top.Manufacturer].join(' ')
-              }(),
-        
-        
-              'The supercomputers in the top500 have an average of',
-              num( ds.mean('Total Cores').toFixed() ),
-              'cores running at', num( ds.mean('Processor Speed (MHz)').toFixed() ),
-              'Mhz'
-            ].join(' '));
-          }
-        });
-        
-        function num( val ) {
-          return "<span style='color: #00f; font-weight: bold;'>" + val + "</span>";
-        }
-        var $el = $('#output p');
-        
-        console.log('x');
-        </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+        <div class='tutorial'>
+          <a href='/dataset/tutorials/googlespreadsheets'>
+            <h2>
+              Dataset From Google Spreadsheets
+            </h2>
+            <p>
+              Requirements and
+              a bookmarklet that can help you do that quickly. &rarr;
+            </p>
+          </a>
+        </div>
+        <div class='tutorial'>
+          <a href='/dataset/tutorials/creating'>
+            <h2>
+              Creating a Dataset
+            </h2>
+            <p>
+              The many ways of getting your data into a Dataset &rarr;
+            </p>
+          </a>
+        </div>
+        <div class='tutorial'>
+          <a href='/dataset/tutorials/livedata'>
+            <h2>
+              Working with Live Data
+            </h2>
+            <p>
+              Using the Polling importer to work with data feeds &rarr;
+            </p>
+          </a>
+        </div>
+        <div class='tutorial'>
+          <a href='/dataset/tutorials/data_types'>
+            <h2>
+              Data Types
+            </h2>
+            <p>
+              How the types in Dataset work and how to define custom types &rarr;
+            </p>
+          </a>
+        </div>
+        <div class='tutorial'>
+          <a href='/dataset/tutorials/accessing_data'>
+            <h2>
+              Accessing Data
+            </h2>
+            <p>
+              Getting your data back out &rarr;
+            </p>
+          </a>
+        </div>
+        <div class='tutorial'>
+          <a href='/dataset/tutorials/events'>
+            <h2>
+              Syncronization & Events
+            </h2>
+            <p>
+              Events, event binding and triggering &rarr;
+            </p>
+          </a>
+        </div>
+        <div class='tutorial'>
+          <a href='/dataset/tutorials/modifying_data'>
+            <h2>
+              Modifying Data
+            </h2>
+            <p>
+              Modifying your data once it is in dataset &rarr;
+            </p>
+          </a>
+        </div>
+        <div class='tutorial'>
+          <a href='/dataset/tutorials/products'>
+            <h2>
+              Computed Values
+            </h2>
+            <p>
+              Available computations and how to add your own &rarr;
+            </p>
+          </a>
+        </div>
+        <div class='tutorial'>
+          <a href='/dataset/tutorials/derived'>
+            <h2>
+              Derived Datasets
+            </h2>
+            <p>
+              Available methods for deriving datasets from your original data and how to create your own &rarr;
+            </p>
+          </a>
+        </div>
       </section>
     </article>
     <footer>
