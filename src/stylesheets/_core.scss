@@ -136,6 +136,9 @@ article, div.container {
       }
       min-height: 510px;
     }
+    div.tutorial {
+      min-height: 130px;
+    }
     div.tutorial:hover {
       background-color: white;
       box-shadow: 0 0 5px rgba(0,0,0,.1);
