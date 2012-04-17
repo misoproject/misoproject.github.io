@@ -53,9 +53,13 @@
             = toRunnableCodeBlock("dataset/quickstart/crudeoil.js")
 
         %p
-          Importers and parsers are actually entirely separate from each other, meaning you can have your data on the server or already loaded as a var and still
-          use the same parser. This independence from each other, means you can mix and match them as your application requires.
-            
+          Importers and parsers are actually entirely separate from each other, meaning you can have your data on the server 
+          or already loaded as a var and still use the same parser. This independence from each other, means you can mix 
+          and match them as your application requires.
+          %br
+          Available Importers are listed <a href="/dataset/api.html#misoimporters">here</a>.
+          %br
+          Available Parsers are listed <a href="/dataset/api.html#misoparsers">here</a>.
 
         %h4 Calling fetch
         %p
@@ -73,8 +77,9 @@
             = toRunnableCodeBlock("dataset/fetching/callbackFetch")
 
           %p
-            2. Using Deferreds - If you have more than one dataset you need to wait on, or you might be a fan of using 
-            deferreds, you can use them as follows:
+            2. Using Deferreds - Dataset makes use of the <a href="https://github.com/wookiehangover/underscore.Deferred">
+            Underscore.Deferred</a> extension. Calling <code>fetch()</code> actualy returns a deferred object that you can then
+            use, for example, if you have more than one dataset you need to wait on. You can use deferreds as follows:
             = toRunnableCodeBlock("dataset/fetching/deferredFetching")
 
           %p
@@ -175,11 +180,11 @@
       = toDisplayCodeBlock("api/parser.js")
 
 
-    %a{ :href => '/dataset/tutorials/quickstart', :style => 'float:left;' }
+    %a{ :href => '/dataset/tutorials/googlespreadsheets', :style => 'float:left;' }
       %h2
-        &laquo; Quickstart 
+        &laquo; Google Spreadsheets
 
-    %a{ :href => '/dataset/tutorials/fetching', :style => 'float:right;' }
+    %a{ :href => '/dataset/tutorials/livedata', :style => 'float:right;' }
       %h2
-        Fetching Data &raquo;
+        Working with Live Data &raquo;
 

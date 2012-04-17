@@ -33,7 +33,7 @@ _.extend(GH.CommitsParser.prototype, Miso.Parsers.prototype, {
 });
 
 var ds = new Miso.Dataset({
-  url : "https://api.github.com/repos/iros/deck.js-codemirror/commits?callback=",
+  url : "https://api.github.com/repos/misoproject/dataset/commits?callback=",
   jsonp : "true",
   // the extract method will be called once the import is done, before
   // we try to parse it because the github callback is actually under a 
@@ -78,7 +78,7 @@ ds.fetch({ success : function() {
   // counts for certain weeks! We're trying to build a consistent time series of 
   // week long intervals, so let's fill it in with zeros.
   var lastDate  = commitsByDay.rowByPosition(0).date.subtract('days', 7),
-      firstDate = commitsByDay.rowByPosition(commitsByDay.length-1).date.add('days', 7);
+      firstDate = lastDate.subtract('months', 3);
 
   while(firstDate < lastDate) {
     

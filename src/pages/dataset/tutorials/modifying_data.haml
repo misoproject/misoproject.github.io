@@ -15,13 +15,6 @@
 
       = toRunnableCodeBlock("dataset/modify/addRow")
 
-    %p
-      Adding a row will trigger the following events in this order:
-      %ul
-        %li <code>add</code>
-        %li <code>change</code>
-      Pass <code>{ silent : true }</code> as the optional <code>options</code> parametere to suppress events.
-
     %h3 Removing a Row:
     %p
       To remove a row from your dataset, use the <code>remove</code> method. There are two ways to remove rows:
@@ -43,15 +36,7 @@
             });
             </pre>
           All rows that pass the filter function will be removed.
-    %p
-      Either remove call will trigger the following events in this order:
-      %ul
-        %li
-          %code remove
-        %li
-          %code change
-      Pass <code>{ silent : true }</code> as the optional <code>options</code> parametere to suppress events.
-
+   
     %h3 Updating Rows:
 
     %p
@@ -64,6 +49,22 @@
           col1 : newVal, col2 : newVal ...
         });
         </pre>
+    
+    %h3 Syncronization
+    %p
+      If you set <code>sync : true</code> when creating your dataset. The following events will be triggered:
+    %p
+      Adding a row will trigger the following events in this order:
+      %ul
+        %li <code>add</code>
+        %li <code>change</code>
+    %p
+      Either remove call will trigger the following events in this order:
+      %ul
+        %li
+          %code remove
+        %li
+          %code change
     %p
       A call to <code>update</code> will trigger the following events in this order:
       %ul
@@ -71,15 +72,17 @@
           %code update
         %li
           %code change
-      Pass <code>{ silent : true }</code> as the optional <code>options</code> parametere to suppress events.
+    %p  
+      You can always pass <code>{ silent : true }</code> as the optional <code>options</code> parametere to suppress events.
+      For more information about events, see the <a href="/dataset/tutorials/events.html">events tutorial</a>.
 
     %a{ :href => '/dataset/tutorials/events', :style => 'float:left;' }
       %h2
         &laquo; Events
 
-    %a{ :href => '/dataset/tutorials/selection', :style => 'float:right;' }
+    %a{ :href => '/dataset/tutorials/products', :style => 'float:right;' }
       %h2
-        Selecting Data &raquo;  
+        Computed Values &raquo;  
 
 
 

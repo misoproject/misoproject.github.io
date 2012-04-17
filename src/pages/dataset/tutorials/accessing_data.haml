@@ -5,64 +5,145 @@
     %h2 
       Accessing Data
 
-      %h3 Columns
+    %p 
+      There are several ways in which your data is made available once in Dataset. 
+      Specifically all these ways fall into the following categories:
 
-      Each column in the dataset is of a <code>Miso.Column</code> type. We shall reference it as column for simplicity's sake.
+    %h3 Direct Access
+    %p
+      The following methods allow you to have access to parts of Dataset directly - as in, you can directly
+      interface with the objects that make up your Dataset instance. While convenient, if you change the data in a matter
+      other than the one specified, you can create inconsistancies in our index.
+    
+    %div.indent-1
       %p
-        A column has the following properties:
+        The methods that give you direct access are:
+
         %ul
-          %li <code>name</code>
-          %li <code>type</code>
-          %li <code>data</code> - the data array for this column.
-          %li <code>_id</code> - a unique id assigned to this column at parse time.
+          %li
+            %a{ :href => '/dataset/api.html#misodataview_i_column' }
+              <code>ds.column(name)</code>
+            %br
+            This returns the actual column object. Note that because the order of columns
+            is not guaranteed (or should matter,) the fetching of columns is always done by name.
+          
+          %li
+            <code>col.data</code>
+            %br
+            After fetching a column using <code>ds.column(name)</code>, you can get a hold of the data in it
+            directly by referencing the <code>data</code> array. This is NOT recommended as all updates should go
+            through the add/remove/update methods.
+          %li
+            <code>col.name</code>
+            %br
+            After fetching a column using <code>ds.column(name)</code>, you can get a hold of the column name directly.
+          %li
+            <code>col.type</code>
+            %br
+            After fetching a column using <code>ds.column(name)</code>, you can get a hold of the column name directly.
+            
 
+
+    %h3 Indirect Access
+    %p
+      The following methods give you access to the content, but it is first separated form the actual Dataset. This is
+      for two reasons: First, because 'rows' are a more logical interaction unit it makes more sense to provide an API 
+      that can access data in this way. Because we don't actually store the data in this way, we have to make the row 
+      objects. The actual data is stored in column arrays and is only tied together by position.
+
+    %div.indent-1
       %p
-        While you can access the data inside dataset by directly accessing the <code>data</code> property on a column, it is NOT recommended as this will
-        not handle any event propagation. Use direct access sparingly. For more information on accessing rows, see the <b>Rows</b> section.
+        The methods that give you indirect access are:
 
-    %h4 Getting all column names:
-    %pre
-      ds.columnNames();
-    Note this will never include the <code>_id</code> column as it is internal to the dataset implementation and you shouldn't be messing with it.
+        %ul
+          %li
+            %a{ :href => '/dataset/api.html#misodataview_i_column' }
+              <code>ds.columnNames()</code>
+            %br
+            Returns an array of column names.
+          
+          %li
+            %a{ :href => '/dataset/api.html#misodataview_i_rowbyposition' }
+              <code>ds.rowByPosition(pos)</code>
+            %br
+            To get the Nth row in your dataset, just pass the position into rowByPosition. An object representing
+            the row will be returned. 
+          %li
+            %a{ :href => '/dataset/api.html#misodataview_i_rowbyid' }
+              <code>ds.rowById(id)</code>
+            %br
+            To get the row with a specfic _id value. An object representing
+            the row will be returned. Note, the _id value is an auto generated value and should
+            never be changed.
+          %li
+            %a{ :href => '/dataset/api.html#misodataview_i_each' }
+              <code>ds.each(iterator, context)</code>
+            %br
+            Iterates over all rows.
+            :plain
+              <pre>
+              ds.each(function(row, rowIndex) {
+                // do what you need here.
+              });
+              </pre>
 
-    %h4 Getting a column by name:
-    %pre
-      ds.column(columnName);
-    This returns the actual column object. Note that because the order of columns
-    is not guaranteed (or should matter,) the fetching of columns is always done by name.
-
-    %h4 Iterating over columns:
-    :plain
-      <pre>
-        ds.eachColumn(function(columnName, column, index) {
-          // do what you need here.
-        });
-      </pre>
-
-    %h3 Rows
-
+          %li
+            %a{ :href => '/dataset/api.html#misodataview_i_column' }
+              <code>ds.eachColumn(iterator, context)</code>
+            %br
+            Iterates over available columns (not including _id column.)
+            :plain
+              <pre>
+              ds.eachColumn(function(columnName, column, index) {
+                // do what you need here.
+              });
+              </pre>
+    
+    %h3 Data Views
     %p
-      Since dataset stores all the data column-wise, sometimes you may want to access a "row" object more easily than by iterating through columns. Note that the row object is not a direct reference to your actual data row (as in, if you modify it, it won't actually trigger a change in your dataset.) To change your dataset, you need to use the `update` method.
+      Dataset offers a pretty versatile selection mechanism. To allow for an interface identical to your 
+      Dataset's instance, while operating on a subset we return a DataView object.
+      A DataView functions very much like Dataset (in fact Dataset inherits from DataView). 
+      The major difference is that DataViews are <b>immutable</b> - they 
+      do not offer any way to change the selected data. This is because they are tied to the original data. 
 
-    %h4 Iterating over rows:
-    %p= toRunnableCodeBlock("dataset/access/rows")
+    %div.indent-1
+      %p
+        The methods that give you DataView objects:
 
+        %ul
+          %li
+            %a{ :href => '/dataset/api.html#misodataview_i_where' }
+              <code>ds.where(filter, options)</code>
+            %br
+            Returns a subset of rows that meet the specified filter requirement.
+          %li
+            %a{ :href => '/dataset/api.html#misodataview_i_columns' }
+              <code>ds.columns(nameArray)</code>
+            %br
+            Returns a subset of columns. Shorthand for <code>ds.where({ columns : nameArray })</code>
+          %li
+            %a{ :href => '/dataset/api.html#misodataview_i_rows' }
+              <code>ds.rows(rowFilter, options)</code>
+            %br
+            Returns a subset of rows. Shorthand for <code>ds.where({ rows : rowFilter })</code>          
+          %li
+            <code>dv.parent</code>
+            %br
+            Assume dv is an existing selection that was created using one of the above methods.
+            Calling <code>parent</code> returns a handle to the original parent dataset or dataview 
+            from which this selection was created.
+
+    %h4 Synchronization
     %p
-      Note that each row has a unique identifier assiged to it called `_id` in a separate column. Do not attempt to change that value unless you're feeling destructive. That identifier is used for caching purposes and changing it may make your data inaccessible through the API.
+      By default, a selection does not maintain a direct relationship to the data if the original data is changed. For
+      example, if you try to select all rows where a particualr column's value is even and then change a row that matched
+      the original selection to no longer match it, the DataView returned by the selection <b>will</b> still contain it.
+      To prevent this from happening, you can indicate that all DataViews created from a Dataset (or other DataViews!) should
+      sync with the original data. You can do that by setting the <code>sync</code> property to <code>true</code> when
+      initializing your Dataset. For example:
 
-    %h4 Row by Position:
-    %p
-      if you're trying to get the Nth row, you can do so as follows:
-      %pre
-        ds.rowByPosition(5);
-      Note, this will return a row object that will <b>not</b> be a direct reference to your data. This will be a copy.
-
-    %h4 Row by id:
-    %p
-      If you're trying to get a row with a specific id, you can do so as follows:
-      %pre
-        ds.rowById(423);
-      Note, this will return a row object that will <b>not</b> be a direct reference to your data. This will be a copy.
+      = toRunnableCodeBlock("dataset/access/sync.js")
 
     %a{ :href => '/dataset/tutorials/data_types', :style => 'float:left;' }
       %h2
@@ -70,4 +151,4 @@
 
     %a{ :href => '/dataset/tutorials/events', :style => 'float:right;' }
       %h2
-        Events &raquo;     
+        Syncronization & Events &raquo;     

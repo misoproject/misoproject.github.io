@@ -5,46 +5,50 @@
     %h2
       Computed Values
     %p 
-      A pretty common requirement is to actually compute some basic statistics about your data.Most of the time those calculations happen on all the values in a specific column or a collection of columns, which is part of why we arrange our data in a column-wise manner. We call a computation that results in a single value a <code>Miso.Product</code>.
-
+      A pretty common requirement is to actually compute some basic statistics about your data. 
+      Most of the time those calculations happen on all the values in a specific column or a 
+      collection of columns, which is part of why we arrange our data in a column-wise manner. 
+      Depending on how your original dataset was set up, you might get two different types of values:
     %p
-      There are several default computations built in:
+      %ul
+        %li
+          If you set <code>sync:true</code> on your original dataset, you will get a <code>Miso.Product</code>
+          for any of the following calls. The Miso.Product maintains a binding to the original Dataset and will
+          know to recompute itself when changes occur to the underlying data. This does mean that
+          you need to retrieve the value directly from this Miso.Product object by calling <code>.val()</code>.
+          For example: 
+          = toRunnableCodeBlock("dataset/computations/syncing")
+        %li
+          If you did not set the sync flag, you will just return a value (most likely a number) for any of the
+          following calls.
+    
+    %div.indent-1
+      %h3
+        Built-in Computations:
 
-    %h3 Max
+      %h3 Max
 
-    = toRunnableCodeBlock("dataset/computations/max")
+      = toRunnableCodeBlock("dataset/computations/max")
 
-    %p
-      <b>Note</b> that the <code>max</code> can be computed on numeric columns but also time columns!
+      %p
+        <b>Note</b> that the <code>max</code> can be computed on numeric columns but also time columns!
 
-      = toRunnableCodeBlock("dataset/computations/max_time")
+        = toRunnableCodeBlock("dataset/computations/max_time")
 
-    %h3 Min
+      %h3 Min
 
-    = toRunnableCodeBlock("dataset/computations/min")
+      = toRunnableCodeBlock("dataset/computations/min")
 
-    %h3 Sum
+      %h3 Sum
 
-    = toRunnableCodeBlock("dataset/computations/sum")
+      = toRunnableCodeBlock("dataset/computations/sum")
 
-    %p
-      <b>Note</b> you can't add up dates, so don't try that one.
+      %p
+        <b>Note</b> you can't add up dates, so don't try that one.
 
-    %h3 Mean
+      %h3 Mean
 
-    = toRunnableCodeBlock("dataset/computations/mean")
-
-    %h3 Syncing
-
-    %p
-      If you have enabled syncing on your dataset by setting <code>{ sync : true }</code> during your dataset initialization, you can also subscribe to changes in your computed product.
-    %p
-      A big change to note here is that if you plan to subscribe to a specific computation, it is no longer a simple result (like a number or a date.) It now becomse a <code>Miso.Product</code> object that you can retrieve the value from like so:
-      %pre ds.max(["one", "two"]).val();
-    %p 
-      For example:
-
-      = toRunnableCodeBlock("dataset/computations/syncing")
+      = toRunnableCodeBlock("dataset/computations/mean")
 
     %h3 Adding your own
 
@@ -57,9 +61,9 @@
 
       <b>Note</b> that this form will also support an actual subscribable product if your dataset is syncable.
           
-    %a{ :href => '/dataset/tutorials/selection', :style => 'float:left;' }
+    %a{ :href => '/dataset/tutorials/modifying_data', :style => 'float:left;' }
       %h2
-        &laquo; Selecting Data
+        &laquo; Modifying Data
 
     %a{ :href => '/dataset/tutorials/derived', :style => 'float:right;' }
       %h2
