@@ -27,6 +27,7 @@
   %div.nav_wrapper
     %div.nav
       %ul
+        - inheritify(@api)
         - @api.each do |obj|
           %li
             %a{ :href => '#' + idify( obj['name'] ) }
@@ -45,8 +46,5 @@
               %ul
                 - obj['instance_methods'].each do |method|
                   %li
-                    %a{ :href => '#' + idify( [ obj['name'], 'i', method['name'] ] ) }
+                    %a{ :href => '#' + idify( [ (method['override'] ? method['override'] : obj['name'] ), 'i', method['name'] ] ) }
                       = method['name']
-
-  -# = section('Miso.Events', 'api/miso.events', "api")
-

@@ -1,5 +1,6 @@
 ---
 name: 'Miso.Dataview'
+inherit: ['Miso.Events']
 description: |
   A <code>Miso.DataView</code> is an immutable version of dataset. It is the result of selecting a subset of the data using the <code>ds.where</code> call. If the dataset is syncing, this view will be updated when changes take place in the original dataset.
   A <code>Miso.Dataset</code> also extends from <code>Miso.DataView</code>. All the methods available on a dataview will also be available on the dataset.  

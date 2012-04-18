@@ -29,6 +29,25 @@ module MisoHelper
   def hamlify( text )
     @staticmatic.generate_html_from_template_source(text)
   end
+
+  def inheritify( obj )
+    obj.each do |section|
+      if section['inherit']
+        section['inherit'].each do |inherit|
+          from = obj.find {|i| i['name'] === inherit }
+          if from['instance_methods'] && section['instance_methods']
+            section['instance_methods'] = section['instance_methods'].concat(
+              from['instance_methods'].map do |method|
+                method['override'] = from['name']
+                method
+              end
+            )
+          end
+        end
+        $stdout.puts section
+      end
+    end
+  end
   # ------
   # Code Block Generators
   # ------
@@ -103,9 +122,10 @@ module MisoHelper
 
   private
   def idify( name ) 
+    $stdout.puts "IDIFY" + name.to_s
     name = [name] unless name.class == Array
     name.reject! do |part|
-      part.empty?
+      part.nil? || part.empty?
     end
     name.map do |part|
       part

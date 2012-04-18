@@ -1,5 +1,6 @@
 ---
   name: Miso.Product
+  inherit: ['Miso.Events']
   description: |
     A <code>Miso.Product</code> is what you will be returned if you run a method such as 
     <code>max</code> on a dataset that has <code>sync</code> set to true. The product object
