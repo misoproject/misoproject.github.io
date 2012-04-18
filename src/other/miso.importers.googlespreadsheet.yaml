@@ -1,5 +1,5 @@
 ---
-name: Miso.Importer.Goog..
+name: Miso.Importer.GoogleSpreadsheet
 description: |
   Import directly from google spreadsheets, see
   %a{ :href => 'dataset/tutorials/googlespreadsheets' } the Google Spreadsheets guide.

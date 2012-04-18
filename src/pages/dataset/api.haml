@@ -32,7 +32,7 @@
         - @api.each do |obj|
           %li
             %a{ :href => '#' + idify( obj['name'] ) }
-              = obj['name']
+              = truncate( obj['name'], 22 )
 
             - if obj['methods']
               %ul.object

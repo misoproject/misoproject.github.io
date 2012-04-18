@@ -30,6 +30,11 @@ module MisoHelper
     @staticmatic.generate_html_from_template_source(text)
   end
 
+  def truncate( text, to )
+    original_length = text.length
+    text.slice(0, to) + (original_length > to ? "..." : '') 
+  end
+
   def inheritify( obj )
     obj.each do |section|
       if section['inherit']

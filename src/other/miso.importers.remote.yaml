@@ -1,6 +1,8 @@
 ---
 name: Miso.Importer.Remote
-description: Import data from remote files via an AJAX request
+description: |
+  Import data from remote files via an AJAX request
+  = toRunnableCodeBlock("api/miso.importer.remote")
 methods:
 -
   name: constructor
