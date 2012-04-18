@@ -1,6 +1,0 @@
-[submodule "production"]
-	path = production
-	url = git@github.com:misoproject/misoproject.github.com.git
-[submodule "site/dataset/examples/cabinet-office"]
-	path = site/dataset/examples/cabinet-office
-	url = git@github.com:misoproject/cabinet-office.git
