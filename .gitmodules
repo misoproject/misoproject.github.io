@@ -1,3 +1,0 @@
-[submodule "production"]
-	path = production
-	url = git@github.com:misoproject/misoproject.github.com.git
