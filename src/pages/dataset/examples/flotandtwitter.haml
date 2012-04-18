@@ -1,12 +1,10 @@
 - @page_title = "The Miso Project :: Dataset :: Examples"
-= partial('../partials/dataset/nav_config')
 - @extra_scripts = capture_haml do
   %script{ :type => "text/javascript", :src => '/js/flot/excanvas.min.js'}
   %script{ :type => "text/javascript", :src => '/js/flot/jquery.flot.min.js'}
   %script{ :type => "text/javascript", :src => '/js/flot/jquery.flot.pie.min.js'}
 
 %article.dataset
-  = partial("../partials/dataset/topper")
   %section.normal
     %h2 Remote Polling Twitter & Rendering With Flot
     %p
@@ -15,4 +13,3 @@
       %div{ :style => 'padding-top: 30%; width:50%; margin: 0 auto; font-size: 1.5em' }
         Loading Data...
     = toRunnableCodeBlock("dataset/examples/flotandtwitter.js", nil, { :autorun => true })
-  = nav('Examples')
