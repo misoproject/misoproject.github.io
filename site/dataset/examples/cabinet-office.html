@@ -17,7 +17,7 @@
     <meta content='The Miso Project' name='description' />
     <meta content='The Miso Project' name='name' />
     <meta content='width=device-width' name='viewport' />
-    <title>The Miso Project :: Dataset :: Examples</title>
+    <title>The Miso Project :: Dataset :: Examples :: Cabinet Office</title>
     <link href='/stylesheets/screen.css' rel='stylesheet' />
     <link href='/stylesheets/codemirror.css' rel='stylesheet' />
     
@@ -55,69 +55,19 @@
         </a>
       </span>
     </nav>
-    <article class='dataset'>
-      <section class='examples'>
-        <div class='example'>
-          <a href='/dataset/examples/cabinet-office.html'>
-            <img src='/images/examples/cabinet.gif' />
-            <h2>Cabinet Office Spending</h2>
-            <p>
-              This example uses <a href="http://mbostock.github.com/d3/">d3</a> to build an interactive treemap
-              that allows you to explore spending by the <a href='http://www.cabinetoffice.gov.uk/'>UK Government Cabinet Office</a>
-              by category and month over the last two years.
-            </p>
-          </a>
-        </div>
-        <div class='example'>
-          <a href='/dataset/examples/highstockandcsv.html'>
-            <img src='/images/examples/highchart.gif' />
-            <h2>Remote CSV Dataset with Highcharts</h2>
-            <p>
-              This example pulls a local comma delimited dataset containing world crude oil production since
-              1980 to 2004 and graphs it as a line chart using <a href="http://www.highcharts.com/">Highcharts</a>.
-            </p>
-            <p>
-              This example demonstrates: CSV Delimited Data, Time formatting
-            </p>
-          </a>
-        </div>
-        <div class='example'>
-          <a href='/dataset/examples/rickshawandtwitter.html'>
-            <img src='/images/examples/rickshawandtwitter.gif' />
-            <h2>Remote Polling Twitter & Rendering With Rickshaw</h2>
-            <p>
-              Remotely polls twitter and plots a stacked bar chart (using Rickshaw) that shows the use of punctuation in tweets for a particular query.
-            </p>
-            <p>
-              This example demonstrates: Polling, Group By, Binding.
-            </p>
-          </a>
-        </div>
-        <div class='example'>
-          <a href='/dataset/examples/github.html'>
-            <img src='/images/examples/github.gif' />
-            <h2>jQuery Sparklines with Github API</h2>
-            <p>
-              Remotely fetches commit history for the Dataset project, builds a timeseries
-              with a week long interval and renders a basic line chart.
-            </p>
-            <p>
-              This example demonstrates: Remote Importing, countBy and column 'before' coersion callbacks.
-            </p>
-          </a>
-        </div>
-        <div class='example'>
-          <a href='/dataset/examples/perlinnoise.html'>
-            <img src='/images/examples/perlinnoise.gif' />
-            <h2>Perlin Noise Generation and DOM based rendering</h2>
-            <p>
-              Creates a matrix of perlin noise values and renders them progressively using DOM elements only.
-            </p>
-            <p>
-              This example demonstrates: Creating a Dataset from scratch.
-            </p>
-          </a>
-        </div>
+    <article class='dataset example'>
+      <section class='normal'>
+        <h2>
+          Principle areas of Cabinet office spending 2010/2011
+        </h2>
+        <p>
+          This example uses d3 to build an interactive treemap that allows you to explore spending by the UK Government Cabinet Office by category and month over the last two years.
+        </p>
+        <p>
+          All the code for ths example is <a href='https://github.com/misoproject/cabinet-office'>open on github</a> for you to fork from and have a play!
+        </p>
+        <hr />
+        <iframe src="/dataset/examples/cabinet-office/index.html" style="overflow: hidden; background-color: #fff; width: 100%; height: 750px; border: 0;></iframe>
       </section>
     </article>
     <footer>
