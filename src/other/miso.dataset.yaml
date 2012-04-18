@@ -1,6 +1,6 @@
 ---
 name: 'Miso.Dataset'
-inherit: ['Miso.Dataview', 'Miso.Events']
+inherit: ['Miso.Dataview']
 description: |
   Miso.Dataset is the main object you will instantiate to create a new dataset.
   A <code>Miso.Dataset</code> also extends from <code>Miso.DataView</code>. All the methods available on a <code>Miso.DataView</code> will also be available on the dataset.

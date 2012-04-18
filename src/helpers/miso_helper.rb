@@ -34,20 +34,31 @@ module MisoHelper
     obj.each do |section|
       if section['inherit']
         section['inherit'].each do |inherit|
-          from = obj.find {|i| i['name'] === inherit }
-          if from['instance_methods'] && section['instance_methods']
-            section['instance_methods'] = section['instance_methods'].concat(
-              from['instance_methods'].map do |method|
+          from = @api.find {|i| i['name'] === inherit }
+
+          #Recurse if needed
+          unless from['inherited']
+            inheritify( [from] )
+            from['inherited'] = true
+          end
+
+          unless section['inherited']
+            section['inherited'] = true
+            if from['instance_methods'] && section['instance_methods']
+              section['instance_methods'] = section['instance_methods'].concat(
+                from['instance_methods'].map do |method|
                 method['override'] = from['name']
                 method
-              end
-            )
+                end
+              )
+            end
           end
+
         end
-        $stdout.puts section
       end
     end
   end
+
   # ------
   # Code Block Generators
   # ------
@@ -122,7 +133,6 @@ module MisoHelper
 
   private
   def idify( name ) 
-    $stdout.puts "IDIFY" + name.to_s
     name = [name] unless name.class == Array
     name.reject! do |part|
       part.nil? || part.empty?
@@ -152,8 +162,6 @@ module MisoHelper
     callbacksRun    = defined?(params[:callbacksRun])   ? "callbacks-run=\"#{params[:callbacksRun]}\""   : ""
 
     full_path = File.join(Dir.pwd, 'src', 'snippets', partial.index(".js").nil? && partial.index(".html").nil? ? partial + ".js" : partial)
-    puts "Making code block " + full_path
-    
 
     if (params[:code])
       # make a code block

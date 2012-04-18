@@ -1,0 +1,7 @@
+---
+name: 'Miso.Derived'
+inherit: ['Miso.Dataset']
+description: |
+  A <code>Miso.Derived</code> is what you will be returned from derivative operations such as
+  <code>groupBy</code> or <code>movingAverage</code>, it is essetially a <code>Miso.Dataset</code>
+  but with a syncronisation link back to its parent dataset.
