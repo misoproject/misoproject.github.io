@@ -170,7 +170,7 @@ module MisoHelper
 
     if (params[:code])
       # make a code block
-      snippet = "<div class=\"codeblock\"><textarea #{id} #{classname} #{mode} #{globals} #{runnable} #{showConsole} #{buttons} #{autorun} #{callbacksClear} #{callbacksReset} #{callbacksRun}>\n"
+      snippet = "<div class=\"codeblock\"><textarea name=\"codehelper\" #{id} #{classname} #{mode} #{globals} #{runnable} #{showConsole} #{buttons} #{autorun} #{callbacksClear} #{callbacksReset} #{callbacksRun}>\n"
     else
       # make a pre/post script
       snippet = "<script type='codemirror/#{params[:blocktype]}' data-selector='#{params[:selector]}'>"
