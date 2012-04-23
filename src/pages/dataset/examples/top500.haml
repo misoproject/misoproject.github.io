@@ -1,7 +1,13 @@
 - @page_title = "The Miso Project :: Dataset :: Examples"
 %article.dataset
-  %h1 Custom products
+  %h1 A paragraph about the top500
+  %p
+    The text below is generated through analysis of a CSV of the top500 supercomputers,
+    produced every month by <a href="http://www.top500.org/">top500.org</a>. Try changing 
+    the CSV to XXX or YYY to see how the numbers are generated on the fly using Dataset's selection, 
+    grouping &apm; product functionality.
+    <hr>
   %section.normal
-    %div#output{ :style => "height: 300px; width: 300px;" }
+    %div#output.top500
       %p
     = toRunnableCodeBlock("dataset/examples/top500.js",nil, :autorun => true)

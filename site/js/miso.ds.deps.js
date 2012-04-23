@@ -2297,7 +2297,8 @@
         if (_.isNull(v)) {
           return null;
         }
-        return _.isNaN(v) ? null : +v;
+        v = +v;
+        return  _.isNaN(v) ? null : v;
       },
       test : function(v) {
         if (v === null || typeof v === "undefined" || typeof v === 'number' || this.regexp.test( v ) ) {
@@ -5178,6 +5179,9 @@ Version 0.0.1.2
 
           // Keep looping over the regular expression matches
           // until we can no longer find a match.
+          console.log(delimiterPattern);
+          strData = strData.replace(/[\r?\n]$/,'')
+          thedata = strData;
           while (arrMatches = delimiterPattern.exec(strData)){
 
             // Get the delimiter that was found.
@@ -5234,6 +5238,7 @@ Version 0.0.1.2
                 // We found a non-quoted value.
                 strMatchedValue = arrMatches[ 3 ];
               }
+              if (rowIndex > 499) { console.log(rowIndex,'XXX',strMatchedValue) }
 
               // Now that we have our value string, let's add
               // it to the data array.

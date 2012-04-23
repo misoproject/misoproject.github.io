@@ -247,6 +247,13 @@ div.download {
   }
 }
 
+.top500 {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  font-size: ($font-size + 4) / $em;
+  line-height: ($font-size + 6) / $em;
+}
+
 article.api {
   div.api_wrapper {
     float: right;

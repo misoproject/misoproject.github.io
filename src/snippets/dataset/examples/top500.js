@@ -1,8 +1,9 @@
 var ds = new Miso.Dataset({
-  url : "/data/top500.csv",
+  url : "/data/top500_nov10.csv",
   delimiter : ","
 });
 
+var $el = $('#output p').empty();
 ds.fetch({
   success: function() {
 
@@ -12,34 +13,45 @@ ds.fetch({
       return 0;
     }});
 
-    var topCoreCount = ds.groupBy('Country', ["Effeciency (%)", ]);
-
     $el.append([
       'The most powerful supercomputer in the world belongs to ',
-      num( ds.rowByPosition(0).Country ),
+      b( ds.rowByPosition(0).Country ),
       ' and the second most powerful to ',
-      num( ds.rowByPosition(1).Country ),
-      '. The', num ( counts.rowByPosition(0).Country ),
+      b( ds.rowByPosition(1).Country ),
+      '. The', b( counts.rowByPosition(0).Country ),
       'has the most supercomputers in the top500 with ',
-      num( counts.rowByPosition(0).count ), ', the highest rated being',
+      b( counts.rowByPosition(0).count ), ', the highest rated being',
       function() {
         var top = ds.rowById(counts.rowByPosition(0)._oids[0]);
-        return [top.Name, 'at', top.Site, ' , built in ', top.Year,
-                'by', top.Manufacturer].join(' ')
+        return [b(top.Name), 'at', b(top.Site), ' , built in ', b(top.Year),
+                'by', b(top.Manufacturer)].join(' ')
       }(),
 
 
       'The supercomputers in the top500 have an average of',
-      num( ds.mean('Total Cores').toFixed() ),
-      'cores running at', num( ds.mean('Processor Speed (MHz)').toFixed() ),
-      'Mhz'
+      b( ds.mean('Total Cores').toFixed() ),
+      'cores running at', b( (ds.mean('Processor Speed (MHz)') / 1000).toPrecision(2) ),
+      'Ghz. The fastest cores are running at ', b( (ds.max('Processor Speed (MHz)') / 1000).toPrecision(2) ), 'Ghz.',
+
+      function() {
+        var segmentsCounts = ds.countBy('Segment').sort({ comparator: function(a,b) {
+          if (a.count < b.count) { return 1; };
+          if (a.count > b.count) { return -1; };
+          return 0;
+        }});
+
+        var segmentsPower = ds.groupBy('Segment', ['Rmax']).sort({ comparator: function(a,b) {
+          if (a.Rmax < b.Rmax) { return 1; };
+          if (a.Rmax > b.Rmax) { return -1; };
+          return 0;
+        }});
+
+      }()
     ].join(' '));
   }
 });
 
-function num( val ) {
-  return "<span style='color: #00f; font-weight: bold;'>" + val + "</span>";
+function b( val ) {
+  return "<span style='font-weight: bold;'>" + val + "</span>";
 }
-var $el = $('#output p');
 
-console.log('x');
