@@ -29,6 +29,41 @@ module MisoHelper
   def hamlify( text )
     @staticmatic.generate_html_from_template_source(text)
   end
+
+  def truncate( text, to )
+    original_length = text.length
+    text.slice(0, to) + (original_length > to ? "..." : '') 
+  end
+
+  def inheritify( obj )
+    obj.each do |section|
+      if section['inherit']
+        section['inherit'].each do |inherit|
+          from = @api.find {|i| i['name'] === inherit }
+
+          #Recurse if needed
+          unless from['inherited']
+            inheritify( [from] )
+            from['inherited'] = true
+          end
+
+          unless section['inherited']
+            section['inherited'] = true
+            if from['instance_methods'] && section['instance_methods']
+              section['instance_methods'] = section['instance_methods'].concat(
+                from['instance_methods'].map do |method|
+                method['override'] = from['name']
+                method
+                end
+              )
+            end
+          end
+
+        end
+      end
+    end
+  end
+
   # ------
   # Code Block Generators
   # ------
@@ -105,7 +140,7 @@ module MisoHelper
   def idify( name ) 
     name = [name] unless name.class == Array
     name.reject! do |part|
-      part.empty?
+      part.nil? || part.empty?
     end
     name.map do |part|
       part
@@ -132,12 +167,10 @@ module MisoHelper
     callbacksRun    = defined?(params[:callbacksRun])   ? "callbacks-run=\"#{params[:callbacksRun]}\""   : ""
 
     full_path = File.join(Dir.pwd, 'src', 'snippets', partial.index(".js").nil? && partial.index(".html").nil? ? partial + ".js" : partial)
-    puts "Making code block " + full_path
-    
 
     if (params[:code])
       # make a code block
-      snippet = "<div class=\"codeblock\"><textarea #{id} #{classname} #{mode} #{globals} #{runnable} #{showConsole} #{buttons} #{autorun} #{callbacksClear} #{callbacksReset} #{callbacksRun}>\n"
+      snippet = "<div class=\"codeblock\"><textarea name=\"codehelper\" #{id} #{classname} #{mode} #{globals} #{runnable} #{showConsole} #{buttons} #{autorun} #{callbacksClear} #{callbacksReset} #{callbacksRun}>\n"
     else
       # make a pre/post script
       snippet = "<script type='codemirror/#{params[:blocktype]}' data-selector='#{params[:selector]}'>"

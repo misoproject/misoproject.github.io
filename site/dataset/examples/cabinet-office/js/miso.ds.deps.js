@@ -1,5 +1,5 @@
 /**
-* Miso.Dataset - v0.1.0 - 4/12/2012
+* Miso.Dataset - v0.1.0 - 4/17/2012
 * http://github.com/misoproject/dataset
 * Copyright (c) 2012 Alex Graul, Irene Ros;
 * Dual Licensed: MIT, GPL
@@ -2190,7 +2190,7 @@
 })(this);
 
 /**
-* Miso.Dataset - v0.1.0 - 4/12/2012
+* Miso.Dataset - v0.1.0 - 4/17/2012
 * http://github.com/misoproject/dataset
 * Copyright (c) 2012 Alex Graul, Irene Ros;
 * Dual Licensed: MIT, GPL
@@ -2428,8 +2428,8 @@
       
       _.each(this.deltas, function(delta) {
         cols = _.union(cols, 
-          _.keys(delta.old),
-          _.keys(delta.changed)
+          ( _.isUndefined(delta.old) ? [] : _.keys(delta.old) ),
+          ( _.isUndefined(delta.changed) ? [] : _.keys(delta.changed) )
         );
       });
 
@@ -2557,6 +2557,7 @@
     return new Miso.Event(delta);
   };
 }(this, _));
+
 (function(global, _) {
   
   var Miso = global.Miso || {};
@@ -2980,6 +2981,9 @@
           return true;
         };
       } else { //array
+        if (_.isString(columnFilter) ) {
+          columnFilter = [ columnFilter ];
+        }
         columnFilter.push('_id');
         columnSelector = function(column) {
           return _.indexOf(columnFilter, column.name) === -1 ? false : true;
@@ -4093,6 +4097,7 @@ Version 0.0.1.2
         this.trigger('change', e );
       }
 
+      return this;
     },
 
     /**
@@ -4136,49 +4141,71 @@ Version 0.0.1.2
     *     silent - set to true to prevent event triggering..
     */    
     update : function(filter, newProperties, options) {
-      filter = this._rowFilter(filter);
 
-      var newKeys = _.keys(newProperties),
-          deltas = [];
+      var newKeys = _.keys(newProperties), deltas = [];
 
-      this.each(function(row, rowIndex) {
-        if (filter(row)) {
-          _.each(this._columns, function(c) {
-            if (_.indexOf(newKeys, c.name) !== -1) {
+      var updateRow = _.bind(function(row, rowIndex) {
+        var c;
+        _.each(newKeys, function(columnName) {
+          c = this.column(columnName);
 
-              // test if the value passes the type test
-              var Type = Miso.types[c.type];
-              
-              if (Type) {
-                if (Miso.typeOf(newProperties[c.name], c) === c.type) {
+          // test if the value passes the type test
+          var Type = Miso.types[c.type];
+          
+          if (Type) {
+            if (Miso.typeOf(newProperties[c.name], c) === c.type) {
 
-                  // do we have a before filter on the column? If so, apply it
-                  if (!_.isUndefined(c.before)) {
-                    newProperties[c.name] = c.before(newProperties[c.name]);
-                  }
-
-                  // coerce it.
-                  newProperties[c.name] = Type.coerce(newProperties[c.name], c);
-                } else {
-                  throw("incorrect value '" + newProperties[c.name] + 
-                        "' of type " + Miso.typeOf(newProperties[c.name], c) +
-                        " passed to column with type " + c.type);  
-                }
+              // do we have a before filter on the column? If so, apply it
+              if (!_.isUndefined(c.before)) {
+                newProperties[c.name] = c.before(newProperties[c.name]);
               }
-              c.data[rowIndex] = newProperties[c.name];
-            }
-          }, this);
 
-          deltas.push( { _id : row._id, old : row, changed : newProperties } );
-        }
+              // coerce it.
+              newProperties[c.name] = Type.coerce(newProperties[c.name], c);
+            } else {
+              throw("incorrect value '" + newProperties[c.name] + 
+                    "' of type " + Miso.typeOf(newProperties[c.name], c) +
+                    " passed to column with type " + c.type);  
+            }
+          }
+          c.data[rowIndex] = newProperties[c.name];
+        }, this);
+
+        deltas.push( { _id : row._id, old : row, changed : newProperties } );
       }, this);
+
+      // do we just have a single id? array it up.
+      if (_.isString(filter)) {
+        filter = [filter];
+      }
+      // do we have an array of ids instead of filter functions?
+      if (_.isArray(filter)) {
+        var row, rowIndex;
+        _.each(filter, function(rowId) {
+          row = this.rowById(rowId);
+          rowIndex = this._rowPositionById[rowId];
+          
+          updateRow(row, rowIndex);
+        });
+
+      } else {
+
+        // make a filter function.
+        filter = this._rowFilter(filter);
+
+        this.each(function(row, rowIndex) {
+          if (filter(row)) {
+            updateRow(row, rowIndex);
+          }
+        }, this);
+      }
 
       if (this.syncable && (!options || !options.silent)) {
         var ev = this._buildEvent( deltas );
         this.trigger('update', ev );
         this.trigger('change', ev );
       }
-
+      return this;
     },
 
     /**
@@ -4856,7 +4883,7 @@ Version 0.0.1.2
           });
         }, importer);
 
-        setTimeout(callback, importer.interval);
+        importer._timeout = setTimeout(callback, importer.interval);
         // reset deferred
         importer._def = _.Deferred();
       });
@@ -4872,6 +4899,9 @@ Version 0.0.1.2
     stop : function() {
       if (this._def !== null) {
         this._def.reject();
+      }
+      if (typeof this._timeout !== "undefined") {
+        clearTimeout(this._timeout);
       }
     },
 

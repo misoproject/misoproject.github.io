@@ -1,6 +1,8 @@
 ---
 name: Miso.Importer.Local
-description: Import local data already in the environment
+description: |
+  Import local data already in the environment
+  = toRunnableCodeBlock("api/miso.importer.local")
 methods:
 -
   name: constructor

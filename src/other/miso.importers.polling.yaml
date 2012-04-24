@@ -1,6 +1,6 @@
 ---
 name: Miso.Importer.Polling
-description: Import local data already in the environment
+description: Pull data from a remote source on a regular interval
 methods:
 -
   name: constructor
@@ -16,5 +16,6 @@ methods:
     -
       name: interval 
       type: Integer
-      description: Frequency (in milliseconds) with which to fetch data
-  
+      description: |
+        Frequency (in milliseconds) with which to fetch data
+        = toRunnableCodeBlock("api/miso.importer.polling")

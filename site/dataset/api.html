@@ -143,7 +143,9 @@
                       </span>
                     </div>
                     <p>
-                      When <code>true</code> it enables binding to dataset changes.
+                      When <code>true</code> it enables binding to dataset changes. See the
+                      <a href='dataset/tutorials/events'>Syncronization & Events</a>
+                      guide for detailed information.
                     </p>
                   </li>
                   <li>
@@ -175,7 +177,9 @@
                       </span>
                     </div>
                     <p>
-                      When using the delimited parser this is used to set a custom field delimiter
+                      When using the
+                      <a href='#misoparsers'>delimited parser</a>
+                      this is used to set a custom field delimiter
                       such as <br><code> delimiter: '||' </code> for CSV files such as <code>value1||value2</code>
                     </p>
                   </li>
@@ -208,7 +212,9 @@
                       </span>
                     </div>
                     <p>
-                      Optional function used to pre-process raw data
+                      Optional function used to pre-process raw data, see the
+                      <a href='dataset/tutorials/creating'>creating a dataset</a>
+                      guide for more information.
                     </p>
                   </li>
                   <li>
@@ -225,6 +231,9 @@
                     </div>
                     <p>
                       Callback function that will be called once data is fetched. Will be called before success callback on fetch.
+                      see the
+                      <a href='dataset/tutorials/creating'>creating a dataset</a>
+                      guide for more information.
                     </p>
                   </li>
                   <li>
@@ -256,7 +265,9 @@
                       </span>
                     </div>
                     <p>
-                      A function to sort the data by. It will be sorted on fetch and on any successive addition.
+                      A function to sort the data by. It will be sorted on fetch and on any successive addition. See the
+                      <a href='#misodataview_i_sort'>sort</a>
+                      function for more information.
                     </p>
                   </li>
                   <li>
@@ -289,6 +300,9 @@
                     </div>
                     <p>
                       The classname of any importer (passes through auto detection based on parameters. For example: <code>Miso.Importers.Polling</code>.
+                      See the
+                      <a href='dataset/tutorials/creating'>Creating a dataset</a>
+                      guide for more information.
                     </p>
                   </li>
                   <li>
@@ -305,6 +319,9 @@
                     </div>
                     <p>
                       The classname of any parser (passes through auto detection based on parameters. For example: <code>Miso.Parsers.Delimited</code>.
+                      See the
+                      <a href='dataset/tutorials/creating'>Creating a dataset</a>
+                      guide for more information.
                     </p>
                   </li>
                   <li>
@@ -1650,7 +1667,7 @@
               <span class='returns'>
                 Returns:
                 <span class='object'>
-                  
+                  Miso.Derived
                 </span>
               </span>
             </div>
@@ -1751,7 +1768,7 @@
               <span class='returns'>
                 Returns:
                 <span class='object'>
-                  
+                  Miso.Derived
                 </span>
               </span>
             </div>
@@ -1818,7 +1835,7 @@
               <span class='returns'>
                 Returns:
                 <span class='object'>
-                  
+                  Miso.Derived
                 </span>
               </span>
             </div>
@@ -1897,6 +1914,737 @@
               </li>
             </ul>
           </div>
+          <div class='entry' id='misodataview_i_min'>
+            <div class='bar'>
+              <h3>
+                ds.min( column )
+              </h3>
+              <span class='returns'>
+                Returns:
+                <span class='object'>
+                  Number || Miso.Product
+                </span>
+              </span>
+            </div>
+            <p>
+              If the dataset has <code>sync</code> enabled this will return a <code>Miso.Product</code> that can
+              be used to bind events to and access the current value. Otherwise it will return the current
+              value - the lowest numeric value in that column
+              <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+              var ds = new Miso.Dataset({
+                data: [ 
+                  { one : 1, two : 4, three : 7 },
+                  { one : 2, two : 5, three : 8 },
+                  { one : 6, two : 8, three : 55 }
+                ]
+              });
+              
+              ds.fetch({ 
+                success: function() {
+                  log( "Column 'one' min: " + this.min('one') );
+                  log( "Column 'two' min: " + this.min('two') );
+                }
+              });
+              </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+            </p>
+            <h3>
+              Parameters
+            </h3>
+            <ul class='parameters'>
+              <li>
+                <div class='head'>
+                  <span class='name'>
+                    column
+                  </span>
+                  <span class='type'>
+                    String
+                  </span>
+                  <span class='required'>
+                    required
+                  </span>
+                </div>
+                <p>
+                  Name of the column on which to find the min
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div class='entry' id='misodataview_i_max'>
+            <div class='bar'>
+              <h3>
+                ds.max( column )
+              </h3>
+              <span class='returns'>
+                Returns:
+                <span class='object'>
+                  Number || Miso.Product
+                </span>
+              </span>
+            </div>
+            <p>
+              If the dataset has <code>sync</code> enabled this will return a <code>Miso.Product</code> that can
+              be used to bind events to and access the current value. Otherwise it will return the current
+              value - the highest numeric value in that column
+              <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+              var ds = new Miso.Dataset({
+                data: [ 
+                  { one : 1, two : 4, three : 7 },
+                  { one : 2, two : 5, three : 8 },
+                  { one : 6, two : 8, three : 55 }
+                ]
+              });
+              
+              ds.fetch({ 
+                success: function() {
+                  log( "Column 'one' max: " + this.max('one') );
+                  log( "Column 'two' max: " + this.max('two') );
+                }
+              });
+              </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+            </p>
+            <h3>
+              Parameters
+            </h3>
+            <ul class='parameters'>
+              <li>
+                <div class='head'>
+                  <span class='name'>
+                    column
+                  </span>
+                  <span class='type'>
+                    String
+                  </span>
+                  <span class='required'>
+                    required
+                  </span>
+                </div>
+                <p>
+                  Name of the column on which to find the max
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div class='entry' id='misodataview_i_sum'>
+            <div class='bar'>
+              <h3>
+                ds.sum( column )
+              </h3>
+              <span class='returns'>
+                Returns:
+                <span class='object'>
+                  Number || Miso.Product
+                </span>
+              </span>
+            </div>
+            <p>
+              If the dataset has <code>sync</code> enabled this will return a <code>Miso.Product</code> that can
+              be used to bind events to and access the current value. Otherwise it will return the current
+              value - the sum of the numeric form of the values in the column.
+              <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+              var ds = new Miso.Dataset({
+                data: [ 
+                  { one : 1, two : 4, three : 7 },
+                  { one : 2, two : 5, three : 8 },
+                  { one : 6, two : 8, three : 55 }
+                ]
+              });
+              
+              ds.fetch({ 
+                success: function() {
+                  log( "Column 'one' sum: " + this.sum('one') );
+                  log( "Column 'two' sum: " + this.sum('two') );
+                }
+              });
+              
+              </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+            </p>
+            <h3>
+              Parameters
+            </h3>
+            <ul class='parameters'>
+              <li>
+                <div class='head'>
+                  <span class='name'>
+                    column
+                  </span>
+                  <span class='type'>
+                    String
+                  </span>
+                  <span class='required'>
+                    required
+                  </span>
+                </div>
+                <p>
+                  Name of the column on which to add up the sum
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div class='entry' id='misodataview_i_mean'>
+            <div class='bar'>
+              <h3>
+                ds.mean( column )
+              </h3>
+              <span class='returns'>
+                Returns:
+                <span class='object'>
+                  Number || Miso.Product
+                </span>
+              </span>
+            </div>
+            <p>
+              If the dataset has <code>sync</code> enabled this will return a <code>Miso.Product</code> that can
+              be used to bind events to and access the current value. Otherwise it will return the current
+              value - the mean or average of the numeric form of the values in the column.
+              <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+              var ds = new Miso.Dataset({
+                data: [ 
+                  { one : 1, two : 4, three : 7 },
+                  { one : 2, two : 5, three : 8 },
+                  { one : 6, two : 8, three : 55 }
+                ]
+              });
+              
+              ds.fetch({ 
+                success: function() {
+                  log( "Column 'one' mean: " + this.mean('one') );
+                  log( "Column 'three' mean: " + this.mean('three') );
+                }
+              });
+              
+              
+              </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+            </p>
+            <h3>
+              Parameters
+            </h3>
+            <ul class='parameters'>
+              <li>
+                <div class='head'>
+                  <span class='name'>
+                    column
+                  </span>
+                  <span class='type'>
+                    String
+                  </span>
+                  <span class='required'>
+                    required
+                  </span>
+                </div>
+                <p>
+                  Name of the column on which to find the mean
+                </p>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <section class='api' id='misoderived'>
+          <h2>
+            Miso.Derived
+          </h2>
+          <p>
+            A <code>Miso.Derived</code> is what you will be returned from derivative operations such as
+            <code>groupBy</code> or <code>movingAverage</code>, it is essetially a <code>Miso.Dataset</code>
+            but with a syncronisation link back to its parent dataset.
+          </p>
+        </section>
+        <section class='api' id='misoproduct'>
+          <h2>
+            Miso.Product
+          </h2>
+          <p>
+            A <code>Miso.Product</code> is what you will be returned if you run a method such as
+            <code>max</code> on a dataset that has <code>sync</code> set to true. The product object
+            allows you to bind events to it, meaning you can automatically update anything using the
+            product when the underlying dataset changes in a way which affects the current value of
+            the product.
+          </p>
+          <h3 class='instance'>
+            Instance Methods
+          </h3>
+          <div class='entry' id='misoproduct_i_val'>
+            <div class='bar'>
+              <h3>
+                product.val()
+              </h3>
+              <span class='returns'>
+                Returns:
+                <span class='object'>
+                  Any
+                </span>
+              </span>
+            </div>
+            <p>
+              Returns the current value of the product.
+              <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+              var ds = new Miso.Dataset({
+                data: [ 
+                  { one : 1, two : 4, three : 7 },
+                  { one : 2, two : 5, three : 8 },
+                  { one : 6, two : 8, three : 55 }
+                ],
+                sync: true
+              });
+              
+              ds.fetch({ 
+                success: function() {
+                  this.min('three').bind('change', function() {
+                    log("Column 'three' min is: " + this.val());
+                  });
+              
+                  this.add({ one: 2, two: 2, three: 2 });
+                  this.add({ one: 2, two: 2, three: 1 });
+                  //doesn't trigger as min didn't change
+                  this.add({ one: 2, two: 2, three: 99 });
+              
+                }
+              });
+              </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+            </p>
+          </div>
+        </section>
+        <section class='api' id='misoevents'>
+          <h2>
+            Miso.Events
+          </h2>
+          <p>
+            Miso.Events is a mixin used to add event binding/triggering functionality to many parts of
+            dataset.
+          </p>
+          <h3 class='instance'>
+            Instance Methods
+          </h3>
+          <div class='entry' id='misoevents_i_bind'>
+            <div class='bar'>
+              <h3>
+                obj.bind(event, callback, context)
+              </h3>
+              <span class='returns'>
+                Returns:
+                <span class='object'>
+                  obj
+                </span>
+              </span>
+            </div>
+            <p>
+              Used to bind events to the given object
+              <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+              var ds = new Miso.Dataset({
+                sync: true
+              });
+              
+              ds.bind('change', function() {
+                log('change event triggered');
+              });
+              
+              ds.trigger('change');
+              </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+            </p>
+            <h3>
+              Parameters
+            </h3>
+            <ul class='parameters'>
+              <li>
+                <div class='head'>
+                  <span class='name'>
+                    event
+                  </span>
+                  <span class='type'>
+                    String
+                  </span>
+                  <span class='required'>
+                    required
+                  </span>
+                </div>
+                <p>
+                  Name of event to be bound to
+                </p>
+              </li>
+              <li>
+                <div class='head'>
+                  <span class='name'>
+                    callback
+                  </span>
+                  <span class='type'>
+                    Function
+                  </span>
+                  <span class='required'>
+                    required
+                  </span>
+                </div>
+                <p>
+                  function to be called when the event is triggered
+                </p>
+              </li>
+              <li>
+                <div class='head'>
+                  <span class='name'>
+                    context
+                  </span>
+                  <span class='type'>
+                    Object
+                  </span>
+                  <span class='optional'>
+                    optional
+                  </span>
+                </div>
+                <p>
+                  context in which the callback function will be run.
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div class='entry' id='misoevents_i_unbind'>
+            <div class='bar'>
+              <h3>
+                obj.unbind(event, callback)
+              </h3>
+              <span class='returns'>
+                Returns:
+                <span class='object'>
+                  obj
+                </span>
+              </span>
+            </div>
+            <p>
+              Unbind callbacks from an event, if no callback is given all callbacks will be
+              unbound from the event.
+              <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+              var ds = new Miso.Dataset({
+                sync: true
+              });
+              
+              ds.bind('change', function() {
+                log('change event triggered');
+              });
+              
+              ds.trigger('change');
+              
+              ds.unbind('change')
+              
+              //Nothing triggered
+              ds.trigger('change')
+              </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+            </p>
+            <h3>
+              Parameters
+            </h3>
+            <ul class='parameters'>
+              <li>
+                <div class='head'>
+                  <span class='name'>
+                    event
+                  </span>
+                  <span class='type'>
+                    String
+                  </span>
+                  <span class='required'>
+                    required
+                  </span>
+                </div>
+                <p>
+                  Event from which to unbind callback(s)
+                </p>
+              </li>
+              <li>
+                <div class='head'>
+                  <span class='name'>
+                    callback
+                  </span>
+                  <span class='type'>
+                    Function
+                  </span>
+                  <span class='optional'>
+                    optional
+                  </span>
+                </div>
+                <p>
+                  Callback to be removed from the event.
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div class='entry' id='misoevents_i_trigger'>
+            <div class='bar'>
+              <h3>
+                obj.trigger(event)
+              </h3>
+              <span class='returns'>
+                Returns:
+                <span class='object'>
+                  obj
+                </span>
+              </span>
+            </div>
+            <p>
+              Trigger a given event on the object
+              <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+              var ds = new Miso.Dataset({
+                sync: true
+              });
+              
+              ds.bind('change', function() {
+                log('change event triggered');
+              });
+              
+              ds.trigger('change');
+              </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+            </p>
+            <h3>
+              Parameters
+            </h3>
+            <ul class='parameters'>
+              <li>
+                <div class='head'>
+                  <span class='name'>
+                    event
+                  </span>
+                  <span class='type'>
+                    String
+                  </span>
+                  <span class='required'>
+                    required
+                  </span>
+                </div>
+                <p>
+                  Name of the event to be triggered
+                </p>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <section class='api' id='misoevent'>
+          <h2>
+            Miso.Event
+          </h2>
+          <p>
+            Miso.Events are objects that will be passed to event callbacks bound to
+            dataset objects that contain information about the event and what has changed.
+            See the
+            <a href='dataset/tutorials/events'>Events tutorial</a>
+            for more information.
+          </p>
+          <div class='entry' id='misoevent_isremove'>
+            <div class='bar'>
+              <h3>
+                event.isRemove(delta)
+              </h3>
+              <span class='returns'>
+                Returns:
+                <span class='object'>
+                  Boolean
+                </span>
+              </span>
+            </div>
+            <p>
+              Returns whether or not a given delta is for a remove event
+              <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+              var ds = new Miso.Dataset({
+                data: [ 
+                  { one : 1, two : 4, three : 7 },
+                  { one : 2, two : 5, three : 8 }
+                ],
+                sync: true
+              });
+              
+              ds.fetch({
+                success: function() {
+                  this.bind('change', function( event ) {
+                    log( 'Remove ?: ' + Miso.Event.isRemove(event.deltas[0]) );
+                  });
+                }
+              });
+              
+              //false
+              ds.add({ one: 3 });
+              
+              //true
+              ds.remove(function(row) { return true; });
+              </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+            </p>
+            <h3>
+              Parameters
+            </h3>
+            <ul class='parameters'>
+              <li>
+                <div class='head'>
+                  <span class='name'>
+                    delta
+                  </span>
+                  <span class='type'>
+                    Object
+                  </span>
+                  <span class='required'>
+                    required
+                  </span>
+                </div>
+                <p>
+                  a delta object from the event
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div class='entry' id='misoevent_isadd'>
+            <div class='bar'>
+              <h3>
+                event.isAdd(delta)
+              </h3>
+              <span class='returns'>
+                Returns:
+                <span class='object'>
+                  Boolean
+                </span>
+              </span>
+            </div>
+            <p>
+              Returns whether or not a given delta is for an add event
+              <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+              var ds = new Miso.Dataset({
+                data: [ 
+                  { one : 1, two : 4, three : 7 },
+                  { one : 2, two : 5, three : 8 }
+                ],
+                sync: true
+              });
+              
+              ds.fetch({
+                success: function() {
+                  this.bind('change', function( event ) {
+                    log( 'Add ?: ' + Miso.Event.isAdd(event.deltas[0]) );
+                  });
+                }
+              });
+              
+              //true
+              ds.add({ one: 3 });
+              
+              //false
+              ds.remove(function(row) { return true; });
+              
+              </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+            </p>
+            <h3>
+              Parameters
+            </h3>
+            <ul class='parameters'>
+              <li>
+                <div class='head'>
+                  <span class='name'>
+                    delta
+                  </span>
+                  <span class='type'>
+                    Object
+                  </span>
+                  <span class='required'>
+                    required
+                  </span>
+                </div>
+                <p>
+                  a delta object from the event
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div class='entry' id='misoevent_isupdate'>
+            <div class='bar'>
+              <h3>
+                event.isUpdate(delta)
+              </h3>
+              <span class='returns'>
+                Returns:
+                <span class='object'>
+                  Boolean
+                </span>
+              </span>
+            </div>
+            <p>
+              Returns whether or not a given delta is for an update event
+              <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+              var ds = new Miso.Dataset({
+                data: [ 
+                  { one : 1, two : 4, three : 7 },
+                  { one : 2, two : 5, three : 8 }
+                ],
+                sync: true
+              });
+              
+              ds.fetch({
+                success: function() {
+                  this.bind('change', function( event ) {
+                    log( 'Update ?: ' + Miso.Event.isUpdate(event.deltas[0]) );
+                  });
+                }
+              });
+              
+              //false
+              ds.add({ one: 3 });
+              
+              //true
+              var firstRowID = ds.column('_id').data[0];
+              ds.update(firstRowID, { one: 9 });
+              
+              </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+            </p>
+            <h3>
+              Parameters
+            </h3>
+            <ul class='parameters'>
+              <li>
+                <div class='head'>
+                  <span class='name'>
+                    delta
+                  </span>
+                  <span class='type'>
+                    Object
+                  </span>
+                  <span class='required'>
+                    required
+                  </span>
+                </div>
+                <p>
+                  a delta object from the event
+                </p>
+              </li>
+            </ul>
+          </div>
+          <h3 class='instance'>
+            Instance Methods
+          </h3>
+          <div class='entry' id='misoevent_i_affectedcolumns'>
+            <div class='bar'>
+              <h3>
+                event.affectedColumns()
+              </h3>
+              <span class='returns'>
+                Returns:
+                <span class='object'>
+                  Array
+                </span>
+              </span>
+            </div>
+            <p>
+              Returns an array of columns affected by the event
+              <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+              var ds = new Miso.Dataset({
+                data: [ 
+                  { one : 1, two : 4, three : 7 },
+                  { one : 2, two : 5, three : 8 }
+                ],
+                sync: true
+              });
+              
+              ds.fetch({
+                success: function() {
+                  this.bind('change', function( event ) {
+                    log( event.affectedColumns() );
+                  });
+                }
+              });
+              
+              ds.add({ one: 3, two: 9 });
+              </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+            </p>
+          </div>
         </section>
         <section class='api' id='misoimporters'>
           <h2>
@@ -1954,6 +2702,21 @@
           </h2>
           <p>
             Import local data already in the environment
+            <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+            var ds = new Miso.Dataset({
+              data: [ 
+                { one : 1, two : 4, three : 7 },
+                { one : 2, two : 5, three : 8 }
+              ]
+            });
+            
+            ds.fetch({
+              success: function() {
+                log( this.column('two').data );
+              }
+            });
+            
+            </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
           </p>
           <div class='entry' id='misoimporterlocal_constructor'>
             <div class='bar'>
@@ -2017,6 +2780,17 @@
           </h2>
           <p>
             Import data from remote files via an AJAX request
+            <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+            var ds = new Miso.Dataset({
+              url: '/data/simple.json'
+            });
+            
+            ds.fetch({
+              success: function() {
+                log( this.column('two').data );
+              }
+            });
+            </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
           </p>
           <div class='entry' id='misoimporterremote_constructor'>
             <div class='bar'>
@@ -2095,7 +2869,7 @@
             Miso.Importer.Polling
           </h2>
           <p>
-            Import local data already in the environment
+            Pull data from a remote source on a regular interval
           </p>
           <div class='entry' id='misoimporterpolling_constructor'>
             <div class='bar'>
@@ -2146,6 +2920,42 @@
                     </div>
                     <p>
                       Frequency (in milliseconds) with which to fetch data
+                      <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+                      // We will only make 5 requests in this example
+                      var requests = 5, 
+                          madeRequests = 0;
+                      
+                      // query twitter for tweets containing the term "javascript"
+                      // and get 5 per page. Note that twitter uses jsonp requests, 
+                      // so we toggle that flag too.
+                      var ds = new Miso.Dataset({
+                        url : "http://search.twitter.com/search.json?q=javascript&rpp=5&callback=",
+                        interval : 1000,
+                        jsonp : true,
+                        // Because of the structure of tweets:
+                        // https://dev.twitter.com/docs/api/1/get/search
+                        // we actually extract the rows from the returned data first.
+                        extract : function(data) {
+                          return data.results;
+                        }
+                      });
+                      
+                      ds.fetch({
+                        success : function() {
+                          // track how many requests we've made
+                          madeRequests++;
+                          // If we reached our max
+                          if (madeRequests >= requests) {
+                            // stop the importer.
+                            this.importer.stop();
+                            // output our current collection of tweets
+                            log(ds.column("text").data);
+                          }
+                          // update the number of rows we now have.
+                          log(madeRequests, ds.length);
+                        }
+                      });
+                      </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
                     </p>
                   </li>
                 </ul>
@@ -2153,14 +2963,15 @@
             </ul>
           </div>
         </section>
-        <section class='api' id='misoimportergoog'>
+        <section class='api' id='misoimportergooglespreadsheet'>
           <h2>
-            Miso.Importer.Goog..
+            Miso.Importer.GoogleSpreadsheet
           </h2>
           <p>
-            Import directly from google spreadsheets
+            Import directly from google spreadsheets, see
+            <a href='dataset/tutorials/googlespreadsheets'>the Google Spreadsheets guide.</a>
           </p>
-          <div class='entry' id='misoimportergoog_constructor'>
+          <div class='entry' id='misoimportergooglespreadsheet_constructor'>
             <div class='bar'>
               <h3>
                 new Miso.Importer.GoogleSpreadsheet( options )
@@ -3718,6 +4529,111 @@
                     reset
                   </a>
                 </li>
+                <li>
+                  <a href='#misodataview_i_columnnames'>
+                    columnNames
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_column'>
+                    column
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_columns'>
+                    columns
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_hascolumn'>
+                    hasColumn
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_eachcolumn'>
+                    eachColumn
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_each'>
+                    each
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_rowbyposition'>
+                    rowByPosition
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_rowbyid'>
+                    rowById
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_rows'>
+                    rows
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_sort'>
+                    sort
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_where'>
+                    where
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_groupby'>
+                    groupBy
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_countby'>
+                    countBy
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_movingaverage'>
+                    movingAverage
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_min'>
+                    min
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_max'>
+                    max
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_sum'>
+                    sum
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_mean'>
+                    mean
+                  </a>
+                </li>
+                <li>
+                  <a href='#misoevents_i_bind'>
+                    bind
+                  </a>
+                </li>
+                <li>
+                  <a href='#misoevents_i_unbind'>
+                    unbind
+                  </a>
+                </li>
+                <li>
+                  <a href='#misoevents_i_trigger'>
+                    trigger
+                  </a>
+                </li>
               </ul>
             </li>
             <li>
@@ -3798,6 +4714,133 @@
                     movingAverage
                   </a>
                 </li>
+                <li>
+                  <a href='#misodataview_i_min'>
+                    min
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_max'>
+                    max
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_sum'>
+                    sum
+                  </a>
+                </li>
+                <li>
+                  <a href='#misodataview_i_mean'>
+                    mean
+                  </a>
+                </li>
+                <li>
+                  <a href='#misoevents_i_bind'>
+                    bind
+                  </a>
+                </li>
+                <li>
+                  <a href='#misoevents_i_unbind'>
+                    unbind
+                  </a>
+                </li>
+                <li>
+                  <a href='#misoevents_i_trigger'>
+                    trigger
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href='#misoderived'>
+                Miso.Derived
+              </a>
+            </li>
+            <li>
+              <a href='#misoproduct'>
+                Miso.Product
+              </a>
+              <span class='instance'>
+                Instance Methods
+              </span>
+              <ul>
+                <li>
+                  <a href='#misoproduct_i_val'>
+                    val
+                  </a>
+                </li>
+                <li>
+                  <a href='#misoevents_i_bind'>
+                    bind
+                  </a>
+                </li>
+                <li>
+                  <a href='#misoevents_i_unbind'>
+                    unbind
+                  </a>
+                </li>
+                <li>
+                  <a href='#misoevents_i_trigger'>
+                    trigger
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href='#misoevents'>
+                Miso.Events
+              </a>
+              <span class='instance'>
+                Instance Methods
+              </span>
+              <ul>
+                <li>
+                  <a href='#misoevents_i_bind'>
+                    bind
+                  </a>
+                </li>
+                <li>
+                  <a href='#misoevents_i_unbind'>
+                    unbind
+                  </a>
+                </li>
+                <li>
+                  <a href='#misoevents_i_trigger'>
+                    trigger
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href='#misoevent'>
+                Miso.Event
+              </a>
+              <ul class='object'>
+                <li>
+                  <a href='#misoevent_isremove'>
+                    isRemove
+                  </a>
+                </li>
+                <li>
+                  <a href='#misoevent_isadd'>
+                    isAdd
+                  </a>
+                </li>
+                <li>
+                  <a href='#misoevent_isupdate'>
+                    isUpdate
+                  </a>
+                </li>
+              </ul>
+              <span class='instance'>
+                Instance Methods
+              </span>
+              <ul>
+                <li>
+                  <a href='#misoevent_i_affectedcolumns'>
+                    affectedColumns
+                  </a>
+                </li>
               </ul>
             </li>
             <li>
@@ -3842,12 +4885,12 @@
               </ul>
             </li>
             <li>
-              <a href='#misoimportergoog'>
-                Miso.Importer.Goog..
+              <a href='#misoimportergooglespreadsheet'>
+                Miso.Importer.GoogleSp...
               </a>
               <ul class='object'>
                 <li>
-                  <a href='#misoimportergoog_constructor'>
+                  <a href='#misoimportergooglespreadsheet_constructor'>
                     constructor
                   </a>
                 </li>
@@ -4093,7 +5136,7 @@
     </footer>
     <script src='/js/jquery.min.js'></script>
     <script src='/js/nav.js'></script>
-    <script src='/js/miso.ds.deps.js'></script>
+    <script src='/js/miso.ds.deps.0.1.0.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
     <script src='/js/codemirror.js'></script>

@@ -6,6 +6,10 @@
   %div.api_wrapper
     = api_section('miso.dataset.yaml')
     = api_section('miso.dataview.yaml')
+    = api_section('miso.derived.yaml')
+    = api_section('miso.product.yaml')
+    = api_section('miso.events.yaml')
+    = api_section('miso.event.yaml')
     = api_section('miso.importers.yaml')
     = api_section('miso.importers.local.yaml')
     = api_section('miso.importers.remote.yaml')
@@ -24,10 +28,11 @@
   %div.nav_wrapper
     %div.nav
       %ul
+        - inheritify(@api)
         - @api.each do |obj|
           %li
             %a{ :href => '#' + idify( obj['name'] ) }
-              = obj['name']
+              = truncate( obj['name'], 22 )
 
             - if obj['methods']
               %ul.object
@@ -42,8 +47,5 @@
               %ul
                 - obj['instance_methods'].each do |method|
                   %li
-                    %a{ :href => '#' + idify( [ obj['name'], 'i', method['name'] ] ) }
+                    %a{ :href => '#' + idify( [ (method['override'] ? method['override'] : obj['name'] ), 'i', method['name'] ] ) }
                       = method['name']
-
-  -# = section('Miso.Events', 'api/miso.events', "api")
-

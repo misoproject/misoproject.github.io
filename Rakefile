@@ -56,10 +56,10 @@ task :copyfiles do
 
   process = [
     "cp #{rootdir}/dist/LASTBUILD ./site/downloads",
-    "cp #{rootdir}/dist/miso.ds.deps.js ./site/js",
-    "cp #{rootdir}/dist/miso.ds.dev.zip ./site/downloads",
-    "cp #{rootdir}/dist/miso.ds.min.js ./site/downloads" ,
-    "cp #{rootdir}/dist/miso.ds.deps.min.js ./site/downloads",
+    "cp #{rootdir}/dist/miso.ds.deps.0.1.0.js ./site/js",
+    "cp #{rootdir}/dist/miso.ds.dev.0.1.0.zip ./site/downloads",
+    "cp #{rootdir}/dist/miso.ds.min.0.1.0.js ./site/downloads" ,
+    "cp #{rootdir}/dist/miso.ds.deps.min.0.1.0.js ./site/downloads",
   ]
 
   `#{ process.join(' && ') }`
