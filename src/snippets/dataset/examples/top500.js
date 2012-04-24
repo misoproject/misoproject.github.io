@@ -46,6 +46,29 @@ ds.fetch({
           return 0;
         }});
 
+        var topCount = segmentsCounts.rowByPosition(0);
+        var topPower = segmentsPower.rowByPosition(0);
+        var topCountPower = segmentsPower
+          .rows(function(row) { return row.Segment === topCount.Segment })
+          .rowByPosition(0);
+        var topPowerCount = segmentsCounts
+          .rows(function(row) { return row.Segment === topPower.Segment })
+          .rowByPosition(0);
+        return [
+          'The most common market segment for the supercomputers is',
+          b(topCount.Segment), 
+          'with', 
+          b( ((topCount.count / ds.length) * 100).toPrecision(3) ),
+          '% of the total but',
+          b(topPower.Segment), 
+          'has', 
+          b( (topPower.Rmax / topCountPower.Rmax).toPrecision(4) ), 
+          'times the total rMax power',
+          'with only', 
+          b( ((topPowerCount.count / ds.length) * 100).toPrecision(3) ), 
+          '% of the total entries in the top 500.'
+        ].join(' ')
+
       }()
     ].join(' '));
   }
