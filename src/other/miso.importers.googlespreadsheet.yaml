@@ -27,7 +27,7 @@ methods:
     -
       name: fast
       type: boolean
-      description: An optional flag to enable faster parsing. See the Google Spreadsheets guied for more information about this flag.
+      description: An optional flag to enable faster parsing. See the Google Spreadsheets guide for more information about this flag.
     -
       name: sheetName
       type: String
