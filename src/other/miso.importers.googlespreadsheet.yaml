@@ -24,3 +24,11 @@ methods:
       name: worksheet
       type: String
       description: An optional worksheet id. Default is always first worksheet.
+    -
+      name: fast
+      type: boolean
+      description: An optional flag to enable faster parsing. See the Google Spreadsheets guied for more information about this flag.
+    -
+      name: sheetName
+      type: String
+      description: If enabling faster parsing with <code>fast</code> flag, instead of using worksheet to designate the sheet index, you can use sheetName to access spreadsheet by name. Default is "Sheet1".

@@ -35,6 +35,16 @@
           https://docs.google.com/a/guardian.co.uk/spreadsheet/ccc?key=0Asnl0xYK7V16dFpFVmZUUy1taXdFbUJGdGtVdFBXbFE#gid=0
         = toRunnableCodeBlock("dataset/creation/importingGoogleSpreadsheet")
 
+      %h3 Fast Importing
+      %p
+        By default, the format of the raw data is rather cumbersome. Additionally, the file containing your data may be quite large (even though your data isn't). There are now two different parsers built into Dataset that handle google spreadsheets, one of which is much faster, but does not support utf-8 properly. This is a due to google not properly escaping the data when creating the output json. By default we use the more robust parser, but if your dataset is large or you want to try the faster parser, set <code>fast:true</code> during dataset initialization.
+      %p
+        Fast importing also supports name sheets, so instead of setting <code>worksheet</code> to the index of the sheet you want, you can set <code>sheetName</code> to the name of the sheet. Note this only works with the fast parser.
+      %p
+        %b If it's so unreliable why would I use it?
+        %br
+        It's not that unreliable. If your data is fairly standard (numeric/string etc.), it will be fine. The only time this becomes an issue is when you start introducing utf-16 characters into your data or having escaped strings. If google resolves their escaping issues, we'll be sure to update Dataset to use this parser by default.
+        
       %h3 Use Google Spreadsheets a Lot?
       %p
         Drag this button to your toolbar and anytime you're viewing a google spreadsheet that is publicly published,
