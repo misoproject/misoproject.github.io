@@ -1,4 +1,3 @@
-// We will only make 5 requests in this example
 var requests = 5, 
     madeRequests = 0;
 
