@@ -148,24 +148,6 @@ instance_methods:
       name: error
       type: Function
       description: 'Error callback to be called when data fetching fails. Context is the dataset.'
-
--
-  name: apply
-  signature: 'ds.apply( data )'
-  returns: undefined
-  description: |
-    Applies the data to the dataset. It can add it blindly, replace all existing or add only unique rows 
-    based on a column. This is called internally by fetch and most likely will never need to be directly by a user.
-    = toRunnableCodeBlock("api/miso.dataset.apply")
-  params:
-  -
-    name: data
-    type: Object
-    required: true
-    #TODO Link to importing/parsing guide
-    description: >
-      Data to be applied (added or replacing) to the dataset in whatever format the parser expects
-
 -
   name: addColumn
   signature: 'ds.addColumn( column )'
