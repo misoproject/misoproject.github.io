@@ -175,6 +175,25 @@ article, div.container {
       div.indent-1 {
         margin-left: 30px;
       }
+      div.ext {
+        margin-left: 30px;
+        background-color: #fff; 
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #eee;
+
+        h3 {
+          margin-top: 0px;
+        }
+
+        div.download a.button {
+          background-color: #eee;
+        }
+        div.ext-code {
+          font-size: 0.8em;
+          margin-top: 10px;
+        }
+      }
     }
 
    
