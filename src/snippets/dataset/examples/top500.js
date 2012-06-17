@@ -34,17 +34,17 @@ ds.fetch({
       'Ghz. The fastest cores are running at ', b( (ds.max('Processor Speed (MHz)') / 1000).toPrecision(2) ), 'Ghz.',
 
       function() {
-        var segmentsCounts = ds.countBy('Segment').sort({ comparator: function(a,b) {
+        var segmentsCounts = ds.countBy('Segment').sort(function(a,b) {
           if (a.count < b.count) { return 1; };
           if (a.count > b.count) { return -1; };
           return 0;
-        }});
+        });
 
-        var segmentsPower = ds.groupBy('Segment', ['Rmax']).sort({ comparator: function(a,b) {
+        var segmentsPower = ds.groupBy('Segment', ['Rmax']).sort(function(a,b) {
           if (a.Rmax < b.Rmax) { return 1; };
           if (a.Rmax > b.Rmax) { return -1; };
           return 0;
-        }});
+        });
 
         var topCount = segmentsCounts.rowByPosition(0);
         var topPower = segmentsPower.rowByPosition(0);

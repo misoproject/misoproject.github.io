@@ -103,12 +103,10 @@ ds.fetch({
 
     // now, we should make sure the list is sorted by dates, since we've been arbitrarily
     // adding rows of 0s to the end!
-    commitsByDay.sort({ 
-      comparator : function(row1, row2) {
-        if (row1.date.valueOf() < row2.date.valueOf())   { return -1; }
-        if (row1.date.valueOf() > row2.date.valueOf())   { return  1; }
-        if (row1.date.valueOf() === row2.date.valueOf()) { return  0; }
-      }
+    commitsByDay.sort(function(row1, row2) {
+      if (row1.date.valueOf() < row2.date.valueOf())   { return -1; }
+      if (row1.date.valueOf() > row2.date.valueOf())   { return  1; }
+      if (row1.date.valueOf() === row2.date.valueOf()) { return  0; }
     });
 
     // Clear any existing sparklines in the div.

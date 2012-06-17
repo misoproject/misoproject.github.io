@@ -7,25 +7,33 @@
     %p 
       A pretty common requirement is to actually compute some basic statistics about your data. 
       Most of the time those calculations happen on all the values in a specific column or a 
-      collection of columns, which is part of why we arrange our data in a column-wise manner. 
+      collection of columns, which is part of why we arrange our data in a column-wise manner. The result is always
+      a single value, but it can be represented in two different ways.
       Depending on how your original dataset was set up, you might get two different types of values:
     %p
       %ul
+        %li
+          If you did not set the <code>sync</code> flag to <code>true</code>, you will just 
+          return a value (most likely a number) for any of the following calls.
         %li
           If you set <code>sync:true</code> on your original dataset, you will get a <code>Miso.Product</code>
           for any of the following calls. The Miso.Product maintains a binding to the original Dataset and will
           know to recompute itself when changes occur to the underlying data. This does mean that
           you need to retrieve the value directly from this Miso.Product object by calling <code>.val()</code>.
           For example: 
-          = toRunnableCodeBlock("dataset/computations/syncing")
-        %li
-          If you did not set the sync flag, you will just return a value (most likely a number) for any of the
-          following calls.
-    
+          %div= toRunnableCodeBlock("dataset/computations/syncing")
+
+    %p
+      %b Null Values
+      %br
+      Due to the way the data types work in Dataset, any non-numeric values that can't be cast to a number
+      are ignored by these methods.
+
     %div.indent-1
       %h3
         Built-in Computations:
-
+      %p
+        The following are custom methods that come pre-packaged with Dataset, although you can easily add your own!
       %h3 Max
 
       = toRunnableCodeBlock("dataset/computations/max")

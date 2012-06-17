@@ -7,6 +7,22 @@
     allows you to bind events to it, meaning you can automatically update anything using the
     product when the underlying dataset changes in a way which affects the current value of
     the product.
+  methods:
+  -
+    name : Miso.Product.define
+    signature: Miso.Product.define(func)
+    returns: Function
+    description: |
+      Use this method to define a new product. For example:
+      = toRunnableCodeBlock("dataset/computations/custom")
+    params:
+    -
+      name: 'func'
+      type: 'Function'
+      required: true,
+      description: >
+        The function which will be wrapped to create a product. Function signature is function(columns, options)
+
   instance_methods:
   -
     name: val

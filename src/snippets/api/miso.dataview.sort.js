@@ -9,16 +9,14 @@ var ds = new Miso.Dataset({
 ds.fetch({ success: function() {
   log("Before Sort", this.toJSON());
 
-  this.sort({ 
-    comparator: function(rowA, rowB) {
-      if (rowA.three > rowB.three) { 
-        return -1; 
-      }
-      if (rowA.three < rowB.three) { 
-        return 1;  
-      }
-      return 0;
+  this.sort(function(rowA, rowB) {
+    if (rowA.three > rowB.three) { 
+      return -1; 
     }
+    if (rowA.three < rowB.three) { 
+      return 1;  
+    }
+    return 0;
   });
 
   log("After Sort", this.toJSON());

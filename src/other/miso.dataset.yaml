@@ -42,6 +42,14 @@ methods:
       description: >
         Whether a remote request should use <a href="http://en.wikipedia.org/wiki/JSONP">jsonp</a> to
         enable cross-domain requests.
+
+    -
+      name: callback
+      type: String
+      description: >
+        By default, If making a jsonp request, you can use this parameter to specify an 
+        alternate callback function name than the one that would be auto generated for you.
+
     -
       name: delimiter
       type: String
@@ -85,7 +93,7 @@ methods:
         function for more information.
     -
       name: deferred
-      type: Function
+      type: Object
       description: >
         A way to provide your own deferred object. It needs to follow the standard deferred signatures.
     -

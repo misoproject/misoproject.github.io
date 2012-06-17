@@ -94,6 +94,26 @@ instance_methods:
     description: >
       The context to be bound to the iterator.
 -
+  name: 'reverseEach'
+  signature: 'ds.reverseEach( iterator, context )'
+  description: |
+    Iterate over all rows in reverse. Each row is not a direct reference to the data
+    and thus should not be altered in any way.
+    = toRunnableCodeBlock("api/miso.dataview.reverseEach")
+  returns: ''
+  params: 
+  -
+    name: iterator
+    type: Function
+    required: true
+    description: >
+      A function with the following signature: <code>function(row, rowIndex)</code>'
+  -
+    name: context
+    type: Object
+    description: >
+      The context to be bound to the iterator.
+-
   name: 'rowByPosition'
   signature: 'ds.rowByPosition( position )'
   description: |
@@ -138,7 +158,7 @@ instance_methods:
 
 -
   name: 'sort'
-  signature: 'ds.sort( options )'
+  signature: 'ds.sort( args )'
   description: |
     Sorts the dataset according to the comparator. A comparator can either be passed 
     in as part of the options object or have been defined on the dataset already, for 
@@ -147,10 +167,11 @@ instance_methods:
   returns: 'Miso.Dataview'
   params: 
   -
-    name: options
+    name: args
     type: Object
     description: >
-      Options object
+      Comparator Function OR
+      Options object 
     params:
     -
       name: comparator
@@ -178,7 +199,7 @@ instance_methods:
   -
     name: filters
     type: Object
-    description: Options object
+    description: Could be a function that takes in a row or an options object that can contain the following parameters.
     params:
     -
       name: columns

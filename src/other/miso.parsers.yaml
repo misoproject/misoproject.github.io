@@ -2,7 +2,10 @@
 name: Miso.Parsers
 description: |
   %p
-    To specify a custom parser, during dataset instantiation set the <code>parser</code> property to the class name of the parser you want. Some parsers require some custom properties. This section will document the properties you can set that will either cause this parser to be selected or will be required by it to continue.
+    To specify a custom parser, during dataset instantiation set the <code>parser</code> property 
+    to the class name of the parser you want. Some parsers require some custom properties. 
+    This section will document the properties you can set that will either cause this parser 
+    to be selected or will be required by it to continue.
 
   %p 
     Built in Parsers include:
@@ -18,7 +21,9 @@ description: |
   %h3 Miso.Parsers.Strict
   %p
     %ul
-      %li <code>strict</code> - Set this to true when initializing a dataset to indicate the default internal format should be used.
+      %li 
+        <code>strict</code> - Set this to true when initializing a dataset to indicate 
+        the default internal format should be used.
 
   %h3 Miso.Parsers.Object
   %p
@@ -30,5 +35,9 @@ description: |
   %h3 Miso.Parsers.Delimited
   %p
     %ul
-      %li <code>delimited</code> - The string that is delimiting the column values.
+      %li <code>delimiter</code> - The string that is delimiting the column values.
+  %p
+    %b Note:
+    The delimited parser will assign custom column names in case the header row exists, but has
+    missing values. They will be of the form XN where N starts at 0.
 
