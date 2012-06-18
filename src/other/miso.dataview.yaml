@@ -237,7 +237,15 @@ instance_methods:
     -
       name: method
       type: Function
-      description: Function that specifies the way in which the columns are aggregated. The default is sum. The function signature is <code>function(arr)</code>. It should return a single result.
+      description: |
+        Function that specifies the way in which the columns are aggregated. The default is sum. 
+        The function signature is <code>function(arr)</code>. It should return a single result.
+    -
+      name: rejectNA
+      type: boolean
+      description: |
+        Set to true to remove nulls, undefined and empty values before computing group by. Set to true
+        by default. Set to false to turn this off.
 -
   name: countBy
   signature: ds.countBy(byColumn, options)
