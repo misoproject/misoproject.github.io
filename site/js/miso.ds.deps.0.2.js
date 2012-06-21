@@ -1,5 +1,5 @@
 /**
-* Miso.Dataset - v0.1.3 - 6/15/2012
+* Miso.Dataset - v0.2 - 6/21/2012
 * http://github.com/misoproject/dataset
 * Copyright (c) 2012 Alex Graul, Irene Ros;
 * Dual Licensed: MIT, GPL
@@ -4994,7 +4994,7 @@
 
 })(this);
 /**
-* Miso.Dataset - v0.1.3 - 6/15/2012
+* Miso.Dataset - v0.2 - 6/21/2012
 * http://github.com/misoproject/dataset
 * Copyright (c) 2012 Alex Graul, Irene Ros;
 * Dual Licensed: MIT, GPL
@@ -5740,9 +5740,14 @@
     */
     where : function(filter, options) {
       options = options || {};
+      options.filter = options.filter || {};
+      if ( _.isFunction(filter) ) {
+        options.filter.rows = filter;
+      } else {
+        options.filter = filter;
+      }
       
       options.parent = this;
-      options.filter = filter || {};
 
       return new Miso.DataView(options);
     },
@@ -8129,7 +8134,7 @@ Version 0.0.1.2
                 strLen = strData.length;
 
             while (rowsSeen < skipRows && charIndex < strLen) {
-              if (/\n|\r|\r\n/.test(strData[charIndex])) {
+              if (/\n|\r|\r\n/.test(strData.charAt(charIndex))) {
                 rowsSeen++;
               } 
               charIndex++;
