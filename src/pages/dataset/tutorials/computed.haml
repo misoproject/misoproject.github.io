@@ -1,0 +1,51 @@
+- @page_title = "The Miso Project :: Dataset :: Tutorials"
+
+%article.dataset
+  %section.tutorial
+    %h2
+      Computed Columns
+    %p
+      Often we want to compute values that are based on an existing row. Not only do we want to 
+      compute them once, but we actually want to add them as a separate column that will keep 
+      the values up to date with the row values. This is called a "Computed Column".
+    %p
+      For example, if we have a table that looks like this:
+      %table
+        %tr
+          %th state
+          %th v1
+          %th v2
+        %tr
+          %td MA
+          %td 10
+          %td 20
+        %tr
+          %td VA
+          %td 420
+          %td 120
+    
+    %p 
+      If we want to add a fourth column that will add the first two values, we would end up with this:
+      %table
+        %tr
+          %th state
+          %th v1
+          %th v2
+          %th sum
+        %tr
+          %td MA
+          %td 10
+          %td 20
+          %td 30
+        %tr
+          %td VA
+          %td 420
+          %td 120
+          %td 540
+
+    %p
+      To accomplish this, we would call:
+      = toRunnableCodeBlock("dataset/computed/computedColumns.js")
+
+    %p
+      Note: Computed columns update on "add", "remove" and "change" events regardless of whether the <code>sync</code> property was set.
