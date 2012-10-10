@@ -1,0 +1,17 @@
+- @page_title = "The Miso Project :: Dataset :: Tutorials"
+
+%article.dataset
+  %section.tutorial
+    %h2 
+      Require.js 
+    %p
+      Dataset now ships a build that can be used with require.js. There is a specific build that includes require support and it is <b>miso.ds.X.X.X.m.js</b>. Note that this build does <b>not</b> include dependencies because you are supposed to manage those with require. You will need to include "moment" and "lodash/underscore" as dependencies.
+
+    %p
+      For example, you can require dataset like so:
+      = toDisplayCodeBlock("dataset/require/config.js")
+        
+    %p 
+      You can then require it in your actual module definitions like so:
+      = toDisplayCodeBlock("dataset/require/module.js")
+
