@@ -1,16 +1,16 @@
 ---
-  name: Miso.Product
-  inherit: ['Miso.Events']
+  name: Miso.Dataset.Product
+  inherits: ['Miso.Events']
   description: |
-    A <code>Miso.Product</code> is what you will be returned if you run a method such as 
+    A <code>Miso.Dataset.Product</code> is what you will be returned if you run a method such as 
     <code>max</code> on a dataset that has <code>sync</code> set to true. The product object
     allows you to bind events to it, meaning you can automatically update anything using the
     product when the underlying dataset changes in a way which affects the current value of
     the product.
   methods:
   -
-    name : Miso.Product.define
-    signature: Miso.Product.define(func)
+    name : Miso.Dataset.Product.define
+    signature: Miso.Dataset.Product.define(func)
     returns: Function
     description: |
       Use this method to define a new product. For example:

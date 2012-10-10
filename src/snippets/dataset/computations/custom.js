@@ -9,7 +9,7 @@ var ds = new Miso.Dataset({
   strict: true
 });
 
-Miso.Dataset.prototype.random = Miso.Product.define(function(columns) {
+Miso.Dataset.prototype.random = Miso.Dataset.Product.define(function(columns) {
     
     // assemble all the data 
     // values into a single array temporarily

@@ -1,5 +1,5 @@
 ---
-name: 'Miso.types'
+name: 'Miso.Dataset.types'
 description: |
   Miso types are used to set and manage the data types on columns. These sets of
   functions handle testing what type data is and coercing it into the correct format
@@ -11,7 +11,7 @@ description: |
 methods:
 -
   name: typeof
-  signature: Miso.typeOf( value, options )
+  signature: Miso.Dataset.typeOf( value, options )
   returns: String
   description: |
     Typeof tests the type of a given input against the registered Miso types and

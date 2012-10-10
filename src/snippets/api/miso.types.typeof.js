@@ -1,3 +1,3 @@
-log(Miso.typeOf('foo'));
-log(Miso.typeOf(true));
-log(Miso.typeOf(4.3453));
+log(Miso.Dataset.typeOf('foo'));
+log(Miso.Dataset.typeOf(true));
+log(Miso.Dataset.typeOf(4.3453));

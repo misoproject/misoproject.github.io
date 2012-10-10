@@ -5,11 +5,11 @@ var GH = {};
 // to handle any future Github commit data.
 GH.CommitsParser = function(options) {};
 
-// a custom parser only needs extend the base Miso.Parsers.prototype
+// a custom parser only needs extend the base Miso.Dataset.Parsers.prototype
 // and provide a parse method that takes in the data and returns
 // an object containint a column name array and a data object
 // containing the data for each column.
-_.extend(GH.CommitsParser.prototype, Miso.Parsers.prototype, {
+_.extend(GH.CommitsParser.prototype, Miso.Dataset.Parsers.prototype, {
   parse : function(data) {
 
     // we really only want to grab a few data points from the entire

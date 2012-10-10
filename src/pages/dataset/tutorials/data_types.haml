@@ -5,13 +5,13 @@
     %h2 
       Data Columns & Types
     %p
-      A Dataset is made up of Miso.Column objects, that each have a name, type and corresponding data. More about
-      the Miso.Column type can be found <a href="/dataset/api.html#misocolumn">in the API Docs</a>.
+      A Dataset is made up of Miso.Dataset.Column objects, that each have a name, type and corresponding data. More about
+      the Miso.Dataset.Column type can be found <a href="/dataset/api.html#misocolumn">in the API Docs</a>.
     %p
       By default, unless specified otherwise, Dataset will attempt to detect the column type itself by
       looking through the first few rows of the data and checking which type it fits under.
     %div.indent-1 
-      Dataset has some prebuild Miso.types:
+      Dataset has some prebuild Miso.Dataset.types:
       %ul
         %li <code>number</code>
         %li <code>string</code>

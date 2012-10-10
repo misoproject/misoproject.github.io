@@ -1,12 +1,12 @@
 ---
-name: Miso.Parsers.Strict
+name: Miso.Dataset.Parsers.Strict
 description: Import local data already in the environment
 methods:
 -
   name: constructor
   returns: Miso.Importer
-  signature: new Miso.Importer.Local( options )
-  description: 'f'
+  signature: new Miso.Dataset.Parsers.Strict( options )
+  description: A strict data parser. Assumes data is in dataset internal format.
   params:
   -
     name: options

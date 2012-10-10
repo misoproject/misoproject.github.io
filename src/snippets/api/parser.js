@@ -1,10 +1,10 @@
 // Pass in the data you'll be parsing
 // Take in any potential options you might need for your parser
-Miso.Parsers.MyCustomParser = function(data, options) {};
+Miso.Dataset.Parsers.MyCustomParser = function(data, options) {};
 
 _.extend(
-  Miso.Parsers.MyCustomParser.prototype, 
-  Miso.Parsers.prototype, 
+  Miso.Dataset.Parsers.MyCustomParser.prototype, 
+  Miso.Dataset.Parsers.prototype, 
   {
     // required method parse must be defined:
     parse : function(data) {

@@ -16,10 +16,10 @@
           If you did not set the <code>sync</code> flag to <code>true</code>, you will just 
           return a value (most likely a number) for any of the following calls.
         %li
-          If you set <code>sync:true</code> on your original dataset, you will get a <code>Miso.Product</code>
-          for any of the following calls. The Miso.Product maintains a binding to the original Dataset and will
+          If you set <code>sync:true</code> on your original dataset, you will get a <code>Miso.Dataset.Product</code>
+          for any of the following calls. The Miso.Dataset.Product maintains a binding to the original Dataset and will
           know to recompute itself when changes occur to the underlying data. This does mean that
-          you need to retrieve the value directly from this Miso.Product object by calling <code>.val()</code>.
+          you need to retrieve the value directly from this Miso.Dataset.Product object by calling <code>.val()</code>.
           For example: 
           %div= toRunnableCodeBlock("dataset/computations/syncing")
 

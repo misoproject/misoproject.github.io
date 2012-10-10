@@ -1,5 +1,5 @@
 ---
-name: Miso.Parsers
+name: Miso.Dataset.Parsers
 description: |
   %p
     To specify a custom parser, during dataset instantiation set the <code>parser</code> property 
@@ -10,29 +10,29 @@ description: |
   %p 
     Built in Parsers include:
     %ul
-      %li <code>Miso.Parsers.Strict</code>
-      %li <code>Miso.Parsers.Object</code>
-      %li <code>Miso.Parsers.Delimited</code>
-      %li <code>Miso.Parsers.GoogleSpreadsheet</code>
+      %li <code>Miso.Dataset.Parsers.Strict</code>
+      %li <code>Miso.Dataset.Parsers.Object</code>
+      %li <code>Miso.Dataset.Parsers.Delimited</code>
+      %li <code>Miso.Dataset.Parsers.GoogleSpreadsheet</code>
   %p
     The base <code>Miso.Parser</code> structure is:
     = toDisplayCodeBlock("api/parser.js")
 
-  %h3 Miso.Parsers.Strict
+  %h3 Miso.Dataset.Parsers.Strict
   %p
     %ul
       %li 
         <code>strict</code> - Set this to true when initializing a dataset to indicate 
         the default internal format should be used.
 
-  %h3 Miso.Parsers.Object
+  %h3 Miso.Dataset.Parsers.Object
   %p
     The object parser expects an array of objects where each key is the column name.
   %p
     %ul
       %li <code>data</code> - The local var containing the data to be parsed.
 
-  %h3 Miso.Parsers.Delimited
+  %h3 Miso.Dataset.Parsers.Delimited
   %p
     %ul
       %li <code>delimiter</code> - The string that is delimiting the column values.

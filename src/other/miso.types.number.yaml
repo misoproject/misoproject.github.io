@@ -1,15 +1,15 @@
 ---
-name: 'Miso.types.number'
+name: 'Miso.Dataset.types.number'
 description: The number type is used for columns of numbers.
 methods:
 -
   name: name
   returns: 'number'
-  signature: Miso.types.number.name()
+  signature: Miso.Dataset.types.number.name()
   description: Returns the name of the number type, ie <code>'number'</code>. Used internally.
 -
   name: coerce
-  signature: Miso.types.number.coerce( value )
+  signature: Miso.Dataset.types.number.coerce( value )
   returns: Any
   description: Coerces the value to a number, a passthrough.
   params: 
@@ -19,7 +19,7 @@ methods:
     description: Value to be coerced
 -
   name: test
-  signature: Miso.types.number.test( value )
+  signature: Miso.Dataset.types.number.test( value )
   description: Tests whether the value is a number. 
   returns: true
   params: 
@@ -30,7 +30,7 @@ methods:
 
 -
   name: compare
-  signature: Miso.types.number.compare( value1, value2 )
+  signature: Miso.Dataset.types.number.compare( value1, value2 )
   returns: Integer
   description: Compares two <code>number</code> type values
   params:
@@ -45,7 +45,7 @@ methods:
 
 -
   name: numeric
-  signature: Miso.types.number.numeric( value, indexPosition )
+  signature: Miso.Dataset.types.number.numeric( value, indexPosition )
   returns: Integer
   description: Returns the numeric representation of a <code>number</code> which will be..the number.
   params: 

@@ -13,7 +13,7 @@ PhoneNumber.prototype.toString = function() {
 
 // Phone type. 
 // Converts a phone type to a phone type
-Miso.types.phone = {  
+Miso.Dataset.types.phone = {  
   name : "phone",
   // match phone numbers of the format:
   // XXX-XXX-XXXX or XXX XXX XXXX or XXXXXXXXXX

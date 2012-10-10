@@ -1,4 +1,4 @@
-var col = new Miso.Column({ 
+var col = new Miso.Dataset.Column({ 
   name: 'inoculated', 
   type: 'boolean', 
   data: [true, false, false, true] 

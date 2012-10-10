@@ -1,4 +1,4 @@
-var col = new Miso.Column({ 
+var col = new Miso.Dataset.Column({ 
   name: 'amount', 
   type: 'number', 
   data: [2, 3, '4'] 

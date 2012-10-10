@@ -1,13 +1,13 @@
 ---
-name: 'Miso.Column'
+name: 'Miso.Dataset.Column'
 description: |
-  Miso.Column objects make up the columns contained in a dataset and are returned by some methods such as .column on <code>Miso.Dataset</code> and <code>Miso.Dataview</code>
+  Miso.Dataset.Column objects make up the columns contained in a dataset and are returned by some methods such as .column on <code>Miso.Dataset</code> and <code>Miso.Dataset.DataView</code>
 
 methods:
 -
   name: constructor
-  signature: new Miso.Column( options )
-  returns: Miso.Column
+  signature: new Miso.Dataset.Column( options )
+  returns: Miso.Dataset.Column
   description: |
     Returns a new column.
     = toRunnableCodeBlock("api/miso.column.constructor")

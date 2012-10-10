@@ -1,6 +1,6 @@
 var ds = new Miso.Dataset({
-  importer : Miso.Importers.GoogleSpreadsheet,
-  parser : Miso.Parsers.GoogleSpreadsheet,
+  importer : Miso.Dataset.Importers.GoogleSpreadsheet,
+  parser : Miso.Dataset.Parsers.GoogleSpreadsheet,
   key : "0Asnl0xYK7V16dFpFVmZUUy1taXdFbUJGdGtVdFBXbFE",
   worksheet : "1"
 });

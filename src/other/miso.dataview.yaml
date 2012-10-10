@@ -1,6 +1,6 @@
 ---
-name: 'Miso.Dataview'
-inherit: ['Miso.Events']
+name: 'Miso.Dataset.DataView'
+inherits: ['Miso.Events']
 description: |
   A <code>Miso.DataView</code> is an immutable version of dataset. It is the result of selecting a subset of the data using the <code>ds.where</code> call. If the dataset is syncing, this view will be updated when changes take place in the original dataset.
   A <code>Miso.Dataset</code> also extends from <code>Miso.DataView</code>. All the methods available on a dataview will also be available on the dataset.  
@@ -33,7 +33,7 @@ instance_methods:
   description: |
     Shorthand for ds.where({ columns : nameArray });
     = toRunnableCodeBlock("api/miso.dataview.columns")
-  returns: 'Miso.Dataview'
+  returns: 'Miso.Dataset.DataView'
   params: 
   -
     name: nameArray
@@ -148,7 +148,7 @@ instance_methods:
     %a{ :href => '#misodataview_i_where' } ds.where({ rows : rowFilter }); 
     If run with no filter will return all rows.
     = toRunnableCodeBlock("api/miso.dataview.rows")
-  returns: 'Miso.Dataview'
+  returns: 'Miso.Dataset.DataView'
   params: 
   -
     name: rowFilter
@@ -164,7 +164,7 @@ instance_methods:
     in as part of the options object or have been defined on the dataset already, for 
     example as part of the initialization block.
     = toRunnableCodeBlock("api/miso.dataview.sort")
-  returns: 'Miso.Dataview'
+  returns: 'Miso.Dataset.DataView'
   params: 
   -
     name: args
@@ -194,7 +194,7 @@ instance_methods:
     in the parent dataset from which the dataview was created will be reflected in the
     dataview.
     = toRunnableCodeBlock("api/miso.dataview.where")
-  returns: Miso.Dataview
+  returns: Miso.Dataset.DataView
   params:
   -
     name: filters
@@ -213,7 +213,7 @@ instance_methods:
         true if it passes the criteria.
 -
   name: groupBy
-  returns: Miso.Derived
+  returns: Miso.Dataset.Derived
   signature: ds.groupBy(byColumn, columns, options)
   description: |
     Groups rows by the values in a given column
@@ -249,7 +249,7 @@ instance_methods:
 -
   name: countBy
   signature: ds.countBy(byColumn, options)
-  returns: Miso.Derived
+  returns: Miso.Dataset.Derived
   description: |
     Returns a new derived dataset that contains the original byColumn and a count column that returns the number of occurances each unique value in the byColumn contained.
     = toRunnableCodeBlock("api/miso.dataview.countBy")
@@ -267,7 +267,7 @@ instance_methods:
 -
   name: movingAverage
   signature: ds.movingAverage(columns, size, options)
-  returns: Miso.Derived
+  returns: Miso.Dataset.Derived
   description: |
     Returns a derived dataset in which the specified columns have a moving average computed over them of a specified size.
 
@@ -292,9 +292,9 @@ instance_methods:
 -
   name: min
   signature: ds.min( column )
-  returns: Number || Miso.Product
+  returns: Number || Miso.Dataset.Product
   description: |
-    If the dataset has <code>sync</code> enabled this will return a <code>Miso.Product</code> that can
+    If the dataset has <code>sync</code> enabled this will return a <code>Miso.Dataset.Product</code> that can
     be used to bind events to and access the current value. Otherwise it will return the current 
     value - the lowest numeric value in that column
     = toRunnableCodeBlock("api/miso.dataview.min")
@@ -307,9 +307,9 @@ instance_methods:
 -
   name: max
   signature: ds.max( column )
-  returns: Number || Miso.Product
+  returns: Number || Miso.Dataset.Product
   description: |
-    If the dataset has <code>sync</code> enabled this will return a <code>Miso.Product</code> that can
+    If the dataset has <code>sync</code> enabled this will return a <code>Miso.Dataset.Product</code> that can
     be used to bind events to and access the current value. Otherwise it will return the current 
     value - the highest numeric value in that column
     = toRunnableCodeBlock("api/miso.dataview.max")
@@ -323,9 +323,9 @@ instance_methods:
 -
   name: sum
   signature: ds.sum( column )
-  returns: Number || Miso.Product
+  returns: Number || Miso.Dataset.Product
   description: |
-    If the dataset has <code>sync</code> enabled this will return a <code>Miso.Product</code> that can
+    If the dataset has <code>sync</code> enabled this will return a <code>Miso.Dataset.Product</code> that can
     be used to bind events to and access the current value. Otherwise it will return the current 
     value - the sum of the numeric form of the values in the column.
     = toRunnableCodeBlock("api/miso.dataview.sum")
@@ -338,9 +338,9 @@ instance_methods:
 -
   name: mean
   signature: ds.mean( column )
-  returns: Number || Miso.Product
+  returns: Number || Miso.Dataset.Product
   description: |
-    If the dataset has <code>sync</code> enabled this will return a <code>Miso.Product</code> that can
+    If the dataset has <code>sync</code> enabled this will return a <code>Miso.Dataset.Product</code> that can
     be used to bind events to and access the current value. Otherwise it will return the current 
     value - the mean or average of the numeric form of the values in the column.
     = toRunnableCodeBlock("api/miso.dataview.mean")

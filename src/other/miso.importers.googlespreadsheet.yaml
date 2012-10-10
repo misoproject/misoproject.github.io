@@ -1,13 +1,13 @@
 ---
-name: Miso.Importer.GoogleSpreadsheet
+name: Miso.Dataset.Importers.GoogleSpreadsheet
 description: |
   Import directly from google spreadsheets, see
   %a{ :href => 'dataset/tutorials/googlespreadsheets' } the Google Spreadsheets guide.
 methods:
 -
   name: constructor
-  returns: Miso.Importer
-  signature: new Miso.Importer.GoogleSpreadsheet( options )
+  returns: Miso.Dataset.Importers
+  signature: new Miso.Dataset.Importers.GoogleSpreadsheet( options )
   description: ''
   params:
   -

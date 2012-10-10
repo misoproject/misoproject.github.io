@@ -1,7 +1,7 @@
 ---
-name: Miso.Events
+name: Miso.Dataset.Events
 description: |
-  Miso.Events is a mixin used to add event binding/triggering functionality to many parts of
+  Miso.Dataset.Events is a mixin used to add event binding/triggering functionality to many parts of
   dataset.
 instance_methods:
 -

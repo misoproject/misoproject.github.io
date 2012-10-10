@@ -10,9 +10,9 @@ _.when(ds.fetch()).then(function() {
   
   ds.bind("add", function(event) {
     log(JSON.stringify(event));
-    log("Is Add?", Miso.Event.isAdd(event.deltas[0]));
-    log("Is Remove?", Miso.Event.isRemove(event.deltas[0]));
-    log("Is Update?", Miso.Event.isUpdate(event.deltas[0]));
+    log("Is Add?", Miso.Dataset.Event.isAdd(event.deltas[0]));
+    log("Is Remove?", Miso.Dataset.Event.isRemove(event.deltas[0]));
+    log("Is Update?", Miso.Dataset.Event.isUpdate(event.deltas[0]));
   });
 
   ds.add({ one : 10, two : 3, three : 24 });

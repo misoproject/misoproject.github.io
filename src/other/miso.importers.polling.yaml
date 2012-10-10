@@ -1,5 +1,5 @@
 ---
-name: Miso.Importer.Polling
+name: Miso.Dataset.Importers.Polling
 description: |
   Pull data from a remote source on a regular interval
   = toRunnableCodeBlock("api/miso.importer.polling")
@@ -7,8 +7,8 @@ description: |
 methods:
 -
   name: constructor
-  returns: Miso.Importer
-  signature: new Miso.Importer.Polling( options )
+  returns: Miso.Dataset.Importers
+  signature: new Miso.Dataset.Importers.Polling( options )
   description: ''
   params:
   -

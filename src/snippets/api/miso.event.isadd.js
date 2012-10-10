@@ -9,7 +9,7 @@ var ds = new Miso.Dataset({
 ds.fetch({
   success: function() {
     this.bind('change', function( event ) {
-      log( 'Add ?: ' + Miso.Event.isAdd(event.deltas[0]) );
+      log( 'Add ?: ' + Miso.Dataset.Event.isAdd(event.deltas[0]) );
     });
   }
 });

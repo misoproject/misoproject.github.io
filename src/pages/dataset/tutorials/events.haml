@@ -111,7 +111,7 @@
       When any of the default events trigger (except for <code>sort</code>) an event object gets created and passed down to the callbacks. The event object is structured as follows:
 
       %ul
-        %li An event is of type <code>Miso.Event</code>
+        %li An event is of type <code>Miso.Dataset.Event</code>
         %li It has a <code>deltas</code> property that contains all the deltas that were generated for this specific event.
 
     %h3 Deltas
@@ -143,9 +143,9 @@
     %p
       You can always check what type of a delta you've recieved by calling any of the following helper methods:
 
-      %pre Miso.Event.isRemove(delta);
-      %pre Miso.Event.isAdd(delta);
-      %pre Miso.Event.isUpdate(delta); 
+      %pre Miso.Dataset.Event.isRemove(delta);
+      %pre Miso.Dataset.Event.isAdd(delta);
+      %pre Miso.Dataset.Event.isUpdate(delta); 
 
     %p
       For example:

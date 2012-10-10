@@ -1,4 +1,4 @@
-Miso.Importers.MyCustomImporter = function(options) {
+Miso.Dataset.Importers.MyCustomImporter = function(options) {
   // save your options
   // overwrite 'extract' function if you want
   // but don't forget users can overwrite that when
@@ -6,8 +6,8 @@ Miso.Importers.MyCustomImporter = function(options) {
 };
 
 _.extend(
-  Miso.Importers.MyCustomImporter.prototype, 
-  Miso.Importers.prototype, 
+  Miso.Dataset.Importers.MyCustomImporter.prototype, 
+  Miso.Dataset.Importers.prototype, 
   {
     
     // required method fetch must be defined.

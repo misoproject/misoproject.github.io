@@ -1,13 +1,13 @@
 ---
-name: Miso.Importer.Local
+name: Miso.Dataset.Importers.Local
 description: |
   Import local data already in the environment
   = toRunnableCodeBlock("api/miso.importer.local")
 methods:
 -
   name: constructor
-  returns: Miso.Importer
-  signature: new Miso.Importer.Local( options )
+  returns: Miso.Dataset.Importers
+  signature: new Miso.Dataset.Importers.Local( options )
   description: ''
   params:
   -

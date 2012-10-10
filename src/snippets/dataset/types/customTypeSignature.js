@@ -1,7 +1,7 @@
 // all types live under the Miso.types namespace.
 // Beware of overriding existing types. 
 // Nothing is stopping you from doing that.
-Miso.types.yourCustomType = {
+Miso.Dataset.types.yourCustomType = {
 
   // provide a name for your type.
   name : 'yourCustomTypeName',

@@ -1,5 +1,5 @@
 ---
-name: 'Miso.types.mixed'
+name: 'Miso.Dataset.types.mixed'
 description: |
   Miso types are used to set and manage the data types on columns. These sets of
   functions handle testing what type data is and coercing it into the correct format
@@ -9,11 +9,11 @@ methods:
 -
   name: name
   returns: 'string'
-  signature: Miso.types.mixed.name()
+  signature: Miso.Dataset.types.mixed.name()
   description: Returns the name of the mixed type, ie <code>'mixed'</code>. Used internally.
 -
   name: coerce
-  signature: Miso.types.mixed.coerce( value )
+  signature: Miso.Dataset.types.mixed.coerce( value )
   returns: Any
   description: Coerces the value, given the is the mixed type it's a passthrough.
   params: 
@@ -23,7 +23,7 @@ methods:
     description: Value to be coerced
 -
   name: test
-  signature: Miso.types.mixed.test( value )
+  signature: Miso.Dataset.types.mixed.test( value )
   description: Tests whether the value is of the given type. Given this is the mixed type it will always be true
   returns: true
   params: 
@@ -34,7 +34,7 @@ methods:
 
 -
   name: compare
-  signature: Miso.types.mixed.compare( value1, value2 )
+  signature: Miso.Dataset.types.mixed.compare( value1, value2 )
   returns: Integer
   description: Compares two <code>mixed</code> type values
   params:
@@ -49,7 +49,7 @@ methods:
 
 -
   name: numeric
-  signature: Miso.types.mixed.numeric( value )
+  signature: Miso.Dataset.types.mixed.numeric( value )
   returns: Integer
   description: Returns the numeric representation of a <code>mixed</code> value. If it's an integer, then it coerces it. Otherwise it returns 0.
   params: 

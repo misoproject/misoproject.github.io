@@ -1,13 +1,13 @@
 ---
-name: Miso.Importer.Remote
+name: Miso.Dataset.Importers.Remote
 description: |
   Import data from remote files via an AJAX request
   = toRunnableCodeBlock("api/miso.importer.remote")
 methods:
 -
   name: constructor
-  returns: Miso.Importer
-  signature: new Miso.Importer.Remote( options )
+  returns: Miso.Dataset.Importers
+  signature: new Miso.Dataset.Importers.Remote( options )
   description: ''
   params:
   -

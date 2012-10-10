@@ -1,5 +1,5 @@
 ---
-name: 'Miso.types.time'
+name: 'Miso.Dataset.types.time'
 description: 
   The time type is used for columns of dates & timestamps, this uses 
   %a{ :href => 'http://momentjs.com/'} moment.js 
@@ -8,11 +8,11 @@ methods:
 -
   name: name
   returns: 'time'
-  signature: Miso.types.time.name()
+  signature: Miso.Dataset.types.time.name()
   description: Returns the name of the time type, ie <code>'time'</code>. Used internally.
 -
   name: coerce
-  signature: Miso.types.time.coerce( value, options )
+  signature: Miso.Dataset.types.time.coerce( value, options )
   returns: Any
   description: Coerces the value to a time.
   params: 
@@ -34,7 +34,7 @@ methods:
         documentation.
 -
   name: test
-  signature: Miso.types.time.test( value )
+  signature: Miso.Dataset.types.time.test( value )
   description: Tests whether the value is a time. 
   returns: Boolean
   params: 
@@ -45,7 +45,7 @@ methods:
 
 -
   name: compare
-  signature: Miso.types.time.compare( value1, value2 )
+  signature: Miso.Dataset.types.time.compare( value1, value2 )
   returns: Integer
   description: Compares two <code>time</code> type values
   params:
@@ -60,7 +60,7 @@ methods:
 
 -
   name: numeric
-  signature: Miso.types.time.numeric( value, indexPosition )
+  signature: Miso.Dataset.types.time.numeric( value, indexPosition )
   returns: Integer
   description: |
     Returns the numeric representation of a <code>time</code> which will be an 

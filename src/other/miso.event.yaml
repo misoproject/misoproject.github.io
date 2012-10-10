@@ -1,7 +1,7 @@
 ---
-name: Miso.Event
+name: Miso.Dataset.Event
 description: |
-  Miso.Events are objects that will be passed to event callbacks bound to
+  Miso.Dataset.Events are objects that will be passed to event callbacks bound to
   dataset objects that contain information about the event and what has changed.
   See the 
   %a{ :href => 'dataset/tutorials/events' } Events tutorial
