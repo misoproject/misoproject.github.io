@@ -281,10 +281,14 @@ instance_methods:
 
 -
   name: update
-  signature: 'ds.update( filter, newProperties, options )'
+  signature: 'ds.update( rowsOrFunction, options )'
   returns: ds
   description: |
-    Updates one or more rows in a dataset. This will fire <code>update</code> and <code>change</code> events on a syncable dataset. 
+    Updates one or more rows in a dataset. You can pass either a row object that contains an the identifying id property and altered property,
+    an array of objects of the same form or a function that will be first applied to all rows.
+    The function should take a `row` object for each row in the dataset. If a row shouldn't be modified, the function
+    can return false for that row.
+    This will fire <code>update</code> and <code>change</code> events on a syncable dataset. 
     = toRunnableCodeBlock("api/miso.dataset.update")
   params:
   -

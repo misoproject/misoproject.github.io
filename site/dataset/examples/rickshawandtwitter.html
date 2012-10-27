@@ -50,6 +50,11 @@
         </a>
       </span>
       <span>
+        <a href='/dataset/extensions.html'>
+          Extensions
+        </a>
+      </span>
+      <span>
         <a href='http://www.github.com/misoproject/dataset'>
           Code (Github)
         </a>
@@ -69,7 +74,7 @@
         </div>
       </section>
       <script type='codemirror/cleanup' data-selector='rtcode'>window.ds = ds;</script></div>
-      <div class="codeblock"><textarea id="rtcode" class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="true" callbacks-clear="var x = function barf() { window.ds.importer.stop(); setTimeout(function() { $('#legend').children().remove(); $('#pieContainer').children().remove(); $('#pieContainer').html('<h3>You Stopped The Currently Running Script. Click Run to Start Again.</h3>'); }, 2000); }; x();" callbacks-reset="var x = function barf() { window.ds.importer.stop(); setTimeout(function() { $('#legend').children().remove(); $('#pieContainer').children().remove(); $('#pieContainer').html('<h3>You Stopped The Currently Running Script. Click Run to Start Again.</h3>'); }, 2000); }; x();" callbacks-run="function b() { $('#pieContainer').html('<b>Gathering data. Wait 3 seconds...</b>');}">
+      <div class="codeblock"><textarea name="codehelper" id="rtcode" class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="true" callbacks-clear="var x = function barf() { window.ds.importer.stop(); setTimeout(function() { $('#legend').children().remove(); $('#pieContainer').children().remove(); $('#pieContainer').html('<h3>You Stopped The Currently Running Script. Click Run to Start Again.</h3>'); }, 2000); }; x();" callbacks-reset="var x = function barf() { window.ds.importer.stop(); setTimeout(function() { $('#legend').children().remove(); $('#pieContainer').children().remove(); $('#pieContainer').html('<h3>You Stopped The Currently Running Script. Click Run to Start Again.</h3>'); }, 2000); }; x();" callbacks-run="function b() { $('#pieContainer').html('<b>Gathering data. Wait 3 seconds...</b>');}">
       // query twitter for tweets containing the term "javascript"
       // and get 100 per page.
       var sequence = 0,
@@ -259,7 +264,7 @@
     </footer>
     <script src='/js/jquery.min.js'></script>
     <script src='/js/nav.js'></script>
-    <script src='/js/miso.ds.deps.0.1.0.js'></script>
+    <script src='/js/miso.ds.deps.0.3.0.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
     <script src='/js/codemirror.js'></script>

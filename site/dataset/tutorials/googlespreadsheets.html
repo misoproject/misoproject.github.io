@@ -50,6 +50,11 @@
         </a>
       </span>
       <span>
+        <a href='/dataset/extensions.html'>
+          Extensions
+        </a>
+      </span>
+      <span>
         <a href='http://www.github.com/misoproject/dataset'>
           Code (Github)
         </a>
@@ -85,8 +90,8 @@
             In order to connect to a google spreadsheet the following properties need to be set on your
             Dataset options:
             <ul>
-              <li><code>importer</code> : <code>Miso.Importers.GoogleSpreadsheet</code></li>
-              <li><code>parser</code> :<code> Miso.Parsers.GoogleSpreadsheet</code></li>
+              <li><code>importer</code> : <code>Miso.Dataset.Importers.GoogleSpreadsheet</code></li>
+              <li><code>parser</code> :<code> Miso.Dataset.Parsers.GoogleSpreadsheet</code></li>
               <li><code>key</code> : <code>"yourGoogleSpreadsheetKey"</code></li>
               <li><code>worksheet</code> : <code>"1"</code> (optional - fetches 1 by default.)</li>
             </ul>
@@ -96,10 +101,10 @@
             <a href='https://docs.google.com/a/guardian.co.uk/spreadsheet/ccc?key=0Asnl0xYK7V16dFpFVmZUUy1taXdFbUJGdGtVdFBXbFE#gid=0'>
               https://docs.google.com/a/guardian.co.uk/spreadsheet/ccc?key=0Asnl0xYK7V16dFpFVmZUUy1taXdFbUJGdGtVdFBXbFE#gid=0
             </a>
-            <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+            <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
             var ds = new Miso.Dataset({
-              importer : Miso.Importers.GoogleSpreadsheet,
-              parser : Miso.Parsers.GoogleSpreadsheet,
+              importer : Miso.Dataset.Importers.GoogleSpreadsheet,
+              parser : Miso.Dataset.Parsers.GoogleSpreadsheet,
               key : "0Asnl0xYK7V16dFpFVmZUUy1taXdFbUJGdGtVdFBXbFE",
               worksheet : "1"
             });
@@ -112,6 +117,18 @@
                 log("Are you sure you are connected to the internet?");
               }
             });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+          </p>
+          <h3>Fast Importing</h3>
+          <p>
+            By default, the format of the raw data is rather cumbersome. Additionally, the file containing your data may be quite large (even though your data isn't). There are now two different parsers built into Dataset that handle google spreadsheets, one of which is much faster, but does not support utf-8 properly. This is a due to google not properly escaping the data when creating the output json. By default we use the more robust parser, but if your dataset is large or you want to try the faster parser, set <code>fast:true</code> during dataset initialization.
+          </p>
+          <p>
+            Fast importing also supports name sheets, so instead of setting <code>worksheet</code> to the index of the sheet you want, you can set <code>sheetName</code> to the name of the sheet. Note this only works with the fast parser.
+          </p>
+          <p>
+            <b>If it's so unreliable why would I use it?</b>
+            <br />
+            It's not that unreliable. If your data is fairly standard (numeric/string etc.), it will be fine. The only time this becomes an issue is when you start introducing utf-16 characters into your data or having escaped strings. If google resolves their escaping issues, we'll be sure to update Dataset to use this parser by default.
           </p>
           <h3>Use Google Spreadsheets a Lot?</h3>
           <p>
@@ -176,7 +193,7 @@
     </footer>
     <script src='/js/jquery.min.js'></script>
     <script src='/js/nav.js'></script>
-    <script src='/js/miso.ds.deps.0.1.0.js'></script>
+    <script src='/js/miso.ds.deps.0.3.0.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
     <script src='/js/codemirror.js'></script>

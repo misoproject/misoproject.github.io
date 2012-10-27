@@ -50,6 +50,11 @@
         </a>
       </span>
       <span>
+        <a href='/dataset/extensions.html'>
+          Extensions
+        </a>
+      </span>
+      <span>
         <a href='http://www.github.com/misoproject/dataset'>
           Code (Github)
         </a>
@@ -103,7 +108,7 @@
             <div class='indent-1'>
               <p>
                 1. <code>data</code> - A var (or actual data structure) representing your data.
-                <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+                <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
                 var ds = new Miso.Dataset({
                   data : [
                     { one : 12,  two : 40,  three : 40 },
@@ -122,7 +127,7 @@
                 2. <code>url</code> - A url from which the data will be fetched. If the request should be a jsonp request, also
                 set <code>jsonp:true</code>. It's worth noting that <code>url</code> can also be set to a function that returns
                 a string url.
-                <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+                <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
                 var ds = new Miso.Dataset({
                   url : '/data/crudeoil.csv',
                   delimiter : ','
@@ -161,7 +166,7 @@
             <div class='indent-1'>
               <p>
                 1. Pass success/error callbacks:
-                <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+                <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
                 var ds = new Miso.Dataset({
                   data : [
                     { one : 12,  two : 40,  three : 40 },
@@ -185,7 +190,7 @@
                 2. Using Deferreds - Dataset makes use of the <a href="https://github.com/wookiehangover/underscore.Deferred">
                 Underscore.Deferred</a> extension. Calling <code>fetch()</code> actualy returns a deferred object that you can then
                 use, for example, if you have more than one dataset you need to wait on. You can use deferreds as follows:
-                <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+                <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
                 var ds1 = new Miso.Dataset({
                   data : [
                     { one : 12,  two : 40,  three : 40 },
@@ -216,7 +221,7 @@
               When the data is successfully retrieved by the <code>importer</code>, it passes it to the parser. At this point
               you can intercept this passing of the result directly by defining an <code>extract</code> method, that is useful if your data
               array is actually nested somewhere within the response and you need to retrieve it. For example:
-              <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+              <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
               var data = {
                 metadata : { 
                   about : "Some info about this data "
@@ -275,7 +280,7 @@
               If no types
               were specified during instantiation, Dataset will attempt to detect the types of the data. Specifying the types
               is faster and more reliable. You can specify types like so:
-              <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+              <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
               var ds = new Miso.Dataset({
                 data : [
                   { count : 12,  total : "40",  timestamp : "2012 04_20" },
@@ -302,7 +307,7 @@
               but you really want to treat that column as a numeric column. Without creating a custom type (which is a great
               way to create reusable types,) you could actually set a <code>before</code> filter function on your column
               type that will get called before the data gets coerced. For example:
-              <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+              <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
               var data = [
                 { a : 1, amount : "$23,444" }, 
                 { a : 2, amount : "$290"    }, 
@@ -333,7 +338,7 @@
             <p>
               Once the data has been parsed and coerced to the proper type, if a <code>comparator</code> function was provided
               the data will be sorted according to that function.
-              <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+              <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
               // initialize a new dataset
               var ds = new Miso.Dataset({
                 data: { 
@@ -362,7 +367,7 @@
               Once the data has been parsed, coerced and sorted (if needbe,) it is ready to be used. Before the <code>success</code>
               callback passed to <code>fetch</code> is called, you can specify a <code>ready</code> callback when creating your dataset
               that will fire beforehand.
-              <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+              <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
               var ds1 = new Miso.Dataset({
                 data : [
                   { one : 12,  two : 40,  three : 40 },
@@ -405,8 +410,8 @@
         </p>
         <div class='indent-1'>
           An importer must extend the following interface:
-          <div class="codeblock"><textarea  class="code" mode=""   showConsole="false" buttons="none" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-          Miso.Importers.MyCustomImporter = function(options) {
+          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""   showConsole="false" buttons="none" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+          Miso.Dataset.Importers.MyCustomImporter = function(options) {
             // save your options
             // overwrite 'extract' function if you want
             // but don't forget users can overwrite that when
@@ -414,8 +419,8 @@
           };
           
           _.extend(
-            Miso.Importers.MyCustomImporter.prototype, 
-            Miso.Importers.prototype, 
+            Miso.Dataset.Importers.MyCustomImporter.prototype, 
+            Miso.Dataset.Importers.prototype, 
             {
               
               // required method fetch must be defined.
@@ -447,14 +452,14 @@
         </p>
         <div class='indent-1'>
           A custom parser must follow the following structure:
-          <div class="codeblock"><textarea  class="code" mode=""   showConsole="false" buttons="none" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""   showConsole="false" buttons="none" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
           // Pass in the data you'll be parsing
           // Take in any potential options you might need for your parser
-          Miso.Parsers.MyCustomParser = function(data, options) {};
+          Miso.Dataset.Parsers.MyCustomParser = function(data, options) {};
           
           _.extend(
-            Miso.Parsers.MyCustomParser.prototype, 
-            Miso.Parsers.prototype, 
+            Miso.Dataset.Parsers.MyCustomParser.prototype, 
+            Miso.Dataset.Parsers.prototype, 
             {
               // required method parse must be defined:
               parse : function(data) {
@@ -525,7 +530,7 @@
     </footer>
     <script src='/js/jquery.min.js'></script>
     <script src='/js/nav.js'></script>
-    <script src='/js/miso.ds.deps.0.1.0.js'></script>
+    <script src='/js/miso.ds.deps.0.3.0.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
     <script src='/js/codemirror.js'></script>

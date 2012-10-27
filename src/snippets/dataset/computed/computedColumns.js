@@ -16,13 +16,23 @@ ds.fetch().then(function() {
     return row.v1 + row.v2;
   });
 
-  // => [30,540]
+  // => [430,140]
   log(ds.column("sum").data);
 
   ds.add({
     state : "NH", v1 : 50, v2 : 20
   });
 
-  // => [30,540,70]
+  // => [430,140,70]
   log(ds.column("sum").data);  
+
+  // if we update any data in our existing rows, the column
+  // will also be updated to reflect that!
+  ds.update(function(row) {
+    row.v2 = row.v1 * 10;
+    return row;
+  });
+
+  // => [110, 220, 550]
+  log(ds.column("sum").data);
 });

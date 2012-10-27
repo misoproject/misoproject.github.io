@@ -50,6 +50,11 @@
         </a>
       </span>
       <span>
+        <a href='/dataset/extensions.html'>
+          Extensions
+        </a>
+      </span>
+      <span>
         <a href='http://www.github.com/misoproject/dataset'>
           Code (Github)
         </a>
@@ -63,55 +68,67 @@
         <p>
           A pretty common requirement is to actually compute some basic statistics about your data.
           Most of the time those calculations happen on all the values in a specific column or a
-          collection of columns, which is part of why we arrange our data in a column-wise manner.
+          collection of columns, which is part of why we arrange our data in a column-wise manner. The result is always
+          a single value, but it can be represented in two different ways.
           Depending on how your original dataset was set up, you might get two different types of values:
         </p>
         <p>
           <ul>
             <li>
-              If you set <code>sync:true</code> on your original dataset, you will get a <code>Miso.Product</code>
-              for any of the following calls. The Miso.Product maintains a binding to the original Dataset and will
-              know to recompute itself when changes occur to the underlying data. This does mean that
-              you need to retrieve the value directly from this Miso.Product object by calling <code>.val()</code>.
-              For example:
-              <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-              // initialize a new dataset
-              var ds = new Miso.Dataset({
-                data: { 
-                  columns : [ 
-                    { name : "one", data : [10, 2, 3] },
-                    { name : "two", data : [1, 20, 3] }
-                  ] 
-                },
-                sync : true,
-                strict: true
-              });
-              
-              _.when(ds.fetch()).then(function() {  
-              
-                var max = ds.max();
-                log("Max of all",  max.val());
-                max.bind("change", function(event) {
-                  log("New Value", max.val());
-                });
-              
-                ds.add({
-                  one : 100, two : 100
-                });
-              });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+              If you did not set the <code>sync</code> flag to <code>true</code>, you will just
+              return a value (most likely a number) for any of the following calls.
             </li>
             <li>
-              If you did not set the sync flag, you will just return a value (most likely a number) for any of the
-              following calls.
+              If you set <code>sync:true</code> on your original dataset, you will get a <code>Miso.Dataset.Product</code>
+              for any of the following calls. The Miso.Dataset.Product maintains a binding to the original Dataset and will
+              know to recompute itself when changes occur to the underlying data. This does mean that
+              you need to retrieve the value directly from this Miso.Dataset.Product object by calling <code>.val()</code>.
+              For example:
+              <div>
+                <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+                // initialize a new dataset
+                var ds = new Miso.Dataset({
+                  data: { 
+                    columns : [ 
+                      { name : "one", data : [10, 2, 3] },
+                      { name : "two", data : [1, 20, 3] }
+                    ] 
+                  },
+                  sync : true,
+                  strict: true
+                });
+                
+                _.when(ds.fetch()).then(function() {  
+                
+                  var max = ds.max();
+                  log("Max of all",  max.val());
+                  max.bind("change", function(event) {
+                    log("New Value", max.val());
+                  });
+                
+                  ds.add({
+                    one : 100, two : 100
+                  });
+                });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+              </div>
             </li>
           </ul>
+        </p>
+        <p>
+          <b>Null Values</b>
+          <br />
+          Due to the way the data types work in Dataset, any non-numeric values that can't be cast to a number
+          are ignored by these methods.
         </p>
         <div class='indent-1'>
           <h3>
             Built-in Computations:
           </h3>
+          <p>
+            The following are custom methods that come pre-packaged with Dataset, although you can easily add your own!
+          </p>
           <h3>Max</h3>
-          <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
           // initialize a new dataset
           var ds = new Miso.Dataset({
             data: { 
@@ -132,7 +149,7 @@
           });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
           <p>
             <b>Note</b> that the <code>max</code> can be computed on numeric columns but also time columns!
-            <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+            <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
             // initialize a new dataset
             var ds = new Miso.Dataset({
               data: { 
@@ -154,7 +171,7 @@
             });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
           </p>
           <h3>Min</h3>
-          <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
           // initialize a new dataset
           var ds = new Miso.Dataset({
             data: { 
@@ -174,7 +191,7 @@
             log("min of all", ds.min());
           });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
           <h3>Sum</h3>
-          <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
           // initialize a new dataset
           var ds = new Miso.Dataset({
             data: { 
@@ -197,7 +214,7 @@
             <b>Note</b> you can't add up dates, so don't try that one.
           </p>
           <h3>Mean</h3>
-          <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
           // initialize a new dataset
           var ds = new Miso.Dataset({
             data: { 
@@ -224,7 +241,7 @@
         </p>
         <p>
           For example, if we wanted to implement a product that returned a random value from the dataset, you could do it like so:
-          <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
           // initialize a new dataset
           var ds = new Miso.Dataset({
             data: { 
@@ -236,36 +253,23 @@
             strict: true
           });
           
-          Miso.Dataset.prototype.random = function(columnNames) {
-            
-            // find all the columns in question
-            var columns = [];
-            _.each(columnNames, function(name) {
-              columns.push(this.column(name));
-            }, this);
-          
-            return this._calculated(columns, function(columns) {
+          Miso.Dataset.prototype.random = Miso.Dataset.Product.define(function(columns) {
               
-              // return a function that when re-run over a set of
-              // columns can recompute the value we're looking for
-              return function() {
+              // assemble all the data 
+              // values into a single array temporarily
+              var values = [];
+              _.each(columns, function(column) {
+                values.push(column.data);
+              }, this);
           
-                // assemble all the data 
-                // values into a single array temporarily
-                var values = [];
-                _.each(columns, function(column) {
-                  values.push(column.data);
-                }, this);
+              // flatten the values
+              values = _.flatten(values);
           
-                // flatten the values
-                values = _.flatten(values);
-          
-                // get a random value from the total array of values
-                // we gathered.
-                return values[Math.floor(Math.random() * values.length)];
-              }
-            }(columns));
-          };
+              // get a random value from the total array of values
+              // we gathered.
+              return values[Math.floor(Math.random() * values.length)];
+            }
+          );
           
           ds.fetch({
             success : function() {
@@ -318,7 +322,7 @@
     </footer>
     <script src='/js/jquery.min.js'></script>
     <script src='/js/nav.js'></script>
-    <script src='/js/miso.ds.deps.0.1.0.js'></script>
+    <script src='/js/miso.ds.deps.0.3.0.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
     <script src='/js/codemirror.js'></script>

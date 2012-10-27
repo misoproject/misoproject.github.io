@@ -50,6 +50,11 @@
         </a>
       </span>
       <span>
+        <a href='/dataset/extensions.html'>
+          Extensions
+        </a>
+      </span>
+      <span>
         <a href='http://www.github.com/misoproject/dataset'>
           Code (Github)
         </a>
@@ -67,7 +72,7 @@
         <p>
           To add a row to your dataset, use the <code>add</code> method.
           <pre>ds.add(rowObject, options);</pre>
-          <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
           var ds = new Miso.Dataset({
             data : [
               { one : 12,  two : 40,  three : 40 }
@@ -106,10 +111,17 @@
         </p>
         <h3>Updating Rows:</h3>
         <p>
-          To update a row, pass the <code>)id</code> of the row along with the changed attributes like so:
-          <pre>ds.update(rowId, changedAttributes, options);</pre>
+          To update a row, pass the row object with the identifying id property and changed set of attributes,
+          an array of objects of the same format or a function that will first be applied to all rows and then
+          update the dataset using the changed set of rows. For example::
+          <pre>ds.update(rowsOrFunction, options);</pre>
           For example:
-          <pre>&#x000A;ds.update(rowId, {&#x000A;  col1 : newVal, col2 : newVal ...&#x000A;});</pre>
+          <pre>&#x000A;ds.update({&#x000A;  _id : 12, col1 : newVal, col2 : newVal ...&#x000A;});</pre>
+        </p>
+        <p>
+          To update rows via a function pass a function that modifies each row in the dataset as it should
+          change, or returns false if the row should not be altered. For example:
+          <pre>&#x000A;ds.update(function(row) {&#x000A;  if (row.value % 2 === 0) {&#x000A;    row.outcome = true;&#x000A;    return row;&#x000A;  } else {&#x000A;    return false;&#x000A;  }&#x000A;});</pre>
         </p>
         <h3>Syncronization</h3>
         <p>
@@ -192,7 +204,7 @@
     </footer>
     <script src='/js/jquery.min.js'></script>
     <script src='/js/nav.js'></script>
-    <script src='/js/miso.ds.deps.0.1.0.js'></script>
+    <script src='/js/miso.ds.deps.0.3.0.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
     <script src='/js/codemirror.js'></script>

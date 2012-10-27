@@ -40,13 +40,29 @@
     %h3 Updating Rows:
 
     %p
-      To update a row, pass the <code>)id</code> of the row along with the changed attributes like so:
-      %pre ds.update(rowId, changedAttributes, options);
+      To update a row, pass the row object with the identifying id property and changed set of attributes,
+      an array of objects of the same format or a function that will first be applied to all rows and then
+      update the dataset using the changed set of rows. For example::
+      %pre ds.update(rowsOrFunction, options);
       For example:
       :plain
         <pre>
-        ds.update(rowId, {
-          col1 : newVal, col2 : newVal ...
+        ds.update({
+          _id : 12, col1 : newVal, col2 : newVal ...
+        });
+        </pre>
+    %p
+      To update rows via a function pass a function that modifies each row in the dataset as it should
+      change, or returns false if the row should not be altered. For example:
+      :plain
+        <pre>
+        ds.update(function(row) {
+          if (row.value % 2 === 0) {
+            row.outcome = true;
+            return row;
+          } else {
+            return false;
+          }
         });
         </pre>
     

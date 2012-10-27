@@ -50,6 +50,11 @@
         </a>
       </span>
       <span>
+        <a href='/dataset/extensions.html'>
+          Extensions
+        </a>
+      </span>
+      <span>
         <a href='http://www.github.com/misoproject/dataset'>
           Code (Github)
         </a>
@@ -187,7 +192,7 @@
         <p>
           When any of the default events trigger (except for <code>sort</code>) an event object gets created and passed down to the callbacks. The event object is structured as follows:
           <ul>
-            <li>An event is of type <code>Miso.Event</code></li>
+            <li>An event is of type <code>Miso.Dataset.Event</code></li>
             <li>It has a <code>deltas</code> property that contains all the deltas that were generated for this specific event.</li>
           </ul>
         </p>
@@ -216,13 +221,13 @@
         <h4>Detecting Delta Types:</h4>
         <p>
           You can always check what type of a delta you've recieved by calling any of the following helper methods:
-          <pre>Miso.Event.isRemove(delta);</pre>
-          <pre>Miso.Event.isAdd(delta);</pre>
-          <pre>Miso.Event.isUpdate(delta);</pre>
+          <pre>Miso.Dataset.Event.isRemove(delta);</pre>
+          <pre>Miso.Dataset.Event.isAdd(delta);</pre>
+          <pre>Miso.Dataset.Event.isUpdate(delta);</pre>
         </p>
         <p>
           For example:
-          <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
           var ds = new Miso.Dataset({
             data : [
               { one : 12,  two : 40,  three : 40 },
@@ -235,9 +240,9 @@
             
             ds.bind("add", function(event) {
               log(JSON.stringify(event));
-              log("Is Add?", Miso.Event.isAdd(event.deltas[0]));
-              log("Is Remove?", Miso.Event.isRemove(event.deltas[0]));
-              log("Is Update?", Miso.Event.isUpdate(event.deltas[0]));
+              log("Is Add?", Miso.Dataset.Event.isAdd(event.deltas[0]));
+              log("Is Remove?", Miso.Dataset.Event.isRemove(event.deltas[0]));
+              log("Is Update?", Miso.Dataset.Event.isUpdate(event.deltas[0]));
             });
           
             ds.add({ one : 10, two : 3, three : 24 });
@@ -303,7 +308,7 @@
     </footer>
     <script src='/js/jquery.min.js'></script>
     <script src='/js/nav.js'></script>
-    <script src='/js/miso.ds.deps.0.1.0.js'></script>
+    <script src='/js/miso.ds.deps.0.3.0.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
     <script src='/js/codemirror.js'></script>

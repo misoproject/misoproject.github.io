@@ -63,81 +63,101 @@
     <article class='dataset'>
       <section class='tutorial'>
         <h2>
-          Live Data - Remote Polling
+          Computed Columns
         </h2>
         <p>
-          If you are handling a live data feed, you can initialize your dataset to perform
-          ajax-based polling at regular intervals to fetch your data. There are three different
-          ways in which this data can be merged into your existing dataset:
+          Often we want to compute values that are based on an existing row. Not only do we want to
+          compute them once, but we actually want to add them as a separate column that will keep
+          the values up to date with the row values. This is called a "Computed Column".
         </p>
-        <ul>
-          <li>
-            <b>Appended</b> (default) - All new rows will be appended to the end of the dataset.
-          </li>
-          <li>
-            <b>Reset</b> - All the current rows in the dataset will be thrown out and the new rows will be put into
-            the dataset. To enable this, set <code>resetOnFetch</code> to <code>true</code> when initializing
-            your dataset. This will fire a <code>reset</code> event on a syncable dataset.
-          </li>
-          <li>
-            <b>Unique</b> - By specifying a column on which the data is supposed to be unique, new incoming
-            rows will only be added IF the value in that column is unique. To enable this, set
-            <code>uniqueAgainst</code> to the column name you wish to check against. Note,
-            this is an expensive operation!
-          </li>
-        </ul>
-        <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-        // We will only make 5 requests in this example
-        var requests = 5, 
-            madeRequests = 0;
-        
-        // query twitter for tweets containing the term "javascript"
-        // and get 5 per page. Note that twitter uses jsonp requests, 
-        // so we toggle that flag too.
-        var ds = new Miso.Dataset({
-          url : "http://search.twitter.com/search.json?q=javascript&rpp=5&callback=",
-          interval : 1000,
-          jsonp : true,
-          // Because of the structure of tweets:
-          // https://dev.twitter.com/docs/api/1/get/search
-          // we actually extract the rows from the returned data first.
-          extract : function(data) {
-            return data.results;
-          }
-        });
-        
-        ds.fetch({
-          success : function() {
-            // track how many requests we've made
-            madeRequests++;
-            // If we reached our max
-            if (madeRequests >= requests) {
-              // stop the importer.
-              this.importer.stop();
-              // output our current collection of tweets
-              log(ds.column("text").data);
-            }
-            // update the number of rows we now have.
-            log(madeRequests, ds.length);
-          }
-        });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
-        <h3>Syncronization</h3>
         <p>
-          If you have <code>sync</code> set to <code>true</code> when initializing your dataset, then
-          fetch calls that append data in either the default manner or unique manner will trigger the "add"
-          event. The resetOnFetch will trigger the "reset" event before triggering the "add" event.
-          In all cases, the "add" event will be triggered once for all rows that were added.
+          For example, if we have a table that looks like this:
+          <table>
+            <tr>
+              <th>state</th>
+              <th>v1</th>
+              <th>v2</th>
+            </tr>
+            <tr>
+              <td>MA</td>
+              <td>10</td>
+              <td>20</td>
+            </tr>
+            <tr>
+              <td>VA</td>
+              <td>420</td>
+              <td>120</td>
+            </tr>
+          </table>
         </p>
-        <a href='/dataset/tutorials/creating' style='float:left;'>
-          <h2>
-            &laquo; Creating a Dataset
-          </h2>
-        </a>
-        <a href='/dataset/tutorials/data_types' style='float:right;'>
-          <h2>
-            Data Types &raquo;
-          </h2>
-        </a>
+        <p>
+          If we want to add a fourth column that will add the first two values, we would end up with this:
+          <table>
+            <tr>
+              <th>state</th>
+              <th>v1</th>
+              <th>v2</th>
+              <th>sum</th>
+            </tr>
+            <tr>
+              <td>MA</td>
+              <td>10</td>
+              <td>20</td>
+              <td>30</td>
+            </tr>
+            <tr>
+              <td>VA</td>
+              <td>420</td>
+              <td>120</td>
+              <td>540</td>
+            </tr>
+          </table>
+        </p>
+        <p>
+          To accomplish this, we would call:
+          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+          // initialize a new dataset
+          var ds = new Miso.Dataset({
+            data: { 
+              columns : [ 
+                { name : "state", data : ["MA", "VA"] },
+                { name : "v1", data : [10,20] },
+                { name : "v2", data : [420,120] }
+              ]
+            },
+            strict: true
+          });
+          
+          ds.fetch().then(function() {
+            // add a sum column that adds the v1 and v2 rows.
+            ds.addComputedColumn("sum", "number", function(row) {
+              return row.v1 + row.v2;
+            });
+          
+            // => [430,140]
+            log(ds.column("sum").data);
+          
+            ds.add({
+              state : "NH", v1 : 50, v2 : 20
+            });
+          
+            // => [430,140,70]
+            log(ds.column("sum").data);  
+          
+            // if we update any data in our existing rows, the column
+            // will also be updated to reflect that!
+            ds.update(function(row) {
+              row.v2 = row.v1 * 10;
+              return row;
+            });
+          
+            // => [110, 220, 550]
+            log(ds.column("sum").data);
+          });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+        </p>
+        <p>
+          Note: Computed columns update on "add", "remove" and "change" events regardless of whether the <code>sync</code> property was set.
+        </p>
       </section>
     </article>
     <footer>

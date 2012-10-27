@@ -54,7 +54,7 @@ task :copyfiles do
     return -1;
   end
 
-  version = "0.2"
+  version = "0.3.0"
   process = [
     "cp #{rootdir}/dist/LASTBUILD ./site/downloads",
     "cp #{rootdir}/dist/miso.ds.deps.#{version}.js ./site/js",

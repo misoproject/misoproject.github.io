@@ -50,6 +50,11 @@
         </a>
       </span>
       <span>
+        <a href='/dataset/extensions.html'>
+          Extensions
+        </a>
+      </span>
+      <span>
         <a href='http://www.github.com/misoproject/dataset'>
           Code (Github)
         </a>
@@ -61,15 +66,15 @@
           Data Columns & Types
         </h2>
         <p>
-          A Dataset is made up of Miso.Column objects, that each have a name, type and corresponding data. More about
-          the Miso.Column type can be found <a href="/dataset/api.html#misocolumn">in the API Docs</a>.
+          A Dataset is made up of Miso.Dataset.Column objects, that each have a name, type and corresponding data. More about
+          the Miso.Dataset.Column type can be found <a href="/dataset/api.html#misocolumn">in the API Docs</a>.
         </p>
         <p>
           By default, unless specified otherwise, Dataset will attempt to detect the column type itself by
           looking through the first few rows of the data and checking which type it fits under.
         </p>
         <div class='indent-1'>
-          Dataset has some prebuild Miso.types:
+          Dataset has some prebuild Miso.Dataset.types:
           <ul>
             <li><code>number</code></li>
             <li><code>string</code></li>
@@ -90,7 +95,7 @@
           numbers or timestamps to <code>moment</code> objects. For example, coercing an incoming
           timestamp string column into a time column and the total column to a numeric
           type would look like so:
-          <div class="codeblock"><textarea  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
           var ds = new Miso.Dataset({
             data : [
               { count : 12,  total : "40",  timestamp : "2012 04_20" },
@@ -115,11 +120,11 @@
         </p>
         <p>
           To define a new type, the required signature is as follows:
-          <div class="codeblock"><textarea  class="code" mode=""   showConsole="false" buttons="none" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""   showConsole="false" buttons="none" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
           // all types live under the Miso.types namespace.
           // Beware of overriding existing types. 
           // Nothing is stopping you from doing that.
-          Miso.types.yourCustomType = {
+          Miso.Dataset.types.yourCustomType = {
           
             // provide a name for your type.
             name : 'yourCustomTypeName',
@@ -149,7 +154,7 @@
         </p>
         <p>
           For example, we might define a custom <code>phone</code> type like so:
-          <div class="codeblock"><textarea id="customPhoneType" class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+          <div class="codeblock"><textarea name="codehelper" id="customPhoneType" class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
           // dummy phone number class
           var PhoneNumber = function(areacode, number) {
             this.areacode = +areacode;
@@ -165,7 +170,7 @@
           
           // Phone type. 
           // Converts a phone type to a phone type
-          Miso.types.phone = {  
+          Miso.Dataset.types.phone = {  
             name : "phone",
             // match phone numbers of the format:
             // XXX-XXX-XXXX or XXX XXX XXXX or XXXXXXXXXX
@@ -224,7 +229,7 @@
               log(this.column("phone").data[0].toString());
             }
           });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
-          <script type='codemirror/cleanup' data-selector='customPhoneType'>delete Miso.types.phone;</script></div>
+          <script type='codemirror/cleanup' data-selector='customPhoneType'>delete Miso.Dataset.types.phone;</script></div>
         </p>
         <a href='/dataset/tutorials/livedata' style='float:left;'>
           <h2>
@@ -270,7 +275,7 @@
     </footer>
     <script src='/js/jquery.min.js'></script>
     <script src='/js/nav.js'></script>
-    <script src='/js/miso.ds.deps.0.1.0.js'></script>
+    <script src='/js/miso.ds.deps.0.3.0.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
     <script src='/js/codemirror.js'></script>

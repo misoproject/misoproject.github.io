@@ -50,6 +50,11 @@
         </a>
       </span>
       <span>
+        <a href='/dataset/extensions.html'>
+          Extensions
+        </a>
+      </span>
+      <span>
         <a href='http://www.github.com/misoproject/dataset'>
           Code (Github)
         </a>
@@ -69,7 +74,7 @@
           Fetching github data...
         </div>
       </section>
-      <div class="codeblock"><textarea id="github" class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="true" callbacks-clear="" callbacks-reset="" callbacks-run="">
+      <div class="codeblock"><textarea name="codehelper" id="github" class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="true" callbacks-clear="" callbacks-reset="" callbacks-run="">
       
       var GH = {};
       
@@ -77,11 +82,11 @@
       // to handle any future Github commit data.
       GH.CommitsParser = function(options) {};
       
-      // a custom parser only needs extend the base Miso.Parsers.prototype
+      // a custom parser only needs extend the base Miso.Dataset.Parsers.prototype
       // and provide a parse method that takes in the data and returns
       // an object containint a column name array and a data object
       // containing the data for each column.
-      _.extend(GH.CommitsParser.prototype, Miso.Parsers.prototype, {
+      _.extend(GH.CommitsParser.prototype, Miso.Dataset.Parsers.prototype, {
         parse : function(data) {
       
           // we really only want to grab a few data points from the entire
@@ -175,12 +180,10 @@
       
           // now, we should make sure the list is sorted by dates, since we've been arbitrarily
           // adding rows of 0s to the end!
-          commitsByDay.sort({ 
-            comparator : function(row1, row2) {
-              if (row1.date.valueOf() < row2.date.valueOf())   { return -1; }
-              if (row1.date.valueOf() > row2.date.valueOf())   { return  1; }
-              if (row1.date.valueOf() === row2.date.valueOf()) { return  0; }
-            }
+          commitsByDay.sort(function(row1, row2) {
+            if (row1.date.valueOf() < row2.date.valueOf())   { return -1; }
+            if (row1.date.valueOf() > row2.date.valueOf())   { return  1; }
+            if (row1.date.valueOf() === row2.date.valueOf()) { return  0; }
           });
       
           // Clear any existing sparklines in the div.
@@ -228,7 +231,7 @@
     </footer>
     <script src='/js/jquery.min.js'></script>
     <script src='/js/nav.js'></script>
-    <script src='/js/miso.ds.deps.0.1.0.js'></script>
+    <script src='/js/miso.ds.deps.0.3.0.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
     <script src='/js/codemirror.js'></script>

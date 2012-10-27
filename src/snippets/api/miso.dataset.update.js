@@ -10,10 +10,21 @@ ds.fetch({
 
     log(this.column('two').data);
 
+    // update just the first row
+    var firstRow = this.rowByPosition(0);
+    this.update({ _id : firstRow._id, one : 100 });
+
+    log(this.rowByPosition(0));
+
     // update all rows where col three == 7
     this.update(function(row) {
-      return row.three === 7;
-    }, { two: 99 });
+      if (row.three === 7) {
+        row.two = 99;
+        return row;
+      } else {
+        return false;
+      }
+    });
 
     log(this.column('two').data);
   }
