@@ -1,2 +1,42 @@
 - @page_title = "The Miso Project :: Storyboard"
 - @layout = "storyboard"
+
+
+%article.dataset
+  %section.intro
+    %div.left
+      %img{ :src => '/images/storyboard.png' }
+      %p
+        Storyboard is a JavaScript library for managing the flow of interactive content and other 
+        application control flow logic.  
+    %div.download
+      %h2
+        Download 
+        %a{ :href => 'https://github.com/misoproject/storyboard/' }
+          0.0.1 alpha
+          
+      %a.button{ :href => 'https://github.com/downloads/misoproject/storyboard/miso.storyboard.0.0.1.js', :onclick => "_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Unminified, No Dependencies']);" }
+        &darr; development
+      %a.button{ :href => 'https://github.com/downloads/misoproject/storyboard/miso.storyboard.min.0.0.1.js', :onclick => "_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Minified, No Dependencies']);" }
+        &darr; production
+      %a.button{ :href => 'https://github.com/downloads/misoproject/storyboard/miso.storyboard.deps.0.0.1.js', :onclick => "_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Unminified, With Dependencies']);" }
+        &darr; development
+      %a.button{ :href => 'https://github.com/downloads/misoproject/storyboard/miso.storyboard.deps.min.0.0.1.js', :onclick => "_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Minified, With Dependencies']);" }
+        &darr; production
+      
+
+  %section.quickstart
+    %div.left
+      %p
+        When creating interactive content one often must manage transitions and different modes of an application. This often results in either highly event-driven
+        code or a spaghetti monster.
+      %p
+        Storyboard.js is a tiny library that allows one to define scenes and then define entry and exit flows for each scenes. As the application progresses
+        based on user actions or a predefined flow, the entry and exit functions execute in accordance with the switching of scenes.
+      %p
+        For those familiar with state machines, Storyboard.js aims to be a lightweight state machine (in that it does not have restrictions on where one comes from or goes to.) For those of you familiar with Scene graphs. Storyboard.js aims to make it easy to build them in JavaScript.
+      %p
+        Storyboard.js is built on top of Deferreds, making it suitable for the asyncronous nature of browser animations and transitions.
+      %p
+        Follow along for releases &amp; announcements at <a href="http://www.twitter.com/themisoproject">@themisoproject</a>
+    = toRunnableCodeBlock("storyboard/examples/quickstart.js", nil, { :autorun => false })
