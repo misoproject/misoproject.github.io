@@ -12,8 +12,9 @@ var boxes = new Miso.Storyboard({
       },
 
       exit : function() {
-        // we are almost done loading, set up the stage
-        // with the elements we need
+        // we are almost done loading,
+        // set up the stage
+        // with the elements we need.
         demoBlock.empty();
         for(var i = 0; i < 9; i++) {
           var box = makeOrangeBox();
@@ -26,27 +27,29 @@ var boxes = new Miso.Storyboard({
 
     painting : {
       enter : function() {
+
         // we are going to use some jQuery transitions, 
         // so this will be an async function
         var transitionDone = this.async();
         
         // fade the boxes in
-        for(var i = 0; i < boxCache.length; i++) {
+        for (var i = 0; i < boxCache.length; i++) {
           boxCache[i].delay(i * 200).fadeIn('slow');
           // on the last box, notify that we are done with
           // this transition by calling transitionDone!
           if (i === boxCache.length-1) {
             boxCache[i].promise().done(transitionDone);
           }
-        }
+        };
       },
 
       exit : function() {
+
         // The painting out is also asynchronous!
         var transitionDone = this.async();
         
         // Fade the boxes out
-        for(var i = boxCache.length - 1; i >= 0; i--) {
+        for (var i = boxCache.length - 1; i >= 0; i--) {
           // reverse the delay on the fade out.
           boxCache[i]
             .delay((boxCache.length - i + 1) * 400)
@@ -55,7 +58,8 @@ var boxes = new Miso.Storyboard({
           if (i === 0) {
             boxCache[i].promise().done(transitionDone);
           }
-        }
+
+        };
       }
     },
 
