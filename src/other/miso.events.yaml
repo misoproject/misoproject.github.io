@@ -1,60 +1,40 @@
 ---
-name: Miso.Dataset.Events
+name: Miso.Evets
 description: |
-  Miso.Dataset.Events is a mixin used to add event binding/triggering functionality to many parts of
-  dataset.
-instance_methods:
+  %p
+    To specify a custom parser, during dataset instantiation set the <code>parser</code> property 
+    to the class name of the parser you want. Some parsers require some custom properties. 
+    This section will document the properties you can set that will either cause this parser 
+    to be selected or will be required by it to continue.
+methods : 
 -
-  name: bind
-  signature: obj.bind(event, callback, context)
-  returns: obj
+  name: publish
+  signature: object.publish( eventName )
+  returns: this
   description: |
-    Used to bind events to the given object
-    = toRunnableCodeBlock("api/miso.events.bind")
+    Publish an event on the object the events have been mixed in to.
   params:
   -
-    name: event
+    name: name
     type: String
     required: true
-    description: Name of event to be bound to
-  -
-    name: callback
-    type: Function
-    required: true
-    description: function to be called when the event is triggered
-  -
-    name: context
-    type: Object
-    description: context in which the callback function will be run.
-
+    description:
+      Name of the event to publish
 -
-  name: unbind
-  signature: obj.unbind(event, callback)
-  returns: obj
+  name: subscribe
+  signature: object.subscribe( eventName, callback, options )
+  returns: token
   description: |
-    Unbind callbacks from an event, if no callback is given all callbacks will be
-    unbound from the event.
-    = toRunnableCodeBlock("api/miso.events.unbind")
+    Subscribe to an event by passing in a name and a callback function. 
+    The token option allows you to supply the token that you can use to 
+    uniquely identify the subscription. The priority subscription allows you
+    to specify the running order of event subscriptions with higher numbers
+    being run earlier.
   params:
   -
-    name: event
+    name: name:
     type: String
     required: true
-    description: Event from which to unbind callback(s)
+    description: 
+      Name of the event to subscribe to
   -
-    name: callback
-    type: Function
-    description: Callback to be removed from the event.
--
-  name: trigger
-  signature: obj.trigger(event)
-  returns: obj
-  description: |
-    Trigger a given event on the object
-    = toRunnableCodeBlock("api/miso.events.bind")
-  params:
-  -
-    name: event
-    type: String
-    required: true
-    description: Name of the event to be triggered

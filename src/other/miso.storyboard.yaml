@@ -1,0 +1,43 @@
+---
+name: Miso.Storyboard
+description: |
+  %p
+    To specify a custom parser, during dataset instantiation set the <code>parser</code> property 
+    to the class name of the parser you want. Some parsers require some custom properties. 
+    This section will document the properties you can set that will either cause this parser 
+    to be selected or will be required by it to continue.
+
+  %p 
+    Built in Parsers include:
+    %ul
+      %li <code>Miso.Dataset.Parsers.Strict</code>
+      %li <code>Miso.Dataset.Parsers.Object</code>
+      %li <code>Miso.Dataset.Parsers.Delimited</code>
+      %li <code>Miso.Dataset.Parsers.GoogleSpreadsheet</code>
+  %p
+    The base <code>Miso.Parser</code> structure is:
+    = toDisplayCodeBlock("api/parser.js")
+
+  %h3 Miso.Dataset.Parsers.Strict
+  %p
+    %ul
+      %li 
+        <code>strict</code> - Set this to true when initializing a dataset to indicate 
+        the default internal format should be used.
+
+  %h3 Miso.Dataset.Parsers.Object
+  %p
+    The object parser expects an array of objects where each key is the column name.
+  %p
+    %ul
+      %li <code>data</code> - The local var containing the data to be parsed.
+
+  %h3 Miso.Dataset.Parsers.Delimited
+  %p
+    %ul
+      %li <code>delimiter</code> - The string that is delimiting the column values.
+  %p
+    %b Note:
+    The delimited parser will assign custom column names in case the header row exists, but has
+    missing values. They will be of the form XN where N starts at 0.
+
