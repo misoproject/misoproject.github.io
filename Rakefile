@@ -46,11 +46,29 @@ task :deploy do
   # puts go.join(' && ')
 end
 
+desc "Copy storyboard build files"
+task :copystoryboardfiles do
+  rootdir = ENV['DIR']
+  version = ENV['VERSION'] || "0.0.1"
+
+  if (ENV['DIR'].nil?)
+    puts "Set DIR= to your storyboard folder"
+    return -1;
+  end
+
+  process = [
+    "cp #{rootdir}/dist/LASTBUILD ./site/downloads",
+    "cp #{rootdir}/dist/miso.storyboard.deps.#{version}.js ./site/js/miso.storyboard.deps.js"
+  ]
+
+  `#{ process.join(' && ') }`
+end
+
 desc "Copy over dataset build files"
-task :copyfiles do
+task :copydatasetfiles do
   rootdir = ENV['DIR']
   if (ENV['DIR'].nil?)
-    puts "Set DIR= to your website folder"
+    puts "Set DIR= to your dataset folder"
     return -1;
   end
 

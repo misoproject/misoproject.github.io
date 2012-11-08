@@ -1,0 +1,25 @@
+- @page_title = "The Miso Project :: Storyboard :: Tutorials"
+- @layout = "storyboard"
+
+%article.dataset
+  %section.tutorial
+    %h2 Nesting Storyboards
+    %p
+      Storyboards don't have to become huge. If at any point a storyboard becomes too
+      large or difficult to manage, you can always define a separate storyboard and then
+      tie it into an original one. Storyboards can be infinitly nested! 
+    %p
+      In order to declare a specific scene as being a storyboard of itself, just set it
+      equal to a new Miso.Storyboard instead of the standard object containing enter and exit
+      methods.
+
+    = toRunnableCodeBlock("storyboard/nesting/sample.js")
+
+    %a{ :href => '/storyboard/tutorials/async', :style => 'float:left;' }
+      %h2
+        &laquo; Asyncronous Scenes
+
+    %a{ :href => '/storyboard/tutorials/nesting', :style => 'text-align:right;' }
+      %h2
+        Working with Dataset &raquo;
+

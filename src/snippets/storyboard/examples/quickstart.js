@@ -1,4 +1,5 @@
-var demoBlock = $('#demoblock'), boxCache;
+var demoBlock = $('#demoblock'), 
+    boxCache;
 var boxes = new Miso.Storyboard({
   initial : 'loading',
   scenes : {
@@ -7,7 +8,7 @@ var boxes = new Miso.Storyboard({
       enter : function() {
         // set up some loading text...
         boxCache = [];
-        demoBlock.html("Loading...");
+        demoBlock.html("Click Run to paint more boxes...");
       },
 
       exit : function() {
@@ -16,18 +17,8 @@ var boxes = new Miso.Storyboard({
         // with the elements we need.
         demoBlock.empty();
         for(var i = 0; i < 9; i++) {
-          var box = $('<div>')
-            .attr('class', 'demoBox')
-            .css({
-              display : 'none',
-              width : '50px',
-              height : '50px',
-              float : 'left',
-              margin: 4,
-              backgroundColor : 'orange',
-              position : 'relative'
-            });
-          box.appendTo(demoBlock)
+          var box = makeOrangeBox();
+          box.appendTo(demoBlock);
           boxCache.push(box);
         }
       }
@@ -36,34 +27,39 @@ var boxes = new Miso.Storyboard({
 
     painting : {
       enter : function() {
-        // we are going to use some jQuery 
-        // transitions, so this will be
-        // an async function
-        var done = this.async();
+
+        // we are going to use some jQuery transitions, 
+        // so this will be an async function
+        var transitionDone = this.async();
         
         // fade the boxes in
-        _.each(boxCache, function(box, i) {
-          box.delay( i * 200 ).fadeIn('slow');
-
-          // on the last box, make sure you notify 
-          // that we are done with this specific 
-          // sequence by calling the done function!
+        for (var i = 0; i < boxCache.length; i++) {
+          boxCache[i].delay(i * 200).fadeIn('slow');
+          // on the last box, notify that we are done with
+          // this transition by calling transitionDone!
           if (i === boxCache.length-1) {
-            boxCache[i].promise().done( done );
+            boxCache[i].promise().done(transitionDone);
           }
-        });
+        };
       },
 
       exit : function() {
-        var done = this.async();
-        _.each(boxCache, function(box, i) {
-          var delay = (boxCache.length-i+1)*400
-          box.delay( delay ).fadeOut('slow');
+
+        // The painting out is also asynchronous!
+        var transitionDone = this.async();
+        
+        // Fade the boxes out
+        for (var i = boxCache.length - 1; i >= 0; i--) {
+          // reverse the delay on the fade out.
+          boxCache[i]
+            .delay((boxCache.length - i + 1) * 400)
+            .fadeOut('slow');
+          // When we fade out the first box, we are done.
           if (i === 0) {
-            boxCache[i].promise().done( done );
+            boxCache[i].promise().done(transitionDone);
           }
 
-        });
+        };
       }
     },
 

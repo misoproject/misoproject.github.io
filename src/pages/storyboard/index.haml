@@ -7,7 +7,7 @@
     %div.left
       %img{ :src => '/images/storyboard.png' }
       %p
-        Storyboard is a JavaScript library for managing the flow of interactive content and other 
+        Storyboard is a JavaScript library for managing the flow of interactive content and general 
         application control flow logic.  
     %div.download
       %h2
@@ -18,11 +18,11 @@
       %a.button{ :href => 'https://github.com/downloads/misoproject/storyboard/miso.storyboard.0.0.1.js', :onclick => "_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Unminified, No Dependencies']);" }
         &darr; development
       %a.button{ :href => 'https://github.com/downloads/misoproject/storyboard/miso.storyboard.min.0.0.1.js', :onclick => "_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Minified, No Dependencies']);" }
-        &darr; production
+        &darr; production (minified)
       %a.button{ :href => 'https://github.com/downloads/misoproject/storyboard/miso.storyboard.deps.0.0.1.js', :onclick => "_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Unminified, With Dependencies']);" }
-        &darr; development
+        &darr; development with dependencies
       %a.button{ :href => 'https://github.com/downloads/misoproject/storyboard/miso.storyboard.deps.min.0.0.1.js', :onclick => "_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Minified, With Dependencies']);" }
-        &darr; production
+        &darr; production with dependencies (minified)
       
 
   %section.quickstart
@@ -36,7 +36,7 @@
       %p
         For those familiar with state machines, Storyboard.js aims to be a lightweight state machine, in that it does not have restrictions on where one comes from or goes to.
       %p
-        Using deferreds Storyboard.js provides an abstraction that makes managing asynchronous animations, remote requests and transitions
+        Using deferreds, Storyboard.js provides an abstraction that makes managing asynchronous animations, remote requests and transitions
         easier and more readable.
       %p
         Follow along for releases &amp; announcements at <a href="http://www.twitter.com/themisoproject">@themisoproject</a>
@@ -46,4 +46,19 @@
         
       </style>
     %div#demoblock{ :style => 'float: left; width: 34.5em;'}
+    :plain
+      <script type="text/javascript">
+        function makeOrangeBox() {
+          var box = $('<div>', { className : 'demoBox' }).css({
+            display : 'none',
+            width : '50px',
+            height : '50px',
+            float : 'left',
+            margin: 4,
+            backgroundColor : 'orange',
+            position : 'relative'
+          });
+          return box;
+        }
+      </script>
     = toRunnableCodeBlock("storyboard/examples/quickstart.js", nil, { :autorun => false })

@@ -1,0 +1,33 @@
+- @page_title = "The Miso Project :: Storyboard :: Tutorials"
+- @layout = "storyboard"
+
+%article.dataset
+  %section.tutorial
+    %h2 Asyncronous Scenes
+    %p
+      More often than not, a lot of your code will be asyncronous by nature. As you know
+      in JavaScript, this can mean your function actually exists before the asyncronous
+      code is done running! If you are trying to chain behavior, this can be a problem because
+      things will get out of sync pretty fast.
+    %p
+      Storyboard scenes can declare themselves as being asynchronous. To do so you need to:
+      
+      %ul
+        %li
+          Create a variable that saves the return of the function call <code>this.async()</code>.
+          This marks the function as async and as a result doesn't resolve the deferred it
+          normally would.
+        %li
+          When the async work is done, call that saved function to signal that the work is 
+          indeed done.
+
+    = toRunnableCodeBlock("storyboard/async/sample.js")
+
+    %a{ :href => '/storyboard/tutorials/quickstart', :style => 'float:left;' }
+      %h2
+        &laquo; Quickstart Guide
+
+    %a{ :href => '/storyboard/tutorials/remotedata', :style => 'text-align:right;' }
+      %h2
+        Remote Data &raquo;
+
