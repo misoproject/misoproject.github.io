@@ -1,0 +1,24 @@
+- @page_title = "The Miso Project :: Storyboard :: Tutorials"
+- @layout = "storyboard"
+
+- @extra_scripts = capture_haml do
+  %script{ :type => "text/javascript", :src => "/js/miso.ds.deps.0.3.0.js"}
+
+%article.dataset
+  %section.tutorial
+    %h2 Working with Remote Data
+    %p 
+      Givem the asynchronous nature of storyboard, you can use scenes
+      to actually setup your environment. Tasks such as creating DOM strcutures
+      that are invisible or fetching data are common setup tasks. In this guide
+      we will look quickly at how one might integrate Storyboard with Dataset.
+
+    = toRunnableCodeBlock("storyboard/remotedata/withdataset.js")
+
+    %a{ :href => '/storyboard/tutorials/async', :style => 'float:left;' }
+      %h2
+        &laquo; Asyncronous Scenes
+
+    %a{ :href => '/storyboard/tutorials/?', :style => 'text-align:right;' }
+      %h2
+        ? &raquo;

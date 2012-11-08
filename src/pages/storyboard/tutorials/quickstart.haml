@@ -1,0 +1,112 @@
+- @page_title = "The Miso Project :: Storyboard :: Tutorials"
+- @layout = "storyboard"
+
+%article.dataset
+  %section.tutorial
+    %h2 Quick Start!
+    %p
+      There are two ways to use Storyboard:
+
+    %h3 In the Browser
+    %p
+      To get storyboard into your web development environment, follow the following steps:
+    %div.indent-1  
+      %h4 Download the right build for your environment:
+      %div{ :style => 'width:100%; display:inline-block;' }
+        %div.download{ :style => 'width:100%;'}
+          %a.button{ :href => 'https://github.com/downloads/misoproject/storyboard/miso.storyboard.0.0.1.js', :onclick => "_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Unminified, No Dependencies']);" }
+            &darr; development
+          %a.button{ :href => 'https://github.com/downloads/misoproject/storyboard/miso.storyboard.min.0.0.1.js', :onclick => "_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Minified, No Dependencies']);" }
+            &darr; production (minified)
+          %a.button{ :href => 'https://github.com/downloads/misoproject/storyboard/miso.storyboard.deps.0.0.1.js', :onclick => "_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Unminified, With Dependencies']);" }
+            &darr; development with dependencies
+          %a.button{ :href => 'https://github.com/downloads/misoproject/storyboard/miso.storyboard.deps.min.0.0.1.js', :onclick => "_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Minified, With Dependencies']);" }
+            &darr; production with dependencies (minified)
+
+      %h4 Include the appropriate script tags:
+      %p 
+        = toHTMLCodeBlock("storyboard/quickstart/index.html")
+      
+      
+      %h4 Start using Miso.Storyboard in your code!
+      %p
+        You should now have access to the <code>Miso.Storyboard</code> object in your code.
+
+
+    %h3 In Node.js
+    %div.indent-1
+      %h4 Install appropriate package:
+      %pre npm install miso.storyboard
+      %h4 Use the library in code:
+      :plain
+        <pre>
+        var Miso = require("miso.storyboard");
+        var story = new Miso.Storyboard({
+          //...
+        });
+        </pre>
+
+    %h3 Dependencies
+    %div.indent-1
+      %p
+        If you chose to include the production version without built in dependencies, you may need to include them yourself. Storyboard requires the following libraries:
+        %ul
+          %li= link_to 'LoDash 0.9.1','http://lodash.com/'
+          %li= link_to 'Underscore.deferred.js 0.2.0','https://github.com/wookiehangover/underscore.Deferred'
+
+    %h2 Creating Your First Storyboard
+    %div.indent-1
+      %p
+        First, we define a new Miso.Storyboard and set the following parameters on it:
+        
+      %h3 Required:
+      %p
+        %ol
+          %li
+            %code initial
+            &ndash; What's the name of the initial scene we will kick off from?
+          %li
+            %code scenes
+            &ndash; The actual scenes we want to be a part of this storyboard. See below for how one defines a scene.
+
+        
+      %h4 Optional:
+      %p
+        %ol
+          %li
+            %code context 
+            &ndash; What should 'this' be inside each scene? By default the storyboard or scene itself.
+          %li
+            Any other method or property!! You can define your own functions and properties here. 
+            They will be available to each other under the <code>this</code> object, but to each scene
+            they will be available under <code>this.parent.myCustomFunction()</code>.
+
+      %h4 Defining a Scene
+
+      %p
+        A scene has the following key methods:
+        %ol
+          %li
+            %code enter
+            &ndash; The function that is called when a scene is entered. You don't have to define it if you don't 
+            want to. By default, it will just be a passthrough.
+            If you want to prevent the transition from happening, you can return <code>false</code> from
+            this function, and it will cancel the transition and fail the deferred.
+          %li
+            %code exit
+            &ndash; The function that is called when a scene is exiting. You don't have to define it if you don't 
+            want to. By default, it will just be a passthrough.
+            If you want to prevent the transition from happening, you can return <code>false</code> from
+            this function, and it will cancel the transition and fail the deferred.
+
+      %h4 Example:
+      %p      
+        #walkthrough
+          Walkthrough text here:
+          %br
+        = toRunnableCodeBlock("storyboard/quickstart/storyboard.js")
+
+    
+    %a{ :href => '/storyboard/tutorials/async', :style => 'text-align:right;' }
+      %h2
+        Asyncronous Scenes &raquo;
