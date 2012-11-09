@@ -1,43 +1,67 @@
 ---
 name: Miso.Storyboard
+inherits: ['Miso.Events']
 description: |
   %p
-    To specify a custom parser, during dataset instantiation set the <code>parser</code> property 
-    to the class name of the parser you want. Some parsers require some custom properties. 
-    This section will document the properties you can set that will either cause this parser 
-    to be selected or will be required by it to continue.
+    <code>Miso.Storyboard</code> is the main object you'll instantiate to create a new Storyboard.
+methods : 
+-
+  name: constructor
+  signature: new Miso.Storyboard( options )
+  returns: Miso.Storyboard
+  description: |
+    Returns a new storyboard.
+  params:
+  -
+    name: 'options'
+    type: 'Object'
+    required: true
+    description: >
+      Object containing all the initial configuration for the storyboard.
 
-  %p 
-    Built in Parsers include:
-    %ul
-      %li <code>Miso.Dataset.Parsers.Strict</code>
-      %li <code>Miso.Dataset.Parsers.Object</code>
-      %li <code>Miso.Dataset.Parsers.Delimited</code>
-      %li <code>Miso.Dataset.Parsers.GoogleSpreadsheet</code>
-  %p
-    The base <code>Miso.Parser</code> structure is:
-    = toDisplayCodeBlock("api/parser.js")
-
-  %h3 Miso.Dataset.Parsers.Strict
-  %p
-    %ul
-      %li 
-        <code>strict</code> - Set this to true when initializing a dataset to indicate 
-        the default internal format should be used.
-
-  %h3 Miso.Dataset.Parsers.Object
-  %p
-    The object parser expects an array of objects where each key is the column name.
-  %p
-    %ul
-      %li <code>data</code> - The local var containing the data to be parsed.
-
-  %h3 Miso.Dataset.Parsers.Delimited
-  %p
-    %ul
-      %li <code>delimiter</code> - The string that is delimiting the column values.
-  %p
-    %b Note:
-    The delimited parser will assign custom column names in case the header row exists, but has
-    missing values. They will be of the form XN where N starts at 0.
+    params:
+    -
+      name: scenes
+      type: Object
+      description: 'An object containing each othe scene definitions and handlers'
+    -
+      name: initial 
+      type: String
+      description: 'The name of the initial scene the storyboard should enter when <code>start</code>is run'
+    -
+      name: context
+      type: Object
+      description: 'The context in which scene handlers should run'
+instance_methods:
+-
+  name: start
+  signature: storyboard.start()
+  returns: Deferred
+  description: 'Start a storyboard, causes a transition to the state defined by <code>initial</code>'
+-
+  name: to
+  signature: storyboard.to( sceneName )
+  returns: Deferred
+  description: 'Trigger a transition to the scene named'
+-
+  name: cancelTransition
+  signature: storyboard.cancelTransition()
+  returns: this
+  description: 'Cancel the running transition and trigger and failure handlers that were bound to its deferred'
+-
+  name: scene
+  signature: storyboard.scene()
+  returns: String
+  description: 'Get the name of the current scene'
+-
+  name: is
+  signature: storyboard.is( sceneName )
+  returns: Boolean
+  description: 'Check if sceneName is the same as the name of the current scene.'
+  params:
+-
+  name: inTransition
+  signature: storyboard.inTransition()
+  returns: Boolean
+  description: 'Check if the storyboard is currently in the middle of a transition'
 

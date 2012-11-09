@@ -20,7 +20,7 @@ methods:
   -
     name: 'options'
     type: 'Object'
-    required: true,
+    required: true
     description: >
       Object containing all the initial configuration for the dataset.
     

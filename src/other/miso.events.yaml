@@ -1,11 +1,10 @@
 ---
-name: Miso.Evets
+name: Miso.Events
 description: |
   %p
-    To specify a custom parser, during dataset instantiation set the <code>parser</code> property 
-    to the class name of the parser you want. Some parsers require some custom properties. 
-    This section will document the properties you can set that will either cause this parser 
-    to be selected or will be required by it to continue.
+    Miso.Events is a simple set of pub/sub methods that can be added to any object. Miso Events
+    support not just simple subscriptions but also make identifiying individual subscriptions
+    easier through a token system and support callback priority.
 methods : 
 -
   name: publish
@@ -32,9 +31,70 @@ methods :
     being run earlier.
   params:
   -
-    name: name:
+    name: name
     type: String
     required: true
-    description: 
+    description: |
       Name of the event to subscribe to
   -
+    name: callback
+    type: Function
+    required: true
+    description: |
+      Callback function to be run
+  -
+    name: 'options'
+    type: 'Object'
+    required: false
+    description: >
+      Optional configuration parameters
+    
+    params:
+    -
+      name: token 
+      type: String
+      description: 'String token to uniquely identify the subscription, will be generated if not passed in'
+    -
+      name: priority
+      type: Number
+      description: 'Priority number, a higher number will mean the callback will be run earlier'
+-
+  name: subscribeOnce
+  signature: object.subscribeOnce( eventName, callback )
+  returns: token
+  description: |
+    Create a subscription that will only be run once.
+  params:
+  -
+    name: name
+    type: String
+    required: true
+    description: |
+      Name of the event to subscribe to
+  -
+    name: callback
+    type: Function
+    required: true
+    description: |
+      Callback function to be run
+-
+  name: unsubscribe
+  signature: object.unsubscribe( eventName, identifier )
+  returns: this
+  description: |
+    Destroy a subscription. If no identifier is provided all subscriptions to the
+    event will be destroyed.
+  params:
+  -
+    name: name
+    type: String
+    required: true
+    description: |
+      Name of the event to subscribe to
+  -
+    name: identifier
+    type: String || Function
+    required: false
+    description: |
+      Either a subscription token or a callback function.
+
