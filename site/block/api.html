@@ -17,7 +17,7 @@
     <meta content='The Miso Project' name='description' />
     <meta content='The Miso Project' name='name' />
     <meta content='width=device-width' name='viewport' />
-    <title>The Miso Project :: Dataset :: Tutorials</title>
+    <title>The Miso Project :: Block :: API Reference</title>
     <link href='/stylesheets/screen.css' rel='stylesheet' />
     <link href='/stylesheets/codemirror.css' rel='stylesheet' />
     
@@ -30,83 +30,27 @@
         </a>
       </span>
       <span>
-        <a href='/dataset'>
+        <a href='/block'>
           Home
         </a>
       </span>
       <span>
-        <a href='/dataset/examples.html'>
-          Examples
-        </a>
-      </span>
-      <span>
-        <a href='/dataset/tutorials.html'>
+        <a href='/block/tutorials.html'>
           Tutorials
         </a>
       </span>
       <span>
-        <a href='/dataset/api.html'>
+        <a href='/block/api.html'>
           API Doc
         </a>
       </span>
       <span>
-        <a href='/dataset/extensions.html'>
-          Extensions
-        </a>
-      </span>
-      <span>
-        <a href='http://www.github.com/misoproject/dataset'>
+        <a href='http://www.github.com/misoproject/block'>
           Code (Github)
         </a>
       </span>
     </nav>
-    <article class='dataset'>
-      <section class='tutorial'>
-        <h2>
-          Require.js
-        </h2>
-        <p>
-          Dataset now ships a build that can be used with require.js. There is a specific build that includes require support and it is <b>miso.ds.X.X.X.m.js</b>. Note that this build does <b>not</b> include dependencies because you are supposed to manage those with require. You will need to include "moment" and "lodash/underscore" as dependencies.
-        </p>
-        <p>
-          For example, you can require dataset like so:
-          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""   showConsole="false" buttons="none" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-          require.config({
-          
-            // Initialize the application with the main application file.
-            deps: [ "main"],
-          
-            paths: {
-              // JavaScript folders.
-              libs: "../assets/js/libs",
-          
-              // Libraries.
-              lodash: "../assets/js/libs/lodash",
-              moment: "../assets/js/libs/moment",
-              
-              miso: "../assets/js/libs/miso.dataset"
-            },
-          
-            shim: {
-          
-              miso : {
-                deps : ["lodash", "moment"],
-                exports: "Miso"
-              }
-            }
-          });</textarea></div>
-        </p>
-        <p>
-          You can then require it in your actual module definitions like so:
-          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""   showConsole="false" buttons="none" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-          define(["miso"],
-            function(Miso) {
-              console.log(Miso);
-            }
-          );</textarea></div>
-        </p>
-      </section>
-    </article>
+    
     <footer>
       <div class='container'>
         <section>
@@ -139,7 +83,7 @@
     </footer>
     <script src='/js/jquery.min.js'></script>
     <script src='/js/nav.js'></script>
-    <script src='/js/miso.ds.deps.0.3.0.js'></script>
+    <script src='/js/miso.block.deps.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
     <script src='/js/codemirror.js'></script>

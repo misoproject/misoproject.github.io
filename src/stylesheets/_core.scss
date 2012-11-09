@@ -28,6 +28,7 @@ body {
 
 article.miso    { @include colourise( #D35E1D ); }
 article.dataset { @include colourise( #2585EC ); }
+article.storyboard{ @include colourise( #ba3644 ); }
 
 @mixin bigtype {
   font-size: ($font-size + 4) / $em;

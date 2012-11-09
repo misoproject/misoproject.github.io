@@ -17,7 +17,7 @@
     <meta content='The Miso Project' name='description' />
     <meta content='The Miso Project' name='name' />
     <meta content='width=device-width' name='viewport' />
-    <title>The Miso Project :: Dataset :: Tutorials</title>
+    <title>The Miso Project :: Storyboard :: Tutorials</title>
     <link href='/stylesheets/screen.css' rel='stylesheet' />
     <link href='/stylesheets/codemirror.css' rel='stylesheet' />
     
@@ -30,81 +30,99 @@
         </a>
       </span>
       <span>
-        <a href='/dataset'>
+        <a href='/storyboard'>
           Home
         </a>
       </span>
       <span>
-        <a href='/dataset/examples.html'>
-          Examples
-        </a>
-      </span>
-      <span>
-        <a href='/dataset/tutorials.html'>
+        <a href='/storyboard/tutorials.html'>
           Tutorials
         </a>
       </span>
       <span>
-        <a href='/dataset/api.html'>
+        <a href='/storyboard/api.html'>
           API Doc
         </a>
       </span>
       <span>
-        <a href='/dataset/extensions.html'>
-          Extensions
-        </a>
-      </span>
-      <span>
-        <a href='http://www.github.com/misoproject/dataset'>
+        <a href='http://www.github.com/misoproject/storyboard'>
           Code (Github)
         </a>
       </span>
     </nav>
     <article class='dataset'>
       <section class='tutorial'>
-        <h2>
-          Require.js
-        </h2>
+        <h2>Asyncronous Scenes</h2>
         <p>
-          Dataset now ships a build that can be used with require.js. There is a specific build that includes require support and it is <b>miso.ds.X.X.X.m.js</b>. Note that this build does <b>not</b> include dependencies because you are supposed to manage those with require. You will need to include "moment" and "lodash/underscore" as dependencies.
+          More often than not, a lot of your code will be asyncronous by nature. As you know
+          in JavaScript, this can mean your function actually exists before the asyncronous
+          code is done running! If you are trying to chain behavior, this can be a problem because
+          things will get out of sync pretty fast.
         </p>
         <p>
-          For example, you can require dataset like so:
-          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""   showConsole="false" buttons="none" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-          require.config({
-          
-            // Initialize the application with the main application file.
-            deps: [ "main"],
-          
-            paths: {
-              // JavaScript folders.
-              libs: "../assets/js/libs",
-          
-              // Libraries.
-              lodash: "../assets/js/libs/lodash",
-              moment: "../assets/js/libs/moment",
-              
-              miso: "../assets/js/libs/miso.dataset"
+          Storyboard scenes can declare themselves as being asynchronous. To do so you need to:
+          <ul>
+            <li>
+              Create a variable that saves the return of the function call <code>this.async()</code>.
+              This marks the function as async and as a result doesn't resolve the deferred it
+              normally would.
+            </li>
+            <li>
+              When the async work is done, call that saved function to signal that the work is
+              indeed done.
+            </li>
+          </ul>
+        </p>
+        <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+        var story = new Miso.Storyboard({
+          initial : 'loading',
+          scenes : {
+            // do nothing here... just kicking things off.
+            loading : {},
+            a : {
+              enter : function() {
+                // declare this function is asyncronous!
+                // Calling this.async returns a _function_
+                // you should then call when you're done with all
+                // your work.
+                var done = this.async();
+                
+                log("Going to start some time consuming work...");
+                
+                // do your async work here.... for example
+                // in a setTimeout!
+                setTimeout(function() {
+                  // do something.....
+                  log("Done with my time consuming work...!");
+                
+                  // then call the done function when you're done!
+                  done();
+                }, 1500);
+              }
             },
-          
-            shim: {
-          
-              miso : {
-                deps : ["lodash", "moment"],
-                exports: "Miso"
+            b : {
+              enter : function() {
+                log("And now we've transitioned to scene b...");
               }
             }
-          });</textarea></div>
-        </p>
-        <p>
-          You can then require it in your actual module definitions like so:
-          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""   showConsole="false" buttons="none" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-          define(["miso"],
-            function(Miso) {
-              console.log(Miso);
-            }
-          );</textarea></div>
-        </p>
+          }
+        });
+        
+        story.start().then(function() {
+          story.to('a').then(function() {
+            story.to('b');
+          });
+        });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+        <a href='/storyboard/tutorials/quickstart' style='float:left;'>
+          <h2>
+            &laquo; Quickstart Guide
+          </h2>
+        </a>
+        <a href='/storyboard/tutorials/remotedata' style='text-align:right;'>
+          <h2>
+            Remote Data &raquo;
+          </h2>
+        </a>
       </section>
     </article>
     <footer>
@@ -139,7 +157,7 @@
     </footer>
     <script src='/js/jquery.min.js'></script>
     <script src='/js/nav.js'></script>
-    <script src='/js/miso.ds.deps.0.3.0.js'></script>
+    <script src='/js/miso.storyboard.deps.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
     <script src='/js/codemirror.js'></script>

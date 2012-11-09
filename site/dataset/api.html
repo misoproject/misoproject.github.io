@@ -2431,42 +2431,31 @@
             </p>
           </div>
         </section>
-        <section class='api' id='misodatasetevents'>
+        <section class='api' id='misoevents'>
           <h2>
-            Miso.Dataset.Events
+            Miso.Events
           </h2>
           <p>
-            Miso.Dataset.Events is a mixin used to add event binding/triggering functionality to many parts of
-            dataset.
+            <p>
+              Miso.Events is a simple set of pub/sub methods that can be added to any object. Miso Events
+              support not just simple subscriptions but also make identifiying individual subscriptions
+              easier through a token system and support callback priority.
+            </p>
           </p>
-          <h3 class='instance'>
-            Instance Methods
-          </h3>
-          <div class='entry' id='misodatasetevents_i_bind'>
+          <div class='entry' id='misoevents_publish'>
             <div class='bar'>
               <h3>
-                obj.bind(event, callback, context)
+                object.publish( eventName )
               </h3>
               <span class='returns'>
                 Returns:
                 <span class='object'>
-                  obj
+                  this
                 </span>
               </span>
             </div>
             <p>
-              Used to bind events to the given object
-              <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-              var ds = new Miso.Dataset({
-                sync: true
-              });
-              
-              ds.bind('change', function() {
-                log('change event triggered');
-              });
-              
-              ds.trigger('change');
-              </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+              Publish an event on the object the events have been mixed in to.
             </p>
             <h3>
               Parameters
@@ -2475,7 +2464,7 @@
               <li>
                 <div class='head'>
                   <span class='name'>
-                    event
+                    name
                   </span>
                   <span class='type'>
                     String
@@ -2485,7 +2474,48 @@
                   </span>
                 </div>
                 <p>
-                  Name of event to be bound to
+                  Name of the event to publish
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div class='entry' id='misoevents_subscribe'>
+            <div class='bar'>
+              <h3>
+                object.subscribe( eventName, callback, options )
+              </h3>
+              <span class='returns'>
+                Returns:
+                <span class='object'>
+                  token
+                </span>
+              </span>
+            </div>
+            <p>
+              Subscribe to an event by passing in a name and a callback function.
+              The token option allows you to supply the token that you can use to
+              uniquely identify the subscription. The priority subscription allows you
+              to specify the running order of event subscriptions with higher numbers
+              being run earlier.
+            </p>
+            <h3>
+              Parameters
+            </h3>
+            <ul class='parameters'>
+              <li>
+                <div class='head'>
+                  <span class='name'>
+                    name
+                  </span>
+                  <span class='type'>
+                    String
+                  </span>
+                  <span class='required'>
+                    required
+                  </span>
+                </div>
+                <p>
+                  Name of the event to subscribe to
                 </p>
               </li>
               <li>
@@ -2501,13 +2531,13 @@
                   </span>
                 </div>
                 <p>
-                  function to be called when the event is triggered
+                  Callback function to be run
                 </p>
               </li>
               <li>
                 <div class='head'>
                   <span class='name'>
-                    context
+                    options
                   </span>
                   <span class='type'>
                     Object
@@ -2517,42 +2547,59 @@
                   </span>
                 </div>
                 <p>
-                  context in which the callback function will be run.
+                  Optional configuration parameters
                 </p>
+                <ul>
+                  <li>
+                    <div class='head'>
+                      <span class='name'>
+                        token
+                      </span>
+                      <span class='type'>
+                        String
+                      </span>
+                      <span class='optional'>
+                        optional
+                      </span>
+                    </div>
+                    <p>
+                      String token to uniquely identify the subscription, will be generated if not passed in
+                    </p>
+                  </li>
+                  <li>
+                    <div class='head'>
+                      <span class='name'>
+                        priority
+                      </span>
+                      <span class='type'>
+                        Number
+                      </span>
+                      <span class='optional'>
+                        optional
+                      </span>
+                    </div>
+                    <p>
+                      Priority number, a higher number will mean the callback will be run earlier
+                    </p>
+                  </li>
+                </ul>
               </li>
             </ul>
           </div>
-          <div class='entry' id='misodatasetevents_i_unbind'>
+          <div class='entry' id='misoevents_subscribeonce'>
             <div class='bar'>
               <h3>
-                obj.unbind(event, callback)
+                object.subscribeOnce( eventName, callback )
               </h3>
               <span class='returns'>
                 Returns:
                 <span class='object'>
-                  obj
+                  token
                 </span>
               </span>
             </div>
             <p>
-              Unbind callbacks from an event, if no callback is given all callbacks will be
-              unbound from the event.
-              <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-              var ds = new Miso.Dataset({
-                sync: true
-              });
-              
-              ds.bind('change', function() {
-                log('change event triggered');
-              });
-              
-              ds.trigger('change');
-              
-              ds.unbind('change')
-              
-              //Nothing triggered
-              ds.trigger('change')
-              </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+              Create a subscription that will only be run once.
             </p>
             <h3>
               Parameters
@@ -2561,7 +2608,7 @@
               <li>
                 <div class='head'>
                   <span class='name'>
-                    event
+                    name
                   </span>
                   <span class='type'>
                     String
@@ -2571,7 +2618,7 @@
                   </span>
                 </div>
                 <p>
-                  Event from which to unbind callback(s)
+                  Name of the event to subscribe to
                 </p>
               </li>
               <li>
@@ -2582,41 +2629,31 @@
                   <span class='type'>
                     Function
                   </span>
-                  <span class='optional'>
-                    optional
+                  <span class='required'>
+                    required
                   </span>
                 </div>
                 <p>
-                  Callback to be removed from the event.
+                  Callback function to be run
                 </p>
               </li>
             </ul>
           </div>
-          <div class='entry' id='misodatasetevents_i_trigger'>
+          <div class='entry' id='misoevents_unsubscribe'>
             <div class='bar'>
               <h3>
-                obj.trigger(event)
+                object.unsubscribe( eventName, identifier )
               </h3>
               <span class='returns'>
                 Returns:
                 <span class='object'>
-                  obj
+                  this
                 </span>
               </span>
             </div>
             <p>
-              Trigger a given event on the object
-              <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-              var ds = new Miso.Dataset({
-                sync: true
-              });
-              
-              ds.bind('change', function() {
-                log('change event triggered');
-              });
-              
-              ds.trigger('change');
-              </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+              Destroy a subscription. If no identifier is provided all subscriptions to the
+              event will be destroyed.
             </p>
             <h3>
               Parameters
@@ -2625,7 +2662,7 @@
               <li>
                 <div class='head'>
                   <span class='name'>
-                    event
+                    name
                   </span>
                   <span class='type'>
                     String
@@ -2635,7 +2672,23 @@
                   </span>
                 </div>
                 <p>
-                  Name of the event to be triggered
+                  Name of the event to subscribe to
+                </p>
+              </li>
+              <li>
+                <div class='head'>
+                  <span class='name'>
+                    identifier
+                  </span>
+                  <span class='type'>
+                    String || Function
+                  </span>
+                  <span class='optional'>
+                    optional
+                  </span>
+                </div>
+                <p>
+                  Either a subscription token or a callback function.
                 </p>
               </li>
             </ul>
@@ -4934,26 +4987,28 @@
               </ul>
             </li>
             <li>
-              <a href='#misodatasetevents'>
-                Miso.Dataset.Events
+              <a href='#misoevents'>
+                Miso.Events
               </a>
-              <span class='instance'>
-                Instance Methods
-              </span>
-              <ul>
+              <ul class='object'>
                 <li>
-                  <a href='#misodatasetevents_i_bind'>
-                    bind
+                  <a href='#misoevents_publish'>
+                    publish
                   </a>
                 </li>
                 <li>
-                  <a href='#misodatasetevents_i_unbind'>
-                    unbind
+                  <a href='#misoevents_subscribe'>
+                    subscribe
                   </a>
                 </li>
                 <li>
-                  <a href='#misodatasetevents_i_trigger'>
-                    trigger
+                  <a href='#misoevents_subscribeonce'>
+                    subscribeOnce
+                  </a>
+                </li>
+                <li>
+                  <a href='#misoevents_unsubscribe'>
+                    unsubscribe
                   </a>
                 </li>
               </ul>

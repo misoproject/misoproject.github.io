@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+  <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+  <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src='http://use.typekit.com/aow5drr.js' type='text/javascript'></script>
+    <script type='text/javascript'>
+      try{ Typekit.load(); } catch(e) {}
+    </script>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='The Miso Project' name='description' />
+    <meta content='The Miso Project' name='name' />
+    <meta content='width=device-width' name='viewport' />
+    <title>The Miso Project :: Storyboard</title>
+    <link href='/stylesheets/screen.css' rel='stylesheet' />
+    <link href='/stylesheets/codemirror.css' rel='stylesheet' />
+    
+  </head>
+  <body>
+    <nav>
+      <span class='miso'>
+        <a href='/'>
+          &larr; Miso Home
+        </a>
+      </span>
+      <span>
+        <a href='/storyboard'>
+          Home
+        </a>
+      </span>
+      <span>
+        <a href='/storyboard/tutorials.html'>
+          Tutorials
+        </a>
+      </span>
+      <span>
+        <a href='/storyboard/api.html'>
+          API Doc
+        </a>
+      </span>
+      <span>
+        <a href='http://www.github.com/misoproject/storyboard'>
+          Code (Github)
+        </a>
+      </span>
+    </nav>
+    <article class='dataset'>
+      <section class='intro'>
+        <div class='left'>
+          <img src='/images/storyboard.png' />
+          <p>
+            Storyboard is a JavaScript library for managing the flow of interactive content and general
+            application control flow logic.
+          </p>
+        </div>
+        <div class='download'>
+          <h2>
+            Download
+            <a href='https://github.com/misoproject/storyboard/'>
+              0.0.1 alpha
+            </a>
+          </h2>
+          <a class='button' href='https://github.com/downloads/misoproject/storyboard/miso.storyboard.0.0.1.js' onclick="_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Unminified, No Dependencies']);">
+            &darr; development
+          </a>
+          <a class='button' href='https://github.com/downloads/misoproject/storyboard/miso.storyboard.min.0.0.1.js' onclick="_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Minified, No Dependencies']);">
+            &darr; production (minified)
+          </a>
+          <a class='button' href='https://github.com/downloads/misoproject/storyboard/miso.storyboard.deps.0.0.1.js' onclick="_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Unminified, With Dependencies']);">
+            &darr; development with dependencies
+          </a>
+          <a class='button' href='https://github.com/downloads/misoproject/storyboard/miso.storyboard.deps.min.0.0.1.js' onclick="_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Minified, With Dependencies']);">
+            &darr; production with dependencies (minified)
+          </a>
+        </div>
+      </section>
+      <section class='quickstart'>
+        <div class='left'>
+          <p>
+            When creating interactive content, managing transitions and different states of an application can become a challenge.
+            This often results in either highly event-driven code or a spaghetti monster.
+          </p>
+          <p>
+            Storyboard.js is a tiny library that allows one to define scenes and then define entry and exit methods for each scenes. As the application progresses
+            based on user actions or a predefined flow, the entry and exit functions execute in accordance with the switching of scenes.
+          </p>
+          <p>
+            For those familiar with state machines, Storyboard.js aims to be a lightweight state machine, in that it does not have restrictions on where one comes from or goes to.
+          </p>
+          <p>
+            Using deferreds, Storyboard.js provides an abstraction that makes managing asynchronous animations, remote requests and transitions
+            easier and more readable.
+          </p>
+          <p>
+            Follow along for releases &amp; announcements at <a href="http://www.twitter.com/themisoproject">@themisoproject</a>
+          </p>
+        </div>
+        <style type="text/css">
+          
+        </style>
+        <div id='demoblock' style='float: left; width: 34.5em;'></div>
+        <script type="text/javascript">
+          function makeOrangeBox() {
+            var box = $('<div>', { className : 'demoBox' }).css({
+              display : 'none',
+              width : '50px',
+              height : '50px',
+              float : 'left',
+              margin: 4,
+              backgroundColor : 'orange',
+              position : 'relative'
+            });
+            return box;
+          }
+        </script>
+        <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="false" callbacks-clear="" callbacks-reset="" callbacks-run="">
+        var demoBlock = $('#demoblock'), 
+            boxCache;
+        var boxes = new Miso.Storyboard({
+          initial : 'loading',
+          scenes : {
+            loading : {
+        
+              enter : function() {
+                // set up some loading text...
+                boxCache = [];
+                demoBlock.html("Click Run to paint more boxes...");
+              },
+        
+              exit : function() {
+                // we are almost done loading,
+                // set up the stage
+                // with the elements we need.
+                demoBlock.empty();
+                for(var i = 0; i < 9; i++) {
+                  var box = makeOrangeBox();
+                  box.appendTo(demoBlock);
+                  boxCache.push(box);
+                }
+              }
+        
+            },
+        
+            painting : {
+              enter : function() {
+        
+                // we are going to use some jQuery transitions, 
+                // so this will be an async function
+                var transitionDone = this.async();
+                
+                // fade the boxes in
+                for (var i = 0; i < boxCache.length; i++) {
+                  boxCache[i].delay(i * 200).fadeIn('slow');
+                  // on the last box, notify that we are done with
+                  // this transition by calling transitionDone!
+                  if (i === boxCache.length-1) {
+                    boxCache[i].promise().done(transitionDone);
+                  }
+                };
+              },
+        
+              exit : function() {
+        
+                // The painting out is also asynchronous!
+                var transitionDone = this.async();
+                
+                // Fade the boxes out
+                for (var i = boxCache.length - 1; i >= 0; i--) {
+                  // reverse the delay on the fade out.
+                  boxCache[i]
+                    .delay((boxCache.length - i + 1) * 400)
+                    .fadeOut('slow');
+                  // When we fade out the first box, we are done.
+                  if (i === 0) {
+                    boxCache[i].promise().done(transitionDone);
+                  }
+        
+                };
+              }
+            },
+        
+            ending : {}
+          }
+        });
+        
+        boxes.start().then(function() {
+          boxes.to('painting').then(function() {
+            boxes.to('loading');
+          });
+        });
+        </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+      </section>
+    </article>
+    <footer>
+      <div class='container'>
+        <section>
+          <h2>
+            A joint project between
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/profile/guardian-interactive-department'>
+              <img alt="Guardian" src="/images/guardian.png"/>
+            </a>
+            <a href='http://www.bocoup.com'>
+              <img alt="Bocoup horizontal 614" src="/images/bocoup-horizontal-614.gif"/>
+            </a>
+          </div>
+        </section>
+        <section>
+          <h2>
+            Supported by
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/development'>
+              <img alt="Global dev" src="/images/global-dev.png"/>
+            </a>
+            <a href='http://www.gatesfoundation.org/'>
+              <img alt="Gates" src="/images/gates.png"/>
+            </a>
+          </div>
+        </section>
+      </div>
+    </footer>
+    <script src='/js/jquery.min.js'></script>
+    <script src='/js/nav.js'></script>
+    <script src='/js/miso.storyboard.deps.js'></script>
+    <script src='/js/bootstrap/transition.js'></script>
+    <script src='/js/bootstrap/collapse.js'></script>
+    <script src='/js/codemirror.js'></script>
+    <script src='/js/codeblocks.js'></script>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30531498-1']);
+      _gaq.push(['_setDomainName', 'misoproject.com']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>
