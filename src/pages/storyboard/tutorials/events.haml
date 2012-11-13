@@ -1,0 +1,55 @@
+- @page_title = "The Miso Project :: Storyboard :: Tutorials"
+- @layout = "storyboard"
+
+%article.dataset
+  %section.tutorial
+    %h2 Storyboard events
+    %p
+      Storyboard allows one to transition from state to state, but the standard event model we are used to
+      can still come in handy when we want to tie a certain behavior to our storyboard without it being
+      directly encapsulated in it.
+    %p
+      Storyboard broadcasts several events that you can bind to at any point:
+
+      %table
+        %tr
+          %th Event
+          %th Fired When...
+        %tr
+          %td
+            %code start
+          %td
+            A transition begins.
+        %tr
+          %td
+            %code enter
+            or
+            %code sceneName:enter
+          %td
+            An enter method is done executing
+        %tr
+          %td
+            %code exit
+            or
+            %code sceneName:exit
+          %td
+            The exit method is done executing
+        %tr
+          %td
+            %code end
+          %td
+            A transition ends.
+
+    %p
+      Here is an example:
+
+    = toRunnableCodeBlock("storyboard/events/events.js")
+
+    %a{ :href => '/storyboard/tutorials/quickstart', :style => 'float:left;' }
+      %h2
+        &laquo; Quickstart Guide
+
+    %a{ :href => '/storyboard/tutorials/remotedata', :style => 'text-align:right;' }
+      %h2
+        Remote Data &raquo;
+
