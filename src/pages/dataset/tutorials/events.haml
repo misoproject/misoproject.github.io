@@ -7,7 +7,7 @@
       Syncronization & Events
 
     %p
-      Dataset has a very rich event system that allows you to bind to a variety of events on your dataset. By default, this functionality is <b>NOT ENABLED</b>. This is because event bindings are created automatically in certain cases (see more about selection and filtering) and unless that functionality is needed, there's no reason to create the bindings.
+      Dataset has a very rich event system that allows you to subscribe to a variety of events on your dataset. By default, this functionality is <b>NOT ENABLED</b>. This is because event bindings are created automatically in certain cases (see more about selection and filtering) and unless that functionality is needed, there's no reason to create the bindings.
     %p
       To enable evented behavior, set the <code>sync</code> property to <code>true</code> when initializing your dataset.
       :plain
@@ -29,13 +29,13 @@
             DataViews
           %br
           Any selection created using rows, columns or where will get updated according to the original
-          changes in dataset. Any changes created to the DataView will trigger the appropriate events.
+          changes in dataset. Any changes created to the DataView will publish the appropriate events.
         %li
           %a{ :href => '/dataset/tutorials/products.html' }
             Products
           %br
           Any changes to the original data will cause products to recompute their value. Products of a Dataset
-          that has sync set to true, are actual objects (vs just computed values.) To get their values
+          that has sync set trigger true, are actual objects (vs just computed values.) To get their values
           you need to call <code>.val()</code>.
         %li
           %a{ :href => '/dataset/tutorials/derived.html' }
@@ -103,9 +103,9 @@
 
     %h3 Binding
     %p
-      To bind to an event, call <code>bind</code> like so:
+      To subscribe to an event, call <code>subscribe</code> like so:
       %pre
-        ds.bind("add", callback);
+        ds.subscribe("add", callback);
 
     %h3 Event Object
     %p
@@ -154,8 +154,8 @@
 
     %h3 Custom Events
     %p
-      You can trigger your own custom events on dataset by just calling <code>trigger</code> when needed like so:
-      %pre ds.trigger("myCustomEvent", arguments...);
+      You can publish your own custom events on dataset by just calling <code>publish</code> when needed like so:
+      %pre ds.publish("myCustomEvent", arguments...);
 
     %a{ :href => '/dataset/tutorials/accessing_data', :style => 'float:left;' }
       %h2

@@ -46,6 +46,24 @@ task :deploy do
   # puts go.join(' && ')
 end
 
+desc "Copy block build files"
+task :copyblockfiles do
+  rootdir = ENV['DIR']
+  version = ENV['VERSION'] || "0.0.1"
+
+  if (ENV['DIR'].nil?)
+    puts "Set DIR= to your block folder"
+    return -1;
+  end
+
+  process = [
+    "cp #{rootdir}/dist/LASTBUILD ./site/downloads",
+    "cp #{rootdir}/dist/miso.block.deps.#{version}.js ./site/js/miso.block.deps.js"
+  ]
+
+  `#{ process.join(' && ') }`
+end
+
 desc "Copy storyboard build files"
 task :copystoryboardfiles do
   rootdir = ENV['DIR']
@@ -72,7 +90,7 @@ task :copydatasetfiles do
     return -1;
   end
 
-  version = "0.3.0"
+  version = "0.4.0"
   process = [
     "cp #{rootdir}/dist/LASTBUILD ./site/downloads",
     "cp #{rootdir}/dist/miso.ds.deps.#{version}.js ./site/js",

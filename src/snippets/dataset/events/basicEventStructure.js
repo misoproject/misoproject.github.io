@@ -8,7 +8,7 @@ var ds = new Miso.Dataset({
 
 _.when(ds.fetch()).then(function() {
   
-  ds.bind("add", function(event) {
+  ds.subscribe("add", function(event) {
     log(JSON.stringify(event));
     log("Is Add?", Miso.Dataset.Event.isAdd(event.deltas[0]));
     log("Is Remove?", Miso.Dataset.Event.isRemove(event.deltas[0]));
@@ -17,7 +17,7 @@ _.when(ds.fetch()).then(function() {
 
   ds.add({ one : 10, two : 3, three : 24 });
 
-  ds.bind("remove", function(event) {
+  ds.subscribe("remove", function(event) {
     // We will now have an event with two deltas!
     log(event.deltas);
     log("New Dataset Length", ds.length);
