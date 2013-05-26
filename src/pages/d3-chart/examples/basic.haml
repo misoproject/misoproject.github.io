@@ -1,0 +1,35 @@
+- @page_title = "The Miso Project :: d3.chart :: Examples :: Basic Chart"
+- @layout = "d3-chart"
+
+
+%article.d3-chart.example
+  %section.normal
+    %h2
+      Reusable Bar Chart
+    %p
+      This example creates a basic bar chart that can be reused and demonstrates how to instantiate
+      several instances of it.
+      The data used is the average temperature in Boston as provided <a href="http://www.weather.com/weather/wxclimatology/monthly/USMA0046">here</a>.
+  %style
+    :plain
+      .Barchart .label {
+        font-size: 10px;
+      }
+      .Barchart .ylabels .tick line {
+        fill: none;
+        stroke: #222;
+        stroke-width: 1px;
+        shape-rendering: crispEdges;
+      }
+      .Barchart path.domain {
+        fill: none;
+        stroke: #222;
+        stroke-width: 1px;
+        shape-rendering: crispEdges;
+      }
+      .Barchart .bars rect.bar {
+        fill: #97E8A2;
+      }
+  = toRunnableCodeBlock("d3-chart/examples/basic.js", nil, { :autorun => true, :globals => '_,d3' })
+  = toDisplayCodeBlock("d3-chart/examples/basic.html")
+   

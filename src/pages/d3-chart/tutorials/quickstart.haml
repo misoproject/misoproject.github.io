@@ -1,0 +1,30 @@
+- @page_title = "The Miso Project :: d3.chart :: Tutorials"
+- @layout = "d3-chart"
+
+%article.d3-chart
+  %section.tutorial
+    %h2 Quick Start!
+    %p
+      To use d3.chart you need to download it and include it as a script tag
+      in your html file.
+
+    %h3 Download
+    %p
+      You can download d3.chart from the from here:
+    %div.indent-1  
+      %h4 Download the right build for your environment:
+      %div{ :style => 'width:100%; display:inline-block;' }
+        %div.download{ :style => 'width:100%;'}
+          %a.button{ :href => 'https://raw.github.com/misoproject/d3.chart/master/d3.chart.js', :onclick => "_gaq.push(['_trackEvent', 'd3.chart', 'Downloads', 'd3.chart development']);" }
+            &darr; Development
+          %a.button{ :href => 'https://raw.github.com/misoproject/d3.chart/master/d3.chart.min.js', :onclick => "_gaq.push(['_trackEvent', 'd3.chart', 'Downloads', 'd3.chart production']);" }
+            &darr; production
+
+      %h4 Include the appropriate script tags. Note that d3.chart requires d3.js.
+      %p 
+        = toHTMLCodeBlock("d3-chart/quickstart/index.html")
+
+    
+    %a{ :href => '/d3-chart/tutorials/definechart', :style => 'text-align:right;' }
+      %h2
+        Define a Chart &raquo;

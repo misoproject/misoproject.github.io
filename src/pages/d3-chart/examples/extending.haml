@@ -1,0 +1,18 @@
+- @page_title = "The Miso Project :: d3.chart :: Examples :: Basic Chart"
+- @layout = "d3-chart"
+
+
+%article.d3-chart.example
+  %section.normal
+    %h2
+      Extending a chart
+    %p
+      In this example we create a basic circle chart and then extend it
+      to add labels above the circles showing their exact value.
+  %style
+    :plain
+      .CircleChart {}
+      
+  = toRunnableCodeBlock("d3-chart/examples/extending.js", nil, { :autorun => true, :globals => '_,d3' })
+  = toDisplayCodeBlock("d3-chart/examples/extending.html")
+   
