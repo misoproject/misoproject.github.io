@@ -252,6 +252,7 @@ window.log;
     if (this.options.showConsole) {
       window.log = CodeBlock.__makeConsoleFunction(this.output);
     }
+    window.output = this.output[0];
     this.buildSource();
     eval(this.source);
   };
@@ -273,6 +274,8 @@ window.log;
     if (this.options.showConsole) {
       window.log = CodeBlock.__makeConsoleFunction(this.output);
     }
+
+    window.output = this.output[0];
 
     // find globals
     this.globals = [];

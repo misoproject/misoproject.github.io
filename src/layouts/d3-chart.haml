@@ -30,22 +30,19 @@
         %a{ :href => '/' }
           &larr; Miso Home
       %span
-        %a{ :href => '/dataset' }
+        %a{ :href => '/d3-chart' }
           Home
       %span
-        %a{ :href => '/dataset/examples.html' }
+        %a{ :href => '/d3-chart/examples.html' }
           Examples
       %span
-        %a{ :href => '/dataset/tutorials.html' }
+        %a{ :href => '/d3-chart/tutorials.html' }
           Tutorials
       %span
-        %a{ :href => '/dataset/api.html' }
+        %a{ :href => '/d3-chart/api.html' }
           API Doc
       %span
-        %a{ :href => '/dataset/extensions.html' }
-          Extensions
-      %span
-        %a{ :href => 'http://www.github.com/misoproject/dataset' }
+        %a{ :href => 'http://www.github.com/misoproject/d3.chart' }
           Code (Github)
 
     = yield
@@ -63,7 +60,7 @@
 
         %section
           %h2
-            Supported by
+            Formally supported by
           %div.content
             %a{ :href => 'http://www.guardian.co.uk/development' }
               =img('/images/global-dev.png')
@@ -72,7 +69,11 @@
 
     %script{ :src => "/js/jquery.min.js" }
     %script{ :src => '/js/nav.js' }
-    %script{ :src => "/js/miso.ds.deps.js" }
+    %script{ :src => '/js/lodash.js' }
+    %script{ :src => '/js/underscore.deferred.js' }
+    %script{ :src => "/js/d3/d3.v3.min.js", :charset => "utf-8" }
+    %script{ :src => "/js/d3.chart.js" }
+    %script{ :src => "/js/d3.chart.js" }
     %script{ :src => "/js/bootstrap/transition.js" }
     %script{ :src => "/js/bootstrap/collapse.js" }
     %script{ :src => "/js/codemirror.js"}

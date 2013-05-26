@@ -1,0 +1,47 @@
+- @page_title = "The Miso Project :: d3.chart :: API Reference"
+- @layout = "d3-chart"
+
+%article.api.storyboard
+
+  - @api = []
+  %div.api_wrapper
+    <h4>See up to date API on our <a href="https://github.com/misoproject/d3.chart/wiki/api">
+    github wiki API page</a>.</h4>
+    %br 
+    = api_section('d3-chart.chart.yaml')
+    = api_section('d3-chart.layer.yaml')
+
+  %div.nav_wrapper
+    %div.nav
+      %ul
+        - inheritify(@api)
+        - @api.each do |obj|
+          %li
+            %a{ :href => '#' + idify( obj['name'] ) }
+              = truncate( obj['name'], 22 )
+
+            - if obj['methods']
+              %ul.object
+                - obj['methods'].each do |method|
+                  %li
+                    %a{ :href => '#' +  idify( [obj['name'], method['name'] ] ) }
+                      = method['name']
+            
+            - if obj['instance_properties']
+              %span.instance
+                Instance Properties
+              %ul
+                - obj['instance_properties'].each do |method|
+                  %li
+                    %a{ :href => '#' + idify( [ (method['override'] ? method['override'] : obj['name'] ), 'i', method['name'] ] ) }
+                      = method['name']
+
+            - if obj['instance_methods']
+              %span.instance
+                Instance Methods
+              %ul
+                - obj['instance_methods'].each do |method|
+                  %li
+                    %a{ :href => '#' + idify( [ (method['override'] ? method['override'] : obj['name'] ), 'i', method['name'] ] ) }
+                      = method['name']
+

@@ -1,0 +1,171 @@
+---
+name: 'd3.layer'
+description: |
+  Used to define a new layer or retrieve an existing layer
+
+methods:
+-
+  name: constructor
+  signature: 'selection.layer(options)'
+  returns: d3.layer constructor
+  description: |
+    Defines a new layer on a selection or returns a reference to the selection 
+    corresponding to a layer by a specific name. Most of the time will be called on
+    a chart, but can be called directly on a layer.
+    When retrieving a layer, just provide the name of the layer without the 
+    selection or options.
+    = toRunnableCodeBlock("api/d3-chart/d3.layer.create")
+  params:
+  -
+    name: options
+    type: Object
+    required: false
+    description: |
+      The specific options available during layer creation:
+    params:
+    -
+      name: events
+      type: Object
+      required: false
+      description:  |
+        An object specifying 
+        <a href="https://github.com/misoproject/d3.chart/wiki/wiki/lifecycle-events">lifecycle events</a>. 
+        Keys are the event names and the values are the callbacks.
+    - 
+      name: dataBind
+      type: Function
+      required: true
+      description: |
+        The function that sets up the selection and binds the data using the d3 <code>.data()</code> 
+        function. Must return that binding. Takes one argument which is the data that <code>draw</code> 
+        was called with, transformed if the <code>transform</code> method was defined. The context of 
+        the dataBind method is the selection of the layer.
+    - 
+      name: insert
+      type: Function
+      required: true
+      description: |
+        The function that gets called once the d3 <code>.enter()</code> method is executed. Note that happens 
+        internally. The context of the insert function is the entered selection.
+
+instance_properties:
+-
+  name: base
+  signature: layer.base
+  returns: d3 selection
+  description: |
+    The d3 selection onto which the layer was created.
+    = toRunnableCodeBlock("api/d3-chart/d3.layer.base")
+
+instance_methods:
+-
+  name: draw
+  signature: layer.draw(data)
+  returns: d3.layer
+  description: |
+    Allows directly drawing a layer. Note that if your layer is defined as part of a chart, 
+    when you call the chart instance's draw method, it will automatically call the 
+    <code>draw</code> method of all its layers.
+    = toRunnableCodeBlock("api/d3-chart/d3.layer.create")
+  params:
+  -
+    name: data
+    type: *
+    required: true
+    description: The data based on which the layer will be drawn.
+-
+  name: chart
+  signature: selection.chart()
+  returns: chart instance
+  description: |
+    eturns the chart with which the layer is associated. This is most useful 
+    inside of the <code>dataBind</code>, <code>insert</code> and any lifecycle event callback 
+    methods where the default context is set to the layer selection (on which you can call 
+    this chart method.) See example for more details.
+    = toRunnableCodeBlock("api/d3-chart/d3.layer.chart")
+- 
+  name: 'on'
+  signature: 'layer.on(lifecycleEvent, handler, options)'
+  returns: d3.layer instance
+  description: |
+    Allows binding of callbacks to lifecycle events. Note that you can only bind to 
+    the lifecycle events of a layer, NOT any random event. The intent is to use 
+    the high level chart as the event bus, but to allow binding more directly to 
+    lifecycle events on the layers for the purpose of extension.
+    = toRunnableCodeBlock("api/d3-chart/d3.layer.on")
+  params:
+  -
+    name: lifecycleEvent
+    type: String
+    required: true
+    description: |
+      The name of the lifecycle event to bind to. Allowed events are: <code>update</code>, 
+      <code>enter</code>, <code>merge</code>, <code>exit</code>, <code>update:transition</code>,
+      <code>enter:transition</code>, <code>merge:transition</code> and <code>exit:transition</code>.
+  -
+    name: handler
+    type: Function
+    required: true
+    description: |
+       The callback to execute when the event type is trigered. Note that you can't directly 
+       overwrite the context of this handler. It's important that the context be set by the 
+       binding because it is going to be the selection upon which you would operate.
+  -
+    name: options
+    type: Object
+    required: false
+    description: |
+      An object containing optional arguments. Optional arguments include:
+    params:
+    -
+      name: chart
+      type: d3.chart instance
+      required: false
+      description: |
+        The chart that should be the returned when a callback references <code>this.chart()</code>. 
+        This is particularly useful when building a single chart that is a combination of several 
+        through mixins.
+- 
+  name: 'off'
+  signature: 'layer.off(lifecycleEvent, handler)'
+  returns: d3.layer instance
+  description: |
+    Allows for unbinding from a lifecycle event.
+    = toRunnableCodeBlock("api/d3-chart/d3.layer.off")
+  params:
+  -
+    name: lifecycleEvent
+    type: String
+    required: true
+    description: |
+      The event from which to unbind.
+  -
+    name: handler
+    type: Function
+    required: false
+    description: |
+       The specific handler to unbind. Optional.
+-
+  name: 'dataBind'
+  signature: 'layer.dataBind(data)'
+  returns: d3 selection
+  description: |
+    The layer functionality that selects the appropriate elements onto which data 
+    will be bound, and binds the data. It returns that data-bound selection.
+    <br/>
+    <i>Note you will never need to call this method directly. It is invoked as part 
+    of the draw call.</i>
+  params:
+  -
+    name: data
+    type: *
+    required: true
+    description: The data being bound.
+-
+  name: 'insert'
+  signature: 'layer.insert()'
+  returns: d3 selection
+  description: |
+    The layer functionality that will be called on each entered element from the bound data via dataBind.
+    <br />
+    <i>Note you will never need to call this method directly. It is invoked as part of the draw call.</i>

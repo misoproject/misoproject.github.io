@@ -57,6 +57,15 @@ module MisoHelper
                 end
               )
             end
+
+            if from['instance_properties'] && section['instance_properties']
+              section['instance_properties'] = section['instance_properties'].concat(
+                from['instance_properties'].map do |method|
+                method['override'] = from['name']
+                method
+                end
+              )
+            end
           end
 
         end

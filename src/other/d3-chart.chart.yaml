@@ -1,0 +1,272 @@
+---
+name: 'd3.chart'
+description: |
+  Used to define new chart types.
+
+methods:
+-
+  name: constructor
+  signature: 'd3.chart(name,options)'
+  returns: d3.chart constructor
+  description: |
+    Used to define a new chart type
+    = toRunnableCodeBlock("api/d3-chart/d3.chart.create", nil, {:globals => "d3"})
+  params:
+  -
+    name: name
+    type: String
+    required: true
+    description: |
+       the name of the chart one wishes to create. This is the generic 'type' of chart you're creating, for example 
+       'barchart' rather than an instance of a chart that you're initializing.
+  -
+    name: options
+    type: Object
+    required: false
+    description: |
+      The methods that will be available to the chart instance. 
+      See <a href="https://github.com/misoproject/d3.chart/wiki/chart-create">creating</a> 
+      for more information on defining a chart.
+-
+  name: extend
+  signature: 'd3.chart(name).extend(name, options)'
+  returns: d3.chart constructor
+  description: |
+    Allows the extension of an existing d3.chart of chartType type.
+    = toRunnableCodeBlock("api/d3-chart/d3.chart.extend", nil, {:globals => "d3"})
+  params:
+  -
+    name: name
+    type: String
+    required: true
+    description: |
+      The new chart type name of the extended chart. For example, when extending a BarChart, 
+      one may want to add hoverable behavior to the bars. An appropriate name would 
+      then be: HoverableBarChart.
+  - 
+    name: protoProps
+    type: Object
+    required: true
+    description:  A set of properties/methods that will be added to each instance of the chart.
+  -
+    name: staticProps
+    type: Object
+    required: false
+    description: |
+      A set of properties/methods that will be added to the constructor 
+      of the chart, but not each instance.
+
+instance_properties:
+-
+  name: base
+  signature: chart.base
+  returns: d3 selection
+  description: |
+    The highest level selection from which a chart was created.
+    = toRunnableCodeBlock("api/d3-chart/d3.chart.base", nil, {:globals => "d3"})
+
+instance_methods:
+- 
+  name: 'draw'
+  signature: chart.draw(data)
+  returns: chart instance
+  description: |
+    Causes the chart to draw all its layers as well as any layers defined in 
+    mixins. Note that this is the only way to pass data to the chart - through the draw method.
+    = toDisplayCodeBlock("api/d3-chart/d3.chart.draw", nil, {:globals => "d3"})
+  params:
+  -
+    name: data
+    type: *
+    required: true
+    description: |
+      The data that should be drawn. Note that if a <code>transform</code>
+      method was defined for the data, it will be first passed through 
+      that transform before it is handed off to the layers. The <code>dataBind</code> 
+      methods of each layer will recieve the transformed data.
+-
+  name: 'transform'
+  signature: chart.transform(data)
+  returns: transformed data
+  description: |
+    Transforms the data into a format that is expected by the layers. By default this 
+    method just passes the original data thrgouh. Define the <code>transform</code> when
+    you define your chart.
+    <br/><i>Note you will most likely never call this method directly, but rather define it during 
+    chart definition. Nonetheless it is a method that is availabe on the instance.</i>
+    = toRunnableCodeBlock("api/d3-chart/d3.chart.transform")
+  params:
+  -
+    name: data
+    type: *
+    required: true
+    description: the data to transform
+
+-
+  name: trigger
+  signature: chart.trigger(name)
+  returns: chart instance
+  description: |
+    Used to trigger an event on a chart. At least the name of the event is required. 
+    Any arguments passed after the name parameter will be passed to the callback.
+    = toRunnableCodeBlock("api/d3-chart/d3.chart.trigger")
+  params:
+  -
+    name: name
+    type: String
+    description: |
+      The name of the event to trigger
+  - 
+    name: any additional arguments
+    type: *
+    description: |
+      Any arguments passed after the name of the event will be passed to the callbacks defined
+      for that event.
+-
+  name: 'on'
+  signature: 'chart.on(name, callback, context)'
+  returns: chart instance
+  description: |
+    Binds a callback to the chart instance for a specific event name. Optionally can 
+    provide a context in which the callback be executed. By default, the context will 
+    be that of the chart instance.
+    = toRunnableCodeBlock("api/d3-chart/d3.chart.on")
+  params:
+  -
+    name: name
+    type: String
+    required: true
+    description: Name of event to bind to
+  - 
+    name: callback
+    type: Function
+    required: true
+    description: The callback to execute when the event triggers
+  -
+    name: context
+    type: Object
+    required: false
+    description: The context in which the callback will be executed. Optional.
+-
+  name: 'once'
+  signature: 'chart.once(name, callback, context)'
+  returns: chart instance
+  description: |
+    Binds a callback to the chart instance for a specific event name. This 
+    callback will only execute once. Optionally can provide a context in 
+    which the callback be executed. By default, the context will be that of the chart instance.
+    = toRunnableCodeBlock("api/d3-chart/d3.chart.once")
+  params:
+  -
+    name: name
+    type: String
+    required: true
+    description: Name of event to bind to
+  - 
+    name: callback
+    type: Function
+    required: true
+    description: The callback to execute when the event triggers
+  -
+    name: context
+    type: Object
+    required: false
+    description: The context in which the callback will be executed. Optional.
+-
+  name: 'off'
+  signature: 'chart.off(name, callback, context)'
+  returns: chart instance
+  description: |
+    Used to unbind events previously bound to the chart.
+    = toRunnableCodeBlock("api/d3-chart/d3.chart.off")
+  params:
+  -
+    name: name
+    type: String
+    required: true
+    description: Name of event to bind to
+  - 
+    name: callback
+    type: Function
+    required: true
+    description: The callback to execute when the event triggers
+  -
+    name: context
+    type: Object
+    required: false
+    description: The context in which the callback will be executed. Optional.
+-
+  name: 'layer'
+  signature: 'chart.layer(name, selection, options)'
+  returns: d3.layer instance
+  description: |
+    Defines a new layer on a chart or returns a reference to the selection 
+    corresponding to a layer by a specific name.
+    = toDisplayCodeBlock("api/d3-chart/d3.chart.layer")
+  params:
+  -
+    name: name
+    description: Name of layer
+    type: String
+    required: true
+  -
+    name: selection
+    type: d3 selection
+    required: true
+    description: the d3 element into which the elements rendered by the layer will be placed
+  - 
+    name: options
+    type: Object
+    required: true
+    description: |
+      The specific options available during layer creation:
+    params:
+    -
+      name: events
+      type: Object
+      required: false
+      description:  |
+        An object specifying 
+        <a href="https://github.com/misoproject/d3.chart/wiki/wiki/lifecycle-events">lifecycle events</a>. 
+        Keys are the event names and the values are the callbacks.
+    - 
+      name: dataBind
+      type: Function
+      required: true
+      description: |
+        The function that sets up the selection and binds the data using the d3 <code>.data()</code> 
+        function. Must return that binding. Takes one argument which is the data that <code>draw</code> 
+        was called with, transformed if the <code>transform</code> method was defined. The context of 
+        the dataBind method is the selection of the layer.
+    - 
+      name: insert
+      type: Function
+      required: true
+      description: |
+        The function that gets called once the d3 <code>.enter()</code> method is executed. Note that happens 
+        internally. The context of the insert function is the entered selection.
+
+-
+  name: mixin
+  signature: chart.mixin(selection, chartType)
+  returns: chart instance
+  description: |
+    Allows adding an instance of a chart onto an instance of another. 
+    The mixin approach affords two things:
+    <ul><li>It allows tying together of charts that are driven by the same data</li>
+    <li>It superimposes charts on top of each other - sharing the same base but 
+    separating their functionality. Note it is up to you to pass on a selection that is 
+    derived off of the base of the chart being mixed into. </li>
+    = toDisplayCodeBlock("api/d3-chart/d3.chart.mixin")
+  params:
+  -
+    name: selection
+    type: d3 selection
+    required: true
+    description: The d3 selection that will be used to create the new chart type.
+  - 
+    name: chartType
+    type: String
+    required: true
+    description: The name of the chart type that will be initilized.
+

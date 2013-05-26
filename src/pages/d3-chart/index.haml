@@ -1,0 +1,44 @@
+- @page_title = "The Miso Project :: d3.chart"
+- @layout = "d3-chart"
+
+%article.dataset
+  %section.intro
+    %div.left
+      %img{ :src => '/images/d3.chart.png' }
+      %p
+        d3.chart is a framework for building reusable charts with d3.js.
+    %div.download
+      %h2
+        Download 
+        %a{ :href => 'https://github.com/misoproject/d3.chart/' }
+          0.0.1
+    
+          
+      %a.button{ :href => 'https://raw.github.com/misoproject/d3.chart/master/d3.chart.js', :onclick => "_gaq.push(['_trackEvent', 'd3.chart', 'Downloads', 'd3.chart development']);" }
+        &darr; Development
+      %a.button{ :href => 'https://raw.github.com/misoproject/d3.chart/master/d3.chart.min.js', :onclick => "_gaq.push(['_trackEvent', 'd3.chart', 'Downloads', 'Minified Production']);" }
+        &darr; production
+      
+
+  %section.quickstart
+    %div.left
+      %p
+        D3 is by far the most common visualization library, and yet it does not provide any guidelines for how one creates 
+        reusable charts (except for <a href="http://bost.ocks.org/mike/chart/">Towards Reusable Charts</a> by Mike Bostock.)
+      %p
+        What does it mean to create reusable charts? A reusable chart is:
+        %ul
+          %li
+            <b>repeatable</b> - can be instantiated multiple times for different data on the same page
+          %li
+            <b>configurable</b> - can be customized during runtime through a consistent API
+          %li
+            <b>extensible</b> - new charts can be defined on top of the existing chart
+          %li
+            <b>composable</b> - charts can be combined to form new chart types
+      %p
+        d3.chart is a small framework that allows one to define reusable charts that follow the above criteria using d3.js.
+      %p
+        %hr
+        Follow along for releases &amp; announcements at <a href="http://www.twitter.com/themisoproject">@themisoproject</a>
+    = toRunnableCodeBlock("d3-chart/examples/quickstart.js", nil, { :autorun => false, :globals => "d3" })
