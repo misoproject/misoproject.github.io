@@ -48,15 +48,6 @@ methods:
         The function that gets called once the d3 <code>.enter()</code> method is executed. Note that happens 
         internally. The context of the insert function is the entered selection.
 
-instance_properties:
--
-  name: base
-  signature: layer.base
-  returns: d3 selection
-  description: |
-    The d3 selection onto which the layer was created.
-    = toRunnableCodeBlock("api/d3-chart/d3.layer.base")
-
 instance_methods:
 -
   name: draw

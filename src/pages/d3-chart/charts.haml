@@ -1,0 +1,43 @@
+- @page_title = "The Miso Project :: d3.chart :: Charts"
+- @layout = "d3-chart"
+
+%article.d3-chart
+  %p
+    If you've written a d3.chart based chart that you would like to have listed on the Miso Project, please submit it using this form. This is a temporary solution while we resolve a better distribution system.
+  %br/ 
+  %p
+    %h3 There are two requirements:
+    %ul
+      %li 
+        1. Please name your chart in the format: <code>d3.chart.*</code>, for example <code>d3.chart.barchart</code> etc.
+      %li
+        2. Please add a section to your <code>package.json</code> that looks like this: <code>{ "d3.chart" : { "version" : "0.0.1" } }</code>
+
+  %p
+    For more guidelines, see the following wiki page:
+    <a href="https://github.com/misoproject/d3.chart/wiki/chart-contribution"> https://github.com/misoproject/d3.chart/wiki/chart-contribution</a>
+
+  %p
+    = partial('/partials/_contribchart')
+  
+  %p
+    %br/ 
+    %h3 Available Charts:
+  
+  = partial('/partials/_getcharts')
+  :plain
+    <style>
+      .chart-contrib {
+        margin-top: 10px;
+        border: 1px solid #eee;
+        padding: 10px;
+        background-color: #fcfcfc;
+      }
+      .chart-contrib:hover {
+        background-color: white;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        
+      }
+    </style>
+  %p#avail-charts
+    Loading...

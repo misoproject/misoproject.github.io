@@ -1,0 +1,48 @@
+:plain
+  <script type="text/template" id="template_for_chart">
+    <div class="chart-contrib">
+      <h4 class="name"><%= name %></h4>
+      <div class="url">
+        <a href="<%= url %>"><%= url %></a>
+      </div>
+      <div class="description">
+        <%= description %>
+      </div>
+    </div>
+  </script>
+- @extra_scripts = capture_haml do
+  %script{ :type => "text/javascript", :src => '/js/miso.ds.deps.js'}
+
+  :plain
+    <script type="text/javascript">
+      $(document).ready(function() {
+
+        var charts = new Miso.Dataset({
+          importer: Miso.Dataset.Importers.GoogleSpreadsheet,
+          parser: Miso.Dataset.Parsers.GoogleSpreadsheet,
+          key: "0Al5UYaVoRpW3dGF2eGlsWWF2TjZ3cEZ4ZjR5blVraHc",
+          worksheet: "1"
+        });
+        
+        charts.fetch().then(function(data) {
+          
+          var parent = $('#avail-charts'),
+              template = _.template($('#template_for_chart').html());
+
+          parent.empty();
+
+          if (charts.length > 0) {
+            charts.each(function(chart) {
+              parent.append(template({
+                name: chart["Repo name"],
+                url: chart["Github URL"],
+                description: chart["Chart Description"]
+              }))
+            });
+          } else {
+            parent.html("There are no charts at this time.");
+          }
+
+        });
+      });
+    </script>

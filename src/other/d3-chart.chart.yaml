@@ -248,7 +248,7 @@ instance_methods:
 
 -
   name: mixin
-  signature: chart.mixin(selection, chartType)
+  signature: 'chart.mixin(chartType,selection)'
   returns: chart instance
   description: |
     Allows adding an instance of a chart onto an instance of another. 
@@ -259,14 +259,13 @@ instance_methods:
     derived off of the base of the chart being mixed into. </li>
     = toDisplayCodeBlock("api/d3-chart/d3.chart.mixin")
   params:
-  -
-    name: selection
-    type: d3 selection
-    required: true
-    description: The d3 selection that will be used to create the new chart type.
   - 
     name: chartType
     type: String
     required: true
     description: The name of the chart type that will be initilized.
-
+  -
+    name: selection
+    type: d3 selection
+    required: true
+    description: The d3 selection that will be used to create the new chart type.

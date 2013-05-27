@@ -4,7 +4,7 @@ d3.chart("CircleChart", {
   }
 });
 
-var chart = d3.select(ouput)
+var chart = d3.select(output)
   .append("p")
   .attr("name", "LeParagraph")
   .chart("CircleChart");
