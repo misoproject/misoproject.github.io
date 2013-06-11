@@ -1,6 +1,6 @@
-/*! d3.chart - v0.0.1
+/*! d3.chart - v0.1.1
  *  License: MIT Expat
- *  Date: 2013-05-26
+ *  Date: 2013-06-10
  */
 (function(window, undefined) {
 
@@ -18,7 +18,7 @@
 		if (!base) {
 			throw errors.noBase;
 		}
-		this.base = base;
+		this._base = base;
 		this._handlers = {};
 	};
 
@@ -51,7 +51,7 @@
 	Layer.prototype.off = function(eventName, handler) {
 
 		var handlers = this._handlers[eventName];
-		var idx, len;
+		var idx;
 
 		if (!handlers) {
 			return;
@@ -62,7 +62,7 @@
 			return;
 		}
 
-		for (idx = 0, len = handlers.length; idx < len; ++idx) {
+		for (idx = handlers.length - 1; idx > -1; --idx) {
 			if (handlers[idx].callback === handler) {
 				handlers.splice(idx, 1);
 			}
@@ -73,37 +73,36 @@
 	// Bind the data to the layer, make lifecycle selections, and invoke all
 	// relevant handlers.
 	Layer.prototype.draw = function(data) {
-		var bound, entering, events, selection, handlers, eventName, idx, len,
-			callback, chart;
+		var bound, entering, events, selection, handlers, eventName, idx, len;
 
-		bound = this.dataBind.call(this.base, data);
+		bound = this.dataBind.call(this._base, data);
 
 		if (!(bound instanceof d3.selection)) {
-			throw new Error("Invalid selection defined by `dataBind` method.");
+			throw new Error('Invalid selection defined by `dataBind` method.');
 		}
 
 		entering = bound.enter();
-		entering._chart = this.base._chart;
+		entering._chart = this._base._chart;
 
 		events = [
 			{
-				name: "update",
+				name: 'update',
 				selection: bound
 			},
 			{
-				name: "enter",
+				name: 'enter',
 				// Defer invocation of the `insert` method so that the previous
 				// `update` selection does not contain the new nodes.
 				selection: this.insert.bind(entering)
 			},
 			{
-				name: "merge",
+				name: 'merge',
 				// This selection will be modified when the previous selection
 				// is made.
 				selection: bound
 			},
 			{
-				name: "exit",
+				name: 'exit',
 				selection: bound.exit.bind(bound)
 			}
 		];
@@ -114,13 +113,13 @@
 
 			// Some lifecycle selections are expressed as functions so that
 			// they may be delayed.
-			if (typeof selection === "function") {
+			if (typeof selection === 'function') {
 				selection = selection();
 			}
 
 			if (!(selection instanceof d3.selection)) {
-				throw new Error("Invalid selection defined for \"" + eventName +
-					"\" lifecycle event.");
+				throw new Error('Invalid selection defined for "' + eventName +
+					"' lifecycle event.");
 			}
 
 			handlers = this._handlers[eventName];
@@ -129,7 +128,7 @@
 				for (idx = 0, len = handlers.length; idx < len; ++idx) {
 					// Attach a reference to the parent chart so the selection"s
 					// `chart` method will function correctly.
-					selection._chart = handlers[idx].chart || this.base._chart;
+					selection._chart = handlers[idx].chart || this._base._chart;
 					selection.call(handlers[idx].callback);
 				}
 			}
@@ -139,7 +138,7 @@
 			if (handlers && handlers.length) {
 				selection = selection.transition();
 				for (idx = 0, len = handlers.length; idx < len; ++idx) {
-					selection._chart = handlers[idx].chart || this.base._chart;
+					selection._chart = handlers[idx].chart || this._base._chart;
 					selection.call(handlers[idx].callback);
 				}
 			}
@@ -261,7 +260,7 @@
 		return data;
 	};
 
-	Chart.prototype.mixin = function(selection, chartName) {
+	Chart.prototype.mixin = function(chartName, selection) {
 		var args = Array.prototype.slice.call(arguments, 2);
 		args.unshift(selection);
 		var ctor = Chart[chartName];
@@ -349,10 +348,13 @@
 		var events = this._events[name];
 		var i, ev;
 
-		for (i = 0; i < events.length; i++) {
-			ev = events[i];
-			ev.callback.apply(ev.context, args);
+		if (events !== undefined) {
+			for (i = 0; i < events.length; i++) {
+				ev = events[i];
+				ev.callback.apply(ev.context, args);
+			}
 		}
+
 		return this;
 	};
 
