@@ -92,12 +92,9 @@ d3.chart('BarChart', {
         chart.x.domain([0, chart.bars]);
 
         // adjust the y domain - find the max in the data.
-        chart.datamax = chart.usermax || _(data)
-          .map(function(d) {
-            return d.value;
-          })
-          .max()
-          .value();
+        chart.datamax = chart.usermax || d3.max(data, function(d) { 
+          return d.value; 
+        });
         chart.y.domain([0, chart.datamax]);
 
         // draw yaxis
