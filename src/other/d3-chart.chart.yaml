@@ -203,6 +203,11 @@ instance_methods:
     Defines a new layer on a chart or returns a reference to the selection 
     corresponding to a layer by a specific name.
     = toDisplayCodeBlock("api/d3-chart/d3.chart.layer")
+    <br />
+    Additionally, <code>layer</code> can reattach a previously detached layer
+    using the format: <code>chart.layer(name, layer)</code>.
+    = toDisplayCodeBlock("api/d3-chart/d3.chart.layer2")
+    
   params:
   -
     name: name
@@ -213,11 +218,14 @@ instance_methods:
     name: selection
     type: d3 selection
     required: true
-    description: the d3 element into which the elements rendered by the layer will be placed
+    description: |
+      the d3 element into which the elements rendered by the layer 
+      will be placed OR a previously detached layer that will be 
+      reattached.
   - 
     name: options
     type: Object
-    required: true
+    required: true (only if new layer)
     description: |
       The specific options available during layer creation:
     params:
@@ -245,7 +253,21 @@ instance_methods:
       description: |
         The function that gets called once the d3 <code>.enter()</code> method is executed. Note that happens 
         internally. The context of the insert function is the entered selection.
-
+-
+  name: 'unlayer'
+  signature: 'chart.unlayer(name)'
+  returns: d3.layer instance
+  description: |
+    Detaches an existing layer from the chart. Note that it does not actually
+    hide the layer (so it is up to you, the user, to hide the visual elements
+    appropriatly.)
+    = toDisplayCodeBlock("api/d3-chart/d3.chart.layer2")
+  params:
+  -
+    name: name
+    description: Name of layer
+    type: String
+    required: true
 -
   name: mixin
   signature: 'chart.mixin(chartType,selection)'

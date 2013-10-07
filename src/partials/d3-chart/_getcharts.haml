@@ -1,0 +1,12 @@
+<script type="text/javascript">
+  var charts = new Miso.Dataset({
+    importer: Miso.Dataset.Importers.GoogleSpreadsheet,
+    parser: Miso.Dataset.Parsers.GoogleSpreadsheet,
+    key: "0Al5UYaVoRpW3dGF2eGlsWWF2TjZ3cEZ4ZjR5blVraHc",
+    worksheet: "0"
+  });
+
+  charts.fetch().then(function(data) {
+    console.log(charts);
+  });
+</script>
