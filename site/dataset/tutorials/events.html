@@ -66,7 +66,7 @@
           Syncronization & Events
         </h2>
         <p>
-          Dataset has a very rich event system that allows you to bind to a variety of events on your dataset. By default, this functionality is <b>NOT ENABLED</b>. This is because event bindings are created automatically in certain cases (see more about selection and filtering) and unless that functionality is needed, there's no reason to create the bindings.
+          Dataset has a very rich event system that allows you to subscribe to a variety of events on your dataset. By default, this functionality is <b>NOT ENABLED</b>. This is because event bindings are created automatically in certain cases (see more about selection and filtering) and unless that functionality is needed, there's no reason to create the bindings.
         </p>
         <p>
           To enable evented behavior, set the <code>sync</code> property to <code>true</code> when initializing your dataset.
@@ -82,7 +82,7 @@
               </a>
               <br />
               Any selection created using rows, columns or where will get updated according to the original
-              changes in dataset. Any changes created to the DataView will trigger the appropriate events.
+              changes in dataset. Any changes created to the DataView will publish the appropriate events.
             </li>
             <li>
               <a href='/dataset/tutorials/products.html'>
@@ -90,7 +90,7 @@
               </a>
               <br />
               Any changes to the original data will cause products to recompute their value. Products of a Dataset
-              that has sync set to true, are actual objects (vs just computed values.) To get their values
+              that has sync set trigger true, are actual objects (vs just computed values.) To get their values
               you need to call <code>.val()</code>.
             </li>
             <li>
@@ -185,8 +185,8 @@
         </p>
         <h3>Binding</h3>
         <p>
-          To bind to an event, call <code>bind</code> like so:
-          <pre>ds.bind("add", callback);</pre>
+          To subscribe to an event, call <code>subscribe</code> like so:
+          <pre>ds.subscribe("add", callback);</pre>
         </p>
         <h3>Event Object</h3>
         <p>
@@ -238,7 +238,7 @@
           
           _.when(ds.fetch()).then(function() {
             
-            ds.bind("add", function(event) {
+            ds.subscribe("add", function(event) {
               log(JSON.stringify(event));
               log("Is Add?", Miso.Dataset.Event.isAdd(event.deltas[0]));
               log("Is Remove?", Miso.Dataset.Event.isRemove(event.deltas[0]));
@@ -247,7 +247,7 @@
           
             ds.add({ one : 10, two : 3, three : 24 });
           
-            ds.bind("remove", function(event) {
+            ds.subscribe("remove", function(event) {
               // We will now have an event with two deltas!
               log(event.deltas);
               log("New Dataset Length", ds.length);
@@ -261,8 +261,8 @@
         </p>
         <h3>Custom Events</h3>
         <p>
-          You can trigger your own custom events on dataset by just calling <code>trigger</code> when needed like so:
-          <pre>ds.trigger("myCustomEvent", arguments...);</pre>
+          You can publish your own custom events on dataset by just calling <code>publish</code> when needed like so:
+          <pre>ds.publish("myCustomEvent", arguments...);</pre>
         </p>
         <a href='/dataset/tutorials/accessing_data' style='float:left;'>
           <h2>
@@ -308,7 +308,7 @@
     </footer>
     <script src='/js/jquery.min.js'></script>
     <script src='/js/nav.js'></script>
-    <script src='/js/miso.ds.deps.0.3.0.js'></script>
+    <script src='/js/miso.ds.deps.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
     <script src='/js/codemirror.js'></script>

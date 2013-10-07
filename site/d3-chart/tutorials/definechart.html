@@ -17,7 +17,7 @@
     <meta content='The Miso Project' name='description' />
     <meta content='The Miso Project' name='name' />
     <meta content='width=device-width' name='viewport' />
-    <title>The Miso Project :: Block</title>
+    <title>The Miso Project :: d3.chart :: Tutorials</title>
     <link href='/stylesheets/screen.css' rel='stylesheet' />
     <link href='/stylesheets/codemirror.css' rel='stylesheet' />
     
@@ -30,27 +30,55 @@
         </a>
       </span>
       <span>
-        <a href='/block'>
+        <a href='/d3-chart'>
           Home
         </a>
       </span>
       <span>
-        <a href='/block/tutorials.html'>
+        <a href='/d3-chart/examples.html'>
+          Examples
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart/tutorials.html'>
           Tutorials
         </a>
       </span>
       <span>
-        <a href='/block/api.html'>
+        <a href='/d3-chart/api.html'>
           API Doc
         </a>
       </span>
       <span>
-        <a href='http://www.github.com/misoproject/block'>
+        <a href='/d3-chart/charts.html'>
+          Charts
+        </a>
+      </span>
+      <span>
+        <a href='http://www.github.com/misoproject/d3.chart'>
           Code (Github)
         </a>
       </span>
     </nav>
-    
+    <article class='d3-chart'>
+      <section class='tutorial'>
+        <h2>Define a chart!</h2>
+        <p>
+          See <a href="https://github.com/misoproject/d3.chart/wiki/quickstart">this walkthrough</a>
+          on our github wiki, showcasing how traditional d3 charts relate to d3.chart.
+        </p>
+        <a href='/d3-chart/tutorials/quickstart' style='float:left;'>
+          <h2>
+            &laquo; Quickstart
+          </h2>
+        </a>
+        <a href='/d3-chart/tutorials/lifecycle' style='text-align:right;'>
+          <h2>
+            Lifecycle Events &raquo;
+          </h2>
+        </a>
+      </section>
+    </article>
     <footer>
       <div class='container'>
         <section>
@@ -68,7 +96,7 @@
         </section>
         <section>
           <h2>
-            Supported by
+            Formally supported by
           </h2>
           <div class='content'>
             <a href='http://www.guardian.co.uk/development'>
@@ -83,7 +111,10 @@
     </footer>
     <script src='/js/jquery.min.js'></script>
     <script src='/js/nav.js'></script>
-    <script src='/js/miso.block.deps.js'></script>
+    <script src='/js/lodash.js'></script>
+    <script src='/js/underscore.deferred.js'></script>
+    <script charset='utf-8' src='/js/d3/d3.v3.min.js'></script>
+    <script src='/js/d3.chart.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
     <script src='/js/codemirror.js'></script>
