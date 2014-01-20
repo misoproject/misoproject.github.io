@@ -1,4 +1,32 @@
+/**
+* 
+* Renders circles along an x axis. For example:
+* 
+* var monthCircleChart = d3.select(output)
+*   .append("svg")
+*   .attr("height", 70)
+*   .attr("width", 800)
+*   .chart("CircleChart", {
+*     dataMapping: {
+*       value: function() { return this.month; }
+*     }
+*   })
+*   .radius(3);
+* 
+* var data = [
+*   { name : "January", month: 1, value : 29 },
+*   { name : "February", month: 2, value : 32 },
+*   { name : "March", month: 3, value : 48 },
+* ];
+* 
+* circlechart.draw(data);
+*/
+
 d3.chart("CircleChart", {
+
+  // these are the data attributes required by the chart.
+  dataAttrs: ["value"],
+
   initialize: function() {
 
     var chart = this;
@@ -16,7 +44,10 @@ d3.chart("CircleChart", {
     // the x scale will be adjusted to fit all circles in.
     // we give it 2 radii worth of padding on each side.
     chart.xScale = d3.scale.linear()
-      .range([chart.radius() * 2, chart.width() - (chart.radius() * 2)]);
+      .range([
+        chart.radius() * 2,
+        chart.width() - (chart.radius() * 2)
+      ]);
 
     // create a circle layer
     chart.layer("circles", this.base.append("g"), {
@@ -26,12 +57,9 @@ d3.chart("CircleChart", {
 
         // find the min and max of our data values so we can
         // set the domain of the xScale.
-        var values = _(data).map(function(datum) {
-          return datum[chart.dataAttribute()];
-        });
-        var dataMin = values.min().value();
-        var dataMax = values.max().value();
-        chart.xScale.domain([dataMin, dataMax]);
+        chart.xScale.domain(d3.extent(data, function(d) {
+          return d.value;
+        }));
 
         return this.selectAll("circle")
           .data(data);
@@ -49,7 +77,7 @@ d3.chart("CircleChart", {
           // and set their size.
           return this.attr("cy", chart.height()/2)
             .attr("cx", function(d) {
-              return chart.xScale(d[chart.dataAttribute()]);
+              return chart.xScale(d.value);
             })
             .attr("r", chart.radius());
         }
@@ -81,19 +109,37 @@ d3.chart("CircleChart", {
     }
     this._height = newHeight;
     return this;
-  },
-  dataAttribute: function(newDataAttribute) {
-    if (arguments.length === 0) {
-      return this._dataAttribute;
-    }
-    this._dataAttribute = newDataAttribute;
-    return this;
   }
 });
 
-// create an extended Labeled circle chart that shows
-// labels above the circles showing the data value.
+/**
+* 
+* Renders circles along an x axis with labels
+* above them.
+* 
+* var monthCircleChart = d3.select(output)
+*   .append("svg")
+*   .attr("height", 70)
+*   .attr("width", 800)
+*   .chart("LabeledCircleChart", {
+*     dataMapping: {
+*       value: function() { return this.month; }
+*     }
+*   })
+*   .radius(3);
+* 
+* var data = [
+*   { name : "January", month: 1, value : 29 },
+*   { name : "February", month: 2, value : 32 },
+*   { name : "March", month: 3, value : 48 },
+* ];
+* 
+* circlechart.draw(data);
+*/
 d3.chart("CircleChart").extend("LabeledCircleChart", {
+
+  dataAttrs: ["name"],
+
   initialize: function() {
 
     var chart = this;
@@ -121,48 +167,58 @@ d3.chart("CircleChart").extend("LabeledCircleChart", {
           // but about two radii's worth above (Which really gives)
           // one radius worth of padding.
           return this.attr("x", function(d) {
-            return chart.xScale(d[chart.dataAttribute()]);
+            return chart.xScale(d.value);
           })
           .attr("y", (chart.height() / 2) - (chart.radius()*2))
           .text(function(d) {
-            return d[chart.dataAttribute()];
-          });
+            return d.name;
+          })
+          .style("font-size", "8pt");
         }
       }
     });
   }
 });
 
+// Render values:
 var circlechart = d3.select(output)
   .append("svg")
   .attr("height", 70)
   .attr("width", 800)
-  .chart("CircleChart")
-  .dataAttribute("value");
+  .chart("CircleChart", {
+    dataMapping: {
+      value: function() { return this.value; }
+    }
+  });
 
-var labeledirclechart = d3.select(output)
+// Render the months as values:
+var monthCircleChart = d3.select(output)
   .append("svg")
   .attr("height", 70)
   .attr("width", 800)
-  .chart("LabeledCircleChart")
-  .dataAttribute("value")
+  .chart("LabeledCircleChart", {
+    dataMapping: {
+      value: function() { return this.month; },
+      name: function() { return this.name; }
+    }
+  })
   .radius(3);
 
 
 var data = [
-  { name : "January", month: 1, value : 29 },
-  { name : "February", month: 2, value : 32 },
-  { name : "March", month: 3, value : 48 },
-  { name : "April", month: 4, value : 49 },
+  { name : "Jan", month: 1, value : 29 },
+  { name : "Feb", month: 2, value : 32 },
+  { name : "Mar", month: 3, value : 48 },
+  { name : "Apr", month: 4, value : 49 },
   { name : "May", month: 5, value : 58 },
-  { name : "June", month: 6, value : 68 },
-  { name : "July", month: 7, value : 74 },
-  { name : "August", month: 8, value : 73 },
-  { name : "September", month: 9, value : 65 },
-  { name : "October", month: 10, value : 54 },
-  { name : "November", month: 11, value : 45 },
-  { name : "December", month: 12, value : 35 }
+  { name : "Jun", month: 6, value : 68 },
+  { name : "Jul", month: 7, value : 74 },
+  { name : "Aug", month: 8, value : 73 },
+  { name : "Sept", month: 9, value : 65 },
+  { name : "Oct", month: 10, value : 54 },
+  { name : "Nov", month: 11, value : 45 },
+  { name : "Dec", month: 12, value : 35 }
 ];
 
 circlechart.draw(data);
-labeledirclechart.draw(data);
+monthCircleChart.draw(data);

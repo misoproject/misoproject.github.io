@@ -1,23 +1,39 @@
 /**
-* A bar chart. Required data format:
-* [ { name : x-axis-bar-label, value : N }, ...]
+* A bar chart. Data must have a string name property to be
+* used as the x axis label, and a numeric value property.
 *
 *  Sample use:
+*  var data = [
+*    { "month" : "January", "base" : 14 },
+*    { "month" : "February", "base" : 24 },
+*    { "month" : "March", "base" : 114 }
+*  ];
 *  var bargraph = d3.select('#bargraph')
 *    .append('svg')
-*    .attr('width', line_w)
-*    .attr('height', line_h)
-*    .chart('CC-Barchart')
-*    .max(1.0);
+*    .attr('width', 300)
+*    .attr('height', 400)
+*    .chart('Barchart', {
+*       dataMapping: {
+*         "value": function() { return this.base; },
+*         "name": function() { return this.month; }
+*       }
+*    });
+* 
 *  bargraph.draw(bardata);
 */
 d3.chart('BarChart', {
+
+  // these attributes need to be mapped to when the chart
+  // is instantiated. See exaple above (or below).
+  dataAttrs: ['name', 'value'],
+
   initialize: function() {
+
     var chart = this;
 
     // default height and width
-    chart.w = chart.base.attr('width') || 200;
-    chart.h = chart.base.attr('height') || 150;
+    chart.w = +chart.base.attr('width') || 200;
+    chart.h = +chart.base.attr('height') || 150;
 
     // chart margins to account for labels.
     // we may want to have setters for this
@@ -78,25 +94,6 @@ d3.chart('BarChart', {
       // [ { name : x-axis-bar-label, value : N }, ...]
       dataBind : function(data) {
 
-        // save the data in case we need to reset it
-        chart.data = data;
-
-        // how many bars?
-        chart.bars = data.length;
-
-        // compute box size
-        chart.bar_width = (chart.w - chart.margins.left - ((chart.bars - 1) *
-          chart.margins.padding)) / chart.bars;
-
-        // adjust the x domain - the number of bars.
-        chart.x.domain([0, chart.bars]);
-
-        // adjust the y domain - find the max in the data.
-        chart.datamax = chart.usermax || d3.max(data, function(d) { 
-          return d.value; 
-        });
-        chart.y.domain([0, chart.datamax]);
-
         // draw yaxis
         var yAxis = d3.svg.axis()
           .scale(chart.y)
@@ -109,13 +106,15 @@ d3.chart('BarChart', {
         return this.selectAll('rect')
           .data(data);
       },
+
       insert : function() {
         return this.append('rect')
           .classed('bar', true);
       }
     });
 
-    // a layer for the x text labels.
+    // a layer for the x text labels. we could use a d3 scale as well
+    // but we wanted to demonstate how this could be done without.
     chart.layer('xlabels', chart.areas.xlabels, {
       dataBind : function(data) {
         // first append a line to the top.
@@ -127,7 +126,6 @@ d3.chart('BarChart', {
           .style('stroke', '#222')
           .style('stroke-width', '1')
           .style('shape-rendering', 'crispEdges');
-
 
         return this.selectAll('text')
           .data(data);
@@ -149,24 +147,50 @@ d3.chart('BarChart', {
     // on new/update data
     // render the bars.
     var onEnter = function() {
+      var chart = this.chart();
       this.attr('x', function(d, i) {
             return chart.x(i) - 0.5;
           })
           .attr('y', function(d) {
-            return chart.h - chart.margins.bottom - chart.margins.top - chart.y(chart.datamax - d.value) - 0.5;
+            return chart.h - chart.margins.bottom - chart.margins.top - 
+              chart.y(chart.datamax - d.value) - 0.5;
           })
           .attr('val', function(d) {
             return d.value;
           })
           .attr('width', chart.bar_width)
           .attr('height', function(d) {
-            //return chart.h - chart.margins.bottom - chart.y(chart.datamax - d.value);
             return chart.y(chart.datamax - d.value);
           });
     };
 
     chart.layer('bars').on('enter', onEnter);
     chart.layer('bars').on('update', onEnter);
+  },
+
+  transform: function(data) {
+    var chart = this;
+
+    // save the data in case we need to reset it
+    chart.data = data;
+
+    // how many bars?
+    chart.bars = data.length;
+
+    // compute bar box size
+    chart.bar_width = (chart.w - chart.margins.left - ((chart.bars - 1) *
+      chart.margins.padding)) / chart.bars;
+
+    // adjust the x domain - the number of bars.
+    chart.x.domain([0, chart.bars]);
+
+    // adjust the y domain - find the max in the data.
+    chart.datamax = chart.usermax || d3.max(data, function(d) {
+      return d.value;
+    });
+    chart.y.domain([0, chart.datamax]);
+
+    return chart.data;
   },
 
   // return or set the max of the data. otherwise
@@ -178,7 +202,7 @@ d3.chart('BarChart', {
 
     this.usermax = datamax;
 
-    this.draw(this.data);
+    if (this.data) this.draw(this.data);
 
     return this;
   },
@@ -197,7 +221,7 @@ d3.chart('BarChart', {
     // adjust the base width
     this.base.attr('width', this.w);
 
-    this.draw(this.data);
+    if (this.data) this.draw(this.data);
 
     return this;
   },
@@ -217,7 +241,7 @@ d3.chart('BarChart', {
     // adjust the base width
     this.base.attr('height', this.h);
 
-    this.draw(this.data);
+    if (this.data) this.draw(this.data);
     return this;
   }
 });
@@ -226,19 +250,24 @@ var barchart = d3.select(output)
   .append('svg')
   .attr('height', 300)
   .attr('width', 800)
-  .chart('BarChart');
+  .chart('BarChart', {
+    dataMapping: {
+      name : function() { return this.month; },
+      value: function() { return this.temperature; }
+    }
+  });
 
 barchart.draw([
-  { name : 'January', value : 29 },
-  { name : 'February', value : 32 },
-  { name : 'March', value : 48 },
-  { name : 'April', value : 49 },
-  { name : 'May', value : 58 },
-  { name : 'June', value : 68 },
-  { name : 'July', value : 74 },
-  { name : 'August', value : 73 },
-  { name : 'September', value : 65 },
-  { name : 'October', value : 54 },
-  { name : 'November', value : 45 },
-  { name : 'December', value : 35 }
+  { month : 'January', temperature : 29 },
+  { month : 'February', temperature : 32 },
+  { month : 'March', temperature : 48 },
+  { month : 'April', temperature : 49 },
+  { month : 'May', temperature : 58 },
+  { month : 'June', temperature : 68 },
+  { month : 'July', temperature : 74 },
+  { month : 'August', temperature : 73 },
+  { month : 'September', temperature : 65 },
+  { month : 'October', temperature : 54 },
+  { month : 'November', temperature : 45 },
+  { name : 'December', temperature : 35 }
 ]);
