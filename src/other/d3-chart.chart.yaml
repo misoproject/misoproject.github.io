@@ -7,9 +7,9 @@ methods:
 -
   name: constructor
   signature: 'd3.chart(name,options)'
-  returns: d3.chart constructor
+  returns: Function a new Chart constructor
   description: |
-    Used to define a new chart type
+    Create a new chart constructor or return a previously-created chart constructor.
     = toRunnableCodeBlock("api/d3-chart/d3.chart.create", nil, {:globals => "d3"})
   params:
   -
@@ -17,22 +17,31 @@ methods:
     type: String
     required: true
     description: |
-       the name of the chart one wishes to create. This is the generic 'type' of chart you're creating, for example 
-       'barchart' rather than an instance of a chart that you're initializing.
+       If no other arguments are specified, return the previously-created chart with this name.
   -
-    name: options
+    name: protoProps
     type: Object
     required: false
     description: |
-      The methods that will be available to the chart instance. 
-      See <a href="https://github.com/misoproject/d3.chart/wiki/chart-create">creating</a> 
-      for more information on defining a chart.
+      If specified, this value will be forwarded to extend 
+      and used to create a new chart.
+  -
+    name: staticProps
+    type: Object
+    required: false
+    description: |
+      If specified, this value will be forwarded to extend 
+      and used to create a new chart.
 -
   name: extend
   signature: 'd3.chart(name).extend(name, options)'
-  returns: d3.chart constructor
+  returns: Function A new Chart constructor
   description: |
-    Allows the extension of an existing d3.chart of chartType type.
+    Create a new Chart constructor with the provided options acting as 
+    "overrides" for the default chart instance methods. Allows for basic 
+    inheritance so that new chart constructors may be defined in terms of
+    existing chart constructors. Based on the `extend` function defined by
+    Backbone.js
     = toRunnableCodeBlock("api/d3-chart/d3.chart.extend", nil, {:globals => "d3"})
   params:
   -
@@ -40,21 +49,22 @@ methods:
     type: String
     required: true
     description: |
-      The new chart type name of the extended chart. For example, when extending a BarChart, 
-      one may want to add hoverable behavior to the bars. An appropriate name would 
-      then be: HoverableBarChart.
+      Identifier for the new Chart constructor.
   - 
     name: protoProps
     type: Object
     required: true
-    description:  A set of properties/methods that will be added to each instance of the chart.
+    description: |
+      Properties to set on the new chart's prototype.
+      d3.chart reserves the following properties: <br>
+      * dataAttrs - A list of strings describing the attributes that
+      the chart requires.
   -
     name: staticProps
     type: Object
     required: false
     description: |
-      A set of properties/methods that will be added to the constructor 
-      of the chart, but not each instance.
+      Properties to set on the chart constructor itself.
 
 instance_properties:
 -
@@ -62,7 +72,7 @@ instance_properties:
   signature: chart.base
   returns: d3 selection
   description: |
-    The highest level selection from which a chart was created.
+    The d3.selection in which the Chart instance is contained.
     = toRunnableCodeBlock("api/d3-chart/d3.chart.base", nil, {:globals => "d3"})
 
 instance_methods:
@@ -71,8 +81,8 @@ instance_methods:
   signature: chart.draw(data)
   returns: chart instance
   description: |
-    Causes the chart to draw all its layers as well as any layers defined in 
-    mixins. Note that this is the only way to pass data to the chart - through the draw method.
+    Update the chart's representation in the DOM, drawing all of its layers and 
+    any "attachment" charts (as attached via Chart.attach).
     = toDisplayCodeBlock("api/d3-chart/d3.chart.draw", nil, {:globals => "d3"})
   params:
   -
@@ -80,20 +90,18 @@ instance_methods:
     type: *
     required: true
     description: |
-      The data that should be drawn. Note that if a <code>transform</code>
-      method was defined for the data, it will be first passed through 
-      that transform before it is handed off to the layers. The <code>dataBind</code> 
-      methods of each layer will recieve the transformed data.
+      Data to pass to the {@link Layer#draw|draw method} of
+      this chart's layers (if any) and the draw method of this 
+      chart's attachments (if any).
 -
   name: 'transform'
   signature: chart.transform(data)
   returns: transformed data
   description: |
-    Transforms the data into a format that is expected by the layers. By default this 
-    method just passes the original data thrgouh. Define the <code>transform</code> when
-    you define your chart.
+    Can be defined as a passthrough before the draw methods are called to transform
+    the data before it is drawn.
     <br/><i>Note you will most likely never call this method directly, but rather define it during 
-    chart definition. Nonetheless it is a method that is availabe on the instance.</i>
+    chart definition. Nonetheless it is a method that is available on the instance.</i>
     = toRunnableCodeBlock("api/d3-chart/d3.chart.transform")
   params:
   -
@@ -105,129 +113,147 @@ instance_methods:
 -
   name: trigger
   signature: chart.trigger(name)
-  returns: chart instance
+  returns: a reference to the chart (chainable)
   description: |
-    Used to trigger an event on a chart. At least the name of the event is required. 
-    Any arguments passed after the name parameter will be passed to the callback.
+    Publish an event on this chart with the given <code>name</code>.
     = toRunnableCodeBlock("api/d3-chart/d3.chart.trigger")
   params:
   -
     name: name
     type: String
     description: |
-      The name of the event to trigger
+      The name of the event to publish
   - 
     name: any additional arguments
     type: *
     description: |
-      Any arguments passed after the name of the event will be passed to the callbacks defined
-      for that event.
+      Values with which to invoke the registered callbacks
 -
   name: 'on'
   signature: 'chart.on(name, callback, context)'
   returns: chart instance
   description: |
-    Binds a callback to the chart instance for a specific event name. Optionally can 
-    provide a context in which the callback be executed. By default, the context will 
-    be that of the chart instance.
+    Subscribe a callback function to an event triggered on the chart. See chart.once 
+    to subscribe a callback function to an event for one occurence.
     = toRunnableCodeBlock("api/d3-chart/d3.chart.on")
   params:
   -
     name: name
     type: String
     required: true
-    description: Name of event to bind to
+    description: Name of event
   - 
     name: callback
     type: Function
     required: true
-    description: The callback to execute when the event triggers
+    description: callback Function to be invoked when the event occurs
   -
     name: context
     type: Object
     required: false
-    description: The context in which the callback will be executed. Optional.
+    description: |
+      Value to set as `this` when invoking the `callback`. 
+      Defaults to the chart instance.
 -
   name: 'once'
   signature: 'chart.once(name, callback, context)'
-  returns: chart instance
+  returns: A reference to this chart (chainable).
   description: |
-    Binds a callback to the chart instance for a specific event name. This 
-    callback will only execute once. Optionally can provide a context in 
-    which the callback be executed. By default, the context will be that of the chart instance.
+    Subscribe a callback function to an event triggered on the chart. This
+    function will be invoked at the next occurance of the event and immediately
+    unsubscribed. See chart.on to subscribe a callback function to an
+    event indefinitely.
     = toRunnableCodeBlock("api/d3-chart/d3.chart.once")
   params:
   -
     name: name
     type: String
     required: true
-    description: Name of event to bind to
+    description: Name of event
   - 
     name: callback
     type: Function
     required: true
-    description: The callback to execute when the event triggers
+    description: callback Function to be invoked when the event occurs
   -
     name: context
     type: Object
     required: false
-    description: The context in which the callback will be executed. Optional.
+    description: |
+      Value to set as `this` when invoking the `callback`. 
+      Defaults to the chart instance
 -
   name: 'off'
   signature: 'chart.off(name, callback, context)'
   returns: chart instance
   description: |
-    Used to unbind events previously bound to the chart.
+    Unsubscribe one or more callback functions from an event triggered on the
+    chart. When no arguments are specified, *all* handlers will be unsubscribed.
+    When only a `name` is specified, all handlers subscribed to that event will
+    be unsubscribed. When a `name` and `callback` are specified, only that
+    function will be unsubscribed from that event. When a `name` and `context`
+    are specified (but `callback` is omitted), all events bound to the given
+    event with the given context will be unsubscribed.
     = toRunnableCodeBlock("api/d3-chart/d3.chart.off")
   params:
   -
     name: name
     type: String
     required: true
-    description: Name of event to bind to
+    description: Name of event to be unsubscribed. optional
   - 
     name: callback
     type: Function
     required: true
-    description: The callback to execute when the event triggers
+    description: Function to be unsubscribed. optional
   -
     name: context
     type: Object
     required: false
-    description: The context in which the callback will be executed. Optional.
+    description: Contexts to be unsubscribed. optional
 -
   name: 'layer'
   signature: 'chart.layer(name, selection, options)'
   returns: d3.layer instance
   description: |
-    Defines a new layer on a chart or returns a reference to the selection 
-    corresponding to a layer by a specific name.
-    = toDisplayCodeBlock("api/d3-chart/d3.chart.layer")
-    <br />
-    Additionally, <code>layer</code> can reattach a previously detached layer
-    using the format: <code>chart.layer(name, layer)</code>.
+    Interact with the chart's layers.
+    <br>
+    If only a `name` is provided, simply return the layer registered to that
+    name (if any).
+    <br>
+    If a `name` and `selection` are provided, treat the `selection` as a
+    previously-created layer and attach it to the chart with the specified
+    `name`.
+    <br>
     = toDisplayCodeBlock("api/d3-chart/d3.chart.layer2")
-    
+    <br>
+    If all three arguments are specified, initialize a new layer using
+    the specified `selection` as a base passing along the specified `options`.
+    <br>
+    The layer.draw method of attached layers will be invoked
+    whenever this chart's `draw` is invoked and will receive the
+    data (optionally modified by the chart's transform method.
+    <br>
+    = toDisplayCodeBlock("api/d3-chart/d3.chart.layer")
+  
   params:
   -
     name: name
-    description: Name of layer
+    description: Name of the layer to attach or retrieve.
     type: String
     required: true
   -
     name: selection
-    type: d3 selection
+    type: d3.selection|Layer
     required: true
     description: |
-      the d3 element into which the elements rendered by the layer 
-      will be placed OR a previously detached layer that will be 
-      reattached.
+      The layer's base or a previously-created layer.
   - 
     name: options
     type: Object
     required: true (only if new layer)
     description: |
-      The specific options available during layer creation:
+      Options to be forwarded to layer.
     params:
     -
       name: events
@@ -256,7 +282,7 @@ instance_methods:
 -
   name: 'unlayer'
   signature: 'chart.unlayer(name)'
-  returns: d3.layer instance
+  returns: The layer removed
   description: |
     Detaches an existing layer from the chart. Note that it does not actually
     hide the layer (so it is up to you, the user, to hide the visual elements
@@ -269,25 +295,25 @@ instance_methods:
     type: String
     required: true
 -
-  name: mixin
-  signature: 'chart.mixin(chartType,selection)'
-  returns: chart instance
+  name: attach
+  signature: 'chart.attach(name, chartInstance)'
+  returns: Reference to this chart (chainable).
   description: |
-    Allows adding an instance of a chart onto an instance of another. 
-    The mixin approach affords two things:
-    <ul><li>It allows tying together of charts that are driven by the same data</li>
-    <li>It superimposes charts on top of each other - sharing the same base but 
-    separating their functionality. Note it is up to you to pass on a selection that is 
-    derived off of the base of the chart being mixed into. </li>
+    Register or retrieve an "attachment" Chart. The "attachment" chart's `draw`
+    method will be invoked whenever the containing chart's `draw` method is
+    invoked.
     = toDisplayCodeBlock("api/d3-chart/d3.chart.mixin")
   params:
   - 
-    name: chartType
+    name: attachmentName
     type: String
     required: true
-    description: The name of the chart type that will be initilized.
+    description: Name of the attachment
   -
-    name: selection
-    type: d3 selection
+    name: chart
+    type: d3 chart instance
     required: true
-    description: The d3 selection that will be used to create the new chart type.
+    description: |
+      d3.chart to register as a mix in of this chart. When
+      unspecified, this method will return the attachment previously
+      registered with the specified `attachmentName` (if any).
