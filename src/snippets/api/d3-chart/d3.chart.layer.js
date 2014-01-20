@@ -3,11 +3,12 @@ d3.chart("CircleChart", {
     // add a circles layer
     this.layer(
       // layer name:
-      "circles", 
+      "circles",
 
       // give it a container off of the base
-      this.base.append("g"), 
+      this.base.append("g"),
 
+      // key layer methods: dataBind, insert and events
       {
         // define the data binding function
         dataBind: function(data) {
@@ -21,11 +22,10 @@ d3.chart("CircleChart", {
         // define the life cycle events
         events: {
           enter : function() {
-            return this.attr("cx", function(d) { 
-              return d; 
-            })
-            .attr("cy", 10)
-            .attr("r", 4);
+            this.attr("cx", function(d) {
+              return d;
+            }).attr("cy", 10)
+              .attr("r", 4);
           }
         }
       }
