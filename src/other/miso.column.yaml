@@ -10,7 +10,8 @@ methods:
   returns: Miso.Dataset.Column
   description: |
     Returns a new column.
-    = toRunnableCodeBlock("api/miso.column.constructor")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.column.constructor")
   params:
   -
     name: options
@@ -33,7 +34,7 @@ methods:
       name: before
       type: Function
       description: |
-        A function to pre-process a column's value before it is coerced. Signature is <code>function(value)</code> 
+        A function to pre-process a column's value before it is coerced. Signature is <code>function(value)</code>
     -
       name: format
       type: String
@@ -43,7 +44,7 @@ methods:
       name: id
       type: Integer
       description: |
-        Sets a custom column _id. We assign one by default. 
+        Sets a custom column _id. We assign one by default.
     -
       name: data
       type: Object
@@ -58,7 +59,8 @@ instance_methods:
   description: |
     Internal function used to return the numeric value of a given input in a column. Index is used
     as this is currently the return value for numeric coercion of string values.
-    = toRunnableCodeBlock("api/miso.column.numericat")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.column.numericat")
   params:
   -
     name: index
@@ -70,4 +72,5 @@ instance_methods:
   returns: undefined
   description: |
     Coerces all the data in the column's data array to the appropriate type.
-    = toRunnableCodeBlock("api/miso.column.coerce")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.column.coerce")

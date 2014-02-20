@@ -19,7 +19,7 @@ var ds = new Miso.Dataset({
   // fetch only tweets that come after the last tweet we fetched.
   url : function() {
     var u = "http://search.twitter.com/search.json?q=javascript&rpp=100";
-    
+
     // If we have a previous tweet id saved, make sure we restart our query from
     // that point on. This means we might not get the full 100 tweets we want.
     if (!_.isUndefined(this.sinceId)) {
@@ -30,11 +30,11 @@ var ds = new Miso.Dataset({
 
   // we only actually want the number of urls
   extract : function(data) {
-    
+
     // add some properties to the tweets like the number of urls they have
     // and whether they have urls at all.
     _.each(data.results, function(tweet){
-      
+
       // for each punctuation type, see if it appears in the tweet. If so
       // save the number of times it appears. Otherwise just set it to zero
       // for that tweet.
@@ -42,7 +42,7 @@ var ds = new Miso.Dataset({
         if (regex.test(tweet.text)) {
           tweet[name] = tweet.text.match(regex).length;
         } else {
-          tweet[name] = 0;  
+          tweet[name] = 0;
         }
       });
 
@@ -64,12 +64,12 @@ var ds = new Miso.Dataset({
 var punctuationDataset, paintChart, graph, legend;
 
 ds.fetch({
-  success : function() {   
+  success : function() {
 
     // if this is our first success callback, we need create the
     // groupBy dataset.
     if (_.isUndefined(punctuationDataset)) {
-      
+
       // compute a group by that aggregates the tweets into counts for each
       // type of punctuation.
       punctuationDataset = this.groupBy("sequence", _.keys(punctuations), {
@@ -81,7 +81,7 @@ ds.fetch({
           return (_.sum(arr) / this.parent.importer.lastRequestSize) * 100;
         }
       });
-      
+
       // define a function painting routine.
       paintChart = function() {
 
@@ -91,17 +91,17 @@ ds.fetch({
 
         // create a new graph with the latest version of the data.
         graph = new Rickshaw.Graph({
-          element: pieContainer[0], 
-          width: 500, 
-          height: 270, 
+          element: pieContainer[0],
+          width: 500,
+          height: 270,
           renderer : 'bar',
           series: prepareData(punctuationDataset, "sequence", _.keys(punctuations))
         });
-           
+
         graph.render();
       };
     }
-    
+
     // wait for 3 requests to come in before painting original chart
     // otherwise we are just painting one giant bar....!
     if (sequence === 3) {
@@ -109,21 +109,21 @@ ds.fetch({
       // subscribe to changes to the group by which will run
       // the above repaint function.
       punctuationDataset.bind("change", paintChart);
-      
+
       // render the chart the first time. Subsequent updates will go through
-      // the change event. We are waiting a few 
+      // the change event. We are waiting a few
       paintChart();
 
       // draw legend just once.
       if (_.isUndefined(legend)) {
-        legend = new Rickshaw.Graph.Legend( {
+        legend = new Rickshaw.Graph.Legend({
           element: $('#legend')[0],
           graph: graph
-        });  
+        });
       }
     }
 
-    // increase our request counter.   
+    // increase our request counter.
     sequence++;
   }
 });
@@ -153,3 +153,4 @@ function prepareData(dataset, x, y) {
     return s;
   });
 }
+window.ds = ds;

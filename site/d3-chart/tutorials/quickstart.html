@@ -61,45 +61,45 @@
       </span>
     </nav>
     <article class='d3-chart'>
-      <section class='tutorial'>
-        <h2>Quick Start!</h2>
-        <p>
-          To use d3.chart you need to download it and include it as a script tag
-          in your html file.
-        </p>
-        <h3>Download</h3>
-        <p>
-          You can download d3.chart from the from here:
-        </p>
-        <div class='indent-1'>
-          <h4>Download the right build for your environment:</h4>
-          <div style='width:100%; display:inline-block;'>
-            <div class='download' style='width:100%;'>
-              <a class='button' href='https://raw.github.com/misoproject/d3.chart/master/d3.chart.js' onclick="_gaq.push(['_trackEvent', 'd3.chart', 'Downloads', 'd3.chart development']);">
-                &darr; Development
-              </a>
-              <a class='button' href='https://raw.github.com/misoproject/d3.chart/master/d3.chart.min.js' onclick="_gaq.push(['_trackEvent', 'd3.chart', 'Downloads', 'd3.chart production']);">
-                &darr; production
-              </a>
-            </div>
-          </div>
-          <h4>Include the appropriate script tags. Note that d3.chart requires d3.js.</h4>
-          <p>
-            <div class="codeblock"><textarea name="codehelper"  class="code" mode="text/html"   showConsole="false" buttons="none" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-            <!-- Dependencies. -->
-            <script src="scripts/lib/d3.v3.min.js"></script>
-            
-            <!-- d3.chart -->
-            <script src="scripts/lib/d3.chart.min.js"></script></textarea></div>
-          </p>
+  <section class='tutorial'>
+    <h2>Quick Start!</h2>
+    <p>
+      To use d3.chart you need to download it and include it as a script tag
+      in your html file.
+    </p>
+    <h3>Download</h3>
+    <p>
+      You can download d3.chart from the from here:
+    </p>
+    <div class='indent-1'>
+      <h4>Download the right build for your environment:</h4>
+      <div style='width:100%; display:inline-block;'>
+        <div class='download' style='width:100%;'>
+          <a class='button' href='https://raw.github.com/misoproject/d3.chart/master/d3.chart.js' onclick="_gaq.push(['_trackEvent', 'd3.chart', 'Downloads', 'd3.chart development']);">
+            &darr; Development
+          </a>
+          <a class='button' href='https://raw.github.com/misoproject/d3.chart/master/d3.chart.min.js' onclick="_gaq.push(['_trackEvent', 'd3.chart', 'Downloads', 'd3.chart production']);">
+            &darr; production
+          </a>
         </div>
-        <a href='/d3-chart/tutorials/definechart' style='text-align:right;'>
-          <h2>
-            Define a Chart &raquo;
-          </h2>
-        </a>
-      </section>
-    </article>
+      </div>
+      <h4>Include the appropriate script tags. Note that d3.chart requires d3.js.</h4>
+      <p>
+        <div class="codeblock"><textarea name="codehelper"  class="code" mode="ace/mode/html"   showConsole="false" buttons="none" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+<!-- Dependencies. -->
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+<!-- d3.chart -->
+<script src="scripts/lib/d3.chart.min.js"></script></textarea></div>
+      </p>
+    </div>
+    <a href='/d3-chart/tutorials/definechart' style='text-align:right;'>
+      <h2>
+        Define a Chart &raquo;
+      </h2>
+    </a>
+  </section>
+</article>
     <footer>
       <div class='container'>
         <section>
@@ -138,8 +138,8 @@
     <script src='/js/d3.chart.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
-    <script src='/js/codemirror.js'></script>
-    <script src='/js/codeblocks.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
     
     <script type="text/javascript">
       var _gaq = _gaq || [];

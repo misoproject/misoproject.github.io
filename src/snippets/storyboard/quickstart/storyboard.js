@@ -1,11 +1,11 @@
 var story = new Miso.Storyboard({
-  
+
   // start on the first pane
   initial : 'pane1',
 
   // set the context to an element we will be updating
-  context : $('#walkthrough'),
-  
+  context : $('.ace-result'),
+
   scenes : {
 
     pane1 : {

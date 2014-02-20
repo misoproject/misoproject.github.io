@@ -15,4 +15,5 @@
     %div#barChartContainer{ :style => "height: 100px; width: 50%;" }
       Fetching github data...
 
-  = toRunnableCodeBlock("dataset/examples/github.js", "github", { :autorun => true })
+  %div{ :style => 'height:800px'}
+    = toRunnableCodeBlock("dataset/examples/github.js", "github", { :autorun => true })

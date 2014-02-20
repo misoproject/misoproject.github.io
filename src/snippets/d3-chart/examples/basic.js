@@ -1,43 +1,25 @@
 /**
-* A bar chart. Data must have a string name property to be
-* used as the x axis label, and a numeric value property.
+* A bar chart. Required data format:
+* [ { name : x-axis-bar-label, value : N }, ...]
 *
 *  Sample use:
-*  var data = [
-*    { "month" : "January", "base" : 14 },
-*    { "month" : "February", "base" : 24 },
-*    { "month" : "March", "base" : 114 }
-*  ];
 *  var bargraph = d3.select('#bargraph')
 *    .append('svg')
-*    .attr('width', 300)
-*    .attr('height', 400)
-*    .chart('Barchart', {
-*       dataMapping: {
-*         "value": function() { return this.base; },
-*         "name": function() { return this.month; }
-*       }
-*    });
-* 
+*    .chart('BarChart')
+*    .yFormat(d3.format("d"))
+*    .height(400)
+*    .width(800)
+*    .max(1.0);
 *  bargraph.draw(bardata);
 */
 d3.chart('BarChart', {
 
-  // these attributes need to be mapped to when the chart
-  // is instantiated. See exaple above (or below).
-  dataAttrs: ['name', 'value'],
-
   initialize: function() {
-
     var chart = this;
 
-    // default height and width
-    chart.w = +chart.base.attr('width') || 200;
-    chart.h = +chart.base.attr('height') || 150;
-
     // chart margins to account for labels.
-    // we may want to have setters for this
-    // if we were letting the users customize this too
+    // we may want to have setters for this.
+    // not sure how necessary that is tbh.
     chart.margins = {
       top : 10,
       bottom : 15,
@@ -47,17 +29,17 @@ d3.chart('BarChart', {
     };
 
     // default chart ranges
-    chart.x =  d3.scale.linear()
-      .range([0, chart.w - chart.margins.left]);
-
-    chart.y = d3.scale.linear()
-      .range([chart.h - chart.margins.bottom, 0]);
+    chart.x =  d3.scale.linear();
+    chart.y = d3.scale.linear();
 
     chart.base
       .classed('Barchart', true);
 
     // non data driven areas (as in not to be independatly drawn)
     chart.areas = {};
+
+    // cache for selections that are layer bases.
+    chart.layers = {};
 
     // make sections for labels and main area
     //  _________________
@@ -72,50 +54,90 @@ d3.chart('BarChart', {
     chart.areas.ylabels = chart.base.append('g')
       .classed('ylabels', true)
       .attr('width', chart.margins.left)
-      .attr('height', chart.h - chart.margins.bottom - chart.margins.top)
-      .attr('transform', 'translate('+(chart.margins.left-1)+',0)');
+      .attr('transform',
+        'translate('+(chart.margins.left-1)+','+(chart.margins.top + 1)+')');
 
-    chart.areas.bars = chart.base.append('g')
+    // -- actual layers
+    chart.layers.bars = chart.base.append('g')
       .classed('bars', true)
-      .attr('width', chart.w - chart.margins.left)
-      .attr('height', chart.h - chart.margins.bottom - chart.margins.top)
-      .attr('transform', 'translate(' + chart.margins.left + ',' + chart.margins.top+')');
+      .attr('transform',
+        'translate(' + chart.margins.left + ',' + (chart.margins.top + 1)+')');
 
-    chart.areas.xlabels = chart.base.append('g')
+    chart.layers.xlabels = chart.base.append('g')
       .classed('xlabels', true)
-      .attr('width', chart.w - chart.margins.left)
-      .attr('height', chart.margins.bottom)
-      .attr('transform', 'translate(' + chart.margins.left + ',' +
-        (chart.h - chart.margins.bottom) + ')');
+      .attr('height', chart.margins.bottom);
+
+    chart.on("change:width", function() {
+      chart.x.range([0, chart.w - chart.margins.left]);
+      chart.layers.bars.attr('width', chart.w - chart.margins.left);
+      chart.layers.xlabels.attr('width', chart.w - chart.margins.left);
+    });
+
+    chart.on("change:height", function() {
+      chart.y.range([chart.h - chart.margins.bottom - chart.margins.top, 0]);
+      chart.areas.ylabels
+        .attr('height', chart.h - chart.margins.bottom - chart.margins.top - 1);
+      chart.layers.bars
+        .attr('height', chart.h - chart.margins.bottom - chart.margins.top);
+      chart.layers.xlabels
+        .attr('transform', 'translate(' + chart.margins.left + ',' +
+        (chart.h - chart.margins.bottom + 1) + ')');
+    });
 
     // make actual layers
-    chart.layer('bars', chart.areas.bars, {
+    chart.layer('bars', chart.layers.bars, {
       // data format:
       // [ { name : x-axis-bar-label, value : N }, ...]
       dataBind : function(data) {
+
+        chart.data = data;
+
+        // how many bars?
+        chart.bars = data.length;
+
+        // compute box size
+        chart.bar_width = (chart.w - chart.margins.left - ((chart.bars - 1) *
+          chart.margins.padding)) / chart.bars;
+
+        // adjust the x domain - the number of bars.
+        chart.x.domain([0, chart.bars]);
+
+        // adjust the y domain - find the max in the data.
+        chart.datamax = chart.usermax ||
+          d3.extent(data, function(d) { return d.value; })[1];
+
+        chart.y.domain([0, chart.datamax]);
 
         // draw yaxis
         var yAxis = d3.svg.axis()
           .scale(chart.y)
           .orient('left')
-          .ticks(6);
+          .ticks(5)
+          .tickFormat(chart._yformat || d3.format('.0%'));
 
         chart.areas.ylabels
           .call(yAxis);
 
         return this.selectAll('rect')
-          .data(data);
+          .data(data, function(d) { return d.name; });
       },
-
       insert : function() {
         return this.append('rect')
-          .classed('bar', true);
+          .classed('bar', true)
+          .classed('highlight', function(d) {
+            return d.highlight;
+          });
+      },
+
+      events: {
+        exit: function() {
+          this.remove();
+        }
       }
     });
 
-    // a layer for the x text labels. we could use a d3 scale as well
-    // but we wanted to demonstate how this could be done without.
-    chart.layer('xlabels', chart.areas.xlabels, {
+    // a layer for the x text labels.
+    chart.layer('xlabels', chart.layers.xlabels, {
       dataBind : function(data) {
         // first append a line to the top.
         this.append('line')
@@ -127,8 +149,9 @@ d3.chart('BarChart', {
           .style('stroke-width', '1')
           .style('shape-rendering', 'crispEdges');
 
+
         return this.selectAll('text')
-          .data(data);
+          .data(data, function(d) { return d.name; });
       },
       insert : function() {
         return this.append('text')
@@ -141,19 +164,23 @@ d3.chart('BarChart', {
           .text(function(d) {
             return d.name;
           });
+      },
+      events: {
+        exit: function() {
+          this.remove();
+        }
       }
     });
 
     // on new/update data
     // render the bars.
     var onEnter = function() {
-      var chart = this.chart();
       this.attr('x', function(d, i) {
             return chart.x(i) - 0.5;
           })
           .attr('y', function(d) {
-            return chart.h - chart.margins.bottom - chart.margins.top - 
-              chart.y(chart.datamax - d.value) - 0.5;
+            return chart.h - chart.margins.bottom -
+              chart.margins.top - chart.y(chart.datamax - d.value) - 0.5;
           })
           .attr('val', function(d) {
             return d.value;
@@ -168,31 +195,6 @@ d3.chart('BarChart', {
     chart.layer('bars').on('update', onEnter);
   },
 
-  transform: function(data) {
-    var chart = this;
-
-    // save the data in case we need to reset it
-    chart.data = data;
-
-    // how many bars?
-    chart.bars = data.length;
-
-    // compute bar box size
-    chart.bar_width = (chart.w - chart.margins.left - ((chart.bars - 1) *
-      chart.margins.padding)) / chart.bars;
-
-    // adjust the x domain - the number of bars.
-    chart.x.domain([0, chart.bars]);
-
-    // adjust the y domain - find the max in the data.
-    chart.datamax = chart.usermax || d3.max(data, function(d) {
-      return d.value;
-    });
-    chart.y.domain([0, chart.datamax]);
-
-    return chart.data;
-  },
-
   // return or set the max of the data. otherwise
   // it will use the data max.
   max : function(datamax) {
@@ -204,6 +206,14 @@ d3.chart('BarChart', {
 
     if (this.data) this.draw(this.data);
 
+    return this;
+  },
+
+  yFormat: function(format) {
+    if (!arguments.length) {
+      return this._yformat;
+    }
+    this._yformat = format;
     return this;
   },
 
@@ -221,6 +231,7 @@ d3.chart('BarChart', {
     // adjust the base width
     this.base.attr('width', this.w);
 
+    this.trigger("change:width");
     if (this.data) this.draw(this.data);
 
     return this;
@@ -241,6 +252,7 @@ d3.chart('BarChart', {
     // adjust the base width
     this.base.attr('height', this.h);
 
+    this.trigger("change:height");
     if (this.data) this.draw(this.data);
     return this;
   }
@@ -248,14 +260,16 @@ d3.chart('BarChart', {
 
 var barchart = d3.select(output)
   .append('svg')
-  .attr('height', 300)
-  .attr('width', 800)
   .chart('BarChart', {
-    dataMapping: {
-      name : function() { return this.month; },
-      value: function() { return this.temperature; }
+    transform: function(data) {
+      return data.map(function(d) {
+        return { name : d.month, value : d.temperature };
+      });
     }
-  });
+  })
+  .yFormat(d3.format("d"))
+  .height(400)
+  .width(800);
 
 barchart.draw([
   { month : 'January', temperature : 29 },
@@ -269,5 +283,5 @@ barchart.draw([
   { month : 'September', temperature : 65 },
   { month : 'October', temperature : 54 },
   { month : 'November', temperature : 45 },
-  { name : 'December', temperature : 35 }
+  { month : 'December', temperature : 35 }
 ]);

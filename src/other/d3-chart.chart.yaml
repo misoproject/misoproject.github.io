@@ -6,11 +6,13 @@ description: |
 methods:
 -
   name: constructor
-  signature: 'd3.chart(name,options)'
-  returns: Function a new Chart constructor
+  signature: 'd3.chart(name, options)'
+  returns: A chart constructor.
   description: |
-    Create a new chart constructor or return a previously-created chart constructor.
-    = toRunnableCodeBlock("api/d3-chart/d3.chart.create", nil, {:globals => "d3"})
+    Create a new chart constructor or return a previously-created chart
+    constructor.
+    %div{ :style => 'height:150px'}
+      = toRunnableCodeBlock("api/d3-chart/d3.chart.create", nil, {:globals => "d3"})
   params:
   -
     name: name
@@ -23,26 +25,25 @@ methods:
     type: Object
     required: false
     description: |
-      If specified, this value will be forwarded to extend 
-      and used to create a new chart.
+      If specified, this value will be forwarded to `Chart.extend` and used when creating new chart instances.
   -
     name: staticProps
     type: Object
     required: false
     description: |
-      If specified, this value will be forwarded to extend 
-      and used to create a new chart.
+      If specified, this value will be forwarded to `Chart.extend` and used to define properties on the chart constructor function.
 -
   name: extend
-  signature: 'd3.chart(name).extend(name, options)'
-  returns: Function A new Chart constructor
+  signature: 'd3.chart(chartType).extend(name, protoProps, staticProps)'
+  returns: A Chart constructor
   description: |
-    Create a new Chart constructor with the provided options acting as 
-    "overrides" for the default chart instance methods. Allows for basic 
+    Create a new Chart constructor with the provided options acting as
+    "overrides" for the default chart instance methods. Allows for basic
     inheritance so that new chart constructors may be defined in terms of
     existing chart constructors. Based on the `extend` function defined by
     Backbone.js
-    = toRunnableCodeBlock("api/d3-chart/d3.chart.extend", nil, {:globals => "d3"})
+    %div{ :style => 'height:200px'}
+      = toRunnableCodeBlock("api/d3-chart/d3.chart.extend", nil, {:globals => "d3"})
   params:
   -
     name: name
@@ -50,21 +51,20 @@ methods:
     required: true
     description: |
       Identifier for the new Chart constructor.
-  - 
+  -
     name: protoProps
     type: Object
     required: true
     description: |
       Properties to set on the new chart's prototype.
-      d3.chart reserves the following properties: <br>
-      * dataAttrs - A list of strings describing the attributes that
-      the chart requires.
+      d3.chart reserves the following properties:
+      * <code>demux</code> - <function> A method specifying how data should be modified for individually attached charts. Takes two arguments: <code>attachmentName</code> and the full data passed to <code>Chart#draw</code> (after it was transformed.)
   -
     name: staticProps
     type: Object
     required: false
     description: |
-      Properties to set on the chart constructor itself.
+      Properties to be set on the chart constructor itself.
 
 instance_properties:
 -
@@ -73,25 +73,26 @@ instance_properties:
   returns: d3 selection
   description: |
     The d3.selection in which the Chart instance is contained.
-    = toRunnableCodeBlock("api/d3-chart/d3.chart.base", nil, {:globals => "d3"})
+    %div{ :style => 'height:200px'}
+      = toRunnableCodeBlock("api/d3-chart/d3.chart.base", nil, {:globals => "d3"})
 
 instance_methods:
-- 
+-
   name: 'draw'
   signature: chart.draw(data)
   returns: chart instance
   description: |
-    Update the chart's representation in the DOM, drawing all of its layers and 
-    any "attachment" charts (as attached via Chart.attach).
+    Update the chart's representation in the DOM, drawing all of its layers and
+    any "attachment" charts (as attached via <code>Chart#attach</code>.
     = toDisplayCodeBlock("api/d3-chart/d3.chart.draw", nil, {:globals => "d3"})
   params:
   -
     name: data
-    type: *
+    type:
     required: true
     description: |
-      Data to pass to the {@link Layer#draw|draw method} of
-      this chart's layers (if any) and the draw method of this 
+      Data to pass to the <code>Layer#draw</code> method of
+      this chart's layers (if any) and the draw method of this
       chart's attachments (if any).
 -
   name: 'transform'
@@ -100,19 +101,19 @@ instance_methods:
   description: |
     Can be defined as a passthrough before the draw methods are called to transform
     the data before it is drawn.
-    <br/><i>Note you will most likely never call this method directly, but rather define it during 
+    <br/><i>Note you will most likely never call this method directly, but rather define it during
     chart definition. Nonetheless it is a method that is available on the instance.</i>
     = toRunnableCodeBlock("api/d3-chart/d3.chart.transform")
   params:
   -
     name: data
-    type: *
+    type:
     required: true
     description: the data to transform
 
 -
   name: trigger
-  signature: chart.trigger(name)
+  signature: "chart.trigger(name, ..*)"
   returns: a reference to the chart (chainable)
   description: |
     Publish an event on this chart with the given <code>name</code>.
@@ -123,36 +124,38 @@ instance_methods:
     type: String
     description: |
       The name of the event to publish
-  - 
-    name: any additional arguments
-    type: *
+  -
+    name: "..*"
+    type: Anything
     description: |
       Values with which to invoke the registered callbacks
 -
   name: 'on'
   signature: 'chart.on(name, callback, context)'
-  returns: chart instance
+  returns: A reference to this chart instance (chainable.)
   description: |
-    Subscribe a callback function to an event triggered on the chart. See chart.once 
-    to subscribe a callback function to an event for one occurence.
-    = toRunnableCodeBlock("api/d3-chart/d3.chart.on")
+    Subscribe a handler to a "lifecycle event". These events (and only these
+    events) are triggered when <code>Layer#draw</code> is invoked &mdash; see
+    that method for more details on lifecycle events.
+    %div{ :style => 'height:300px'}
+      = toRunnableCodeBlock("api/d3-chart/d3.chart.on")
   params:
   -
     name: name
     type: String
     required: true
     description: Name of event
-  - 
+  -
     name: callback
     type: Function
     required: true
-    description: callback Function to be invoked when the event occurs
+    description: Function to be invoked when the event occurs
   -
     name: context
     type: Object
     required: false
     description: |
-      Value to set as `this` when invoking the `callback`. 
+      Value to set as `this` when invoking the `callback`.
       Defaults to the chart instance.
 -
   name: 'once'
@@ -161,27 +164,28 @@ instance_methods:
   description: |
     Subscribe a callback function to an event triggered on the chart. This
     function will be invoked at the next occurance of the event and immediately
-    unsubscribed. See chart.on to subscribe a callback function to an
-    event indefinitely.
-    = toRunnableCodeBlock("api/d3-chart/d3.chart.once")
+    unsubscribed. See <code>Chart.on</code> to subscribe a callback function
+    to an event indefinitely.
+    %div{ :style => 'height:350px'}
+      = toRunnableCodeBlock("api/d3-chart/d3.chart.once")
   params:
   -
     name: name
     type: String
     required: true
     description: Name of event
-  - 
+  -
     name: callback
     type: Function
     required: true
-    description: callback Function to be invoked when the event occurs
+    description: Function to be invoked when the event occurs
   -
     name: context
     type: Object
     required: false
     description: |
-      Value to set as `this` when invoking the `callback`. 
-      Defaults to the chart instance
+      Value to set as `this` when invoking the `callback`.
+      Defaults to the chart instance.
 -
   name: 'off'
   signature: 'chart.off(name, callback, context)'
@@ -189,19 +193,21 @@ instance_methods:
   description: |
     Unsubscribe one or more callback functions from an event triggered on the
     chart. When no arguments are specified, *all* handlers will be unsubscribed.
-    When only a `name` is specified, all handlers subscribed to that event will
-    be unsubscribed. When a `name` and `callback` are specified, only that
-    function will be unsubscribed from that event. When a `name` and `context`
-    are specified (but `callback` is omitted), all events bound to the given
-    event with the given context will be unsubscribed.
-    = toRunnableCodeBlock("api/d3-chart/d3.chart.off")
+    When only a <code>name</code> is specified, all handlers subscribed to
+    that event will be unsubscribed. When a <code>name</code> and <code>
+    callback</code> are specified, only that function will be unsubscribed
+    from that event. When a <code>name</code> and <code>context</code> are
+    specified (but <code>callback</code> is omitted), all events bound to the
+    given event with the given context will be unsubscribed.
+    %div{ :style => 'height: 400px'}
+      = toRunnableCodeBlock("api/d3-chart/d3.chart.off")
   params:
   -
     name: name
     type: String
     required: true
     description: Name of event to be unsubscribed. optional
-  - 
+  -
     name: callback
     type: Function
     required: true
@@ -225,7 +231,8 @@ instance_methods:
     previously-created layer and attach it to the chart with the specified
     `name`.
     <br>
-    = toDisplayCodeBlock("api/d3-chart/d3.chart.layer2")
+    %div{ :style => 'height:150px'}
+      = toDisplayCodeBlock("api/d3-chart/d3.chart.layer2")
     <br>
     If all three arguments are specified, initialize a new layer using
     the specified `selection` as a base passing along the specified `options`.
@@ -234,8 +241,9 @@ instance_methods:
     whenever this chart's `draw` is invoked and will receive the
     data (optionally modified by the chart's transform method.
     <br>
-    = toDisplayCodeBlock("api/d3-chart/d3.chart.layer")
-  
+    %div{ :style => 'height:400px'}
+      = toDisplayCodeBlock("api/d3-chart/d3.chart.layer")
+
   params:
   -
     name: name
@@ -248,7 +256,7 @@ instance_methods:
     required: true
     description: |
       The layer's base or a previously-created layer.
-  - 
+  -
     name: options
     type: Object
     required: true (only if new layer)
@@ -260,60 +268,64 @@ instance_methods:
       type: Object
       required: false
       description:  |
-        An object specifying 
-        <a href="https://github.com/misoproject/d3.chart/wiki/wiki/lifecycle-events">lifecycle events</a>. 
+        An object specifying
+        <a href="https://github.com/misoproject/d3.chart/wiki/lifecycle-events">lifecycle events</a>.
         Keys are the event names and the values are the callbacks.
-    - 
+    -
       name: dataBind
       type: Function
       required: true
       description: |
-        The function that sets up the selection and binds the data using the d3 <code>.data()</code> 
-        function. Must return that binding. Takes one argument which is the data that <code>draw</code> 
-        was called with, transformed if the <code>transform</code> method was defined. The context of 
+        The function that sets up the selection and binds the data using the d3 <code>.data()</code>
+        function. Must return that binding. Takes one argument which is the data that <code>draw</code>
+        was called with, transformed if the <code>transform</code> method was defined. The context of
         the dataBind method is the selection of the layer.
-    - 
+    -
       name: insert
       type: Function
       required: true
       description: |
-        The function that gets called once the d3 <code>.enter()</code> method is executed. Note that happens 
+        The function that gets called once the d3 <code>.enter()</code> method is executed. Note that happens
         internally. The context of the insert function is the entered selection.
 -
   name: 'unlayer'
   signature: 'chart.unlayer(name)'
   returns: The layer removed
   description: |
-    Detaches an existing layer from the chart. Note that it does not actually
-    hide the layer (so it is up to you, the user, to hide the visual elements
-    appropriatly.)
+    Remove a layer from the chart. Note that this does not hide the layer if
+    it has been rendered.
     = toDisplayCodeBlock("api/d3-chart/d3.chart.layer2")
   params:
   -
     name: name
-    description: Name of layer
+    description: The name of the layer to remove.
     type: String
     required: true
 -
   name: attach
-  signature: 'chart.attach(name, chartInstance)'
+  signature: 'chart.attach(attachmentName, chart)'
   returns: Reference to this chart (chainable).
   description: |
     Register or retrieve an "attachment" Chart. The "attachment" chart's `draw`
     method will be invoked whenever the containing chart's `draw` method is
     invoked.
-    = toDisplayCodeBlock("api/d3-chart/d3.chart.mixin")
+    %div{ :style => 'height:220px;'}
+      = toDisplayCodeBlock("api/d3-chart/d3.chart.mixin")
   params:
-  - 
+  -
     name: attachmentName
     type: String
     required: true
-    description: Name of the attachment
+    description: |
+      Name of the attachment. This does *not* correspond to a chart type but
+      rather is a unique identifier that the chart creator wishes to give to
+      their chart. Can then be used during <code>demux</code> to return
+      correct data for chart instance.
   -
     name: chart
     type: d3 chart instance
     required: true
     description: |
-      d3.chart to register as a mix in of this chart. When
-      unspecified, this method will return the attachment previously
-      registered with the specified `attachmentName` (if any).
+      d3.chart to register as a mix in of this chart. When unspecified, this
+      method will return the attachment previously registered with the
+      specified <code>attachmentName</code> (if any).

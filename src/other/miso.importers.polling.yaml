@@ -2,7 +2,8 @@
 name: Miso.Dataset.Importers.Polling
 description: |
   Pull data from a remote source on a regular interval
-  = toRunnableCodeBlock("api/miso.importer.polling")
+  %div{ :style=> 'height:200px'}
+    = toRunnableCodeBlock("api/miso.importer.polling")
 
 methods:
 -
@@ -17,8 +18,8 @@ methods:
     type: Object
     params:
     -
-      name: interval 
+      name: interval
       type: Integer
       description: |
         Frequency (in milliseconds) with which to fetch data
-        
+

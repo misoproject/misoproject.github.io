@@ -12,7 +12,7 @@
   %style
     :plain
       .CircleChart {}
-      
-  = toRunnableCodeBlock("d3-chart/examples/extending.js", nil, { :autorun => true, :globals => '_,d3' })
-  = toDisplayCodeBlock("d3-chart/examples/extending.html")
-   
+
+  %div{ :style => 'height:800px'}
+    = toRunnableCodeBlock("d3-chart/examples/extending.js", nil, { :autorun => true, :globals => '_,d3' })
+

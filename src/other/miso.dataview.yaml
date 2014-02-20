@@ -3,21 +3,23 @@ name: 'Miso.Dataset.DataView'
 inherits: ['Miso.Events']
 description: |
   A <code>Miso.DataView</code> is an immutable version of dataset. It is the result of selecting a subset of the data using the <code>ds.where</code> call. If the dataset is syncing, this view will be updated when changes take place in the original dataset.
-  A <code>Miso.Dataset</code> also extends from <code>Miso.DataView</code>. All the methods available on a dataview will also be available on the dataset.  
+  A <code>Miso.Dataset</code> also extends from <code>Miso.DataView</code>. All the methods available on a dataview will also be available on the dataset.
 instance_methods:
 -
   name: 'columnNames'
   signature: 'ds.columnNames()'
   description: |
     Returns an array containing the names of all columns
-    = toRunnableCodeBlock("api/miso.dataview.columnnames")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.dataview.columnnames")
   returns: 'Array'
 -
   name: 'column'
   signature: 'ds.column( name )'
   description: |
     Returns a reference to a column object
-    = toRunnableCodeBlock("api/miso.dataview.column")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.dataview.column")
   returns: 'Array'
   params:
   -
@@ -32,9 +34,10 @@ instance_methods:
   signature: 'ds.columns( nameArray )'
   description: |
     Shorthand for ds.where({ columns : nameArray });
-    = toRunnableCodeBlock("api/miso.dataview.columns")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.dataview.columns")
   returns: 'Miso.Dataset.DataView'
-  params: 
+  params:
   -
     name: nameArray
     type: Array
@@ -45,9 +48,10 @@ instance_methods:
   signature: 'ds.hasColumn( name )'
   description: |
     Checks for the existance of a column and returns true/false
-    = toRunnableCodeBlock("api/miso.dataview.hascolumn")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.dataview.hascolumn")
   returns: 'Boolean'
-  params: 
+  params:
   -
     name: name
     type: String
@@ -59,9 +63,10 @@ instance_methods:
   description: |
     Iterate over all columns. Direct column references, not arrays so modifying
     data may cause internal inconsistencies.
-    = toRunnableCodeBlock("api/miso.dataview.eachColumn")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.dataview.eachColumn")
   returns: ''
-  params: 
+  params:
   -
     name: iterator
     type: Function
@@ -79,9 +84,10 @@ instance_methods:
   description: |
     Iterate over all rows. Each row is not a direct reference to the data
     and thus should not be altered in any way.
-    = toRunnableCodeBlock("api/miso.dataview.each")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.dataview.each")
   returns: ''
-  params: 
+  params:
   -
     name: iterator
     type: Function
@@ -99,9 +105,10 @@ instance_methods:
   description: |
     Iterate over all rows in reverse. Each row is not a direct reference to the data
     and thus should not be altered in any way.
-    = toRunnableCodeBlock("api/miso.dataview.reverseEach")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.dataview.reverseEach")
   returns: ''
-  params: 
+  params:
   -
     name: iterator
     type: Function
@@ -118,9 +125,10 @@ instance_methods:
   signature: 'ds.rowByPosition( position )'
   description: |
     Fetches a row object at a specified position. Note that the returned row object is NOT a direct reference to the data and thus any changes to it will not alter the original data.
-    = toRunnableCodeBlock("api/miso.dataview.rowbyposition")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.dataview.rowbyposition")
   returns: 'Object'
-  params: 
+  params:
   -
     name: position
     required: true
@@ -132,9 +140,10 @@ instance_methods:
   signature: 'ds.rowById( id )'
   description: |
     Fetches a row object with a specific <code>_id</code>. Note that the returned row object is NOT a direct reference to the data and thus any changes to it will not alter the original data.
-    = toRunnableCodeBlock("api/miso.dataview.rowbyid")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.dataview.rowbyid")
   returns: 'Object'
-  params: 
+  params:
   -
     name: id
     required: true
@@ -144,12 +153,13 @@ instance_methods:
   name: 'rows'
   signature: 'ds.rows( rowFilter )'
   description: |
-    Shorthand for 
-    %a{ :href => '#misodataview_i_where' } ds.where({ rows : rowFilter }); 
+    Shorthand for
+    %a{ :href => '#misodataview_i_where' } ds.where({ rows : rowFilter });
     If run with no filter will return all rows.
-    = toRunnableCodeBlock("api/miso.dataview.rows")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.dataview.rows")
   returns: 'Miso.Dataset.DataView'
-  params: 
+  params:
   -
     name: rowFilter
     type: Array || Function
@@ -160,25 +170,26 @@ instance_methods:
   name: 'sort'
   signature: 'ds.sort( args )'
   description: |
-    Sorts the dataset according to the comparator. A comparator can either be passed 
-    in as part of the options object or have been defined on the dataset already, for 
+    Sorts the dataset according to the comparator. A comparator can either be passed
+    in as part of the options object or have been defined on the dataset already, for
     example as part of the initialization block.
-    = toRunnableCodeBlock("api/miso.dataview.sort")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.dataview.sort")
   returns: 'Miso.Dataset.DataView'
-  params: 
+  params:
   -
     name: args
     type: Object
     description: >
       Comparator Function OR
-      Options object 
+      Options object
     params:
     -
       name: comparator
       type: Function
       description: |
-        Function used to sort the dataset, uses the same return structure as a 
-        standard 
+        Function used to sort the dataset, uses the same return structure as a
+        standard
         %a{ :href => 'http://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/sort' } javascript sort
     -
       name: silent
@@ -189,11 +200,12 @@ instance_methods:
   name: 'where'
   signature: 'ds.where( filters, options)'
   description:  |
-    Where is used to create Dataviews, subsets of data based on a set of filters. 
-    Filtration can be applied to both rows & columns and for syncing datasets changes 
+    Where is used to create Dataviews, subsets of data based on a set of filters.
+    Filtration can be applied to both rows & columns and for syncing datasets changes
     in the parent dataset from which the dataview was created will be reflected in the
     dataview.
-    = toRunnableCodeBlock("api/miso.dataview.where")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.dataview.where")
   returns: Miso.Dataset.DataView
   params:
   -
@@ -209,7 +221,7 @@ instance_methods:
       name: rows
       type: Array || Function
       description: |
-        A filter for rows. A rowId or a filter function that takes in a row and returns 
+        A filter for rows. A rowId or a filter function that takes in a row and returns
         true if it passes the criteria.
 -
   name: groupBy
@@ -217,7 +229,8 @@ instance_methods:
   signature: ds.groupBy(byColumn, columns, options)
   description: |
     Groups rows by the values in a given column
-    = toRunnableCodeBlock("api/miso.dataview.groupBy")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.dataview.groupBy")
   params:
   -
     name: byColumn
@@ -238,7 +251,7 @@ instance_methods:
       name: method
       type: Function
       description: |
-        Function that specifies the way in which the columns are aggregated. The default is sum. 
+        Function that specifies the way in which the columns are aggregated. The default is sum.
         The function signature is <code>function(arr)</code>. It should return a single result.
     -
       name: rejectNA
@@ -252,7 +265,8 @@ instance_methods:
   returns: Miso.Dataset.Derived
   description: |
     Returns a new derived dataset that contains the original byColumn and a count column that returns the number of occurances each unique value in the byColumn contained.
-    = toRunnableCodeBlock("api/miso.dataview.countBy")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.dataview.countBy")
   params:
   -
     name: byColumn
@@ -271,7 +285,7 @@ instance_methods:
   description: |
     Returns a derived dataset in which the specified columns have a moving average computed over them of a specified size.
 
-  params: 
+  params:
   -
     name: columns
     type: Array
@@ -295,9 +309,10 @@ instance_methods:
   returns: Number || Miso.Dataset.Product
   description: |
     If the dataset has <code>sync</code> enabled this will return a <code>Miso.Dataset.Product</code> that can
-    be used to bind events to and access the current value. Otherwise it will return the current 
+    be used to bind events to and access the current value. Otherwise it will return the current
     value - the lowest numeric value in that column
-    = toRunnableCodeBlock("api/miso.dataview.min")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.dataview.min")
   params:
   -
     name: column
@@ -310,9 +325,10 @@ instance_methods:
   returns: Number || Miso.Dataset.Product
   description: |
     If the dataset has <code>sync</code> enabled this will return a <code>Miso.Dataset.Product</code> that can
-    be used to bind events to and access the current value. Otherwise it will return the current 
+    be used to bind events to and access the current value. Otherwise it will return the current
     value - the highest numeric value in that column
-    = toRunnableCodeBlock("api/miso.dataview.max")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.dataview.max")
   params:
   -
     name: column
@@ -326,9 +342,10 @@ instance_methods:
   returns: Number || Miso.Dataset.Product
   description: |
     If the dataset has <code>sync</code> enabled this will return a <code>Miso.Dataset.Product</code> that can
-    be used to bind events to and access the current value. Otherwise it will return the current 
+    be used to bind events to and access the current value. Otherwise it will return the current
     value - the sum of the numeric form of the values in the column.
-    = toRunnableCodeBlock("api/miso.dataview.sum")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.dataview.sum")
   params:
   -
     name: column
@@ -341,9 +358,10 @@ instance_methods:
   returns: Number || Miso.Dataset.Product
   description: |
     If the dataset has <code>sync</code> enabled this will return a <code>Miso.Dataset.Product</code> that can
-    be used to bind events to and access the current value. Otherwise it will return the current 
+    be used to bind events to and access the current value. Otherwise it will return the current
     value - the mean or average of the numeric form of the values in the column.
-    = toRunnableCodeBlock("api/miso.dataview.mean")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.dataview.mean")
   params:
   -
     name: column

@@ -1,0 +1,32 @@
+- @page_title = "The Miso Project :: d3.chart :: Examples :: Basic Chart"
+- @layout = "d3-chart"
+
+
+%article.d3-chart.example
+  %section.normal
+    %h2
+      Composing Charts with <code>.attach</code>
+    %p
+      In this example we create a single chart that is composed out of two separate
+      charts. Scroll to the bottom to see the result.
+  %style
+    :plain
+      .CircleChart {}
+      .codeblock {
+        margin-top: 10px;
+        margin-bottom:10px;
+      }
+
+  %div{ :style => 'height:400px'}
+    %h3 Bar Chart
+    = toDisplayCodeBlock("d3-chart/examples/attach_barchart.js", nil, { :autorun => true, :globals => '_,d3' })
+  %div{ :style => 'height:400px'}
+    %h3 Pie Chart
+    = toDisplayCodeBlock("d3-chart/examples/attach_piechart.js", nil, { :autorun => true, :globals => '_,d3' })
+  %div{ :style => 'height:400px'}
+    %h3 Composed Chart, PieBarChart
+    = toDisplayCodeBlock("d3-chart/examples/attach_piebarchart.js", nil, { :autorun => true, :globals => '_,d3' })
+  %div{ :style => 'height:300px'}
+    %h3 Instantiation
+    = toRunnableCodeBlock("d3-chart/examples/attach.js", nil, { :autorun => true, :globals => '_,d3' })
+

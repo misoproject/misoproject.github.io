@@ -2,7 +2,8 @@
 name: Miso.Dataset.Importers.Local
 description: |
   Import local data already in the environment
-  = toRunnableCodeBlock("api/miso.importer.local")
+  %div{ :style=> 'height:200px'}
+    = toRunnableCodeBlock("api/miso.importer.local")
 methods:
 -
   name: constructor

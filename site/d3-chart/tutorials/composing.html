@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+  <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+  <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src='http://use.typekit.com/aow5drr.js' type='text/javascript'></script>
+    <script type='text/javascript'>
+      try{ Typekit.load(); } catch(e) {}
+    </script>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='The Miso Project' name='description' />
+    <meta content='The Miso Project' name='name' />
+    <meta content='width=device-width' name='viewport' />
+    <title>The Miso Project :: d3.chart :: Tutorials</title>
+    <link href='/stylesheets/screen.css' rel='stylesheet' />
+    <link href='/stylesheets/codemirror.css' rel='stylesheet' />
+    
+  </head>
+  <body>
+    <nav>
+      <span class='miso'>
+        <a href='/'>
+          &larr; Miso Home
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart'>
+          Home
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart/examples.html'>
+          Examples
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart/tutorials.html'>
+          Tutorials
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart/api.html'>
+          API Doc
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart/charts.html'>
+          Charts
+        </a>
+      </span>
+      <span>
+        <a href='http://www.github.com/misoproject/d3.chart'>
+          Code (Github)
+        </a>
+      </span>
+    </nav>
+    <article class='d3-chart'>
+      <section class='tutorial'>
+        <h2>Composing charts</h2>
+        <p>
+          Even though it's easy to create stand alone charts in d3.chart, often you may want to combine your charts into a single chart. Think small mutliples for example, where
+          a single chart type repeats in sequence, rendering different parts of the data.
+        </p>
+        <p>
+          For a detailed description of how one would go about composing charts together
+          see our github wiki page on <a href="https://github.com/misoproject/d3.chart/wiki/chart-attach">Composing Charts</a>.
+        </p>
+        <p>
+          You can also see an example of a composable chart on our examples page here:
+          <div>
+            <a href='/d3-chart/examples/attaching.html'>
+              <img src='/images/examples/composing.jpeg' />
+              <h2>Composing Charts</h2>
+            </a>
+            <p>
+              In this example we create a chart that is a combination chart of two
+              other charts: a bar chart and a pie chart.
+            </p>
+          </div>
+        </p>
+        <a href='/d3-chart/tutorials/extending' style='float:left'>
+          <h2>
+            &laquo; Extending Charts
+          </h2>
+        </a>
+        <a href='/d3-chart/tutorials/contributing' style='text-align:right;'>
+          <h2>
+            Contributing Charts &raquo;
+          </h2>
+        </a>
+      </section>
+    </article>
+    <footer>
+      <div class='container'>
+        <section>
+          <h2>
+            A joint project between
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/profile/guardian-interactive-department'>
+              <img alt="Guardian" src="/images/guardian.png"/>
+            </a>
+            <a href='http://www.bocoup.com'>
+              <img alt="Bocoup horizontal 614" src="/images/bocoup-horizontal-614.gif"/>
+            </a>
+          </div>
+        </section>
+        <section>
+          <h2>
+            Formally supported by
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/development'>
+              <img alt="Global dev" src="/images/global-dev.png"/>
+            </a>
+            <a href='http://www.gatesfoundation.org/'>
+              <img alt="Gates" src="/images/gates.png"/>
+            </a>
+          </div>
+        </section>
+      </div>
+    </footer>
+    <script src='/js/jquery.min.js'></script>
+    <script src='/js/nav.js'></script>
+    <script src='/js/lodash.js'></script>
+    <script src='/js/underscore.deferred.js'></script>
+    <script charset='utf-8' src='/js/d3/d3.v3.min.js'></script>
+    <script src='/js/d3.chart.js'></script>
+    <script src='/js/bootstrap/transition.js'></script>
+    <script src='/js/bootstrap/collapse.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30531498-1']);
+      _gaq.push(['_setDomainName', 'misoproject.com']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>

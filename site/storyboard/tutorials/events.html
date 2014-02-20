@@ -51,107 +51,102 @@
       </span>
     </nav>
     <article class='dataset'>
-      <section class='tutorial'>
-        <h2>Storyboard events</h2>
-        <p>
-          Storyboard allows one to transition from state to state, but the standard event model we are used to
-          can still come in handy when we want to tie a certain behavior to our storyboard without it being
-          directly encapsulated in it.
-        </p>
-        <p>
-          Storyboard broadcasts several events that you can bind to at any point:
-          <table>
-            <tr>
-              <th>Event</th>
-              <th>Fired When...</th>
-            </tr>
-            <tr>
-              <td>
-                <code>start</code>
-              </td>
-              <td>
-                A transition begins.
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <code>enter</code>
-                or
-                <code>sceneName:enter</code>
-              </td>
-              <td>
-                An enter method is done executing
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <code>exit</code>
-                or
-                <code>sceneName:exit</code>
-              </td>
-              <td>
-                The exit method is done executing
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <code>end</code>
-              </td>
-              <td>
-                A transition ends.
-              </td>
-            </tr>
-          </table>
-        </p>
-        <p>
-          Here is an example:
-        </p>
-        <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-        var story = new Miso.Storyboard({
-          initial : 'loading',
-        
-          scenes : {
-            loading : {
-              enter : function() {
-                log("Executing loading's enter");
-              },
-              exit : function() {
-                log("Executing loading's exit");
-              }
-            },
-        
-            done : {}
-          }
-        });
-        
-        story.subscribe("start", function() {
-          log("Callback! transition start");
-        });
-        story.subscribe("loading:enter", function() {
-          log("Callback! loading:enter");
-        });
-        story.subscribe("loading:exit", function() {
-          log("Callback! loading:exit");
-        });
-        story.subscribe("end", function() {
-          log("Callback! transition end");
-        });
-        
-        story.start().then(function() {
-          story.to('done');
-        });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
-        <a href='/storyboard/tutorials/quickstart' style='float:left;'>
-          <h2>
-            &laquo; Quickstart Guide
-          </h2>
-        </a>
-        <a href='/storyboard/tutorials/remotedata' style='text-align:right;'>
-          <h2>
-            Remote Data &raquo;
-          </h2>
-        </a>
-      </section>
-    </article>
+  <section class='tutorial'>
+    <h2>Storyboard events</h2>
+    <p>
+      Storyboard allows one to transition from state to state, but the standard event model we are used to
+      can still come in handy when we want to tie a certain behavior to our storyboard without it being
+      directly encapsulated in it.
+    </p>
+    <p>
+      Storyboard broadcasts several events that you can bind to at any point:
+      <table>
+        <tr>
+          <th>Event</th>
+          <th>Fired When...</th>
+        </tr>
+        <tr>
+          <td>
+            <code>start</code>
+          </td>
+          <td>
+            A transition begins.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>enter</code>
+            or
+            <code>sceneName:enter</code>
+          </td>
+          <td>
+            An enter method is done executing
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>exit</code>
+            or
+            <code>sceneName:exit</code>
+          </td>
+          <td>
+            The exit method is done executing
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>end</code>
+          </td>
+          <td>
+            A transition ends.
+          </td>
+        </tr>
+      </table>
+    </p>
+    <p>
+      Here is an example:
+    </p>
+    <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+var story = new Miso.Storyboard({
+  initial : 'loading',
+
+  scenes : {
+    loading : {
+      enter : function() {
+        log("Executing loading's enter");
+      },
+      exit : function() {
+        log("Executing loading's exit");
+      }
+    },
+
+    done : {}
+  }
+});
+
+story.subscribe("start", function() {
+  log("Callback! transition start");
+});
+story.subscribe("loading:enter", function() {
+  log("Callback! loading:enter");
+});
+story.subscribe("loading:exit", function() {
+  log("Callback! loading:exit");
+});
+story.subscribe("end", function() {
+  log("Callback! transition end");
+});
+
+story.start().then(function() {
+  story.to('done');
+});</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+    <a href='/storyboard/tutorials/remotedata' style='float:left;'>
+      <h2>
+        &laquo; Working with Remote Data
+      </h2>
+    </a>
+  </section>
+</article>
     <footer>
       <div class='container'>
         <section>
@@ -187,8 +182,8 @@
     <script src='/js/miso.storyboard.deps.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
-    <script src='/js/codemirror.js'></script>
-    <script src='/js/codeblocks.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
     
     <script type="text/javascript">
       var _gaq = _gaq || [];

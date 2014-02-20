@@ -61,161 +61,161 @@
       </span>
     </nav>
     <article class='dataset'>
-      <section class='tutorial'>
-        <h2>Quick Start!</h2>
+  <section class='tutorial'>
+    <h2>Quick Start!</h2>
+    <p>
+      There are two ways to use Dataset:
+    </p>
+    <h3>In the Browser</h3>
+    <p>
+      To get dataset into your web development environment, follow the following steps:
+    </p>
+    <div class='indent-1'>
+      <h4>Download the right build for your environment:</h4>
+      <div style='width:100%; display:inline-block;'>
+        <div class='download' style='width:100%;'>
+          <a class='button' href='https://github.com/downloads/misoproject/dataset/miso.ds.dev.0.3.0.zip' onclick="_gaq.push(['_trackEvent', 'Miso.Dataset', 'Downloads', 'Development Zip Bundle']);">
+            &darr; development
+          </a>
+          <a class='button' href='https://github.com/downloads/misoproject/dataset/miso.ds.min.0.3.0.js' onclick="_gaq.push(['_trackEvent', 'Miso.Dataset', 'Downloads', 'Minified Production (No Deps)']);">
+            &darr; production
+          </a>
+          <a class='button' href='https://github.com/downloads/misoproject/dataset/miso.ds.deps.min.0.3.0.js' onclick="_gaq.push(['_trackEvent', 'Miso.Dataset', 'Downloads', 'Minified Production (With Deps)']);">
+            &darr; production with dependencies
+          </a>
+          <a class='button' href='https://github.com/downloads/misoproject/dataset/miso.ds.deps.ie.min.0.3.0.js' onclick="_gaq.push(['_trackEvent', 'Miso.Dataset', 'Downloads', 'Minified Production (With Deps)']);">
+            &darr; production with dependencies [json2.js for IE]
+          </a>
+          <a class='button' href='http://github.com/misoproject/dataset'>
+            &rarr; on github
+          </a>
+        </div>
+      </div>
+      <h4>Include the appropriate script tags:</h4>
+      <p>
+        <div class="codeblock"><textarea name="codehelper"  class="code" mode="ace/mode/html"   showConsole="false" buttons="none" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+&lt;!DOCTYPE&nbsp;HTML&gt;
+&lt;html&gt;
+&lt;head&gt;
+&nbsp;&nbsp;&lt;title&gt;Your&nbsp;Application&nbsp;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&nbsp;&nbsp;&lt;div&nbsp;id=&quot;content&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;Your&nbsp;content&nbsp;here&nbsp;--&gt;
+&nbsp;&nbsp;&lt;/div&gt;
+
+&nbsp;&nbsp;&lt;!--&nbsp;Dataset&nbsp;source&nbsp;files&nbsp;--&gt;
+&nbsp;&nbsp;&lt;script&nbsp;src=&quot;/js/libs/miso.ds.min.deps.js&quot;&gt;&lt;/script&gt;
+
+&nbsp;&nbsp;&lt;!--&nbsp;Your&nbsp;application&nbsp;code&nbsp;--&gt;
+&nbsp;&nbsp;&lt;script&nbsp;src=&quot;js/main.js&quot;&gt;&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</textarea></div>
+      </p>
+      <h4>Start using Miso.Dataset in your code!</h4>
+      <p>
+        You should now have access to the <code>Miso.Dataset</code> object in your code.
+      </p>
+    </div>
+    <h3>In Node.js</h3>
+    <div class='indent-1'>
+      <h4>Install appropriate package:</h4>
+      <pre>npm install miso.dataset</pre>
+      <h4>Use the library in code:</h4>
+      <pre>&#x000A;var Miso = require("miso.dataset");&#x000A;var ds = new Miso.Dataset...</pre>
+    </div>
+    <h3>Dependencies</h3>
+    <div class='indent-1'>
+      <p>
+        If you chose to include the production version without built in dependencies, you may need to include them yourself. Dataset requires the following libraries:
+        <ul>
+          <li><a href="http://lodash.com/">LoDash 0.9.0</a></li>
+          <li><a href="https://github.com/syntagmatic/underscore.math">Underscore.math.js (unknown version)</a></li>
+          <li><a href="https://github.com/wookiehangover/underscore.Deferred">Underscore.deferred.js 0.2.0</a></li>
+          <li><a href="http://momentjs.com/">moment.js 1.7.2</a> (for 'time' data type)</li>
+        </ul>
+      </p>
+      <p>
+        If you are using IE, you will want to include json2.js:
+        <ul>
+          <li><a href="https://github.com/douglascrockford/JSON-js">json2.js 2011-10-19</a></li>
+        </ul>
+      </p>
+    </div>
+    <h2>Creating Your First Dataset</h2>
+    <div class='indent-1'>
+      <p>
+        There are many ways to import your data into Dataset, but here are a few common examples that should get you going. For
+        full instructions see the <a href="/dataset/tutorials/creating.html">Creating a Dataset</a> tutorial.
+      </p>
+      <h3>Creating a Basic Dataset</h3>
+      <p>
+        In this example we are going to create a dataset that is based on a collection of objects, each representing a row.
+        Let's assume you have a local var that contains the following array of objects:
         <p>
-          There are two ways to use Dataset:
+          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""   showConsole="false" buttons="none" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+var data = [
+  { color : "red",   r : 255, g : 0,   b : 0   },
+  { color : "blue",  r : 0,   g : 0,   b : 255 },
+  { color : "green", r : 0,   g : 255, b : 0   }
+];</textarea></div>
         </p>
-        <h3>In the Browser</h3>
-        <p>
-          To get dataset into your web development environment, follow the following steps:
-        </p>
-        <div class='indent-1'>
-          <h4>Download the right build for your environment:</h4>
-          <div style='width:100%; display:inline-block;'>
-            <div class='download' style='width:100%;'>
-              <a class='button' href='https://github.com/downloads/misoproject/dataset/miso.ds.dev.0.3.0.zip' onclick="_gaq.push(['_trackEvent', 'Miso.Dataset', 'Downloads', 'Development Zip Bundle']);">
-                &darr; development
-              </a>
-              <a class='button' href='https://github.com/downloads/misoproject/dataset/miso.ds.min.0.3.0.js' onclick="_gaq.push(['_trackEvent', 'Miso.Dataset', 'Downloads', 'Minified Production (No Deps)']);">
-                &darr; production
-              </a>
-              <a class='button' href='https://github.com/downloads/misoproject/dataset/miso.ds.deps.min.0.3.0.js' onclick="_gaq.push(['_trackEvent', 'Miso.Dataset', 'Downloads', 'Minified Production (With Deps)']);">
-                &darr; production with dependencies
-              </a>
-              <a class='button' href='https://github.com/downloads/misoproject/dataset/miso.ds.deps.ie.min.0.3.0.js' onclick="_gaq.push(['_trackEvent', 'Miso.Dataset', 'Downloads', 'Minified Production (With Deps)']);">
-                &darr; production with dependencies [json2.js for IE]
-              </a>
-              <a class='button' href='http://github.com/misoproject/dataset'>
-                &rarr; on github
-              </a>
-            </div>
-          </div>
-          <h4>Include the appropriate script tags:</h4>
+        <div>
           <p>
-            <div class="codeblock"><textarea name="codehelper"  class="code" mode="text/html"   showConsole="false" buttons="none" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-            &lt;!DOCTYPE&nbsp;HTML&gt;
-            &lt;html&gt;
-            &lt;head&gt;
-            &nbsp;&nbsp;&lt;title&gt;Your&nbsp;Application&nbsp;Title&lt;/title&gt;
-            &lt;/head&gt;
-            &lt;body&gt;
-            &nbsp;&nbsp;&lt;div&nbsp;id=&quot;content&quot;&gt;
-            &nbsp;&nbsp;&nbsp;&nbsp;&lt;!--&nbsp;Your&nbsp;content&nbsp;here&nbsp;--&gt;
-            &nbsp;&nbsp;&lt;/div&gt;
-            
-            &nbsp;&nbsp;&lt;!--&nbsp;Dataset&nbsp;source&nbsp;files&nbsp;--&gt;
-            &nbsp;&nbsp;&lt;script&nbsp;src=&quot;/js/libs/miso.ds.min.deps.js&quot;&gt;&lt;/script&gt;
-            
-            &nbsp;&nbsp;&lt;!--&nbsp;Your&nbsp;application&nbsp;code&nbsp;--&gt;
-            &nbsp;&nbsp;&lt;script&nbsp;src=&quot;js/main.js&quot;&gt;&lt;/script&gt;
-            
-            &lt;/body&gt;
-            &lt;/html&gt;</textarea></div>
-          </p>
-          <h4>Start using Miso.Dataset in your code!</h4>
-          <p>
-            You should now have access to the <code>Miso.Dataset</code> object in your code.
+            You can then create your dataset like so:
+            <script type='codemirror/setup' data-selector='quickstart-dataset'>var data = [
+  { color : "red",   r : 255, g : 0,   b : 0   },
+  { color : "blue",  r : 0,   g : 0,   b : 255 },
+  { color : "green", r : 0,   g : 255, b : 0   }
+];</script></div>
+            <div class="codeblock"><textarea name="codehelper" id="quickstart-dataset" class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+var ds = new Miso.Dataset({
+  data : data
+});
+
+ds.fetch({ 
+  success : function() {
+    log("Dataset Ready. Columns: " + this.columnNames());
+    log("There are " + this.length + " rows");
+    log("Available Colors: " + this.column("color").data);
+  }
+});</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
           </p>
         </div>
-        <h3>In Node.js</h3>
-        <div class='indent-1'>
-          <h4>Install appropriate package:</h4>
-          <pre>npm install miso.dataset</pre>
-          <h4>Use the library in code:</h4>
-          <pre>&#x000A;var Miso = require("miso.dataset");&#x000A;var ds = new Miso.Dataset...</pre>
-        </div>
-        <h3>Dependencies</h3>
-        <div class='indent-1'>
-          <p>
-            If you chose to include the production version without built in dependencies, you may need to include them yourself. Dataset requires the following libraries:
-            <ul>
-              <li><a href="http://lodash.com/">LoDash 0.9.0</a></li>
-              <li><a href="https://github.com/syntagmatic/underscore.math">Underscore.math.js (unknown version)</a></li>
-              <li><a href="https://github.com/wookiehangover/underscore.Deferred">Underscore.deferred.js 0.2.0</a></li>
-              <li><a href="http://momentjs.com/">moment.js 1.7.2</a> (for 'time' data type)</li>
-            </ul>
-          </p>
-          <p>
-            If you are using IE, you will want to include json2.js:
-            <ul>
-              <li><a href="https://github.com/douglascrockford/JSON-js">json2.js 2011-10-19</a></li>
-            </ul>
-          </p>
-        </div>
-        <h2>Creating Your First Dataset</h2>
-        <div class='indent-1'>
-          <p>
-            There are many ways to import your data into Dataset, but here are a few common examples that should get you going. For
-            full instructions see the <a href="/dataset/tutorials/creating.html">Creating a Dataset</a> tutorial.
-          </p>
-          <h3>Creating a Basic Dataset</h3>
-          <p>
-            In this example we are going to create a dataset that is based on a collection of objects, each representing a row.
-            Let's assume you have a local var that contains the following array of objects:
-            <p>
-              <div class="codeblock"><textarea name="codehelper"  class="code" mode=""   showConsole="false" buttons="none" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-              var data = [
-                { color : "red",   r : 255, g : 0,   b : 0   },
-                { color : "blue",  r : 0,   g : 0,   b : 255 },
-                { color : "green", r : 0,   g : 255, b : 0   }
-              ];</textarea></div>
-            </p>
-            <div>
-              <p>
-                You can then create your dataset like so:
-                <script type='codemirror/setup' data-selector='quickstart-dataset'>var data = [
-                  { color : "red",   r : 255, g : 0,   b : 0   },
-                  { color : "blue",  r : 0,   g : 0,   b : 255 },
-                  { color : "green", r : 0,   g : 255, b : 0   }
-                ];</script></div>
-                <div class="codeblock"><textarea name="codehelper" id="quickstart-dataset" class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-                var ds = new Miso.Dataset({
-                  data : data
-                });
-                
-                ds.fetch({ 
-                  success : function() {
-                    log("Dataset Ready. Columns: " + this.columnNames());
-                    log("There are " + this.length + " rows");
-                    log("Available Colors: " + this.column("color").data);
-                  }
-                });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
-              </p>
-            </div>
-          </p>
-        </div>
-        <div class='indent-1'>
-          <h3>Creating a Dataset from a Remote Source</h3>
-          <p>
-            In this example, we are going to retrieve a set of data that is located at the following url:
-            <a href='http://misoproject.com/data/crudeoil.csv'>
-              http://misoproject.com/data/crudeoil.csv
-            </a>
-          </p>
-          <p>
-            Note that the data above is comma, delimited. You can create a dataset against this url like so.
-            <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-            var ds = new Miso.Dataset({
-              url : '/data/crudeoil.csv',
-              delimiter : ','
-            });
-            
-            ds.fetch({
-              success : function() {
-                log("Available Columns:" + this.columnNames());
-                log("There are " + this.length + " rows");
-              }
-            });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
-          </p>
-        </div>
-        <a href='/dataset/tutorials/googlespreadsheets' style='text-align:right;'>
-          <h2>
-            Dataset from Google Spreadsheets &raquo;
-          </h2>
+      </p>
+    </div>
+    <div class='indent-1'>
+      <h3>Creating a Dataset from a Remote Source</h3>
+      <p>
+        In this example, we are going to retrieve a set of data that is located at the following url:
+        <a href='http://misoproject.com/data/crudeoil.csv'>
+          http://misoproject.com/data/crudeoil.csv
         </a>
-      </section>
-    </article>
+      </p>
+      <p>
+        Note that the data above is comma, delimited. You can create a dataset against this url like so.
+        <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+var ds = new Miso.Dataset({
+  url : '/data/crudeoil.csv',
+  delimiter : ','
+});
+
+ds.fetch({
+  success : function() {
+    log("Available Columns:" + this.columnNames());
+    log("There are " + this.length + " rows");
+  }
+});</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+      </p>
+    </div>
+    <a href='/dataset/tutorials/googlespreadsheets' style='text-align:right;'>
+      <h2>
+        Dataset from Google Spreadsheets &raquo;
+      </h2>
+    </a>
+  </section>
+</article>
     <footer>
       <div class='container'>
         <section>
@@ -251,8 +251,8 @@
     <script src='/js/miso.ds.deps.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
-    <script src='/js/codemirror.js'></script>
-    <script src='/js/codeblocks.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
     
     <script type="text/javascript">
       var _gaq = _gaq || [];

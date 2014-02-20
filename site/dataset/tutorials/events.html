@@ -61,221 +61,221 @@
       </span>
     </nav>
     <article class='dataset'>
-      <section class='tutorial'>
-        <h2>
-          Syncronization & Events
-        </h2>
-        <p>
-          Dataset has a very rich event system that allows you to subscribe to a variety of events on your dataset. By default, this functionality is <b>NOT ENABLED</b>. This is because event bindings are created automatically in certain cases (see more about selection and filtering) and unless that functionality is needed, there's no reason to create the bindings.
-        </p>
-        <p>
-          To enable evented behavior, set the <code>sync</code> property to <code>true</code> when initializing your dataset.
-          <pre>&#x000A;var ds = new Miso.Dataset({&#x000A;  data : [&#x000A;    { one : 12,  two : 40,  three : 40 }&#x000A;  ],&#x000A;  sync : true&#x000A;});</pre>
-        </p>
-        <h3>What are the effects of sync:true?</h3>
-        <p>
-          By setting sync to true, you are enabling syncronization of data between your original Dataset and anything derived from it such as:
-          <ul>
-            <li>
-              <a href='/dataset/tutorials/accessing_data.html'>
-                DataViews
-              </a>
-              <br />
-              Any selection created using rows, columns or where will get updated according to the original
-              changes in dataset. Any changes created to the DataView will publish the appropriate events.
-            </li>
-            <li>
-              <a href='/dataset/tutorials/products.html'>
-                Products
-              </a>
-              <br />
-              Any changes to the original data will cause products to recompute their value. Products of a Dataset
-              that has sync set trigger true, are actual objects (vs just computed values.) To get their values
-              you need to call <code>.val()</code>.
-            </li>
-            <li>
-              <a href='/dataset/tutorials/derived.html'>
-                Derived Datasets
-              </a>
-              <br />
-              Any derived dataset will be recomputed when changes occur in the dataset. This is the least efficient of
-              the event-driven changes, because the entire derived dataset gets recomputed.
-            </li>
-          </ul>
-        </p>
-        <h3>Default Events</h3>
-        <p>
-          Presently, dataset fires the following events:
-          <table>
-            <tr>
-              <th>Event</th>
-              <th>Fired When</th>
-              <th>Precedence</th>
-            </tr>
-            <tr>
-              <td>
-                <code>add</code>
-              </td>
-              <td>
-                Fired when adding a row to the dataset by calling <code>.add</code>
-              </td>
-              <td>
-                Primary
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <code>remove</code>
-              </td>
-              <td>
-                Fired when removing a row from the dataset by calling <code>.remove</code>
-              </td>
-              <td>
-                Primary
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <code>update</code>
-              </td>
-              <td>
-                Fired when updating a row in the dataset by calling <code>.update</code>
-              </td>
-              <td>
-                Primary
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <code>change</code>
-              </td>
-              <td>
-                Fired when calling <code>.add</code>, <code>.remove</code> or <code>.update</code>
-              </td>
-              <td>
-                Secondary
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <code>sort</code>
-              </td>
-              <td>
-                Fired when a dataset has been sorted.
-              </td>
-              <td>
-                Primary
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <code>reset</code>
-              </td>
-              <td>
-                Fired when a dataset has been reset
-              </td>
-              <td>
-                Primary
-              </td>
-            </tr>
-          </table>
-        </p>
-        <p>
-          Any of the default events can be prevented by passing the <code>{ silent : true }</code> flag. See the appropriate methods for further instructions.
-        </p>
-        <h3>Binding</h3>
-        <p>
-          To subscribe to an event, call <code>subscribe</code> like so:
-          <pre>ds.subscribe("add", callback);</pre>
-        </p>
-        <h3>Event Object</h3>
-        <p>
-          When any of the default events trigger (except for <code>sort</code>) an event object gets created and passed down to the callbacks. The event object is structured as follows:
-          <ul>
-            <li>An event is of type <code>Miso.Dataset.Event</code></li>
-            <li>It has a <code>deltas</code> property that contains all the deltas that were generated for this specific event.</li>
-          </ul>
-        </p>
-        <h3>Deltas</h3>
-        <p>
-          An event is comprised of one or more deltas. Each delta can represent a different operation, allowing a single event to actually represent many modifications.
-        </p>
-        <p>
-          Each delta can look as follows:
-          <pre>&#x000A;{&#x000A;  // the set of attributes that changed&#x000A;  changed : { } or value&#x000A;&#x000A;  // the old values of those attributes&#x000A;  old : { } or value&#x000A;}</pre>
-        </p>
-        <ul>
-          <li>
-            When a row is added, there will only be <code>changed</code> attributes.
-          </li>
-          <li>
-            When a row is removed, there will only be <code>old</code> attributes.
-          </li>
-          <li>
-            When a row is updated, there will be <code>changed</code> and <code>old</code> attributes.
-          </li>
-          <li>
-            In certain cases the values of <code>changed</code> and <code>old</code> may not be an object but rather a numeric value. More on that in the <b>Computed Values</b> section.
-          </li>
-        </ul>
-        <h4>Detecting Delta Types:</h4>
-        <p>
-          You can always check what type of a delta you've recieved by calling any of the following helper methods:
-          <pre>Miso.Dataset.Event.isRemove(delta);</pre>
-          <pre>Miso.Dataset.Event.isAdd(delta);</pre>
-          <pre>Miso.Dataset.Event.isUpdate(delta);</pre>
-        </p>
-        <p>
-          For example:
-          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-          var ds = new Miso.Dataset({
-            data : [
-              { one : 12,  two : 40,  three : 40 },
-              { one : 10, two : 32, three : 2 }
-            ],
-            sync : true
-          });
-          
-          _.when(ds.fetch()).then(function() {
-            
-            ds.subscribe("add", function(event) {
-              log(JSON.stringify(event));
-              log("Is Add?", Miso.Dataset.Event.isAdd(event.deltas[0]));
-              log("Is Remove?", Miso.Dataset.Event.isRemove(event.deltas[0]));
-              log("Is Update?", Miso.Dataset.Event.isUpdate(event.deltas[0]));
-            });
-          
-            ds.add({ one : 10, two : 3, three : 24 });
-          
-            ds.subscribe("remove", function(event) {
-              // We will now have an event with two deltas!
-              log(event.deltas);
-              log("New Dataset Length", ds.length);
-            });
-          
-            log("Pre Remove Dataset Length", ds.length);
-            ds.remove(function(row) {
-              return (row.one === 10);
-            });
-          });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
-        </p>
-        <h3>Custom Events</h3>
-        <p>
-          You can publish your own custom events on dataset by just calling <code>publish</code> when needed like so:
-          <pre>ds.publish("myCustomEvent", arguments...);</pre>
-        </p>
-        <a href='/dataset/tutorials/accessing_data' style='float:left;'>
-          <h2>
-            &laquo; Accessing Data
-          </h2>
-        </a>
-        <a href='/dataset/tutorials/modifying_data' style='float:right;'>
-          <h2>
-            Modifying Data &raquo;
-          </h2>
-        </a>
-      </section>
-    </article>
+  <section class='tutorial'>
+    <h2>
+      Syncronization & Events
+    </h2>
+    <p>
+      Dataset has a very rich event system that allows you to subscribe to a variety of events on your dataset. By default, this functionality is <b>NOT ENABLED</b>. This is because event bindings are created automatically in certain cases (see more about selection and filtering) and unless that functionality is needed, there's no reason to create the bindings.
+    </p>
+    <p>
+      To enable evented behavior, set the <code>sync</code> property to <code>true</code> when initializing your dataset.
+      <pre>&#x000A;var ds = new Miso.Dataset({&#x000A;  data : [&#x000A;    { one : 12,  two : 40,  three : 40 }&#x000A;  ],&#x000A;  sync : true&#x000A;});</pre>
+    </p>
+    <h3>What are the effects of sync:true?</h3>
+    <p>
+      By setting sync to true, you are enabling syncronization of data between your original Dataset and anything derived from it such as:
+      <ul>
+        <li>
+          <a href='/dataset/tutorials/accessing_data.html'>
+            DataViews
+          </a>
+          <br />
+          Any selection created using rows, columns or where will get updated according to the original
+          changes in dataset. Any changes created to the DataView will publish the appropriate events.
+        </li>
+        <li>
+          <a href='/dataset/tutorials/products.html'>
+            Products
+          </a>
+          <br />
+          Any changes to the original data will cause products to recompute their value. Products of a Dataset
+          that has sync set trigger true, are actual objects (vs just computed values.) To get their values
+          you need to call <code>.val()</code>.
+        </li>
+        <li>
+          <a href='/dataset/tutorials/derived.html'>
+            Derived Datasets
+          </a>
+          <br />
+          Any derived dataset will be recomputed when changes occur in the dataset. This is the least efficient of
+          the event-driven changes, because the entire derived dataset gets recomputed.
+        </li>
+      </ul>
+    </p>
+    <h3>Default Events</h3>
+    <p>
+      Presently, dataset fires the following events:
+      <table>
+        <tr>
+          <th>Event</th>
+          <th>Fired When</th>
+          <th>Precedence</th>
+        </tr>
+        <tr>
+          <td>
+            <code>add</code>
+          </td>
+          <td>
+            Fired when adding a row to the dataset by calling <code>.add</code>
+          </td>
+          <td>
+            Primary
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>remove</code>
+          </td>
+          <td>
+            Fired when removing a row from the dataset by calling <code>.remove</code>
+          </td>
+          <td>
+            Primary
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>update</code>
+          </td>
+          <td>
+            Fired when updating a row in the dataset by calling <code>.update</code>
+          </td>
+          <td>
+            Primary
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>change</code>
+          </td>
+          <td>
+            Fired when calling <code>.add</code>, <code>.remove</code> or <code>.update</code>
+          </td>
+          <td>
+            Secondary
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>sort</code>
+          </td>
+          <td>
+            Fired when a dataset has been sorted.
+          </td>
+          <td>
+            Primary
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <code>reset</code>
+          </td>
+          <td>
+            Fired when a dataset has been reset
+          </td>
+          <td>
+            Primary
+          </td>
+        </tr>
+      </table>
+    </p>
+    <p>
+      Any of the default events can be prevented by passing the <code>{ silent : true }</code> flag. See the appropriate methods for further instructions.
+    </p>
+    <h3>Binding</h3>
+    <p>
+      To subscribe to an event, call <code>subscribe</code> like so:
+      <pre>ds.subscribe("add", callback);</pre>
+    </p>
+    <h3>Event Object</h3>
+    <p>
+      When any of the default events trigger (except for <code>sort</code>) an event object gets created and passed down to the callbacks. The event object is structured as follows:
+      <ul>
+        <li>An event is of type <code>Miso.Dataset.Event</code></li>
+        <li>It has a <code>deltas</code> property that contains all the deltas that were generated for this specific event.</li>
+      </ul>
+    </p>
+    <h3>Deltas</h3>
+    <p>
+      An event is comprised of one or more deltas. Each delta can represent a different operation, allowing a single event to actually represent many modifications.
+    </p>
+    <p>
+      Each delta can look as follows:
+      <pre>&#x000A;{&#x000A;  // the set of attributes that changed&#x000A;  changed : { } or value&#x000A;&#x000A;  // the old values of those attributes&#x000A;  old : { } or value&#x000A;}</pre>
+    </p>
+    <ul>
+      <li>
+        When a row is added, there will only be <code>changed</code> attributes.
+      </li>
+      <li>
+        When a row is removed, there will only be <code>old</code> attributes.
+      </li>
+      <li>
+        When a row is updated, there will be <code>changed</code> and <code>old</code> attributes.
+      </li>
+      <li>
+        In certain cases the values of <code>changed</code> and <code>old</code> may not be an object but rather a numeric value. More on that in the <b>Computed Values</b> section.
+      </li>
+    </ul>
+    <h4>Detecting Delta Types:</h4>
+    <p>
+      You can always check what type of a delta you've recieved by calling any of the following helper methods:
+      <pre>Miso.Dataset.Event.isRemove(delta);</pre>
+      <pre>Miso.Dataset.Event.isAdd(delta);</pre>
+      <pre>Miso.Dataset.Event.isUpdate(delta);</pre>
+    </p>
+    <p>
+      For example:
+      <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+var ds = new Miso.Dataset({
+  data : [
+    { one : 12,  two : 40,  three : 40 },
+    { one : 10, two : 32, three : 2 }
+  ],
+  sync : true
+});
+
+_.when(ds.fetch()).then(function() {
+  
+  ds.subscribe("add", function(event) {
+    log(JSON.stringify(event));
+    log("Is Add?", Miso.Dataset.Event.isAdd(event.deltas[0]));
+    log("Is Remove?", Miso.Dataset.Event.isRemove(event.deltas[0]));
+    log("Is Update?", Miso.Dataset.Event.isUpdate(event.deltas[0]));
+  });
+
+  ds.add({ one : 10, two : 3, three : 24 });
+
+  ds.subscribe("remove", function(event) {
+    // We will now have an event with two deltas!
+    log(event.deltas);
+    log("New Dataset Length", ds.length);
+  });
+
+  log("Pre Remove Dataset Length", ds.length);
+  ds.remove(function(row) {
+    return (row.one === 10);
+  });
+});</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+    </p>
+    <h3>Custom Events</h3>
+    <p>
+      You can publish your own custom events on dataset by just calling <code>publish</code> when needed like so:
+      <pre>ds.publish("myCustomEvent", arguments...);</pre>
+    </p>
+    <a href='/dataset/tutorials/accessing_data' style='float:left;'>
+      <h2>
+        &laquo; Accessing Data
+      </h2>
+    </a>
+    <a href='/dataset/tutorials/modifying_data' style='float:right;'>
+      <h2>
+        Modifying Data &raquo;
+      </h2>
+    </a>
+  </section>
+</article>
     <footer>
       <div class='container'>
         <section>
@@ -311,8 +311,8 @@
     <script src='/js/miso.ds.deps.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
-    <script src='/js/codemirror.js'></script>
-    <script src='/js/codeblocks.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
     
     <script type="text/javascript">
       var _gaq = _gaq || [];

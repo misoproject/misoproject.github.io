@@ -1,152 +1,8 @@
 /*! d3.chart - v0.2.0
  *  License: MIT Expat
- *  Date: 2014-01-09
+ *  Date: 2014-02-19
  */
 (function(window) {
-(function (root, factory) {
-	'use strict';
-	if (typeof define === 'function' && define.amd) {
-		define(factory);
-	} else if (typeof exports === 'object') {
-		module.exports = factory();
-	} else {
-		root.DataMap = factory();
-	}
-}(this, function() {
-
-'use strict';
-
-var hasDefineProp = (function() {
-	var obj = {};
-	try {
-		Object.defineProperty(obj, 'test', {
-			get: function() { return true; },
-		});
-	} catch(err) {
-		return false;
-	}
-	return !!obj.test;
-})();
-
-var toString = Object.prototype.toString;
-var isArray = Array.isArray || function(value) {
-	return value && typeof value == 'object' &&
-		typeof value.length == 'number' &&
-		toString.call(value) == '[object Array]' || false;
-};
-
-// wrapData
-// Given a data point, return an object with customized accessors for each
-// of the chart's data attributes.
-var wrapDataImpls = {
-	ES5: function(dataPoint) {
-		if (typeof dataPoint !== 'object') {
-			return dataPoint;
-		}
-		var dataProxy = Object.create(this.proxy);
-
-		if (dataPoint instanceof DataProxy) {
-			// TODO: Ensure that the data proxy inherits from both the data
-			// point and the instance's data proxy.
-			dataProxy = Object.create(dataPoint);
-		}
-		dataProxy._dataPoint = dataPoint;
-
-		return dataProxy;
-	},
-	legacy: function(dataPoint) {
-		var dataProxy, getter, dataMapping;
-
-		if (typeof dataPoint !== 'object') {
-			return dataPoint;
-		}
-		// TODO: Ensure that the legacy implementation also handles
-		// recursively-defined data proxies.
-		dataProxy = {};
-
-		dataMapping = this._dataMapping;
-
-		if (!dataMapping) {
-			this.attrs.forEach(function(key) {
-				dataProxy[key] = dataPoint[key];
-			});
-		} else {
-			this.attrs.forEach(function(key) {
-				getter = dataMapping[key];
-				if (getter) {
-					dataProxy[key] = getter.call(dataPoint);
-				} else {
-					dataProxy[key] = dataPoint[key];
-				}
-			}, this);
-		}
-
-		return dataProxy;
-	}
-};
-
-var wrapData = wrapDataImpls[ hasDefineProp ? 'ES5' : 'legacy' ];
-
-// We only need a basic object literal to use a data proxy, but instantiating
-// it with a custom constructor allows us to more intuitively detect instances
-// of data proxies in `wrapData`.
-function DataProxy() {}
-
-// createDataProxy
-// Initialize a proxy object to facilitate data mapping
-var createDataProxy = function(attributes) {
-	var proxy = new DataProxy();
-
-	if (attributes) {
-		attributes.forEach(function(attr) {
-			var getter = function() {
-				return this._dataPoint[attr];
-			};
-
-			if (hasDefineProp) {
-				Object.defineProperty(proxy, attr, {
-					get: getter,
-					configurable: true
-				});
-			} else {
-				proxy[attr] = getter;
-			}
-		}, this);
-	}
-
-	return proxy;
-};
-
-function DataMap(attrs) {
-	this.attrs = attrs;
-	this.proxy = createDataProxy(attrs);
-}
-
-DataMap.prototype.map = function(table) {
-	if (!hasDefineProp) {
-		this._dataMapping = table;
-	} else {
-		Object.keys(table).forEach(function(attr) {
-			Object.defineProperty(this.proxy, attr, {
-				get: function() {
-					return table[attr].call(this._dataPoint);
-				}
-			});
-		}, this);
-	}
-};
-
-DataMap.prototype.wrap = function(input) {
-	if (isArray(input)) {
-		return input.map(wrapData, this);
-	}
-	return wrapData.call(this, input);
-};
-
-return DataMap;
-
-}));
-
 "use strict";
 /*jshint unused: false */
 
@@ -481,43 +337,24 @@ var transformCascade = function(instance, data) {
  * @param {d3.selection} selection The chart's "base" DOM node. This should
  *        contain any nodes that the chart generates.
  * @param {mixed} chartOptions A value for controlling how the chart should be
- *        created. If this is an object literal, d3.chart will respond to the
- *        following attributes:
- *
- *        - {object} dataMapping A lookup table describing how the chart's
- *          data attributes should be translated. For example, if the chart
- *          defines `dataAttrs` as `["time", "space"]`, consumers can "map"
- *          those attribute names to match the shape of their data:
- *          {
- *            time: function() { return this.tiempo; },
- *            space: function() { return this.espacio; }
- *          }
- *
- *        The `chartOptions` value will be forwarded to {@link
- *        Chart#initialize}, so charts may define additional properties for
- *        consumers to modify their behavior during initialization.
+ *        created. This value will be forwarded to {@link Chart#initialize}, so
+ *        charts may define additional properties for consumers to modify their
+ *        behavior during initialization.
  *
  * @constructor
  */
 var Chart = function(selection, chartOptions) {
 
 	this.base = selection;
-	this._dataMapping = chartOptions && chartOptions.dataMapping;
 	this._layers = {};
 	this._attached = {};
 	this._events = {};
 
-	initCascade.call(this, this, Array.prototype.slice.call(arguments, 1));
-
-	// Skip data mapping initialization logic if the chart has explicitly
-	// opted out of that functionality (generally for performance reasons)
-	if (this._dataMapping !== false) {
-		this._datamap = new DataMap(this.dataAttrs);
-		if (this._dataMapping) {
-			this._datamap.map(this._dataMapping);
-		}
+	if (chartOptions && chartOptions.transform) {
+		this.transform = chartOptions.transform;
 	}
 
+	initCascade.call(this, this, [chartOptions]);
 };
 
 /**
@@ -636,10 +473,6 @@ Chart.prototype.attach = function(attachmentName, chart) {
 Chart.prototype.draw = function(data) {
 
 	var layerName, attachmentName, attachmentData;
-
-	if (this._dataMapping !== false && data) {
-		data = this._datamap.wrap(data);
-	}
 
 	data = transformCascade.call(this, this, data);
 
@@ -800,11 +633,6 @@ Chart.prototype.trigger = function(name) {
  *
  * @param {String} name Identifier for the new Chart constructor.
  * @param {Object} protoProps Properties to set on the new chart's prototype.
- *        d3.chart reserves the following properties:
- *
- *        - {Array} dataAttrs A list of strings describing the attributes that
- *          the chart requires.
- *
  * @param {Object} staticProps Properties to set on the chart constructor
  *        itself.
  *
@@ -812,7 +640,7 @@ Chart.prototype.trigger = function(name) {
  */
 Chart.extend = function(name, protoProps, staticProps) {
 	var parent = this;
-	var child, dataAttrs;
+	var child;
 
 	// The constructor function for the new subclass is either defined by
 	// you (the "constructor" property in your `extend` definition), or
@@ -839,17 +667,6 @@ Chart.extend = function(name, protoProps, staticProps) {
 	// Set a convenience property in case the parent's prototype is needed
 	// later.
 	child.__super__ = parent.prototype;
-
-	// Inherit chart data attributes. This allows charts that derive from
-	// other charts to use the same attributes for data without
-	// compromising their ability to add additional attributes.
-	if (hasOwnProp.call(child.prototype, "dataAttrs")) {
-		dataAttrs = child.prototype.dataAttrs;
-	} else {
-		dataAttrs = [];
-	}
-	dataAttrs = dataAttrs.concat(parent.prototype.dataAttrs);
-	child.prototype.dataAttrs = dataAttrs;
 
 	Chart[name] = child;
 	return child;

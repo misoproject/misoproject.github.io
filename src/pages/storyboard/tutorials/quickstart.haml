@@ -10,7 +10,7 @@
     %h3 In the Browser
     %p
       To get storyboard into your web development environment, follow the following steps:
-    %div.indent-1  
+    %div.indent-1
       %h4 Download the right build for your environment:
       %div{ :style => 'width:100%; display:inline-block;' }
         %div.download{ :style => 'width:100%;'}
@@ -24,10 +24,10 @@
             &darr; production with dependencies (minified)
 
       %h4 Include the appropriate script tags:
-      %p 
+      %p
         = toHTMLCodeBlock("storyboard/quickstart/index.html")
-      
-      
+
+
       %h4 Start using Miso.Storyboard in your code!
       %p
         You should now have access to the <code>Miso.Storyboard</code> object in your code.
@@ -58,7 +58,7 @@
     %div.indent-1
       %p
         First, we define a new Miso.Storyboard and set the following parameters on it:
-        
+
       %h3 Required:
       %p
         %ol
@@ -69,15 +69,15 @@
             %code scenes
             &ndash; The actual scenes we want to be a part of this storyboard. See below for how one defines a scene.
 
-        
+
       %h4 Optional:
       %p
         %ol
           %li
-            %code context 
+            %code context
             &ndash; What should 'this' be inside each scene? By default the storyboard or scene itself.
           %li
-            Any other method or property!! You can define your own functions and properties here. 
+            Any other method or property!! You can define your own functions and properties here.
             They will be available to each other under the <code>this</code> object, but to each scene
             they will be available under <code>this.parent.myCustomFunction()</code>.
 
@@ -88,25 +88,25 @@
         %ol
           %li
             %code enter
-            &ndash; The function that is called when a scene is entered. You don't have to define it if you don't 
+            &ndash; The function that is called when a scene is entered. You don't have to define it if you don't
             want to. By default, it will just be a passthrough.
             If you want to prevent the transition from happening, you can return <code>false</code> from
             this function, and it will cancel the transition and fail the deferred.
           %li
             %code exit
-            &ndash; The function that is called when a scene is exiting. You don't have to define it if you don't 
+            &ndash; The function that is called when a scene is exiting. You don't have to define it if you don't
             want to. By default, it will just be a passthrough.
             If you want to prevent the transition from happening, you can return <code>false</code> from
             this function, and it will cancel the transition and fail the deferred.
 
       %h4 Example:
-      %p      
+      %p
         #walkthrough
           Walkthrough text here:
           %br
         = toRunnableCodeBlock("storyboard/quickstart/storyboard.js")
 
-    
+
     %a{ :href => '/storyboard/tutorials/async', :style => 'text-align:right;' }
       %h2
         Asyncronous Scenes &raquo;

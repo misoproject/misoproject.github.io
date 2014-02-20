@@ -2,7 +2,8 @@
 name: Miso.Dataset.Importers.Remote
 description: |
   Import data from remote files via an AJAX request
-  = toRunnableCodeBlock("api/miso.importer.remote")
+  %div{ :style=> 'height:200px'}
+    = toRunnableCodeBlock("api/miso.importer.remote")
 methods:
 -
   name: constructor

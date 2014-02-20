@@ -30,6 +30,8 @@
       .Barchart .bars rect.bar {
         fill: #97E8A2;
       }
-  = toRunnableCodeBlock("d3-chart/examples/basic.js", nil, { :autorun => true, :globals => '_,d3' })
-  = toDisplayCodeBlock("d3-chart/examples/basic.html")
-   
+  %div{ :style => 'height: 600px' }
+    = toRunnableCodeBlock("d3-chart/examples/basic.js", nil, { :autorun => true, :globals => '_,d3' })
+  %div{ :style => 'height: 380px'}
+    = toDisplayHTMLCodeBlock("d3-chart/examples/basic.html")
+

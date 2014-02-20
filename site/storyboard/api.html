@@ -51,548 +51,590 @@
       </span>
     </nav>
     <article class='api storyboard'>
-      <div class='api_wrapper'>
-        <section class='api' id='misostoryboard'>
-          <h2>
-            Miso.Storyboard
-          </h2>
-          <p>
-            <p>
-              <code>Miso.Storyboard</code> is the main object you'll instantiate to create a new Storyboard.
-            </p>
-          </p>
-          <div class='entry' id='misostoryboard_constructor'>
-            <div class='bar'>
-              <h3>
-                new Miso.Storyboard( options )
-              </h3>
-              <span class='returns'>
-                Returns:
-                <span class='object'>
-                  Miso.Storyboard
-                </span>
-              </span>
-            </div>
-            <p>
-              Returns a new storyboard.
-            </p>
-            <h3>
-              Parameters
-            </h3>
-            <ul class='parameters'>
-              <li>
-                <div class='head'>
-                  <span class='name'>
-                    options
-                  </span>
-                  <span class='type'>
-                    Object
-                  </span>
-                  <span class='required'>
-                    required
-                  </span>
-                </div>
-                <p>
-                  Object containing all the initial configuration for the storyboard.
-                </p>
-                <ul>
-                  <li>
-                    <div class='head'>
-                      <span class='name'>
-                        scenes
-                      </span>
-                      <span class='type'>
-                        Object
-                      </span>
-                      <span class='optional'>
-                        optional
-                      </span>
-                    </div>
-                    <p>
-                      An object containing each othe scene definitions and handlers
-                    </p>
-                  </li>
-                  <li>
-                    <div class='head'>
-                      <span class='name'>
-                        initial
-                      </span>
-                      <span class='type'>
-                        String
-                      </span>
-                      <span class='optional'>
-                        optional
-                      </span>
-                    </div>
-                    <p>
-                      The name of the initial scene the storyboard should enter when <code>start</code>is run
-                    </p>
-                  </li>
-                  <li>
-                    <div class='head'>
-                      <span class='name'>
-                        context
-                      </span>
-                      <span class='type'>
-                        Object
-                      </span>
-                      <span class='optional'>
-                        optional
-                      </span>
-                    </div>
-                    <p>
-                      The context in which scene handlers should run
-                    </p>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-          <h3 class='instance'>
-            Instance Methods
-          </h3>
-          <div class='entry' id='misostoryboard_i_start'>
-            <div class='bar'>
-              <h3>
-                storyboard.start()
-              </h3>
-              <span class='returns'>
-                Returns:
-                <span class='object'>
-                  Deferred
-                </span>
-              </span>
-            </div>
-            <p>
-              Start a storyboard, causes a transition to the state defined by <code>initial</code>
-            </p>
-          </div>
-          <div class='entry' id='misostoryboard_i_to'>
-            <div class='bar'>
-              <h3>
-                storyboard.to( sceneName )
-              </h3>
-              <span class='returns'>
-                Returns:
-                <span class='object'>
-                  Deferred
-                </span>
-              </span>
-            </div>
-            <p>
-              Trigger a transition to the scene named
-            </p>
-          </div>
-          <div class='entry' id='misostoryboard_i_canceltransition'>
-            <div class='bar'>
-              <h3>
-                storyboard.cancelTransition()
-              </h3>
-              <span class='returns'>
-                Returns:
-                <span class='object'>
-                  this
-                </span>
-              </span>
-            </div>
-            <p>
-              Cancel the running transition and trigger and failure handlers that were bound to its deferred
-            </p>
-          </div>
-          <div class='entry' id='misostoryboard_i_scene'>
-            <div class='bar'>
-              <h3>
-                storyboard.scene()
-              </h3>
-              <span class='returns'>
-                Returns:
-                <span class='object'>
-                  String
-                </span>
-              </span>
-            </div>
-            <p>
-              Get the name of the current scene
-            </p>
-          </div>
-          <div class='entry' id='misostoryboard_i_is'>
-            <div class='bar'>
-              <h3>
-                storyboard.is( sceneName )
-              </h3>
-              <span class='returns'>
-                Returns:
-                <span class='object'>
-                  Boolean
-                </span>
-              </span>
-            </div>
-            <p>
-              Check if sceneName is the same as the name of the current scene.
-            </p>
-          </div>
-          <div class='entry' id='misostoryboard_i_intransition'>
-            <div class='bar'>
-              <h3>
-                storyboard.inTransition()
-              </h3>
-              <span class='returns'>
-                Returns:
-                <span class='object'>
-                  Boolean
-                </span>
-              </span>
-            </div>
-            <p>
-              Check if the storyboard is currently in the middle of a transition
-            </p>
-          </div>
-        </section>
-        <section class='api' id='misoevents'>
-          <h2>
-            Miso.Events
-          </h2>
-          <p>
-            <p>
-              Miso.Events is a simple set of pub/sub methods that can be added to any object. Miso Events
-              support not just simple subscriptions but also make identifiying individual subscriptions
-              easier through a token system and support callback priority.
-            </p>
-          </p>
-          <div class='entry' id='misoevents_publish'>
-            <div class='bar'>
-              <h3>
-                object.publish( eventName )
-              </h3>
-              <span class='returns'>
-                Returns:
-                <span class='object'>
-                  this
-                </span>
-              </span>
-            </div>
-            <p>
-              Publish an event on the object the events have been mixed in to.
-            </p>
-            <h3>
-              Parameters
-            </h3>
-            <ul class='parameters'>
-              <li>
-                <div class='head'>
-                  <span class='name'>
-                    name
-                  </span>
-                  <span class='type'>
-                    String
-                  </span>
-                  <span class='required'>
-                    required
-                  </span>
-                </div>
-                <p>
-                  Name of the event to publish
-                </p>
-              </li>
-            </ul>
-          </div>
-          <div class='entry' id='misoevents_subscribe'>
-            <div class='bar'>
-              <h3>
-                object.subscribe( eventName, callback, options )
-              </h3>
-              <span class='returns'>
-                Returns:
-                <span class='object'>
-                  token
-                </span>
-              </span>
-            </div>
-            <p>
-              Subscribe to an event by passing in a name and a callback function.
-              The token option allows you to supply the token that you can use to
-              uniquely identify the subscription. The priority subscription allows you
-              to specify the running order of event subscriptions with higher numbers
-              being run earlier.
-            </p>
-            <h3>
-              Parameters
-            </h3>
-            <ul class='parameters'>
-              <li>
-                <div class='head'>
-                  <span class='name'>
-                    name
-                  </span>
-                  <span class='type'>
-                    String
-                  </span>
-                  <span class='required'>
-                    required
-                  </span>
-                </div>
-                <p>
-                  Name of the event to subscribe to
-                </p>
-              </li>
-              <li>
-                <div class='head'>
-                  <span class='name'>
-                    callback
-                  </span>
-                  <span class='type'>
-                    Function
-                  </span>
-                  <span class='required'>
-                    required
-                  </span>
-                </div>
-                <p>
-                  Callback function to be run
-                </p>
-              </li>
-              <li>
-                <div class='head'>
-                  <span class='name'>
-                    options
-                  </span>
-                  <span class='type'>
-                    Object
-                  </span>
-                  <span class='optional'>
-                    optional
-                  </span>
-                </div>
-                <p>
-                  Optional configuration parameters
-                </p>
-                <ul>
-                  <li>
-                    <div class='head'>
-                      <span class='name'>
-                        token
-                      </span>
-                      <span class='type'>
-                        String
-                      </span>
-                      <span class='optional'>
-                        optional
-                      </span>
-                    </div>
-                    <p>
-                      String token to uniquely identify the subscription, will be generated if not passed in
-                    </p>
-                  </li>
-                  <li>
-                    <div class='head'>
-                      <span class='name'>
-                        priority
-                      </span>
-                      <span class='type'>
-                        Number
-                      </span>
-                      <span class='optional'>
-                        optional
-                      </span>
-                    </div>
-                    <p>
-                      Priority number, a higher number will mean the callback will be run earlier
-                    </p>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-          <div class='entry' id='misoevents_subscribeonce'>
-            <div class='bar'>
-              <h3>
-                object.subscribeOnce( eventName, callback )
-              </h3>
-              <span class='returns'>
-                Returns:
-                <span class='object'>
-                  token
-                </span>
-              </span>
-            </div>
-            <p>
-              Create a subscription that will only be run once.
-            </p>
-            <h3>
-              Parameters
-            </h3>
-            <ul class='parameters'>
-              <li>
-                <div class='head'>
-                  <span class='name'>
-                    name
-                  </span>
-                  <span class='type'>
-                    String
-                  </span>
-                  <span class='required'>
-                    required
-                  </span>
-                </div>
-                <p>
-                  Name of the event to subscribe to
-                </p>
-              </li>
-              <li>
-                <div class='head'>
-                  <span class='name'>
-                    callback
-                  </span>
-                  <span class='type'>
-                    Function
-                  </span>
-                  <span class='required'>
-                    required
-                  </span>
-                </div>
-                <p>
-                  Callback function to be run
-                </p>
-              </li>
-            </ul>
-          </div>
-          <div class='entry' id='misoevents_unsubscribe'>
-            <div class='bar'>
-              <h3>
-                object.unsubscribe( eventName, identifier )
-              </h3>
-              <span class='returns'>
-                Returns:
-                <span class='object'>
-                  this
-                </span>
-              </span>
-            </div>
-            <p>
-              Destroy a subscription. If no identifier is provided all subscriptions to the
-              event will be destroyed.
-            </p>
-            <h3>
-              Parameters
-            </h3>
-            <ul class='parameters'>
-              <li>
-                <div class='head'>
-                  <span class='name'>
-                    name
-                  </span>
-                  <span class='type'>
-                    String
-                  </span>
-                  <span class='required'>
-                    required
-                  </span>
-                </div>
-                <p>
-                  Name of the event to subscribe to
-                </p>
-              </li>
-              <li>
-                <div class='head'>
-                  <span class='name'>
-                    identifier
-                  </span>
-                  <span class='type'>
-                    String || Function
-                  </span>
-                  <span class='optional'>
-                    optional
-                  </span>
-                </div>
-                <p>
-                  Either a subscription token or a callback function.
-                </p>
-              </li>
-            </ul>
-          </div>
-        </section>
+  <div class='api_wrapper'>
+    <section class='api' id='misostoryboard'>
+  <h2>
+    Miso.Storyboard
+  </h2>
+  <p>
+    <p>
+  <code>Miso.Storyboard</code> is the main object you'll instantiate to create a new Storyboard.
+</p>
+  </p>
+  <div class='entry' id='misostoryboard_constructor'>
+  <div class='bar'>
+    <h3>
+      new Miso.Storyboard( options )
+    </h3>
+    <span class='returns'>
+      Returns:
+      <span class='object'>
+        Miso.Storyboard
+      </span>
+    </span>
+  </div>
+  <p>
+    Returns a new storyboard.
+  </p>
+  <h3>
+    Parameters
+  </h3>
+  <ul class='parameters'>
+    <li>
+  <div class='head'>
+    <span class='name'>
+      options
+    </span>
+    <span class='type'>
+      Object
+    </span>
+    <span class='required'>
+      required
+    </span>
+  </div>
+  <p>
+    Object containing all the initial configuration for the storyboard.
+  </p>
+  <ul>
+    <li>
+      <div class='head'>
+        <span class='name'>
+          scenes
+        </span>
+        <span class='type'>
+          Object
+        </span>
+        <span class='optional'>
+          optional
+        </span>
       </div>
-      <div class='nav_wrapper'>
-        <div class='nav'>
-          <ul>
-            <li>
-              <a href='#misostoryboard'>
-                Miso.Storyboard
-              </a>
-              <ul class='object'>
-                <li>
-                  <a href='#misostoryboard_constructor'>
-                    constructor
-                  </a>
-                </li>
-              </ul>
-              <span class='instance'>
-                Instance Methods
+      <p>
+        An object containing each othe scene definitions and handlers
+      </p>
+    </li>
+    <li>
+  <div class='head'>
+    <span class='name'>
+      initial
+    </span>
+    <span class='type'>
+      String
+    </span>
+    <span class='optional'>
+      optional
+    </span>
+  </div>
+  <p>
+    The name of the initial scene the storyboard should enter when <code>start</code>is run
+  </p>
+</li>
+    <li>
+      <div class='head'>
+        <span class='name'>
+          context
+        </span>
+        <span class='type'>
+          Object
+        </span>
+        <span class='optional'>
+          optional
+        </span>
+      </div>
+      <p>
+        The context in which scene handlers should run
+      </p>
+    </li>
+  </ul>
+</li>
+  </ul>
+</div>
+  <h3 class='instance'>
+    Instance Methods
+  </h3>
+  <div class='entry' id='misostoryboard_i_start'>
+  <div class='bar'>
+    <h3>
+      storyboard.start()
+    </h3>
+    <span class='returns'>
+      Returns:
+      <span class='object'>
+        Deferred
+      </span>
+    </span>
+  </div>
+  <p>
+    Start a storyboard, causes a transition to the state defined by <code>initial</code>
+  </p>
+</div>
+<div class='entry' id='misostoryboard_i_to'>
+  <div class='bar'>
+    <h3>
+      storyboard.to( sceneName )
+    </h3>
+    <span class='returns'>
+      Returns:
+      <span class='object'>
+        Deferred
+      </span>
+    </span>
+  </div>
+  <p>
+    Trigger a transition to the scene named
+  </p>
+  <h3>
+    Parameters
+  </h3>
+  <ul class='parameters'>
+    <li>
+      <div class='head'>
+        <span class='name'>
+          sceneName
+        </span>
+        <span class='type'>
+          String
+        </span>
+        <span class='required'>
+          required
+        </span>
+      </div>
+      <p>
+        The name of the scene to transition to
+      </p>
+    </li>
+  </ul>
+</div>
+<div class='entry' id='misostoryboard_i_canceltransition'>
+  <div class='bar'>
+    <h3>
+      storyboard.cancelTransition()
+    </h3>
+    <span class='returns'>
+      Returns:
+      <span class='object'>
+        this
+      </span>
+    </span>
+  </div>
+  <p>
+    Cancel the running transition and trigger and failure handlers that were bound to its deferred
+  </p>
+</div>
+<div class='entry' id='misostoryboard_i_scene'>
+  <div class='bar'>
+    <h3>
+      storyboard.scene()
+    </h3>
+    <span class='returns'>
+      Returns:
+      <span class='object'>
+        String
+      </span>
+    </span>
+  </div>
+  <p>
+    Get the name of the current scene
+  </p>
+</div>
+<div class='entry' id='misostoryboard_i_is'>
+  <div class='bar'>
+    <h3>
+      storyboard.is( sceneName )
+    </h3>
+    <span class='returns'>
+      Returns:
+      <span class='object'>
+        Boolean
+      </span>
+    </span>
+  </div>
+  <p>
+    Check if sceneName is the same as the name of the current scene.
+  </p>
+  <h3>
+    Parameters
+  </h3>
+  <ul class='parameters'>
+    <li>
+      <div class='head'>
+        <span class='name'>
+          sceneName
+        </span>
+        <span class='type'>
+          String
+        </span>
+        <span class='required'>
+          required
+        </span>
+      </div>
+      <p>
+        Returns true if the current scene matches the scene name. False otherwise.
+      </p>
+    </li>
+  </ul>
+</div>
+<div class='entry' id='misostoryboard_i_intransition'>
+  <div class='bar'>
+    <h3>
+      storyboard.inTransition()
+    </h3>
+    <span class='returns'>
+      Returns:
+      <span class='object'>
+        Boolean
+      </span>
+    </span>
+  </div>
+  <p>
+    Check if the storyboard is currently in the middle of a transition
+  </p>
+</div>
+</section>
+    <section class='api' id='misoevents'>
+      <h2>
+        Miso.Events
+      </h2>
+      <p>
+        <p>
+          Miso.Events is a simple set of pub/sub methods that can be added to any object. Miso Events
+          support not just simple subscriptions but also make identifiying individual subscriptions
+          easier through a token system and support callback priority.
+        </p>
+      </p>
+      <div class='entry' id='misoevents_publish'>
+        <div class='bar'>
+          <h3>
+            object.publish( eventName )
+          </h3>
+          <span class='returns'>
+            Returns:
+            <span class='object'>
+              this
+            </span>
+          </span>
+        </div>
+        <p>
+          Publish an event on the object the events have been mixed in to.
+        </p>
+        <h3>
+          Parameters
+        </h3>
+        <ul class='parameters'>
+          <li>
+            <div class='head'>
+              <span class='name'>
+                name
               </span>
-              <ul>
-                <li>
-                  <a href='#misostoryboard_i_start'>
-                    start
-                  </a>
-                </li>
-                <li>
-                  <a href='#misostoryboard_i_to'>
-                    to
-                  </a>
-                </li>
-                <li>
-                  <a href='#misostoryboard_i_canceltransition'>
-                    cancelTransition
-                  </a>
-                </li>
-                <li>
-                  <a href='#misostoryboard_i_scene'>
-                    scene
-                  </a>
-                </li>
-                <li>
-                  <a href='#misostoryboard_i_is'>
-                    is
-                  </a>
-                </li>
-                <li>
-                  <a href='#misostoryboard_i_intransition'>
-                    inTransition
-                  </a>
-                </li>
-              </ul>
-            </li>
+              <span class='type'>
+                String
+              </span>
+              <span class='required'>
+                required
+              </span>
+            </div>
+            <p>
+              Name of the event to publish
+            </p>
+          </li>
+        </ul>
+      </div>
+      <div class='entry' id='misoevents_subscribe'>
+        <div class='bar'>
+          <h3>
+            object.subscribe( eventName, callback, options )
+          </h3>
+          <span class='returns'>
+            Returns:
+            <span class='object'>
+              token
+            </span>
+          </span>
+        </div>
+        <p>
+          Subscribe to an event by passing in a name and a callback function.
+          The token option allows you to supply the token that you can use to
+          uniquely identify the subscription. The priority subscription allows you
+          to specify the running order of event subscriptions with higher numbers
+          being run earlier.
+        </p>
+        <h3>
+          Parameters
+        </h3>
+        <ul class='parameters'>
+          <li>
+            <div class='head'>
+              <span class='name'>
+                name
+              </span>
+              <span class='type'>
+                String
+              </span>
+              <span class='required'>
+                required
+              </span>
+            </div>
+            <p>
+              Name of the event to subscribe to
+            </p>
+          </li>
+          <li>
+            <div class='head'>
+              <span class='name'>
+                callback
+              </span>
+              <span class='type'>
+                Function
+              </span>
+              <span class='required'>
+                required
+              </span>
+            </div>
+            <p>
+              Callback function to be run
+            </p>
+          </li>
+          <li>
+            <div class='head'>
+              <span class='name'>
+                options
+              </span>
+              <span class='type'>
+                Object
+              </span>
+              <span class='optional'>
+                optional
+              </span>
+            </div>
+            <p>
+              Optional configuration parameters
+            </p>
+            <ul>
+              <li>
+                <div class='head'>
+                  <span class='name'>
+                    token
+                  </span>
+                  <span class='type'>
+                    String
+                  </span>
+                  <span class='optional'>
+                    optional
+                  </span>
+                </div>
+                <p>
+                  String token to uniquely identify the subscription, will be generated if not passed in
+                </p>
+              </li>
+              <li>
+                <div class='head'>
+                  <span class='name'>
+                    priority
+                  </span>
+                  <span class='type'>
+                    Number
+                  </span>
+                  <span class='optional'>
+                    optional
+                  </span>
+                </div>
+                <p>
+                  Priority number, a higher number will mean the callback will be run earlier
+                </p>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class='entry' id='misoevents_subscribeonce'>
+        <div class='bar'>
+          <h3>
+            object.subscribeOnce( eventName, callback )
+          </h3>
+          <span class='returns'>
+            Returns:
+            <span class='object'>
+              token
+            </span>
+          </span>
+        </div>
+        <p>
+          Create a subscription that will only be run once.
+        </p>
+        <h3>
+          Parameters
+        </h3>
+        <ul class='parameters'>
+          <li>
+            <div class='head'>
+              <span class='name'>
+                name
+              </span>
+              <span class='type'>
+                String
+              </span>
+              <span class='required'>
+                required
+              </span>
+            </div>
+            <p>
+              Name of the event to subscribe to
+            </p>
+          </li>
+          <li>
+            <div class='head'>
+              <span class='name'>
+                callback
+              </span>
+              <span class='type'>
+                Function
+              </span>
+              <span class='required'>
+                required
+              </span>
+            </div>
+            <p>
+              Callback function to be run
+            </p>
+          </li>
+        </ul>
+      </div>
+      <div class='entry' id='misoevents_unsubscribe'>
+        <div class='bar'>
+          <h3>
+            object.unsubscribe( eventName, identifier )
+          </h3>
+          <span class='returns'>
+            Returns:
+            <span class='object'>
+              this
+            </span>
+          </span>
+        </div>
+        <p>
+          Destroy a subscription. If no identifier is provided all subscriptions to the
+          event will be destroyed.
+        </p>
+        <h3>
+          Parameters
+        </h3>
+        <ul class='parameters'>
+          <li>
+            <div class='head'>
+              <span class='name'>
+                name
+              </span>
+              <span class='type'>
+                String
+              </span>
+              <span class='required'>
+                required
+              </span>
+            </div>
+            <p>
+              Name of the event to subscribe to
+            </p>
+          </li>
+          <li>
+            <div class='head'>
+              <span class='name'>
+                identifier
+              </span>
+              <span class='type'>
+                String || Function
+              </span>
+              <span class='optional'>
+                optional
+              </span>
+            </div>
+            <p>
+              Either a subscription token or a callback function.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
+  <div class='nav_wrapper'>
+    <div class='nav'>
+      <ul>
+        <li>
+          <a href='#misostoryboard'>
+            Miso.Storyboard
+          </a>
+          <ul class='object'>
             <li>
-              <a href='#misoevents'>
-                Miso.Events
+              <a href='#misostoryboard_constructor'>
+                constructor
               </a>
-              <ul class='object'>
-                <li>
-                  <a href='#misoevents_publish'>
-                    publish
-                  </a>
-                </li>
-                <li>
-                  <a href='#misoevents_subscribe'>
-                    subscribe
-                  </a>
-                </li>
-                <li>
-                  <a href='#misoevents_subscribeonce'>
-                    subscribeOnce
-                  </a>
-                </li>
-                <li>
-                  <a href='#misoevents_unsubscribe'>
-                    unsubscribe
-                  </a>
-                </li>
-              </ul>
             </li>
           </ul>
-        </div>
-      </div>
-    </article>
+          <span class='instance'>
+            Instance Methods
+          </span>
+          <ul>
+            <li>
+              <a href='#misostoryboard_i_start'>
+                start
+              </a>
+            </li>
+            <li>
+              <a href='#misostoryboard_i_to'>
+                to
+              </a>
+            </li>
+            <li>
+              <a href='#misostoryboard_i_canceltransition'>
+                cancelTransition
+              </a>
+            </li>
+            <li>
+              <a href='#misostoryboard_i_scene'>
+                scene
+              </a>
+            </li>
+            <li>
+              <a href='#misostoryboard_i_is'>
+                is
+              </a>
+            </li>
+            <li>
+              <a href='#misostoryboard_i_intransition'>
+                inTransition
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href='#misoevents'>
+            Miso.Events
+          </a>
+          <ul class='object'>
+            <li>
+              <a href='#misoevents_publish'>
+                publish
+              </a>
+            </li>
+            <li>
+              <a href='#misoevents_subscribe'>
+                subscribe
+              </a>
+            </li>
+            <li>
+              <a href='#misoevents_subscribeonce'>
+                subscribeOnce
+              </a>
+            </li>
+            <li>
+              <a href='#misoevents_unsubscribe'>
+                unsubscribe
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</article>
     <footer>
       <div class='container'>
         <section>
@@ -628,8 +670,8 @@
     <script src='/js/miso.storyboard.deps.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
-    <script src='/js/codemirror.js'></script>
-    <script src='/js/codeblocks.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
     
     <script type="text/javascript">
       var _gaq = _gaq || [];

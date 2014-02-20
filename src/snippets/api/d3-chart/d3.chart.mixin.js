@@ -1,6 +1,13 @@
-d3.chart("BarChartWithLabels", {
+d3.chart("PieBars", {
   initialize: function() {
-    this.bars   = this.mixin("BarChart", this.base.append("g"));
-    this.labels = this.mixin("LabelChart", this.base.append("g"));
+    var barchart = this.base.append("svg")
+      .chart("BarChart");
+
+    var piechart = this.base.append("svg")
+      .chart("PieChart")
+      .radius(10);
+
+    this.attach("bars", barchart);
+    this.attach("piechart", piechart);
   }
 });

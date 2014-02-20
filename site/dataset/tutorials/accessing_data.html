@@ -61,203 +61,203 @@
       </span>
     </nav>
     <article class='dataset'>
-      <section class='tutorial'>
-        <h2>
-          Accessing Data
-        </h2>
-        <p>
-          There are several ways in which your data is made available once in Dataset.
-          Specifically all these ways fall into the following categories:
-        </p>
-        <h3>Direct Access</h3>
-        <p>
-          The following methods allow you to have access to parts of Dataset directly - as in, you can directly
-          interface with the objects that make up your Dataset instance. While convenient, if you change the data in a matter
-          other than the one specified, you can create inconsistancies in our index.
-        </p>
-        <div class='indent-1'>
-          <p>
-            The methods that give you direct access are:
-            <ul>
-              <li>
-                <a href='/dataset/api.html#misodataview_i_column'>
-                  <code>ds.column(name)</code>
-                </a>
-                <br />
-                This returns the actual column object. Note that because the order of columns
-                is not guaranteed (or should matter,) the fetching of columns is always done by name.
-              </li>
-              <li>
-                <code>col.data</code>
-                <br />
-                After fetching a column using <code>ds.column(name)</code>, you can get a hold of the data in it
-                directly by referencing the <code>data</code> array. This is NOT recommended as all updates should go
-                through the add/remove/update methods.
-              </li>
-              <li>
-                <code>col.name</code>
-                <br />
-                After fetching a column using <code>ds.column(name)</code>, you can get a hold of the column name directly.
-              </li>
-              <li>
-                <code>col.type</code>
-                <br />
-                After fetching a column using <code>ds.column(name)</code>, you can get a hold of the column name directly.
-              </li>
-            </ul>
-          </p>
-        </div>
-        <h3>Indirect Access</h3>
-        <p>
-          The following methods give you access to the content, but it is first separated form the actual Dataset. This is
-          for two reasons: First, because 'rows' are a more logical interaction unit it makes more sense to provide an API
-          that can access data in this way. Because we don't actually store the data in this way, we have to make the row
-          objects. The actual data is stored in column arrays and is only tied together by position.
-        </p>
-        <div class='indent-1'>
-          <p>
-            The methods that give you indirect access are:
-            <ul>
-              <li>
-                <a href='/dataset/api.html#misodataview_i_column'>
-                  <code>ds.columnNames()</code>
-                </a>
-                <br />
-                Returns an array of column names.
-              </li>
-              <li>
-                <a href='/dataset/api.html#misodataview_i_rowbyposition'>
-                  <code>ds.rowByPosition(pos)</code>
-                </a>
-                <br />
-                To get the Nth row in your dataset, just pass the position into rowByPosition. An object representing
-                the row will be returned.
-              </li>
-              <li>
-                <a href='/dataset/api.html#misodataview_i_rowbyid'>
-                  <code>ds.rowById(id)</code>
-                </a>
-                <br />
-                To get the row with a specfic _id value. An object representing
-                the row will be returned. Note, the _id value is an auto generated value and should
-                never be changed.
-              </li>
-              <li>
-                <a href='/dataset/api.html#misodataview_i_each'>
-                  <code>ds.each(iterator, context)</code>
-                </a>
-                <br />
-                Iterates over all rows.
-                <pre>&#x000A;ds.each(function(row, rowIndex) {&#x000A;  // do what you need here.&#x000A;});</pre>
-              </li>
-              <li>
-                <a href='/dataset/api.html#misodataview_i_column'>
-                  <code>ds.eachColumn(iterator, context)</code>
-                </a>
-                <br />
-                Iterates over available columns (not including _id column.)
-                <pre>&#x000A;ds.eachColumn(function(columnName, column, index) {&#x000A;  // do what you need here.&#x000A;});</pre>
-              </li>
-            </ul>
-          </p>
-        </div>
-        <h3>Data Views</h3>
-        <p>
-          Dataset offers a pretty versatile selection mechanism. To allow for an interface identical to your
-          Dataset's instance, while operating on a subset we return a DataView object.
-          A DataView functions very much like Dataset (in fact Dataset inherits from DataView).
-          The major difference is that DataViews are <b>immutable</b> - they
-          do not offer any way to change the selected data. This is because they are tied to the original data.
-        </p>
-        <div class='indent-1'>
-          <p>
-            The methods that give you DataView objects:
-            <ul>
-              <li>
-                <a href='/dataset/api.html#misodataview_i_where'>
-                  <code>ds.where(filter, options)</code>
-                </a>
-                <br />
-                Returns a subset of rows that meet the specified filter requirement.
-              </li>
-              <li>
-                <a href='/dataset/api.html#misodataview_i_columns'>
-                  <code>ds.columns(nameArray)</code>
-                </a>
-                <br />
-                Returns a subset of columns. Shorthand for <code>ds.where({ columns : nameArray })</code>
-              </li>
-              <li>
-                <a href='/dataset/api.html#misodataview_i_rows'>
-                  <code>ds.rows(rowFilter, options)</code>
-                </a>
-                <br />
-                Returns a subset of rows. Shorthand for <code>ds.where({ rows : rowFilter })</code>
-              </li>
-              <li>
-                <code>dv.parent</code>
-                <br />
-                Assume dv is an existing selection that was created using one of the above methods.
-                Calling <code>parent</code> returns a handle to the original parent dataset or dataview
-                from which this selection was created.
-              </li>
-            </ul>
-          </p>
-        </div>
-        <h4>Synchronization</h4>
-        <p>
-          By default, a selection does not maintain a direct relationship to the data if the original data is changed. For
-          example, if you try to select all rows where a particualr column's value is even and then change a row that matched
-          the original selection to no longer match it, the DataView returned by the selection <b>will</b> still contain it.
-          To prevent this from happening, you can indicate that all DataViews created from a Dataset (or other DataViews!) should
-          sync with the original data. You can do that by setting the <code>sync</code> property to <code>true</code> when
-          initializing your Dataset. For example:
-          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-          var data = [
-            { a : 100, b : 1, c : 10 },
-            { a : 200, b : 2, c : 20 },
-            { a : 300, b : 3, c : 30 }
-          ];
-          
-          var ds = new Miso.Dataset({
-            data : data,
-            sync : true
-          });
-          
-          ds.fetch({
-            success : function() {
-              var subselection = ds.where({
-                rows : function(row) {
-                  return row.a > 150;
-                }
-              });
-          
-              log("Subselection length: ", subselection.length);
-              log("Subselection content: ", subselection.toJSON());
-          
-              // now change some value in the original data
-              ds.add({
-                a : 500, b : 500, c : 500
-              });
-          
-              // there should now be +1 rows in subselection
-              log("Subselection length: ", subselection.length);
-              log("Subselection content: ", subselection.toJSON());
-            }
-          });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
-        </p>
-        <a href='/dataset/tutorials/data_types' style='float:left;'>
-          <h2>
-            &laquo; Data Types
-          </h2>
-        </a>
-        <a href='/dataset/tutorials/events' style='float:right;'>
-          <h2>
-            Syncronization & Events &raquo;
-          </h2>
-        </a>
-      </section>
-    </article>
+  <section class='tutorial'>
+    <h2>
+      Accessing Data
+    </h2>
+    <p>
+      There are several ways in which your data is made available once in Dataset.
+      Specifically all these ways fall into the following categories:
+    </p>
+    <h3>Direct Access</h3>
+    <p>
+      The following methods allow you to have access to parts of Dataset directly - as in, you can directly
+      interface with the objects that make up your Dataset instance. While convenient, if you change the data in a matter
+      other than the one specified, you can create inconsistancies in our index.
+    </p>
+    <div class='indent-1'>
+      <p>
+        The methods that give you direct access are:
+        <ul>
+          <li>
+            <a href='/dataset/api.html#misodataview_i_column'>
+              <code>ds.column(name)</code>
+            </a>
+            <br />
+            This returns the actual column object. Note that because the order of columns
+            is not guaranteed (or should matter,) the fetching of columns is always done by name.
+          </li>
+          <li>
+            <code>col.data</code>
+            <br />
+            After fetching a column using <code>ds.column(name)</code>, you can get a hold of the data in it
+            directly by referencing the <code>data</code> array. This is NOT recommended as all updates should go
+            through the add/remove/update methods.
+          </li>
+          <li>
+            <code>col.name</code>
+            <br />
+            After fetching a column using <code>ds.column(name)</code>, you can get a hold of the column name directly.
+          </li>
+          <li>
+            <code>col.type</code>
+            <br />
+            After fetching a column using <code>ds.column(name)</code>, you can get a hold of the column name directly.
+          </li>
+        </ul>
+      </p>
+    </div>
+    <h3>Indirect Access</h3>
+    <p>
+      The following methods give you access to the content, but it is first separated form the actual Dataset. This is
+      for two reasons: First, because 'rows' are a more logical interaction unit it makes more sense to provide an API
+      that can access data in this way. Because we don't actually store the data in this way, we have to make the row
+      objects. The actual data is stored in column arrays and is only tied together by position.
+    </p>
+    <div class='indent-1'>
+      <p>
+        The methods that give you indirect access are:
+        <ul>
+          <li>
+            <a href='/dataset/api.html#misodataview_i_column'>
+              <code>ds.columnNames()</code>
+            </a>
+            <br />
+            Returns an array of column names.
+          </li>
+          <li>
+            <a href='/dataset/api.html#misodataview_i_rowbyposition'>
+              <code>ds.rowByPosition(pos)</code>
+            </a>
+            <br />
+            To get the Nth row in your dataset, just pass the position into rowByPosition. An object representing
+            the row will be returned.
+          </li>
+          <li>
+            <a href='/dataset/api.html#misodataview_i_rowbyid'>
+              <code>ds.rowById(id)</code>
+            </a>
+            <br />
+            To get the row with a specfic _id value. An object representing
+            the row will be returned. Note, the _id value is an auto generated value and should
+            never be changed.
+          </li>
+          <li>
+            <a href='/dataset/api.html#misodataview_i_each'>
+              <code>ds.each(iterator, context)</code>
+            </a>
+            <br />
+            Iterates over all rows.
+            <pre>&#x000A;ds.each(function(row, rowIndex) {&#x000A;  // do what you need here.&#x000A;});</pre>
+          </li>
+          <li>
+            <a href='/dataset/api.html#misodataview_i_column'>
+              <code>ds.eachColumn(iterator, context)</code>
+            </a>
+            <br />
+            Iterates over available columns (not including _id column.)
+            <pre>&#x000A;ds.eachColumn(function(columnName, column, index) {&#x000A;  // do what you need here.&#x000A;});</pre>
+          </li>
+        </ul>
+      </p>
+    </div>
+    <h3>Data Views</h3>
+    <p>
+      Dataset offers a pretty versatile selection mechanism. To allow for an interface identical to your
+      Dataset's instance, while operating on a subset we return a DataView object.
+      A DataView functions very much like Dataset (in fact Dataset inherits from DataView).
+      The major difference is that DataViews are <b>immutable</b> - they
+      do not offer any way to change the selected data. This is because they are tied to the original data.
+    </p>
+    <div class='indent-1'>
+      <p>
+        The methods that give you DataView objects:
+        <ul>
+          <li>
+            <a href='/dataset/api.html#misodataview_i_where'>
+              <code>ds.where(filter, options)</code>
+            </a>
+            <br />
+            Returns a subset of rows that meet the specified filter requirement.
+          </li>
+          <li>
+            <a href='/dataset/api.html#misodataview_i_columns'>
+              <code>ds.columns(nameArray)</code>
+            </a>
+            <br />
+            Returns a subset of columns. Shorthand for <code>ds.where({ columns : nameArray })</code>
+          </li>
+          <li>
+            <a href='/dataset/api.html#misodataview_i_rows'>
+              <code>ds.rows(rowFilter, options)</code>
+            </a>
+            <br />
+            Returns a subset of rows. Shorthand for <code>ds.where({ rows : rowFilter })</code>
+          </li>
+          <li>
+            <code>dv.parent</code>
+            <br />
+            Assume dv is an existing selection that was created using one of the above methods.
+            Calling <code>parent</code> returns a handle to the original parent dataset or dataview
+            from which this selection was created.
+          </li>
+        </ul>
+      </p>
+    </div>
+    <h4>Synchronization</h4>
+    <p>
+      By default, a selection does not maintain a direct relationship to the data if the original data is changed. For
+      example, if you try to select all rows where a particualr column's value is even and then change a row that matched
+      the original selection to no longer match it, the DataView returned by the selection <b>will</b> still contain it.
+      To prevent this from happening, you can indicate that all DataViews created from a Dataset (or other DataViews!) should
+      sync with the original data. You can do that by setting the <code>sync</code> property to <code>true</code> when
+      initializing your Dataset. For example:
+      <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+var data = [
+  { a : 100, b : 1, c : 10 },
+  { a : 200, b : 2, c : 20 },
+  { a : 300, b : 3, c : 30 }
+];
+
+var ds = new Miso.Dataset({
+  data : data,
+  sync : true
+});
+
+ds.fetch({
+  success : function() {
+    var subselection = ds.where({
+      rows : function(row) {
+        return row.a > 150;
+      }
+    });
+
+    log("Subselection length: ", subselection.length);
+    log("Subselection content: ", subselection.toJSON());
+
+    // now change some value in the original data
+    ds.add({
+      a : 500, b : 500, c : 500
+    });
+
+    // there should now be +1 rows in subselection
+    log("Subselection length: ", subselection.length);
+    log("Subselection content: ", subselection.toJSON());
+  }
+});</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+    </p>
+    <a href='/dataset/tutorials/data_types' style='float:left;'>
+      <h2>
+        &laquo; Data Types
+      </h2>
+    </a>
+    <a href='/dataset/tutorials/events' style='float:right;'>
+      <h2>
+        Syncronization & Events &raquo;
+      </h2>
+    </a>
+  </section>
+</article>
     <footer>
       <div class='container'>
         <section>
@@ -293,8 +293,8 @@
     <script src='/js/miso.ds.deps.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
-    <script src='/js/codemirror.js'></script>
-    <script src='/js/codeblocks.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
     
     <script type="text/javascript">
       var _gaq = _gaq || [];

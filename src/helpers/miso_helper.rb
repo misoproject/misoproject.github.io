@@ -7,20 +7,20 @@ module MisoHelper
     base = File.join(File.dirname(__FILE__), '..', 'other')
     data = YAML.load_file("#{base}/#{file}")
     @api << data
-    partial('/partials/_api_section', 
+    partial('/partials/_api_section',
             :locals => { :data => data })
   end
 
   def methods( name, method_array, instance = false )
     method_array.map do |method|
-      partial('/partials/_api_methods', 
+      partial('/partials/_api_methods',
               :locals => { :method => method, :object => name, :instance => instance })
     end.join('')
   end
 
   def params( params )
     params.map do |param|
-      partial('/partials/_api_param', 
+      partial('/partials/_api_param',
               :locals => { :param => param })
       params( param['params'] ) if param['params']
     end.join('')
@@ -32,7 +32,7 @@ module MisoHelper
 
   def truncate( text, to )
     original_length = text.length
-    text.slice(0, to) + (original_length > to ? "..." : '') 
+    text.slice(0, to) + (original_length > to ? "..." : '')
   end
 
   def inheritify( obj )
@@ -79,43 +79,7 @@ module MisoHelper
 
   # display only
   def toDisplayCodeBlock(partial, id=nil, options={})
-    codeblockify({ 
-      :partial => partial, 
-      :runnable => false, 
-      :code => true, 
-      :id => id, 
-      :showConsole => false 
-    }.merge(options))
-  end
-  
-  # runnable with console
-  def toRunnableCodeBlock(partial, id=nil, options={})
-    codeblockify({ 
-      :partial => partial, 
-      :runnable => true, 
-      :code => true, 
-      :id => id, 
-      :showConsole => true, 
-      :buttons => "run,reset,clear"
-    }.merge(options))
-  end
-
-  # runnable with no console
-  def toVisualCodeBlock(partial, id=nil, options={})
-    codeblockify({ 
-      :partial => partial, 
-      :runnable => true, 
-      :code => true, 
-      :id => id, 
-      :showConsole => false, 
-      :buttons => "run,reset" 
-    }.merge(options))
-  end
-
-  # def html block
-  def toHTMLCodeBlock(partial, id=nil, options={})
     codeblockify({
-      :mode => "text/html",
       :partial => partial,
       :runnable => false,
       :code => true,
@@ -124,29 +88,76 @@ module MisoHelper
     }.merge(options))
   end
 
-  # setup script. no visible impact, but attaches to a codeblock. 
-  def toSetupCodeBlock(partial, id) 
-    codeblockify({ 
-      :partial => partial, 
-      :runnable => false, 
-      :code => false, 
+  # runnable with console
+  def toRunnableCodeBlock(partial, id=nil, options={})
+    codeblockify({
+      :partial => partial,
+      :runnable => true,
+      :code => true,
+      :id => id,
+      :showConsole => true,
+      :buttons => "run,reset,clear"
+    }.merge(options))
+  end
+
+  # runnable with no console
+  def toVisualCodeBlock(partial, id=nil, options={})
+    codeblockify({
+      :partial => partial,
+      :runnable => true,
+      :code => true,
+      :id => id,
+      :showConsole => false,
+      :buttons => "run,reset"
+    }.merge(options))
+  end
+
+  # def html block
+  def toDisplayHTMLCodeBlock(partial, id=nil, options={})
+    codeblockify({
+      :mode => "ace/mode/html",
+      :partial => partial,
+      :runnable => false,
+      :editable => false,
+      :code => true,
+      :id => id,
+      :showConsole => false
+    }.merge(options))
+  end
+  def toHTMLCodeBlock(partial, id=nil, options={})
+    codeblockify({
+      :mode => "ace/mode/html",
+      :partial => partial,
+      :runnable => false,
+      :code => true,
+      :id => id,
+      :showConsole => false
+    }.merge(options))
+  end
+
+  # setup script. no visible impact, but attaches to a codeblock.
+  def toSetupCodeBlock(partial, id)
+    codeblockify({
+      :partial => partial,
+      :runnable => false,
+      :code => false,
       :selector => id,
       :blocktype => "setup"
     })
   end
 
-  def toCleanupCodeBlock(partial, id) 
-    codeblockify({ 
-      :partial => partial, 
-      :runnable => false, 
-      :code => false, 
+  def toCleanupCodeBlock(partial, id)
+    codeblockify({
+      :partial => partial,
+      :runnable => false,
+      :code => false,
       :selector => id,
       :blocktype => "cleanup"
     })
   end
 
   private
-  def idify( name ) 
+  def idify( name )
     name = [name] unless name.class == Array
     name.reject! do |part|
       part.nil? || part.empty?
@@ -184,12 +195,12 @@ module MisoHelper
       # make a pre/post script
       snippet = "<script type='codemirror/#{params[:blocktype]}' data-selector='#{params[:selector]}'>"
     end
-    
+
     # read file into it.
     File.open(full_path, 'r') do |f|
       snippet += f.read
     end
-    
+
     # surround existing snippet with proper tags
     if (params[:code] && params[:runnable])
       snippet += "</textarea><div class=\"helptext\">You can edit the code in this block and rerun it.</div></div>"

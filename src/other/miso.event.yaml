@@ -3,7 +3,7 @@ name: Miso.Dataset.Event
 description: |
   Miso.Dataset.Events are objects that will be passed to event callbacks bound to
   dataset objects that contain information about the event and what has changed.
-  See the 
+  See the
   %a{ :href => 'dataset/tutorials/events' } Events tutorial
   for more information.
 
@@ -14,7 +14,8 @@ methods:
   returns: Boolean
   description: |
     Returns whether or not a given delta is for a remove event
-    = toRunnableCodeBlock("api/miso.event.isremove")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.event.isremove")
   params:
   -
     name: delta
@@ -28,7 +29,8 @@ methods:
   returns: Boolean
   description: |
     Returns whether or not a given delta is for an add event
-    = toRunnableCodeBlock("api/miso.event.isadd")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.event.isadd")
   params:
   -
     name: delta
@@ -41,7 +43,8 @@ methods:
   returns: Boolean
   description: |
     Returns whether or not a given delta is for an update event
-    = toRunnableCodeBlock("api/miso.event.isupdate")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.event.isupdate")
   params:
   -
     name: delta
@@ -55,5 +58,6 @@ instance_methods:
   returns: Array
   description: |
     Returns an array of columns affected by the event
-    = toRunnableCodeBlock("api/miso.event.affectedcolumns")
+    %div{ :style=> 'height:200px'}
+      = toRunnableCodeBlock("api/miso.event.affectedcolumns")
 

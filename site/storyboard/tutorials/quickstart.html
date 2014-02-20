@@ -51,188 +51,188 @@
       </span>
     </nav>
     <article class='storyboard'>
-      <section class='tutorial'>
-        <h2>Quick Start!</h2>
-        <p>
-          There are two ways to use Storyboard:
-        </p>
-        <h3>In the Browser</h3>
-        <p>
-          To get storyboard into your web development environment, follow the following steps:
-        </p>
-        <div class='indent-1'>
-          <h4>Download the right build for your environment:</h4>
-          <div style='width:100%; display:inline-block;'>
-            <div class='download' style='width:100%;'>
-              <a class='button' href='https://github.com/downloads/misoproject/storyboard/miso.storyboard.0.0.1.js' onclick="_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Unminified, No Dependencies']);">
-                &darr; development
-              </a>
-              <a class='button' href='https://github.com/downloads/misoproject/storyboard/miso.storyboard.min.0.0.1.js' onclick="_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Minified, No Dependencies']);">
-                &darr; production (minified)
-              </a>
-              <a class='button' href='https://github.com/downloads/misoproject/storyboard/miso.storyboard.deps.0.0.1.js' onclick="_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Unminified, With Dependencies']);">
-                &darr; development with dependencies
-              </a>
-              <a class='button' href='https://github.com/downloads/misoproject/storyboard/miso.storyboard.deps.min.0.0.1.js' onclick="_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Minified, With Dependencies']);">
-                &darr; production with dependencies (minified)
-              </a>
-            </div>
-          </div>
-          <h4>Include the appropriate script tags:</h4>
-          <p>
-            <div class="codeblock"><textarea name="codehelper"  class="code" mode="text/html"   showConsole="false" buttons="none" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-            &lt;!DOCTYPE&#x00a0;HTML&gt;
-            &lt;html&gt;
-            &lt;head&gt;
-            &#x00a0;&#x00a0;&lt;title&gt;Your&#x00a0;Application&#x00a0;Title&lt;/title&gt;
-            &lt;/head&gt;
-            &lt;body&gt;
-            &#x00a0;&#x00a0;&lt;div&#x00a0;id=&quot;content&quot;&gt;
-            &#x00a0;&#x00a0;&#x00a0;&#x00a0;&lt;!--&#x00a0;Your&#x00a0;content&#x00a0;here&#x00a0;--&gt;
-            &#x00a0;&#x00a0;&lt;/div&gt;
-            
-            &#x00a0;&#x00a0;&lt;!--&#x00a0;Dataset&#x00a0;source&#x00a0;files&#x00a0;--&gt;
-            &#x00a0;&#x00a0;&lt;script&#x00a0;src=&quot;/js/libs/miso.storyboard.deps.0.0.1.js&quot;&gt;&lt;/script&gt;
-            
-            &#x00a0;&#x00a0;&lt;!--&#x00a0;Your&#x00a0;application&#x00a0;code&#x00a0;--&gt;
-            &#x00a0;&#x00a0;&lt;script&#x00a0;src=&quot;js/main.js&quot;&gt;&lt;/script&gt;
-            
-            &lt;/body&gt;
-            &lt;/html&gt;</textarea></div>
-          </p>
-          <h4>Start using Miso.Storyboard in your code!</h4>
-          <p>
-            You should now have access to the <code>Miso.Storyboard</code> object in your code.
-          </p>
+  <section class='tutorial'>
+    <h2>Quick Start!</h2>
+    <p>
+      There are two ways to use Storyboard:
+    </p>
+    <h3>In the Browser</h3>
+    <p>
+      To get storyboard into your web development environment, follow the following steps:
+    </p>
+    <div class='indent-1'>
+      <h4>Download the right build for your environment:</h4>
+      <div style='width:100%; display:inline-block;'>
+        <div class='download' style='width:100%;'>
+          <a class='button' href='https://github.com/downloads/misoproject/storyboard/miso.storyboard.0.0.1.js' onclick="_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Unminified, No Dependencies']);">
+            &darr; development
+          </a>
+          <a class='button' href='https://github.com/downloads/misoproject/storyboard/miso.storyboard.min.0.0.1.js' onclick="_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Minified, No Dependencies']);">
+            &darr; production (minified)
+          </a>
+          <a class='button' href='https://github.com/downloads/misoproject/storyboard/miso.storyboard.deps.0.0.1.js' onclick="_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Unminified, With Dependencies']);">
+            &darr; development with dependencies
+          </a>
+          <a class='button' href='https://github.com/downloads/misoproject/storyboard/miso.storyboard.deps.min.0.0.1.js' onclick="_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Minified, With Dependencies']);">
+            &darr; production with dependencies (minified)
+          </a>
         </div>
-        <h3>In Node.js</h3>
-        <div class='indent-1'>
-          <h4>Install appropriate package:</h4>
-          <pre>npm install miso.storyboard</pre>
-          <h4>Use the library in code:</h4>
-          <pre>&#x000A;var Miso = require("miso.storyboard");&#x000A;var story = new Miso.Storyboard({&#x000A;  //...&#x000A;});</pre>
+      </div>
+      <h4>Include the appropriate script tags:</h4>
+      <p>
+        <div class="codeblock"><textarea name="codehelper"  class="code" mode="ace/mode/html"   showConsole="false" buttons="none" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Your Application Title</title>
+</head>
+<body>
+  <div id="content">
+    <!-- Your content here -->
+  </div>
+
+  <!-- Dataset source files -->
+  <script src="/js/libs/miso.storyboard.deps.0.0.1.js"></script>
+
+  <!-- Your application code -->
+  <script src="js/main.js"></script>
+
+</body>
+</html></textarea></div>
+      </p>
+      <h4>Start using Miso.Storyboard in your code!</h4>
+      <p>
+        You should now have access to the <code>Miso.Storyboard</code> object in your code.
+      </p>
+    </div>
+    <h3>In Node.js</h3>
+    <div class='indent-1'>
+      <h4>Install appropriate package:</h4>
+      <pre>npm install miso.storyboard</pre>
+      <h4>Use the library in code:</h4>
+      <pre>&#x000A;var Miso = require("miso.storyboard");&#x000A;var story = new Miso.Storyboard({&#x000A;  //...&#x000A;});</pre>
+    </div>
+    <h3>Dependencies</h3>
+    <div class='indent-1'>
+      <p>
+        If you chose to include the production version without built in dependencies, you may need to include them yourself. Storyboard requires the following libraries:
+        <ul>
+          <li><a href="http://lodash.com/">LoDash 0.9.1</a></li>
+          <li><a href="https://github.com/wookiehangover/underscore.Deferred">Underscore.deferred.js 0.2.0</a></li>
+        </ul>
+      </p>
+    </div>
+    <h2>Creating Your First Storyboard</h2>
+    <div class='indent-1'>
+      <p>
+        First, we define a new Miso.Storyboard and set the following parameters on it:
+      </p>
+      <h3>Required:</h3>
+      <p>
+        <ol>
+          <li>
+            <code>initial</code>
+            &ndash; What's the name of the initial scene we will kick off from?
+          </li>
+          <li>
+            <code>scenes</code>
+            &ndash; The actual scenes we want to be a part of this storyboard. See below for how one defines a scene.
+          </li>
+        </ol>
+      </p>
+      <h4>Optional:</h4>
+      <p>
+        <ol>
+          <li>
+            <code>context</code>
+            &ndash; What should 'this' be inside each scene? By default the storyboard or scene itself.
+          </li>
+          <li>
+            Any other method or property!! You can define your own functions and properties here.
+            They will be available to each other under the <code>this</code> object, but to each scene
+            they will be available under <code>this.parent.myCustomFunction()</code>.
+          </li>
+        </ol>
+      </p>
+      <h4>Defining a Scene</h4>
+      <p>
+        A scene has the following key methods:
+        <ol>
+          <li>
+            <code>enter</code>
+            &ndash; The function that is called when a scene is entered. You don't have to define it if you don't
+            want to. By default, it will just be a passthrough.
+            If you want to prevent the transition from happening, you can return <code>false</code> from
+            this function, and it will cancel the transition and fail the deferred.
+          </li>
+          <li>
+            <code>exit</code>
+            &ndash; The function that is called when a scene is exiting. You don't have to define it if you don't
+            want to. By default, it will just be a passthrough.
+            If you want to prevent the transition from happening, you can return <code>false</code> from
+            this function, and it will cancel the transition and fail the deferred.
+          </li>
+        </ol>
+      </p>
+      <h4>Example:</h4>
+      <p>
+        <div id='walkthrough'>
+          Walkthrough text here:
+          <br />
         </div>
-        <h3>Dependencies</h3>
-        <div class='indent-1'>
-          <p>
-            If you chose to include the production version without built in dependencies, you may need to include them yourself. Storyboard requires the following libraries:
-            <ul>
-              <li><a href="http://lodash.com/">LoDash 0.9.1</a></li>
-              <li><a href="https://github.com/wookiehangover/underscore.Deferred">Underscore.deferred.js 0.2.0</a></li>
-            </ul>
-          </p>
-        </div>
-        <h2>Creating Your First Storyboard</h2>
-        <div class='indent-1'>
-          <p>
-            First, we define a new Miso.Storyboard and set the following parameters on it:
-          </p>
-          <h3>Required:</h3>
-          <p>
-            <ol>
-              <li>
-                <code>initial</code>
-                &ndash; What's the name of the initial scene we will kick off from?
-              </li>
-              <li>
-                <code>scenes</code>
-                &ndash; The actual scenes we want to be a part of this storyboard. See below for how one defines a scene.
-              </li>
-            </ol>
-          </p>
-          <h4>Optional:</h4>
-          <p>
-            <ol>
-              <li>
-                <code>context</code>
-                &ndash; What should 'this' be inside each scene? By default the storyboard or scene itself.
-              </li>
-              <li>
-                Any other method or property!! You can define your own functions and properties here.
-                They will be available to each other under the <code>this</code> object, but to each scene
-                they will be available under <code>this.parent.myCustomFunction()</code>.
-              </li>
-            </ol>
-          </p>
-          <h4>Defining a Scene</h4>
-          <p>
-            A scene has the following key methods:
-            <ol>
-              <li>
-                <code>enter</code>
-                &ndash; The function that is called when a scene is entered. You don't have to define it if you don't
-                want to. By default, it will just be a passthrough.
-                If you want to prevent the transition from happening, you can return <code>false</code> from
-                this function, and it will cancel the transition and fail the deferred.
-              </li>
-              <li>
-                <code>exit</code>
-                &ndash; The function that is called when a scene is exiting. You don't have to define it if you don't
-                want to. By default, it will just be a passthrough.
-                If you want to prevent the transition from happening, you can return <code>false</code> from
-                this function, and it will cancel the transition and fail the deferred.
-              </li>
-            </ol>
-          </p>
-          <h4>Example:</h4>
-          <p>
-            <div id='walkthrough'>
-              Walkthrough text here:
-              <br />
-            </div>
-            <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-            var story = new Miso.Storyboard({
-              
-              // start on the first pane
-              initial : 'pane1',
-            
-              // set the context to an element we will be updating
-              context : $('#walkthrough'),
-              
-              scenes : {
-            
-                pane1 : {
-                  enter : function() {
-                    this.append("First pane! <br />");
-                  },
-                  exit : function() {
-                    this.append("Done with first pane. <br />");
-                  }
-                },
-            
-                pane2 : {
-                  enter : function() {
-                    this.append("Second pane! <br />");
-                  },
-                  exit : function() {
-                    this.append("Done with second pane. <br />");
-                  }
-                },
-            
-                done : {}
-              }
-            });
-            
-            // this will kick things off on pane 1
-            story.start();
-            
-            // then we will instruct the story to go to pane 2
-            story.to('pane2').then(function() {
-            
-              // when we've fully transitioned to pane 2, we will
-              // tell the story to be done.
-              story.to('done');
-            });
-            </textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
-          </p>
-        </div>
-        <a href='/storyboard/tutorials/async' style='text-align:right;'>
-          <h2>
-            Asyncronous Scenes &raquo;
-          </h2>
-        </a>
-      </section>
-    </article>
+        <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+var story = new Miso.Storyboard({
+
+  // start on the first pane
+  initial : 'pane1',
+
+  // set the context to an element we will be updating
+  context : $('.ace-result'),
+
+  scenes : {
+
+    pane1 : {
+      enter : function() {
+        this.append("First pane! <br />");
+      },
+      exit : function() {
+        this.append("Done with first pane. <br />");
+      }
+    },
+
+    pane2 : {
+      enter : function() {
+        this.append("Second pane! <br />");
+      },
+      exit : function() {
+        this.append("Done with second pane. <br />");
+      }
+    },
+
+    done : {}
+  }
+});
+
+// this will kick things off on pane 1
+story.start();
+
+// then we will instruct the story to go to pane 2
+story.to('pane2').then(function() {
+
+  // when we've fully transitioned to pane 2, we will
+  // tell the story to be done.
+  story.to('done');
+});
+</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+      </p>
+    </div>
+    <a href='/storyboard/tutorials/async' style='text-align:right;'>
+      <h2>
+        Asyncronous Scenes &raquo;
+      </h2>
+    </a>
+  </section>
+</article>
     <footer>
       <div class='container'>
         <section>
@@ -268,8 +268,8 @@
     <script src='/js/miso.storyboard.deps.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
-    <script src='/js/codemirror.js'></script>
-    <script src='/js/codeblocks.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
     
     <script type="text/javascript">
       var _gaq = _gaq || [];

@@ -34,26 +34,26 @@ var ds = new Miso.Dataset({
   url : 'https://api.github.com/repos/misoproject/dataset/commits?callback=',
   jsonp : true,
   // the extract method will be called once the import is done, before
-  // we try to parse it because the github callback is actually under a 
+  // we try to parse it because the github callback is actually under a
   // property called 'data' in the response.
   extract : function(response) {
     return response.data;
   },
-  parser : GH.CommitsParser,  
+  parser : GH.CommitsParser,
   columns : [
-    { 
-      name : 'date', 
-      type : 'time', 
-      
+    {
+      name : 'date',
+      type : 'time',
+
       // This is the format we're going to output the data from the
-      // before function, NOT the incoming data. 
-      format : 'YYYY-MM-DD', 
-      
+      // before function, NOT the incoming data.
+      format : 'YYYY-MM-DD',
+
       // Before we actually parse the dates, let's roll them back to the
       // beginning of the week since we just want the count of commits
       // per week.
       before : function(date) {
-        
+
         // this is the format the data actually comes in from github in.
         var incomingFormat = 'YYYY-MM-DDThh:mm:ssZZ';
         var d = moment(date, incomingFormat);
@@ -62,28 +62,28 @@ var ds = new Miso.Dataset({
         // into the week that it is. So if Saturday is the 6th day, it will
         // roll the date back 6 days.
         return d.subtract('days', d.day()).format(this.format);
-      } 
+      }
     }
   ]
 });
 
-ds.fetch({ 
+ds.fetch({
   success : function() {
 
     // Aggregate the commit count by the date.
     var commitsByDay = this.countBy('date'),
 
-        // even though we're aggregating by week, we might actually not have 
-        // counts for certain weeks! We're trying to build a consistent time series of 
+        // even though we're aggregating by week, we might actually not have
+        // counts for certain weeks! We're trying to build a consistent time series of
         // week long intervals, so let's fill it in with zeros.
         lastDate  = commitsByDay.rowByPosition(0).date.subtract('days', 7),
         firstDate = lastDate.subtract('months', 3),
         barContainer = $('#barChartContainer');
 
     while(firstDate < lastDate) {
-      
+
       // check, do we have a row for this date?
-      var rowsForDate = commitsByDay.where({ 
+      var rowsForDate = commitsByDay.where({
         rows : function(row) {
           return row.date.valueOf() === firstDate;
         }
@@ -110,14 +110,14 @@ ds.fetch({
     });
 
     // Clear any existing sparklines in the div.
-   
+
     barContainer.empty()
       .sparkline(commitsByDay.column('count').data, {
         type : 'line',
         height: '100px',
         width: barContainer.width()
       }
-    ); 
+    );
 
   }
 });

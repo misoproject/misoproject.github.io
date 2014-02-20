@@ -2,7 +2,7 @@
   name: Miso.Dataset.Product
   inherits: ['Miso.Events']
   description: |
-    A <code>Miso.Dataset.Product</code> is what you will be returned if you run a method such as 
+    A <code>Miso.Dataset.Product</code> is what you will be returned if you run a method such as
     <code>max</code> on a dataset that has <code>sync</code> set to true. The product object
     allows you to bind events to it, meaning you can automatically update anything using the
     product when the underlying dataset changes in a way which affects the current value of
@@ -14,7 +14,8 @@
     returns: Function
     description: |
       Use this method to define a new product. For example:
-      = toRunnableCodeBlock("dataset/computations/custom")
+      %div{ :style=> 'height:200px'}
+        = toRunnableCodeBlock("dataset/computations/custom")
     params:
     -
       name: 'func'
@@ -30,4 +31,5 @@
     returns: Any
     description: |
       Returns the current value of the product.
-      = toRunnableCodeBlock("api/miso.product.val")
+      %div{ :style=> 'height:200px'}
+        = toRunnableCodeBlock("api/miso.product.val")

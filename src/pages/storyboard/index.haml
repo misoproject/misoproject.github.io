@@ -7,14 +7,14 @@
     %div.left
       %img{ :src => '/images/storyboard.png' }
       %p
-        Storyboard is a JavaScript library for managing the flow of interactive content and general 
-        application control flow logic.  
+        Storyboard is a JavaScript library for managing the flow of interactive content and general
+        application control flow logic.
     %div.download
       %h2
-        Download 
+        Download
         %a{ :href => 'https://github.com/misoproject/storyboard/' }
           0.0.1 alpha
-          
+
       %a.button{ :href => 'https://github.com/downloads/misoproject/storyboard/miso.storyboard.0.0.1.js', :onclick => "_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Unminified, No Dependencies']);" }
         &darr; development
       %a.button{ :href => 'https://github.com/downloads/misoproject/storyboard/miso.storyboard.min.0.0.1.js', :onclick => "_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Minified, No Dependencies']);" }
@@ -23,12 +23,12 @@
         &darr; development with dependencies
       %a.button{ :href => 'https://github.com/downloads/misoproject/storyboard/miso.storyboard.deps.min.0.0.1.js', :onclick => "_gaq.push(['_trackEvent', 'Miso.Storyboard', 'Downloads', 'Minified, With Dependencies']);" }
         &darr; production with dependencies (minified)
-      
+
 
   %section.quickstart
     %div.left
       %p
-        When creating interactive content, managing transitions and different states of an application can become a challenge. 
+        When creating interactive content, managing transitions and different states of an application can become a challenge.
         This often results in either highly event-driven code or a spaghetti monster.
       %p
         Storyboard.js is a tiny library that allows one to define scenes and then define entry and exit methods for each scenes. As the application progresses
@@ -43,9 +43,9 @@
 
     :plain
       <style type="text/css">
-        
+
       </style>
-    %div#demoblock{ :style => 'float: left; width: 34.5em;'}
+    %div#demoblock{ :style => 'float: left; width: 34.5em; margin-bottom:10px;'}
     :plain
       <script type="text/javascript">
         function makeOrangeBox() {
@@ -61,4 +61,9 @@
           return box;
         }
       </script>
+      <style>
+        .ace-result {
+          display:none;
+        }
+      </style>
     = toRunnableCodeBlock("storyboard/examples/quickstart.js", nil, { :autorun => false })

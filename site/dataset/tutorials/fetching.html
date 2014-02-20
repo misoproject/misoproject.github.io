@@ -61,120 +61,120 @@
       </span>
     </nav>
     <article class='dataset'>
-      <section class='tutorial'>
-        <h2>
-          Fetching Data
-        </h2>
-        <p>
-          Regardless of how you initialized your dataset (locally or remotely), it needs to be fetched for the data to be available. To begin fetching your data, simply call <code>.fetch()</code> on it.
-        </p>
-        <p>
-          Note that if your data is remote, it is especially imperative that you don't attempt to access your dataset before that call is complete.
-        </p>
-        <p>
-          Data can be fetched in one of three ways:
-        </p>
-        <h3>Pass success/error callbacks:</h3>
-        <p>
-          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-          var ds = new Miso.Dataset({
-            data : [
-              { one : 12,  two : 40,  three : 40 },
-              { one : 1,   two : 40,  three : 40 },
-              { one : 102, two : 430, three : 20 }
-            ]
-          });
-          ds.fetch({
-            success : function() {
-              // do things here after data successfully fetched.
-              // note 'this' references the dataset.
-              log(this.columnNames());
-            },
-            
-            error : function() {
-              // do things here in case your data fetch fails.
-            }
-          });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
-        </p>
-        <h3>Using Deferreds</h3>
-        <p>
-          If you have more than one dataset you need to wait on, or you might be a fan of using deferreds, you can use them as follows:
-        </p>
-        <p>
-          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-          var ds1 = new Miso.Dataset({
-            data : [
-              { one : 12,  two : 40,  three : 40 },
-              { one : 1,   two : 40,  three : 40 },
-              { one : 102, two : 430, three : 20 }
-            ]
-          });
-          var ds2 = new Miso.Dataset({
-            data : [
-              { col1 : 1,  col2 : 400,  col3 : 420 },
-              { col1 : 4,  col2 : 50,   col3 : 4220 },
-              { col1 : 22, col2 : 0,    col3 : 24430 }
-            ]
-          });
-              
-          _.when(ds1.fetch(), ds2.fetch()).then(function() {
-            // do things when both datasets are fetched.
-            // note 'this' is NOT set to the dataset here.
-            log(ds1.columnNames(), ds2.columnNames());
-          });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
-        </p>
-        <h4>ready Callback</h4>
-        <p>
-          You can also pass the dataset a <code>ready</code> callback that will be executed once the data is ready to be manipulated. This still requires fetching but allows you to have dataset-specific callbacks vs a single success callback for multiple fetches, for example.
-        </p>
-        <p>
-          Note that the individual ready callbacks are executed first and then the fetch callback gets executed.
-        </p>
-        <p>
-          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-          var ds1 = new Miso.Dataset({
-            data : [
-              { one : 12,  two : 40,  three : 40 },
-              { one : 1,   two : 40,  three : 40 },
-              { one : 102, two : 430, three : 20 }
-            ],
-            ready : function() {
-              // do something specific to this dataset here when it's
-              // been fetched
-              log("ds1 columns: " + this.columnNames());
-            }
-          });
-          var ds2 = new Miso.Dataset({
-            data : [
-              { col1 : 1,  col2 : 400,  col3 : 420 },
-              { col1 : 4,  col2 : 50,   col3 : 4220 },
-              { col1 : 22, col2 : 0,    col3 : 24430 }
-            ],
-            ready : function() {
-              // do something specific to this dataset here when it's
-              // been fetched
-              log("ds2 length: " + this.length);
-            }
-          });
-              
-          _.when(ds1.fetch(), ds2.fetch()).then(function() {
-            // do things when both datasets are fetched.
-            // note 'this' is NOT set to the dataset here.
-            log("Both Datasets Fetched!");
-          });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
-        </p>
-        <a href='/dataset/tutorials/creating' style='float:left;'>
-          <h2>
-            &laquo; Creating a Dataset
-          </h2>
-        </a>
-        <a href='/dataset/tutorials/data_types' style='float:right;'>
-          <h2>
-            Data Types &raquo;
-          </h2>
-        </a>
-      </section>
-    </article>
+  <section class='tutorial'>
+    <h2>
+      Fetching Data
+    </h2>
+    <p>
+      Regardless of how you initialized your dataset (locally or remotely), it needs to be fetched for the data to be available. To begin fetching your data, simply call <code>.fetch()</code> on it.
+    </p>
+    <p>
+      Note that if your data is remote, it is especially imperative that you don't attempt to access your dataset before that call is complete.
+    </p>
+    <p>
+      Data can be fetched in one of three ways:
+    </p>
+    <h3>Pass success/error callbacks:</h3>
+    <p>
+      <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+var ds = new Miso.Dataset({
+  data : [
+    { one : 12,  two : 40,  three : 40 },
+    { one : 1,   two : 40,  three : 40 },
+    { one : 102, two : 430, three : 20 }
+  ]
+});
+ds.fetch({
+  success : function() {
+    // do things here after data successfully fetched.
+    // note 'this' references the dataset.
+    log(this.columnNames());
+  },
+  
+  error : function() {
+    // do things here in case your data fetch fails.
+  }
+});</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+    </p>
+    <h3>Using Deferreds</h3>
+    <p>
+      If you have more than one dataset you need to wait on, or you might be a fan of using deferreds, you can use them as follows:
+    </p>
+    <p>
+      <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+var ds1 = new Miso.Dataset({
+  data : [
+    { one : 12,  two : 40,  three : 40 },
+    { one : 1,   two : 40,  three : 40 },
+    { one : 102, two : 430, three : 20 }
+  ]
+});
+var ds2 = new Miso.Dataset({
+  data : [
+    { col1 : 1,  col2 : 400,  col3 : 420 },
+    { col1 : 4,  col2 : 50,   col3 : 4220 },
+    { col1 : 22, col2 : 0,    col3 : 24430 }
+  ]
+});
+    
+_.when(ds1.fetch(), ds2.fetch()).then(function() {
+  // do things when both datasets are fetched.
+  // note 'this' is NOT set to the dataset here.
+  log(ds1.columnNames(), ds2.columnNames());
+});</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+    </p>
+    <h4>ready Callback</h4>
+    <p>
+      You can also pass the dataset a <code>ready</code> callback that will be executed once the data is ready to be manipulated. This still requires fetching but allows you to have dataset-specific callbacks vs a single success callback for multiple fetches, for example.
+    </p>
+    <p>
+      Note that the individual ready callbacks are executed first and then the fetch callback gets executed.
+    </p>
+    <p>
+      <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+var ds1 = new Miso.Dataset({
+  data : [
+    { one : 12,  two : 40,  three : 40 },
+    { one : 1,   two : 40,  three : 40 },
+    { one : 102, two : 430, three : 20 }
+  ],
+  ready : function() {
+    // do something specific to this dataset here when it's
+    // been fetched
+    log("ds1 columns: " + this.columnNames());
+  }
+});
+var ds2 = new Miso.Dataset({
+  data : [
+    { col1 : 1,  col2 : 400,  col3 : 420 },
+    { col1 : 4,  col2 : 50,   col3 : 4220 },
+    { col1 : 22, col2 : 0,    col3 : 24430 }
+  ],
+  ready : function() {
+    // do something specific to this dataset here when it's
+    // been fetched
+    log("ds2 length: " + this.length);
+  }
+});
+    
+_.when(ds1.fetch(), ds2.fetch()).then(function() {
+  // do things when both datasets are fetched.
+  // note 'this' is NOT set to the dataset here.
+  log("Both Datasets Fetched!");
+});</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+    </p>
+    <a href='/dataset/tutorials/creating' style='float:left;'>
+      <h2>
+        &laquo; Creating a Dataset
+      </h2>
+    </a>
+    <a href='/dataset/tutorials/data_types' style='float:right;'>
+      <h2>
+        Data Types &raquo;
+      </h2>
+    </a>
+  </section>
+</article>
     <footer>
       <div class='container'>
         <section>
@@ -210,8 +210,8 @@
     <script src='/js/miso.ds.deps.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
-    <script src='/js/codemirror.js'></script>
-    <script src='/js/codeblocks.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
     
     <script type="text/javascript">
       var _gaq = _gaq || [];

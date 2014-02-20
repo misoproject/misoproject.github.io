@@ -3,7 +3,7 @@ name: Miso.Dataset.Importers
 description: |
   %p
     To specify a custom importer during dataset instantiation, just set the <code>importer</code> property to the class name of the importer you want. Some importers require custom properties. This section will document the properties you can set that will either cause this importer to be selected or will be required by it to continue.
-  %p 
+  %p
     Built in Importers include:
     %ul
       %li <code>Miso.Dataset.Importers.Local</code>
@@ -12,4 +12,5 @@ description: |
       %li <code>Miso.Dataset.Importers.GoogleSpreadsheet</code>
   %p
     An importer must implement the following interface:
-    = toDisplayCodeBlock("api/importer")
+    %div{ :style=> 'height:200px'}
+      = toDisplayCodeBlock("api/importer")

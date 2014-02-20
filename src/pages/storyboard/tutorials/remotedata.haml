@@ -7,18 +7,19 @@
 %article.storyboard
   %section.tutorial
     %h2 Working with Remote Data
-    %p 
+    %p
       Givem the asynchronous nature of storyboard, you can use scenes
       to actually setup your environment. Tasks such as creating DOM strcutures
       that are invisible or fetching data are common setup tasks. In this guide
       we will look quickly at how one might integrate Storyboard with Dataset.
 
-    = toRunnableCodeBlock("storyboard/remotedata/withdataset.js")
+    %div{ :style => 'height:600px'}
+      = toRunnableCodeBlock("storyboard/remotedata/withdataset.js")
 
     %a{ :href => '/storyboard/tutorials/async', :style => 'float:left;' }
       %h2
         &laquo; Asyncronous Scenes
 
-    %a{ :href => '/storyboard/tutorials/?', :style => 'text-align:right;' }
+    %a{ :href => '/storyboard/tutorials/events', :style => 'text-align:right;' }
       %h2
-        ? &raquo;
+        events &raquo;

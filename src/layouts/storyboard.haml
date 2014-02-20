@@ -4,7 +4,7 @@
     <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
     <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
     <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-    <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->    
+    <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 
   %head
     :plain
@@ -19,13 +19,13 @@
     %meta{ :name => "description", :content => "The Miso Project" }
     %meta{ :name => "name", :content => "The Miso Project" }
     %meta{ :name => "viewport", :content => "width=device-width" }
-    %title= @page_title 
+    %title= @page_title
     %link{ :rel => "stylesheet", :href => "/stylesheets/screen.css" }
     %link{ :rel => "stylesheet", :href => "/stylesheets/codemirror.css" }
     = @extra_styles
 
   %body
-    %nav 
+    %nav
       %span.miso
         %a{ :href => '/' }
           &larr; Miso Home
@@ -69,11 +69,11 @@
     %script{ :src => "/js/miso.storyboard.deps.js" }
     %script{ :src => "/js/bootstrap/transition.js" }
     %script{ :src => "/js/bootstrap/collapse.js" }
-    %script{ :src => "/js/codemirror.js"}
-    %script{ :src => "/js/codeblocks.js"}
+    %script{ :src => "/js/ace-min/ace.js", :type => "text/javascript", :charset => "utf-8"}
+    %script{ :src => "/js/acify.js"}
 
     = @extra_scripts
-   
+
     :plain
       <script type="text/javascript">
         var _gaq = _gaq || [];

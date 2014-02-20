@@ -9,20 +9,20 @@
         d3.chart is a framework for building reusable charts with d3.js.
     %div.download
       %h2
-        Download 
+        Download
         %a{ :href => 'https://github.com/misoproject/d3.chart/' }
           0.2
-        
+
       %a.button{ :href => 'https://raw.github.com/misoproject/d3.chart/master/d3.chart.js', :onclick => "_gaq.push(['_trackEvent', 'd3.chart', 'Downloads', 'd3.chart development']);" }
         &darr; Development
       %a.button{ :href => 'https://raw.github.com/misoproject/d3.chart/master/d3.chart.min.js', :onclick => "_gaq.push(['_trackEvent', 'd3.chart', 'Downloads', 'd3.chart production']);" }
         &darr; production
-      
+
 
   %section.quickstart
     %div.left
       %p
-        D3 is by far the most common visualization library, and yet it does not provide any guidelines for how one creates 
+        D3 is by far the most common visualization library, and yet it does not provide any guidelines for how one creates
         reusable charts (except for <a href="http://bost.ocks.org/mike/chart/">Towards Reusable Charts</a> by Mike Bostock.)
       %p
         What does it mean to create reusable charts? A reusable chart is:
@@ -40,4 +40,6 @@
       %p
         %hr
         Follow along for releases &amp; announcements at <a href="http://www.twitter.com/themisoproject">@themisoproject</a>
-    = toRunnableCodeBlock("d3-chart/examples/quickstart.js", nil, { :autorun => false, :globals => "d3" })
+
+    %div.quickcode{ :style => 'width: 550px; height: 600px; display:inline-block;'}
+      = toRunnableCodeBlock("d3-chart/examples/quickstart.js", nil, { :autorun => false, :globals => "d3" })

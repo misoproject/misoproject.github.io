@@ -1,0 +1,32 @@
+- @page_title = "The Miso Project :: d3.chart :: Tutorials"
+- @layout = "d3-chart"
+
+%article.d3-chart
+  %section.tutorial
+    %h2 Composing charts
+    %p
+      Even though it's easy to create stand alone charts in d3.chart, often you may want to combine your charts into a single chart. Think small mutliples for example, where
+      a single chart type repeats in sequence, rendering different parts of the data.
+    %p
+      For a detailed description of how one would go about composing charts together
+      see our github wiki page on <a href="https://github.com/misoproject/d3.chart/wiki/chart-attach">Composing Charts</a>.
+
+    %p
+      You can also see an example of a composable chart on our examples page here:
+      %div
+        %a{ :href => '/d3-chart/examples/attaching.html' }
+          %img{ :src => '/images/examples/composing.jpeg' }
+          %h2 Composing Charts
+        %p
+          In this example we create a chart that is a combination chart of two
+          other charts: a bar chart and a pie chart.
+
+
+    %a{ :href => '/d3-chart/tutorials/extending', :style => 'float:left' }
+      %h2
+        &laquo; Extending Charts
+
+    %a{ :href => '/d3-chart/tutorials/contributing', :style => 'text-align:right;' }
+      %h2
+        Contributing Charts &raquo;
+

@@ -1,0 +1,658 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+  <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+  <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src='http://use.typekit.com/aow5drr.js' type='text/javascript'></script>
+    <script type='text/javascript'>
+      try{ Typekit.load(); } catch(e) {}
+    </script>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='The Miso Project' name='description' />
+    <meta content='The Miso Project' name='name' />
+    <meta content='width=device-width' name='viewport' />
+    <title>The Miso Project :: d3.chart :: Examples :: Basic Chart</title>
+    <link href='/stylesheets/screen.css' rel='stylesheet' />
+    <link href='/stylesheets/codemirror.css' rel='stylesheet' />
+    
+  </head>
+  <body>
+    <nav>
+      <span class='miso'>
+        <a href='/'>
+          &larr; Miso Home
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart'>
+          Home
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart/examples.html'>
+          Examples
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart/tutorials.html'>
+          Tutorials
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart/api.html'>
+          API Doc
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart/charts.html'>
+          Charts
+        </a>
+      </span>
+      <span>
+        <a href='http://www.github.com/misoproject/d3.chart'>
+          Code (Github)
+        </a>
+      </span>
+    </nav>
+    <article class='d3-chart example'>
+  <section class='normal'>
+    <h2>
+      Composing Charts with <code>.attach</code>
+    </h2>
+    <p>
+      In this example we create a single chart that is composed out of two separate
+      charts. Scroll to the bottom to see the result.
+    </p>
+  </section>
+  <style>
+    .CircleChart {}
+    .codeblock {
+      margin-top: 10px;
+      margin-bottom:10px;
+    }
+  </style>
+  <div style='height:400px'>
+    <h3>Bar Chart</h3>
+    <div class="codeblock"><textarea name="codehelper"  class="code" mode="" globals="_,d3"  showConsole="false" buttons="none" autorun="true" callbacks-clear="" callbacks-reset="" callbacks-run="">
+/**
+* A bar chart. Required data format:
+* [ { name : x-axis-bar-label, value : N }, ...]
+*
+*  Sample use:
+*  var bargraph = d3.select('#bargraph')
+*    .append('svg')
+*    .chart('BarChart')
+*    .yFormat(d3.format("d"))
+*    .height(400)
+*    .width(800)
+*    .max(1.0);
+*  bargraph.draw(bardata);
+*/
+d3.chart('Barchart', {
+
+  initialize: function() {
+    var chart = this;
+
+    // chart margins to account for labels.
+    // we may want to have setters for this.
+    // not sure how necessary that is tbh.
+    chart.margins = {
+      top : 10,
+      bottom : 15,
+      left : 50,
+      right : 0,
+      padding : 10
+    };
+
+    // default chart ranges
+    chart.x =  d3.scale.linear();
+    chart.y = d3.scale.linear();
+
+    chart.base
+      .classed('Barchart', true);
+
+    // non data driven areas (as in not to be independatly drawn)
+    chart.areas = {};
+
+    // cache for selections that are layer bases.
+    chart.layers = {};
+
+    // make sections for labels and main area
+    //  _________________
+    // |Y|    bars      |
+    // | |              |
+    // | |              |
+    // | |              |
+    // | |______________|
+    //   |      X       |
+
+    // -- areas
+    chart.areas.ylabels = chart.base.append('g')
+      .classed('ylabels', true)
+      .attr('width', chart.margins.left)
+      .attr('transform',
+        'translate('+(chart.margins.left-1)+','+(chart.margins.top + 1)+')');
+
+    // -- actual layers
+    chart.layers.bars = chart.base.append('g')
+      .classed('bars', true)
+      .attr('transform',
+        'translate(' + chart.margins.left + ',' + (chart.margins.top + 1)+')');
+
+    chart.layers.xlabels = chart.base.append('g')
+      .classed('xlabels', true)
+      .attr('height', chart.margins.bottom);
+
+    chart.on("change:width", function() {
+      chart.x.range([0, chart.w - chart.margins.left]);
+      chart.layers.bars.attr('width', chart.w - chart.margins.left);
+      chart.layers.xlabels.attr('width', chart.w - chart.margins.left);
+    });
+
+    chart.on("change:height", function() {
+      chart.y.range([chart.h - chart.margins.bottom - chart.margins.top, 0]);
+      chart.areas.ylabels
+        .attr('height', chart.h - chart.margins.bottom - chart.margins.top - 1);
+      chart.layers.bars
+        .attr('height', chart.h - chart.margins.bottom - chart.margins.top);
+      chart.layers.xlabels
+        .attr('transform', 'translate(' + chart.margins.left + ',' +
+        (chart.h - chart.margins.bottom + 1) + ')');
+    });
+
+    // make actual layers
+    chart.layer('bars', chart.layers.bars, {
+      // data format:
+      // [ { name : x-axis-bar-label, value : N }, ...]
+      dataBind : function(data) {
+
+        chart.data = data;
+
+        // how many bars?
+        chart.bars = data.length;
+
+        // compute box size
+        chart.bar_width = (chart.w - chart.margins.left - ((chart.bars - 1) *
+          chart.margins.padding)) / chart.bars;
+
+        // adjust the x domain - the number of bars.
+        chart.x.domain([0, chart.bars]);
+
+        // adjust the y domain - find the max in the data.
+        chart.datamax = chart.usermax ||
+          d3.extent(data, function(d) { return d.value; })[1];
+
+        chart.y.domain([0, chart.datamax]);
+
+        // draw yaxis
+        var yAxis = d3.svg.axis()
+          .scale(chart.y)
+          .orient('left')
+          .ticks(5)
+          .tickFormat(chart._yformat || d3.format('.0%'));
+
+        chart.areas.ylabels
+          .call(yAxis);
+
+        return this.selectAll('rect')
+          .data(data, function(d) { return d.name; });
+      },
+      insert : function() {
+        return this.append('rect')
+          .classed('bar', true)
+          .classed('highlight', function(d) {
+            return d.highlight;
+          });
+      },
+
+      events: {
+        exit: function() {
+          this.remove();
+        }
+      }
+    });
+
+    // a layer for the x text labels.
+    chart.layer('xlabels', chart.layers.xlabels, {
+      dataBind : function(data) {
+        // first append a line to the top.
+        this.append('line')
+          .attr('x1', 0)
+          .attr('x2', chart.w - chart.margins.left)
+          .attr('y1', 0)
+          .attr('y2', 0)
+          .style('stroke', '#222')
+          .style('stroke-width', '1')
+          .style('shape-rendering', 'crispEdges');
+
+
+        return this.selectAll('text')
+          .data(data, function(d) { return d.name; });
+      },
+      insert : function() {
+        return this.append('text')
+          .classed('label', true)
+          .attr('text-anchor', 'middle')
+          .attr('x', function(d, i) {
+            return chart.x(i) - 0.5 + chart.bar_width/2;
+          })
+          .attr('dy', '1em')
+          .text(function(d) {
+            return d.name;
+          });
+      },
+      events: {
+        exit: function() {
+          this.remove();
+        }
+      }
+    });
+
+    // on new/update data
+    // render the bars.
+    var onEnter = function() {
+      this.attr('x', function(d, i) {
+            return chart.x(i) - 0.5;
+          })
+          .attr('y', function(d) {
+            return chart.h - chart.margins.bottom -
+              chart.margins.top - chart.y(chart.datamax - d.value) - 0.5;
+          })
+          .attr('val', function(d) {
+            return d.value;
+          })
+          .attr('width', chart.bar_width)
+          .attr('height', function(d) {
+            return chart.y(chart.datamax - d.value);
+          });
+    };
+
+    chart.layer('bars').on('enter', onEnter);
+    chart.layer('bars').on('update', onEnter);
+  },
+
+  // return or set the max of the data. otherwise
+  // it will use the data max.
+  max : function(datamax) {
+    if (!arguments.length) {
+      return this.usermax;
+    }
+
+    this.usermax = datamax;
+
+    if (this.data) this.draw(this.data);
+
+    return this;
+  },
+
+  yFormat: function(format) {
+    if (!arguments.length) {
+      return this._yformat;
+    }
+    this._yformat = format;
+    return this;
+  },
+
+  width : function(newWidth) {
+    if (!arguments.length) {
+      return this.w;
+    }
+    // save new width
+    this.w = newWidth;
+
+    // adjust the x scale range
+    this.x =  d3.scale.linear()
+      .range([this.margins.left, this.w - this.margins.right]);
+
+    // adjust the base width
+    this.base.attr('width', this.w);
+
+    this.trigger("change:width");
+    if (this.data) this.draw(this.data);
+
+    return this;
+  },
+
+  height : function(newHeight) {
+    if (!arguments.length) {
+      return this.h;
+    }
+
+    // save new height
+    this.h = newHeight;
+
+    // adjust the y scale
+    this.y = d3.scale.linear()
+      .range([this.h - this.margins.top, this.margins.bottom]);
+
+    // adjust the base width
+    this.base.attr('height', this.h);
+
+    this.trigger("change:height");
+    if (this.data) this.draw(this.data);
+    return this;
+  }
+});</textarea></div>
+  </div>
+  <div style='height:400px'>
+    <h3>Pie Chart</h3>
+    <div class="codeblock"><textarea name="codehelper"  class="code" mode="" globals="_,d3"  showConsole="false" buttons="none" autorun="true" callbacks-clear="" callbacks-reset="" callbacks-run="">
+/**
+* A bar chart. Required data format:
+* [ { name : x-axis-bar-label, value : N }, ...]
+*
+*  Sample use:
+*  var piegraph = d3.select('#piegraph')
+*    .append('svg')
+*    .chart('PieChart')
+*    .height(300)
+*    .width(300)
+*    .radius(10)
+*    .colors(d3.scale.category10());
+*  piegraph.draw(piedata);
+*/
+d3.chart('PieChart', {
+
+  initialize: function() {
+    var chart = this;
+
+    chart.base
+      .classed('PieChart', true);
+
+    // defaults
+    chart.data = null;
+
+    var slices_base = chart.base.append('g')
+      .classed('slices', true);
+
+    chart.layer('slices', slices_base, {
+      dataBind: function(data) {
+        var chart = this.chart();
+        return this.selectAll('path')
+          .data(chart.pie(data));
+      },
+      insert: function() {
+        var chart = this.chart();
+        return this.append('path')
+          .classed('slice', true)
+          .attr('fill', function(d, i) {
+            return chart.colorScale(i);
+          });
+
+      }
+    });
+
+    var onData = function() {
+      return this.attr('d', chart.arc);
+    };
+
+    chart.layer('slices').on('enter', onData);
+    chart.layer('slices').on('update', onData);
+
+    var onDimentionChange = function() {
+      slices_base.attr('width', chart.width())
+      .attr('height', chart.height())
+      .attr('transform', 'translate('+chart.width()/2+','+chart.height()/2+')');
+    };
+    chart.on("change:height", onDimentionChange);
+    chart.on("change:width", onDimentionChange);
+  },
+
+  radius : function(newRadius) {
+    if (!arguments.length) {
+      return this.r;
+    }
+    this.r = newRadius;
+    if (this.data) this.draw(this.data);
+
+    return this;
+  },
+
+  colors: function(colorScale) {
+    if (!arguments.length) {
+      return this.colorScale;
+    }
+    if (colorScale instanceof Array) {
+      colorScale = d3.scale.ordinal()
+        .range(colorScale)
+        .domain([0, colorScale.length-1]);
+    }
+    this.colorScale = colorScale;
+    if (this.data) this.draw(this.data);
+
+    return this;
+  },
+
+  height: function(newHeight) {
+    if (!arguments.length) {
+      return this.w;
+    }
+    // save new height
+    this.h = newHeight;
+
+    // adjust the base height
+    this.base.attr('height', this.h);
+
+    this.trigger("change:height");
+    if (this.data) this.draw(this.data);
+
+    return this;
+  },
+
+  width: function(newWidth) {
+    if (!arguments.length) {
+      return this.w;
+    }
+    // save new width
+    this.w = newWidth;
+
+    // adjust the base width
+    this.base.attr('width', this.w);
+
+    this.trigger("change:width");
+    if (this.data) this.draw(this.data);
+
+    return this;
+  },
+
+  transform: function(data) {
+    this.data = data;
+
+    this.arc = d3.svg.arc()
+      .outerRadius(this.r);
+
+    this.pie = d3.layout.pie()
+      .sort(null)
+      .value(function(d) {
+        return d.value;
+      });
+
+    return data;
+
+  }
+});
+</textarea></div>
+  </div>
+  <div style='height:400px'>
+    <h3>Composed Chart, PieBarChart</h3>
+    <div class="codeblock"><textarea name="codehelper"  class="code" mode="" globals="_,d3"  showConsole="false" buttons="none" autorun="true" callbacks-clear="" callbacks-reset="" callbacks-run="">
+/**
+* A bar chart. Required data format:
+* [ { name : x-axis-bar-label, value : N }, ...]
+*
+*  Sample use:
+*  var piebarchart = d3.select('#piebarchart')
+*    .append('svg')
+*    .chart('PieBarChart')
+*  piebarchart.draw(piedata);
+*/
+d3.chart("PieBarChart", {
+  initialize: function() {
+
+    var chart = this;
+
+    var svg = chart.base.append("svg");
+    var bases = {
+      bar: svg.append("g").classed("bar", true),
+      pie: svg.append("g").classed("pie", true)
+    };
+
+    chart.charts = {
+      bargraph : bases.bar
+        .chart('Barchart')
+        .yFormat(d3.format("d")),
+
+      piechart : bases.pie
+        .chart('PieChart')
+        .colors(d3.scale.category10())
+    };
+
+    chart.attach("bar", chart.charts.bargraph);
+    chart.attach("pie", chart.charts.piechart);
+
+    chart.on("change:width", function() {
+      svg.style("width", chart.width());
+      chart.charts.bargraph.width(chart.width());
+      chart.charts.piechart
+        .width(chart.width())
+        .radius((Math.min(chart.width(), chart.height())/4) - 10);
+
+    });
+
+    chart.on("change:height", function() {
+      svg.style("height", chart.height());
+      bases.pie.attr("transform",
+        "translate(0," + (chart.height()/4) + ")");
+      chart.charts.bargraph.height(chart.height()/2);
+      chart.charts.piechart
+        .height(chart.height()/2)
+        .radius((Math.min(chart.width(), chart.height())/4) - 10);
+    });
+  },
+
+  demux: function(name, data) {
+    if (name === "bar") {
+      return data;
+    } else {
+      return data.map(function(d) {
+        return { name : d.name, value: d.p };
+      });
+    }
+  },
+
+  width : function(newWidth) {
+
+    if (!arguments.length) {
+      return this.w;
+    }
+    // save new width
+    this.w = newWidth;
+
+    // adjust the base width
+    this.base.attr('width', this.w);
+    this.trigger("change:width");
+
+    if (this.data) this.draw(this.data);
+
+    return this;
+  },
+
+  height : function(newHeight) {
+    if (!arguments.length) {
+      return this.h;
+    }
+
+    // save new height
+    this.h = newHeight;
+
+    // adjust the base width
+    this.base.attr('height', this.h);
+    this.trigger("change:height");
+
+    if (this.data) this.draw(this.data);
+    return this;
+  },
+});
+</textarea></div>
+  </div>
+  <div style='height:300px'>
+    <h3>Instantiation</h3>
+    <div class="codeblock"><textarea name="codehelper"  class="code" mode="" globals="_,d3" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="true" callbacks-clear="" callbacks-reset="" callbacks-run="">
+var data = {
+  totals: [
+    { name : "Milk",  value : 40, p : 0.1  },
+    { name : "Water", value : 80, p : 0.53 },
+    { name : "Soda", value : 30, p : 0.37 }
+  ]
+};
+
+var combo = d3.select(".ace-result")
+  .chart('PieBarChart')
+  .height(400)
+  .width(400);
+
+combo.draw(data.totals);
+</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+  </div>
+</article>
+    <footer>
+      <div class='container'>
+        <section>
+          <h2>
+            A joint project between
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/profile/guardian-interactive-department'>
+              <img alt="Guardian" src="/images/guardian.png"/>
+            </a>
+            <a href='http://www.bocoup.com'>
+              <img alt="Bocoup horizontal 614" src="/images/bocoup-horizontal-614.gif"/>
+            </a>
+          </div>
+        </section>
+        <section>
+          <h2>
+            Formally supported by
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/development'>
+              <img alt="Global dev" src="/images/global-dev.png"/>
+            </a>
+            <a href='http://www.gatesfoundation.org/'>
+              <img alt="Gates" src="/images/gates.png"/>
+            </a>
+          </div>
+        </section>
+      </div>
+    </footer>
+    <script src='/js/jquery.min.js'></script>
+    <script src='/js/nav.js'></script>
+    <script src='/js/lodash.js'></script>
+    <script src='/js/underscore.deferred.js'></script>
+    <script charset='utf-8' src='/js/d3/d3.v3.min.js'></script>
+    <script src='/js/d3.chart.js'></script>
+    <script src='/js/bootstrap/transition.js'></script>
+    <script src='/js/bootstrap/collapse.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30531498-1']);
+      _gaq.push(['_setDomainName', 'misoproject.com']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>

@@ -51,80 +51,80 @@
       </span>
     </nav>
     <article class='storyboard'>
-      <section class='tutorial'>
-        <h2>Asyncronous Scenes</h2>
-        <p>
-          More often than not, a lot of your code will be asyncronous by nature. As you know
-          in JavaScript, this can mean your function actually exists before the asyncronous
-          code is done running! If you are trying to chain behavior, this can be a problem because
-          things will get out of sync pretty fast.
-        </p>
-        <p>
-          Storyboard scenes can declare themselves as being asynchronous. To do so you need to:
-          <ul>
-            <li>
-              Create a variable that saves the return of the function call <code>this.async()</code>.
-              This marks the function as async and as a result doesn't resolve the deferred it
-              normally would.
-            </li>
-            <li>
-              When the async work is done, call that saved function to signal that the work is
-              indeed done.
-            </li>
-          </ul>
-        </p>
-        <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-        var story = new Miso.Storyboard({
-          initial : 'loading',
-          scenes : {
-            // do nothing here... just kicking things off.
-            loading : {},
-            a : {
-              enter : function() {
-                // declare this function is asyncronous!
-                // Calling this.async returns a _function_
-                // you should then call when you're done with all
-                // your work.
-                var done = this.async();
-                
-                log("Going to start some time consuming work...");
-                
-                // do your async work here.... for example
-                // in a setTimeout!
-                setTimeout(function() {
-                  // do something.....
-                  log("Done with my time consuming work...!");
-                
-                  // then call the done function when you're done!
-                  done();
-                }, 1500);
-              }
-            },
-            b : {
-              enter : function() {
-                log("And now we've transitioned to scene b...");
-              }
-            }
-          }
-        });
+  <section class='tutorial'>
+    <h2>Asyncronous Scenes</h2>
+    <p>
+      More often than not, a lot of your code will be asyncronous by nature. As you know
+      in JavaScript, this can mean your function actually exists before the asyncronous
+      code is done running! If you are trying to chain behavior, this can be a problem because
+      things will get out of sync pretty fast.
+    </p>
+    <p>
+      Storyboard scenes can declare themselves as being asynchronous. To do so you need to:
+      <ul>
+        <li>
+          Create a variable that saves the return of the function call <code>this.async()</code>.
+          This marks the function as async and as a result doesn't resolve the deferred it
+          normally would.
+        </li>
+        <li>
+          When the async work is done, call that saved function to signal that the work is
+          indeed done.
+        </li>
+      </ul>
+    </p>
+    <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+var story = new Miso.Storyboard({
+  initial : 'loading',
+  scenes : {
+    // do nothing here... just kicking things off.
+    loading : {},
+    a : {
+      enter : function() {
+        // declare this function is asyncronous!
+        // Calling this.async returns a _function_
+        // you should then call when you're done with all
+        // your work.
+        var done = this.async();
         
-        story.start().then(function() {
-          story.to('a').then(function() {
-            story.to('b');
-          });
-        });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
-        <a href='/storyboard/tutorials/quickstart' style='float:left;'>
-          <h2>
-            &laquo; Quickstart Guide
-          </h2>
-        </a>
-        <a href='/storyboard/tutorials/remotedata' style='text-align:right;'>
-          <h2>
-            Remote Data &raquo;
-          </h2>
-        </a>
-      </section>
-    </article>
+        log("Going to start some time consuming work...");
+        
+        // do your async work here.... for example
+        // in a setTimeout!
+        setTimeout(function() {
+          // do something.....
+          log("Done with my time consuming work...!");
+        
+          // then call the done function when you're done!
+          done();
+        }, 1500);
+      }
+    },
+    b : {
+      enter : function() {
+        log("And now we've transitioned to scene b...");
+      }
+    }
+  }
+});
+
+story.start().then(function() {
+  story.to('a').then(function() {
+    story.to('b');
+  });
+});</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+    <a href='/storyboard/tutorials/quickstart' style='float:left;'>
+      <h2>
+        &laquo; Quickstart Guide
+      </h2>
+    </a>
+    <a href='/storyboard/tutorials/remotedata' style='text-align:right;'>
+      <h2>
+        Remote Data &raquo;
+      </h2>
+    </a>
+  </section>
+</article>
     <footer>
       <div class='container'>
         <section>
@@ -160,8 +160,8 @@
     <script src='/js/miso.storyboard.deps.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
-    <script src='/js/codemirror.js'></script>
-    <script src='/js/codeblocks.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
     
     <script type="text/javascript">
       var _gaq = _gaq || [];

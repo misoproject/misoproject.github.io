@@ -51,76 +51,78 @@
       </span>
     </nav>
     <article class='storyboard'>
-      <section class='tutorial'>
-        <h2>Working with Remote Data</h2>
-        <p>
-          Givem the asynchronous nature of storyboard, you can use scenes
-          to actually setup your environment. Tasks such as creating DOM strcutures
-          that are invisible or fetching data are common setup tasks. In this guide
-          we will look quickly at how one might integrate Storyboard with Dataset.
-        </p>
-        <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-        var story = new Miso.Storyboard({
+  <section class='tutorial'>
+    <h2>Working with Remote Data</h2>
+    <p>
+      Givem the asynchronous nature of storyboard, you can use scenes
+      to actually setup your environment. Tasks such as creating DOM strcutures
+      that are invisible or fetching data are common setup tasks. In this guide
+      we will look quickly at how one might integrate Storyboard with Dataset.
+    </p>
+    <div style='height:600px'>
+      <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+var story = new Miso.Storyboard({
+
+  // placeholder for data. It doesn't have to live under the
+  // storyboard... it can be a part of your namespace and so on.
+  data : null,
+
+  initial : 'loading',
+  scenes : {
+
+    // data loading scene
+    loading : {
+      enter : function() {
+        var done = this.async();
+        log("Fetching data...");
         
-          // placeholder for data. It doesn't have to live under the
-          // storyboard... it can be a part of your namespace and so on.
-          data : null,
-        
-          initial : 'loading',
-          scenes : {
-        
-            // data loading scene
-            loading : {
-              enter : function() {
-                var done = this.async();
-                log("Fetching data...");
-                
-                // create a new dataset
-                this.parent.data = new Miso.Dataset({
-                  url : "/data/crudeoil.csv",
-                  delimiter : ",",
-                  columns : [
-                    { name : "Year", type : "time", format : "YYYY" }
-                  ]
-                });
-        
-                // We are going to fetch the data remotely
-                // when the fetching is done, just notify our storyboard
-                // that this is done.
-                this.parent.data.fetch().then(done);
-              },
-        
-              // by the time we are able to exit, our data has been loaded. 
-              // this is a good place to compute some things.
-              exit : function() {
-                
-                // random calculation, for example:
-                var averageCrudeOilProduction = this.parent
-                  .data
-                  .mean("Crude oil production (1000 barrels per day)");
-        
-                log(averageCrudeOilProduction);
-              }
-            },
-            done : {}
-          }
+        // create a new dataset
+        this.parent.data = new Miso.Dataset({
+          url : "/data/crudeoil.csv",
+          delimiter : ",",
+          columns : [
+            { name : "Year", type : "time", format : "YYYY" }
+          ]
         });
+
+        // We are going to fetch the data remotely
+        // when the fetching is done, just notify our storyboard
+        // that this is done.
+        this.parent.data.fetch().then(done);
+      },
+
+      // by the time we are able to exit, our data has been loaded. 
+      // this is a good place to compute some things.
+      exit : function() {
         
-        story.start().then(function() {
-          story.to('done');
-        });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
-        <a href='/storyboard/tutorials/async' style='float:left;'>
-          <h2>
-            &laquo; Asyncronous Scenes
-          </h2>
-        </a>
-        <a href='/storyboard/tutorials/?' style='text-align:right;'>
-          <h2>
-            ? &raquo;
-          </h2>
-        </a>
-      </section>
-    </article>
+        // random calculation, for example:
+        var averageCrudeOilProduction = this.parent
+          .data
+          .mean("Crude oil production (1000 barrels per day)");
+
+        log(averageCrudeOilProduction);
+      }
+    },
+    done : {}
+  }
+});
+
+story.start().then(function() {
+  story.to('done');
+});</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+    </div>
+    <a href='/storyboard/tutorials/async' style='float:left;'>
+      <h2>
+        &laquo; Asyncronous Scenes
+      </h2>
+    </a>
+    <a href='/storyboard/tutorials/events' style='text-align:right;'>
+      <h2>
+        events &raquo;
+      </h2>
+    </a>
+  </section>
+</article>
     <footer>
       <div class='container'>
         <section>
@@ -156,8 +158,8 @@
     <script src='/js/miso.storyboard.deps.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
-    <script src='/js/codemirror.js'></script>
-    <script src='/js/codeblocks.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
     <script src='/js/miso.ds.deps.0.3.0.js' type='text/javascript'></script>
     <script type="text/javascript">
       var _gaq = _gaq || [];

@@ -6,7 +6,7 @@ window.log;
       codemirror: 'deck-codemirror',
       codemirrorresult: 'codemirror-result'
     },
-    
+
     selectors: {
       codemirroritem: '.code',
     },
@@ -31,14 +31,14 @@ window.log;
 
   var CodeBlock = function(options) {
     options = options || {};
-    
+
     this.el = $(options.el);
     this.editor = null;
     this.output = null;
-   
+
     this.buildContent();
     this.init(options);
-    
+
   };
 
   /**
@@ -110,13 +110,13 @@ window.log;
   */
   CodeBlock.prototype.buildContent = function() {
     var lines = this.el.text().split("\n"),
-        indent = Infinity, 
+        indent = Infinity,
         regex = /^(\s+)(.*)/;
 
     // scan through the text and remove the min amount of spaces
-    // so that the indentation is properly done.  
+    // so that the indentation is properly done.
     $.each(lines, function(j, line) {
-      
+
       // find amount of space in the beginning of each line and store the
       // smallest space we find as the indent.
       var space = regex.exec(line);
@@ -140,19 +140,19 @@ window.log;
   * Turn block into a codemirror editor
   */
   CodeBlock.prototype.codemirrorify = function() {
-    
+
     // if this is a textarea just use the codemirror shorthand.
     if (this.el.get(0).nodeName.toUpperCase() === "TEXTAREA") {
-    
+
       this.editor = CodeMirror.fromTextArea(this.el[0], this.options);
-    
+
     } else {
-     
-      // else codemirror the element's content and attach to element parent. 
+
+      // else codemirror the element's content and attach to element parent.
       this.el.hide();
       var parent  = this.el.parent();
       this.editor = CodeMirror(
-                      parent[0], 
+                      parent[0],
                       $.extend(this.options, {
                         value : this.el.html()
                       })
@@ -183,7 +183,7 @@ window.log;
 
     // do we have any buttons?
     if (this.options.buttons.length > 0) {
-      
+
       // run button
       if (this.options.buttons.indexOf("run") > -1) {
         var runButton  = $('<div>', {
@@ -247,7 +247,7 @@ window.log;
   * Run in local scope
   */
   CodeBlock.prototype.runLocal = function() {
-    
+
     // make global log console.
     if (this.options.showConsole) {
       window.log = CodeBlock.__makeConsoleFunction(this.output);
@@ -299,7 +299,7 @@ window.log;
       val = $.trim(val);
       iframe[0].contentWindow[val] = window[val];
       sandBoxMarkup += "val=parent." + val +";";
-    }); 
+    });
 
     sandBoxMarkup += "parent.sandbox=MSIE?this:{eval:function(s){return eval(s)}};log=parent.log;<\/script>";
 
@@ -341,11 +341,11 @@ window.log;
     }
 
     if (original) {
-      this.source += this.originalBody;  
+      this.source += this.originalBody;
     } else {
       this.source += this.editor.getValue();
     }
-    
+
 
     // Seek out and cache all cleanup scripts
     if (this.el.attr("id")) {
@@ -395,7 +395,7 @@ window.log;
     // find all code blocks within the container.
     var codeblockElements = container.find(cmconfig.selectors.codemirroritem),
         codeBlocks = [];
-    
+
     $.each(codeblockElements, function(i, codeblock) {
       codeBlocks.push(new CodeBlock({ el : codeblock }));
     });

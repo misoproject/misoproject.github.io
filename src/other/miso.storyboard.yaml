@@ -4,7 +4,7 @@ inherits: ['Miso.Events']
 description: |
   %p
     <code>Miso.Storyboard</code> is the main object you'll instantiate to create a new Storyboard.
-methods : 
+methods :
 -
   name: constructor
   signature: new Miso.Storyboard( options )
@@ -25,7 +25,7 @@ methods :
       type: Object
       description: 'An object containing each othe scene definitions and handlers'
     -
-      name: initial 
+      name: initial
       type: String
       description: 'The name of the initial scene the storyboard should enter when <code>start</code>is run'
     -
@@ -43,6 +43,12 @@ instance_methods:
   signature: storyboard.to( sceneName )
   returns: Deferred
   description: 'Trigger a transition to the scene named'
+  params:
+  -
+    name: sceneName
+    type: String
+    required: true
+    description: The name of the scene to transition to
 -
   name: cancelTransition
   signature: storyboard.cancelTransition()
@@ -59,6 +65,12 @@ instance_methods:
   returns: Boolean
   description: 'Check if sceneName is the same as the name of the current scene.'
   params:
+  -
+    name: sceneName
+    type: String
+    returns: Boolean
+    required: true
+    description: Returns true if the current scene matches the scene name. False otherwise.
 -
   name: inTransition
   signature: storyboard.inTransition()

@@ -61,241 +61,241 @@
       </span>
     </nav>
     <article class='dataset'>
-      <section class='tutorial'>
-        <h2>
-          Derived Dataset
-        </h2>
-        <p>
-          Another pretty common operation is to transform the dataset into another dataset according
-          to a method of some kind, such as grouping rows according to some criteria. When a dataset
-          undergoes a transoformation like that we call it a derivative. There are currently only two
-          basic derivatives available in Dataset with the plan to add more as they are needed: groupBy
-          and movingAverage.
-        </p>
-        <h3>GroupBy</h3>
-        <p>
-          A groupBy operation involves splitting the data into groups based on a specific column,
-          applying a function to the rows in each group and combining the results into a single dataset.
-        </p>
-        <p>
-          For example, when grouping the following dataset by the "state" column:
-          <table>
-            <tr>
-              <th>state</th>
-              <th>value</th>
-            </tr>
-            <tr>
-              <td>MA</td>
-              <td>130000</td>
-            </tr>
-            <tr>
-              <td>MA</td>
-              <td>420</td>
-            </tr>
-            <tr>
-              <td>AZ</td>
-              <td>2900</td>
-            </tr>
-            <tr>
-              <td>AZ</td>
-              <td>4</td>
-            </tr>
-          </table>
-        </p>
-        <p>
-          The result of the call:
-          <pre>ds.groupBy("state", ["value"]);</pre>
-          <table>
-            <tr>
-              <th>state</th>
-              <th>value</th>
-            </tr>
-            <tr>
-              <td>MA</td>
-              <td>130420</td>
-            </tr>
-            <tr>
-              <td>AZ</td>
-              <td>2904</td>
-            </tr>
-          </table>
-        </p>
-        <p>
-          By default the groupBy will sum up the values in the rows, but you can pass any method as an options argument like so:
-          <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
-          var ds = new Miso.Dataset({
-            data : {
-              columns : [
-                { 
-                  name : "state",
-                  type : "string",
-                  data : ["AZ", "AZ", "AZ", "MA", "MA", "MA"]
-                },
-                {
-                  name : "count",
-                  type : "number",
-                  data : [1,2,3,4,5,6]
-                },
-                {
-                  name : "anothercount",
-                  type : "number", 
-                  data : [10,20,30,40,50,60]
-                }
-              ]
-            },
-            strict: true
-          });
-          
-          _.when(ds.fetch()).then(function() {
-            var gb = ds.groupBy("state", ["count", "anothercount"], {
-              // multiply all values
-              method : function(array) {
-                return _.reduce(array, function(memo, num){ 
-                  return memo * num; 
-                }, 1);
-              }
-            });
-          
-            log(gb.column("state").data);
-            log(gb.column("count").data);
-            log(gb.column("anothercount").data);
-          });</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
-        </p>
-        <h3>CountBy</h3>
-        <p>
-          A countBy operation involves counting the number of occurances of each unique value in a specified column. Those values
-          are then set as another column called "count."
-        </p>
-        <p>
-          For example, when counting the following dataset by the "state" column:
-          <table>
-            <tr>
-              <th>state</th>
-              <th>value</th>
-            </tr>
-            <tr>
-              <td>MA</td>
-              <td>130000</td>
-            </tr>
-            <tr>
-              <td>MA</td>
-              <td>420</td>
-            </tr>
-            <tr>
-              <td>AZ</td>
-              <td>2900</td>
-            </tr>
-            <tr>
-              <td>AZ</td>
-              <td>4</td>
-            </tr>
-          </table>
-        </p>
-        <p>
-          The result of the call:
-          <pre>ds.countBy("state");</pre>
-          <table>
-            <tr>
-              <th>state</th>
-              <th>count</th>
-            </tr>
-            <tr>
-              <td>MA</td>
-              <td>2</td>
-            </tr>
-            <tr>
-              <td>AZ</td>
-              <td>2</td>
-            </tr>
-          </table>
-        </p>
-        <h3>Moving Average</h3>
-        <p>
-          A moving average of size N is a new sequence that is computed by taking the mean (or any other method) of the subsequences of N terms. For example, taking the moving average with a window size of 3 of the following dataset:
-          <table>
-            <tr>
-              <th>key</th>
-              <th>value</th>
-            </tr>
-            <tr>
-              <td>A</td>
-              <td>130000</td>
-            </tr>
-            <tr>
-              <td>B</td>
-              <td>420</td>
-            </tr>
-            <tr>
-              <td>C</td>
-              <td>1000</td>
-            </tr>
-            <tr>
-              <td>D</td>
-              <td>200</td>
-            </tr>
-            <tr>
-              <td>E</td>
-              <td>2900</td>
-            </tr>
-            <tr>
-              <td>F</td>
-              <td>4</td>
-            </tr>
-          </table>
-        </p>
-        <p>
-          Like so:
-          <pre>ds.movingAverage("value");</pre>
-          Will result in the following table:
-          <table>
-            <tr>
-              <th>key</th>
-              <th>value</th>
-              <th>(explanation - NOT IN TABLE)</th>
-            </tr>
-            <tr>
-              <td>C</td>
-              <td>43806</td>
-              <td>(130000 + 420 + 1000)/3</td>
-            </tr>
-            <tr>
-              <td>D</td>
-              <td>540</td>
-              <td>(420 + 1000 + 200)/3</td>
-            </tr>
-            <tr>
-              <td>E</td>
-              <td>1366</td>
-              <td>(1000 + 200 + 2900)/3</td>
-            </tr>
-            <tr>
-              <td>F</td>
-              <td>1034</td>
-              <td>(200 + 2900 + 4)/3</td>
-            </tr>
-          </table>
-        </p>
-        <p>
-          Note that you can also specify multiple columns like so:
-          <pre>ds.movingAverage(["A", "B", "C"]);</pre>
-          And an alternate method like so:
-          <pre>ds.movingAverage(["A", "B", "C"], { method : _.sum });</pre>
-        </p>
-        <h3>Syncing Behavior</h3>
-        <p>
-          If you are creating a derived dataset from a dataset that is syncable, you can
-          subscribe to derived dataset's<code>change</code> event.
-        </p>
-        <p>
-          Because of the inherent nature of a derived dataset, even the smallest change in your original data can cause many changes in your derived dataset. At the moment, those changes are not encompased in a set of deltas. Instead, the derived dataset gets recomputed. This is an expensive operation, but it reduces the code complexity substantially. We are open to discussing a better way of handling this situation, but for now, this works.
-        </p>
-        <a href='/dataset/tutorials/products' style='float:left;'>
-          <h2>
-            &laquo; Computed Values
-          </h2>
-        </a>
-      </section>
-    </article>
+  <section class='tutorial'>
+    <h2>
+      Derived Dataset
+    </h2>
+    <p>
+      Another pretty common operation is to transform the dataset into another dataset according
+      to a method of some kind, such as grouping rows according to some criteria. When a dataset
+      undergoes a transoformation like that we call it a derivative. There are currently only two
+      basic derivatives available in Dataset with the plan to add more as they are needed: groupBy
+      and movingAverage.
+    </p>
+    <h3>GroupBy</h3>
+    <p>
+      A groupBy operation involves splitting the data into groups based on a specific column,
+      applying a function to the rows in each group and combining the results into a single dataset.
+    </p>
+    <p>
+      For example, when grouping the following dataset by the "state" column:
+      <table>
+        <tr>
+          <th>state</th>
+          <th>value</th>
+        </tr>
+        <tr>
+          <td>MA</td>
+          <td>130000</td>
+        </tr>
+        <tr>
+          <td>MA</td>
+          <td>420</td>
+        </tr>
+        <tr>
+          <td>AZ</td>
+          <td>2900</td>
+        </tr>
+        <tr>
+          <td>AZ</td>
+          <td>4</td>
+        </tr>
+      </table>
+    </p>
+    <p>
+      The result of the call:
+      <pre>ds.groupBy("state", ["value"]);</pre>
+      <table>
+        <tr>
+          <th>state</th>
+          <th>value</th>
+        </tr>
+        <tr>
+          <td>MA</td>
+          <td>130420</td>
+        </tr>
+        <tr>
+          <td>AZ</td>
+          <td>2904</td>
+        </tr>
+      </table>
+    </p>
+    <p>
+      By default the groupBy will sum up the values in the rows, but you can pass any method as an options argument like so:
+      <div class="codeblock"><textarea name="codehelper"  class="code" mode=""  runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">
+var ds = new Miso.Dataset({
+  data : {
+    columns : [
+      { 
+        name : "state",
+        type : "string",
+        data : ["AZ", "AZ", "AZ", "MA", "MA", "MA"]
+      },
+      {
+        name : "count",
+        type : "number",
+        data : [1,2,3,4,5,6]
+      },
+      {
+        name : "anothercount",
+        type : "number", 
+        data : [10,20,30,40,50,60]
+      }
+    ]
+  },
+  strict: true
+});
+
+_.when(ds.fetch()).then(function() {
+  var gb = ds.groupBy("state", ["count", "anothercount"], {
+    // multiply all values
+    method : function(array) {
+      return _.reduce(array, function(memo, num){ 
+        return memo * num; 
+      }, 1);
+    }
+  });
+
+  log(gb.column("state").data);
+  log(gb.column("count").data);
+  log(gb.column("anothercount").data);
+});</textarea><div class="helptext">You can edit the code in this block and rerun it.</div></div>
+    </p>
+    <h3>CountBy</h3>
+    <p>
+      A countBy operation involves counting the number of occurances of each unique value in a specified column. Those values
+      are then set as another column called "count."
+    </p>
+    <p>
+      For example, when counting the following dataset by the "state" column:
+      <table>
+        <tr>
+          <th>state</th>
+          <th>value</th>
+        </tr>
+        <tr>
+          <td>MA</td>
+          <td>130000</td>
+        </tr>
+        <tr>
+          <td>MA</td>
+          <td>420</td>
+        </tr>
+        <tr>
+          <td>AZ</td>
+          <td>2900</td>
+        </tr>
+        <tr>
+          <td>AZ</td>
+          <td>4</td>
+        </tr>
+      </table>
+    </p>
+    <p>
+      The result of the call:
+      <pre>ds.countBy("state");</pre>
+      <table>
+        <tr>
+          <th>state</th>
+          <th>count</th>
+        </tr>
+        <tr>
+          <td>MA</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>AZ</td>
+          <td>2</td>
+        </tr>
+      </table>
+    </p>
+    <h3>Moving Average</h3>
+    <p>
+      A moving average of size N is a new sequence that is computed by taking the mean (or any other method) of the subsequences of N terms. For example, taking the moving average with a window size of 3 of the following dataset:
+      <table>
+        <tr>
+          <th>key</th>
+          <th>value</th>
+        </tr>
+        <tr>
+          <td>A</td>
+          <td>130000</td>
+        </tr>
+        <tr>
+          <td>B</td>
+          <td>420</td>
+        </tr>
+        <tr>
+          <td>C</td>
+          <td>1000</td>
+        </tr>
+        <tr>
+          <td>D</td>
+          <td>200</td>
+        </tr>
+        <tr>
+          <td>E</td>
+          <td>2900</td>
+        </tr>
+        <tr>
+          <td>F</td>
+          <td>4</td>
+        </tr>
+      </table>
+    </p>
+    <p>
+      Like so:
+      <pre>ds.movingAverage("value");</pre>
+      Will result in the following table:
+      <table>
+        <tr>
+          <th>key</th>
+          <th>value</th>
+          <th>(explanation - NOT IN TABLE)</th>
+        </tr>
+        <tr>
+          <td>C</td>
+          <td>43806</td>
+          <td>(130000 + 420 + 1000)/3</td>
+        </tr>
+        <tr>
+          <td>D</td>
+          <td>540</td>
+          <td>(420 + 1000 + 200)/3</td>
+        </tr>
+        <tr>
+          <td>E</td>
+          <td>1366</td>
+          <td>(1000 + 200 + 2900)/3</td>
+        </tr>
+        <tr>
+          <td>F</td>
+          <td>1034</td>
+          <td>(200 + 2900 + 4)/3</td>
+        </tr>
+      </table>
+    </p>
+    <p>
+      Note that you can also specify multiple columns like so:
+      <pre>ds.movingAverage(["A", "B", "C"]);</pre>
+      And an alternate method like so:
+      <pre>ds.movingAverage(["A", "B", "C"], { method : _.sum });</pre>
+    </p>
+    <h3>Syncing Behavior</h3>
+    <p>
+      If you are creating a derived dataset from a dataset that is syncable, you can
+      subscribe to derived dataset's<code>change</code> event.
+    </p>
+    <p>
+      Because of the inherent nature of a derived dataset, even the smallest change in your original data can cause many changes in your derived dataset. At the moment, those changes are not encompased in a set of deltas. Instead, the derived dataset gets recomputed. This is an expensive operation, but it reduces the code complexity substantially. We are open to discussing a better way of handling this situation, but for now, this works.
+    </p>
+    <a href='/dataset/tutorials/products' style='float:left;'>
+      <h2>
+        &laquo; Computed Values
+      </h2>
+    </a>
+  </section>
+</article>
     <footer>
       <div class='container'>
         <section>
@@ -331,8 +331,8 @@
     <script src='/js/miso.ds.deps.js'></script>
     <script src='/js/bootstrap/transition.js'></script>
     <script src='/js/bootstrap/collapse.js'></script>
-    <script src='/js/codemirror.js'></script>
-    <script src='/js/codeblocks.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
     
     <script type="text/javascript">
       var _gaq = _gaq || [];
