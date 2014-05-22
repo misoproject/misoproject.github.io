@@ -18,10 +18,6 @@ You need the following gems:
 * sass (3.1.6)
 * staticmatic (0.11.1)
 
-### Setup
-
-`git submodule update --init`
-
 ### Deploying
 
 `rake deploy MSG='commit name on production'`
