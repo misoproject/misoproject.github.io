@@ -7,16 +7,11 @@ Submit any issues/requests for the miso project website as issues here.
 
 ## Development Only:
 
-You need the following gems:
+### Setup
 
-* chunky_png (1.2.0)
-* compass (0.11.5)
-* fssm (0.2.7)
-* haml (3.1.2)
-* rack (1.3.2)
-* rake (0.8.7)
-* sass (3.1.6)
-* staticmatic (0.11.1)
+```
+bundle install
+```
 
 ### Deploying
 
