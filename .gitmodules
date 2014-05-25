@@ -1,0 +1,9 @@
+[submodule "projects/d3-chart"]
+	path = projects/d3-chart
+	url = https://github.com/misoproject/d3.chart.git
+[submodule "projects/dataset"]
+	path = projects/dataset
+	url = https://github.com/misoproject/dataset.git
+[submodule "projects/storyboard"]
+	path = projects/storyboard
+	url = https://github.com/misoproject/storyboard.git
