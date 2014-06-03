@@ -2,8 +2,7 @@
 name: Miso.Dataset.Importers.Polling
 description: |
   Pull data from a remote source on a regular interval
-  %div{ :style=> 'height:200px'}
-    = toRunnableCodeBlock("api/miso.importer.polling")
+  = toRunnableCodeBlock("api/miso.importer.polling")
 
 methods:
 -

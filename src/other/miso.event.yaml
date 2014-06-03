@@ -14,8 +14,7 @@ methods:
   returns: Boolean
   description: |
     Returns whether or not a given delta is for a remove event
-    %div{ :style=> 'height:200px'}
-      = toRunnableCodeBlock("api/miso.event.isremove")
+    = toRunnableCodeBlock("api/miso.event.isremove")
   params:
   -
     name: delta
@@ -29,8 +28,7 @@ methods:
   returns: Boolean
   description: |
     Returns whether or not a given delta is for an add event
-    %div{ :style=> 'height:200px'}
-      = toRunnableCodeBlock("api/miso.event.isadd")
+    = toRunnableCodeBlock("api/miso.event.isadd")
   params:
   -
     name: delta
@@ -43,8 +41,7 @@ methods:
   returns: Boolean
   description: |
     Returns whether or not a given delta is for an update event
-    %div{ :style=> 'height:200px'}
-      = toRunnableCodeBlock("api/miso.event.isupdate")
+    = toRunnableCodeBlock("api/miso.event.isupdate")
   params:
   -
     name: delta
@@ -58,6 +55,5 @@ instance_methods:
   returns: Array
   description: |
     Returns an array of columns affected by the event
-    %div{ :style=> 'height:200px'}
-      = toRunnableCodeBlock("api/miso.event.affectedcolumns")
+    = toRunnableCodeBlock("api/miso.event.affectedcolumns")
 

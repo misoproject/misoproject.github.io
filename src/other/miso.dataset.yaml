@@ -12,8 +12,7 @@ methods:
   name: constructor
   description: |
     Returns a new dataset. See the creating datasets guide for detailed information.
-    %div{ :style=> 'height:200px'}
-      = toRunnableCodeBlock("api/miso.dataset.constructor")
+    = toRunnableCodeBlock("api/miso.dataset.constructor")
   #TODO Link to creating datasets guide
   signature: 'new Miso.Dataset( options )'
   returns: Miso.Dataset
@@ -149,8 +148,7 @@ instance_methods:
     this needs to be called before data can be accessed. Fetch returns a
     %a{ :href => 'https://github.com/wookiehangover/underscore.Deferred' } deferred
     which makes it simple to chain operations off async data requests.
-    %div{ :style=> 'height:200px'}
-      = toRunnableCodeBlock("api/miso.dataset.fetch")
+    = toRunnableCodeBlock("api/miso.dataset.fetch")
   params:
   -
     name: options
@@ -171,8 +169,7 @@ instance_methods:
   returns: Miso.Dataset.Column
   description: |
     Creates a new column and adds it to the dataset.
-    %div{ :style=> 'height:200px'}
-      = toRunnableCodeBlock("api/miso.dataset.addcolumn")
+    = toRunnableCodeBlock("api/miso.dataset.addcolumn")
   params:
   -
     name: column
@@ -241,8 +238,7 @@ instance_methods:
   description: |
     Adds a row to the dataset. This will fire <code>add</code> and <code>change</code>
     events on a syncable dataset.
-    %div{ :style=> 'height:200px'}
-      = toRunnableCodeBlock("api/miso.dataset.add")
+    = toRunnableCodeBlock("api/miso.dataset.add")
   params:
   -
     name: row
@@ -266,8 +262,7 @@ instance_methods:
   description: |
     Removes rows matching the passed filter from the dataset. This will fire <code>remove</code>
     and <code>change</code> events on a syncable dataset.
-    %div{ :style=> 'height:200px'}
-      = toRunnableCodeBlock("api/miso.dataset.remove")
+    = toRunnableCodeBlock("api/miso.dataset.remove")
   params:
   -
     name: filter
@@ -294,8 +289,7 @@ instance_methods:
     The function should take a `row` object for each row in the dataset. If a row shouldn't be modified, the function
     can return false for that row.
     This will fire <code>update</code> and <code>change</code> events on a syncable dataset.
-    %div{ :style=> 'height:200px'}
-      = toRunnableCodeBlock("api/miso.dataset.update")
+    = toRunnableCodeBlock("api/miso.dataset.update")
   params:
   -
     name: filter
@@ -324,6 +318,5 @@ instance_methods:
   returns: undefined
   description: |
     Updates one or more rows in a dataset. This will fire <code>update</code> and <code>change</code> events on a syncable dataset.
-    %div{ :style=> 'height:200px'}
-      = toRunnableCodeBlock("api/miso.dataset.reset")
+    = toRunnableCodeBlock("api/miso.dataset.reset")
 
