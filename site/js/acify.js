@@ -139,11 +139,10 @@ window.log;
     });
 
     // now that we found the smallest indent, reassemble the lines
-    var newblock = "";
-    $.each(lines, function(n, line) {
-      newblock += line.slice(indent) + "\n";
-    });
-    this.el.text(newblock);
+    var newblock = $.map(lines, function(line) {
+      return line.slice(indent);
+    }).join('\n');
+    this.el.text($.trim(newblock));
   };
 
   /**
