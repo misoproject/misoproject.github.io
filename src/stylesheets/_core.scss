@@ -337,8 +337,6 @@ article.api {
         }
 
         span {
-          display: block;
-          float: left;
           &.name {
             @include monospace();
           }
