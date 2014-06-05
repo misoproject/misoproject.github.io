@@ -1,19 +1,8 @@
 $(window).load(function() {
-  //Cute little animation on the anchor links for API
   if ($('div.nav_wrapper').length > 0) {
-    $('article.api div.nav a').click(function() {
-      $('html,body').animate(
-        { scrollTop: $( $(this).attr('href') ).offset().top - 20 }, 
-        'slow'
-      );
-    });
-
     var $nav = $('div.nav_wrapper'),
     $window = $(window),
     currently_fixed;
-
-
-
 
     var fixed = ($nav.css('position') === 'fixed'),
         top = $('article').offset().top;
@@ -21,7 +10,6 @@ $(window).load(function() {
         height = $window.height(),
         nav_height= $nav.height(),
         footer_top = $('footer').offset().top;
-
 
     $window.scroll(function () {
       var scroll = $window.scrollTop(),
@@ -66,7 +54,7 @@ $(window).load(function() {
       }
 
     });
+
     $window.trigger('scroll');
   }
 });
-
