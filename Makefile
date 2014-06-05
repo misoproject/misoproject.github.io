@@ -6,9 +6,9 @@ default: clean build
 .PHONY: build
 build: site site/d3-chart/api site/dataset/api site/storyboard/api
 
-.PHONY: ssite
-ssite:
+site:
 	bundle exec staticmatic build .
+	cp -R src/* site
 
 node_modules: package.json
 	npm install
