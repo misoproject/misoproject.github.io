@@ -5,11 +5,20 @@ $(window).load(function() {
     currently_fixed;
 
     var fixed = ($nav.css('position') === 'fixed'),
-        top = $('article').offset().top;
+        $article = $('article'),
+        top = $article.offset().top;
         left = $nav.offset().left - 10, //padding hack
         height = $window.height(),
         nav_height= $nav.height(),
         footer_top = $('footer').offset().top;
+
+    // The navigation should be position statically on pages where the height
+    // required by the content is less than the height of the navigation
+    // itself.
+    if (nav_height > $article.height()) {
+      $nav.css('position', 'static');
+      return;
+    }
 
     $window.scroll(function () {
       var scroll = $window.scrollTop(),

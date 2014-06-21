@@ -366,10 +366,9 @@ article.api {
 
    div.nav_wrapper {
     @include width(4);
-    float: right;
     position: fixed;
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
   }
   div.nav{
