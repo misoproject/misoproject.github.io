@@ -14,8 +14,7 @@
     returns: Function
     description: |
       Use this method to define a new product. For example:
-      %div{ :style=> 'height:200px'}
-        = toRunnableCodeBlock("dataset/computations/custom")
+      = toRunnableCodeBlock("dataset/computations/custom")
     params:
     -
       name: 'func'
@@ -31,5 +30,4 @@
     returns: Any
     description: |
       Returns the current value of the product.
-      %div{ :style=> 'height:200px'}
-        = toRunnableCodeBlock("api/miso.product.val")
+      = toRunnableCodeBlock("api/miso.product.val")

@@ -11,8 +11,7 @@ methods:
   description: |
     Create a new chart constructor or return a previously-created chart
     constructor.
-    %div{ :style => 'height:150px'}
-      = toRunnableCodeBlock("api/d3-chart/d3.chart.create", nil, {:globals => "d3"})
+    = toRunnableCodeBlock("api/d3-chart/d3.chart.create", nil, {:globals => "d3"})
   params:
   -
     name: name
@@ -42,8 +41,7 @@ methods:
     inheritance so that new chart constructors may be defined in terms of
     existing chart constructors. Based on the `extend` function defined by
     Backbone.js
-    %div{ :style => 'height:200px'}
-      = toRunnableCodeBlock("api/d3-chart/d3.chart.extend", nil, {:globals => "d3"})
+    = toRunnableCodeBlock("api/d3-chart/d3.chart.extend", nil, {:globals => "d3"})
   params:
   -
     name: name
@@ -73,8 +71,7 @@ instance_properties:
   returns: d3 selection
   description: |
     The d3.selection in which the Chart instance is contained.
-    %div{ :style => 'height:200px'}
-      = toRunnableCodeBlock("api/d3-chart/d3.chart.base", nil, {:globals => "d3"})
+    = toRunnableCodeBlock("api/d3-chart/d3.chart.base", nil, {:globals => "d3"})
 
 instance_methods:
 -
@@ -137,8 +134,7 @@ instance_methods:
     Subscribe a handler to a "lifecycle event". These events (and only these
     events) are triggered when <code>Layer#draw</code> is invoked &mdash; see
     that method for more details on lifecycle events.
-    %div{ :style => 'height:300px'}
-      = toRunnableCodeBlock("api/d3-chart/d3.chart.on")
+    = toRunnableCodeBlock("api/d3-chart/d3.chart.on")
   params:
   -
     name: name
@@ -166,8 +162,7 @@ instance_methods:
     function will be invoked at the next occurance of the event and immediately
     unsubscribed. See <code>Chart.on</code> to subscribe a callback function
     to an event indefinitely.
-    %div{ :style => 'height:350px'}
-      = toRunnableCodeBlock("api/d3-chart/d3.chart.once")
+    = toRunnableCodeBlock("api/d3-chart/d3.chart.once")
   params:
   -
     name: name
@@ -199,8 +194,7 @@ instance_methods:
     from that event. When a <code>name</code> and <code>context</code> are
     specified (but <code>callback</code> is omitted), all events bound to the
     given event with the given context will be unsubscribed.
-    %div{ :style => 'height: 400px'}
-      = toRunnableCodeBlock("api/d3-chart/d3.chart.off")
+    = toRunnableCodeBlock("api/d3-chart/d3.chart.off")
   params:
   -
     name: name
@@ -231,8 +225,7 @@ instance_methods:
     previously-created layer and attach it to the chart with the specified
     `name`.
     <br>
-    %div{ :style => 'height:150px'}
-      = toDisplayCodeBlock("api/d3-chart/d3.chart.layer2")
+    = toDisplayCodeBlock("api/d3-chart/d3.chart.layer2")
     <br>
     If all three arguments are specified, initialize a new layer using
     the specified `selection` as a base passing along the specified `options`.
@@ -241,8 +234,7 @@ instance_methods:
     whenever this chart's `draw` is invoked and will receive the
     data (optionally modified by the chart's transform method.
     <br>
-    %div{ :style => 'height:400px'}
-      = toDisplayCodeBlock("api/d3-chart/d3.chart.layer")
+    = toDisplayCodeBlock("api/d3-chart/d3.chart.layer")
 
   params:
   -
@@ -309,8 +301,7 @@ instance_methods:
     Register or retrieve an "attachment" Chart. The "attachment" chart's `draw`
     method will be invoked whenever the containing chart's `draw` method is
     invoked.
-    %div{ :style => 'height:220px;'}
-      = toDisplayCodeBlock("api/d3-chart/d3.chart.mixin")
+    = toDisplayCodeBlock("api/d3-chart/d3.chart.mixin")
   params:
   -
     name: attachmentName

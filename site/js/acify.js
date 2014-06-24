@@ -139,20 +139,22 @@ window.log;
     });
 
     // now that we found the smallest indent, reassemble the lines
-    var newblock = "";
-    $.each(lines, function(n, line) {
-      newblock += line.slice(indent) + "\n";
-    });
-    this.el.text(newblock);
+    var newblock = $.map(lines, function(line) {
+      return line.slice(indent);
+    }).join('\n');
+    this.el.text($.trim(newblock));
   };
 
   /**
   * Turn block into a ace editor
   */
   CodeBlock.prototype.acify = function() {
+    var text = this.el.text();
+    var lineCount = text.split('\n').length;
+    var lineHeight;
 
     // make editor
-    this.editorEl.text(this.el.text());
+    this.editorEl.text(text);
     this.editor = ace.edit(this.editorEl[0]);
 
     // set options
@@ -164,10 +166,10 @@ window.log;
 
     // mark this block as having been acified
     $.data(this.el[0], 'acified', 'true');
+    lineHeight = this.editor.renderer.lineHeight;
 
     this.editorEl.css({
-      width: this.editorEl.parent().parent().width(),
-      height: this.editorEl.parent().parent().height()
+      height: lineHeight * lineCount
     });
     this.editor.resize();
   };
