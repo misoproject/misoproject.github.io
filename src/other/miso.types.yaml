@@ -16,8 +16,7 @@ methods:
   description: |
     Typeof tests the type of a given input against the registered Miso types and
     returns the closest match.
-    %div{ :style=> 'height:200px'}
-      = toRunnableCodeBlock("api/miso.types.typeof")
+    = toRunnableCodeBlock("api/miso.types.typeof")
   params:
   -
     name: value

@@ -12,5 +12,4 @@ description: |
       %li <code>Miso.Dataset.Importers.GoogleSpreadsheet</code>
   %p
     An importer must implement the following interface:
-    %div{ :style=> 'height:200px'}
-      = toDisplayCodeBlock("api/importer")
+    = toDisplayCodeBlock("api/importer")

@@ -15,8 +15,7 @@ methods:
     Defines a new layer on a selection or returns a reference to the selection
     corresponding to a layer by a specific name. Most of the time will be called on
     a chart, but can be called directly on a layer.
-    %div{ :style => 'height:300px'}
-      = toRunnableCodeBlock("api/d3-chart/d3.layer.create")
+    = toRunnableCodeBlock("api/d3-chart/d3.layer.create")
   params:
   -
     name: options
@@ -75,8 +74,7 @@ instance_methods:
     inside of the <code>dataBind</code>, <code>insert</code> and any lifecycle event callback
     methods where the default context is set to the layer or lifecycle selection
     (on which you can call this chart method.) See example for more details.
-    %div{ :style => 'height:400px'}
-      = toRunnableCodeBlock("api/d3-chart/d3.layer.chart")
+    = toRunnableCodeBlock("api/d3-chart/d3.layer.chart")
 -
   name: 'on'
   signature: 'layer.on(lifecycleEvent, handler, options)'

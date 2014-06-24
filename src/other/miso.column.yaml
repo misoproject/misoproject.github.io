@@ -10,8 +10,7 @@ methods:
   returns: Miso.Dataset.Column
   description: |
     Returns a new column.
-    %div{ :style=> 'height:200px'}
-      = toRunnableCodeBlock("api/miso.column.constructor")
+    = toRunnableCodeBlock("api/miso.column.constructor")
   params:
   -
     name: options
@@ -59,8 +58,7 @@ instance_methods:
   description: |
     Internal function used to return the numeric value of a given input in a column. Index is used
     as this is currently the return value for numeric coercion of string values.
-    %div{ :style=> 'height:200px'}
-      = toRunnableCodeBlock("api/miso.column.numericat")
+    = toRunnableCodeBlock("api/miso.column.numericat")
   params:
   -
     name: index
@@ -72,5 +70,4 @@ instance_methods:
   returns: undefined
   description: |
     Coerces all the data in the column's data array to the appropriate type.
-    %div{ :style=> 'height:200px'}
-      = toRunnableCodeBlock("api/miso.column.coerce")
+    = toRunnableCodeBlock("api/miso.column.coerce")
