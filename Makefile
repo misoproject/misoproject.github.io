@@ -1,6 +1,6 @@
 UPSTREAM ?= upstream
 
-default: clean build view
+default: clean view
 
 .PHONY: build
 build: site site/d3-chart/api site/dataset/api site/storyboard/api
@@ -9,7 +9,7 @@ site:
 	bundle exec staticmatic build .
 	cp -R src/* site
 
-view:
+view: build
 	bundle exec staticmatic preview .
 
 node_modules: package.json
