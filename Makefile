@@ -38,7 +38,7 @@ clean:
 deploy: clean build
 	git checkout -B gh-pages
 	# Keep untracked files and .gitignore
-	git ls-files -z * | xargs --null git rm
+	git ls-files -z * | xargs -0 git rm
 	mv site/* .
 	# Prevent GitHub from attempting to build the site with Jekyll
 	touch .nojekyll
