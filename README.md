@@ -30,11 +30,9 @@ From project root, run:
 
 ### Previewing
 
-From project root, run:
+To run a webserver on port 3000, run:
 
-    staticmatic preview .
-
-Never edit .html files.
+    make view
 
 ### Deploying
 
