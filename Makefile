@@ -45,3 +45,4 @@ deploy: clean build
 	git add .
 	git commit -m "Deploy site"
 	git push --force ${UPSTREAM} gh-pages
+	git checkout -
