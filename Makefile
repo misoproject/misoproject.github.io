@@ -34,8 +34,16 @@ site/%/api : projects/% node_modules
 clean:
 	rm -rf site
 
+.PHONY: check_working_dir
+.SILENT: check_working_dir
+check_working_dir:
+	if [ -n "`git status --porcelain`" ]; then\
+		echo "Untracked changes in working directory. Stash or commit them before deploying.";\
+		exit 1;\
+	fi
+
 .PHONY: deploy
-deploy: clean build
+deploy: check_working_dir clean build
 	git checkout -B gh-pages
 	# Keep untracked files and .gitignore
 	git ls-files -z * | xargs -0 git rm
