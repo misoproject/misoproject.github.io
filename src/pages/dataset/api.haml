@@ -3,50 +3,8 @@
 
 %article.api.dataset
 
-  - @api = []
   %div.api_wrapper
-    = api_section('miso.dataset.yaml')
-    = api_section('miso.dataview.yaml')
-    = api_section('miso.derived.yaml')
-    = api_section('miso.product.yaml')
-    = api_section('miso.events.yaml')
-    = api_section('miso.event.yaml')
-    = api_section('miso.importers.yaml')
-    = api_section('miso.importers.local.yaml')
-    = api_section('miso.importers.remote.yaml')
-    = api_section('miso.importers.polling.yaml')
-    = api_section('miso.importers.googlespreadsheet.yaml')
-    = api_section('miso.parsers.yaml')
-    = api_section('miso.column.yaml')
-    = api_section('miso.types.yaml')
-    = api_section('miso.types.mixed.yaml')
-    = api_section('miso.types.string.yaml')
-    = api_section('miso.types.number.yaml')
-    = api_section('miso.types.boolean.yaml')
-    = api_section('miso.types.time.yaml')
-
-
+    <?js= content ?>
   %div.nav_wrapper
     %div.nav
-      %ul
-        - inheritify(@api)
-        - @api.each do |obj|
-          %li
-            %a{ :href => '#' + idify( obj['name'] ) }
-              = truncate( obj['name'], 22 )
-
-            - if obj['methods']
-              %ul.object
-                - obj['methods'].each do |method|
-                  %li
-                    %a{ :href => '#' +  idify( [obj['name'], method['name'] ] ) }
-                      = method['name']
-
-            - if obj['instance_methods']
-              %span.instance
-                Instance Methods
-              %ul
-                - obj['instance_methods'].each do |method|
-                  %li
-                    %a{ :href => '#' + idify( [ (method['override'] ? method['override'] : obj['name'] ), 'i', method['name'] ] ) }
-                      = method['name']
+      <?js= this.nav ?>

@@ -3,33 +3,8 @@
 
 %article.api.storyboard
 
-  - @api = []
   %div.api_wrapper
-    = api_section('miso.storyboard.yaml')
-    = api_section('miso.events.yaml')
-
+    <?js= content ?>
   %div.nav_wrapper
     %div.nav
-      %ul
-        - inheritify(@api)
-        - @api.each do |obj|
-          %li
-            %a{ :href => '#' + idify( obj['name'] ) }
-              = truncate( obj['name'], 22 )
-
-            - if obj['methods']
-              %ul.object
-                - obj['methods'].each do |method|
-                  %li
-                    %a{ :href => '#' +  idify( [obj['name'], method['name'] ] ) }
-                      = method['name']
-
-            - if obj['instance_methods']
-              %span.instance
-                Instance Methods
-              %ul
-                - obj['instance_methods'].each do |method|
-                  %li
-                    %a{ :href => '#' + idify( [ (method['override'] ? method['override'] : obj['name'] ), 'i', method['name'] ] ) }
-                      = method['name']
-
+      <?js= this.nav ?>

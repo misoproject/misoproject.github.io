@@ -1,0 +1,16 @@
+- @page_title = "The Miso Project :: Dataset :: Examples :: Cabinet Office"
+- @layout = "examples/dataset/cabinet-office"
+
+#container
+  #header
+    #legend
+      Loading spending data
+    #daterange
+      %label{:for => "range"}
+        in period:
+      %select#range{:name => "id"}
+    #grouping
+      %label{:for => "groupby"}
+        grouped by:
+      %select#groupby{:name => "id"}
+  #chart

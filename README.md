@@ -3,62 +3,47 @@
 This is the builder for the public miso project website. 
 It uses Staticmatic alongside some custom api generating code.
 
-Submit any issues/requests for the miso project website as issues here.
+Submit any issues/requests for [the Miso project
+website](http://misoproject.com/) as issues here.
 
-## Development Only:
+## Development Only
+
+If you'd like to work on this project, you'll need the following tools
+installed on your system: [GNU Make](https://www.gnu.org/software/make/),
+[Ruby](https://www.ruby-lang.org) (with [Bundler](http://bundler.io/)), and
+[Node.js](http://nodejs.org/).
 
 ### Setup
 
-```
-bundle install
-```
+After cloning the repository, run the following commands from the project root:
 
-### Deploying
+    git submodule init
+    git submodule update
+    bundle install
+    npm install
 
-`rake deploy MSG='commit name on production'`
-Message is optional
+### Building
 
-To hide index.html
-`rake deploy HIDE=yes`
+From project root, run:
+
+    make
 
 ### Previewing
 
-From project root, run:
+To run a webserver on port 3000, run:
 
-```
-staticmatic preview .
-```
+    make view
 
-Never edit .html files.
+### Deploying
 
-### Building static site
+    make deploy
 
-From project root, run:
+This will create a branch named `gh-pages`, build the static site, and push the
+branch to the git remote named `upstream`. If you would like to deploy to
+another remote repository (for instance, `origin` during testing), you may set
+the `UPSTREAM` environmental variable:
 
-```
-staticmatic build .
-```
-
-### Adding runnable code snipptes:
-
-* Make your snippet under the `src/snippets` directory (or subdirectory as your heart desires.)
-* Include a call to it like so somewhere:
-
-```javascript
-= toRunnableCodeBlock("creation/importingLocalStrictDataArray")
-```
-
-### Adding non runnable code snippets:
-
-```javascript
-= toDisplayCodeBlock("creation/importingLocalStrictDataArray")
-```
-
-### Updating Dataset Builds Before Deploying
-
-Getting files over from dataset
-
-`rake copyfiles DIR=../Dataset`
+    UPSTREAM=origin make deploy
 
 ### Notes
 
@@ -66,5 +51,3 @@ Getting files over from dataset
 * Main site layout is under src/layouts.
 * Pages can be broken into partials which are stored under src/partials. See example in dataset.haml.
 * Updating `js` dependencies needs to be done under the `site/js` folder, as does the updating of any images or other non-code assets.
-
-

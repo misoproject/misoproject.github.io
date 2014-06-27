@@ -3,11 +3,11 @@
 
 %article.dataset
   %section.tutorial
-    %h2 
+    %h2
       Accessing Data
 
-    %p 
-      There are several ways in which your data is made available once in Dataset. 
+    %p
+      There are several ways in which your data is made available once in Dataset.
       Specifically all these ways fall into the following categories:
 
     %h3 Direct Access
@@ -15,19 +15,19 @@
       The following methods allow you to have access to parts of Dataset directly - as in, you can directly
       interface with the objects that make up your Dataset instance. While convenient, if you change the data in a matter
       other than the one specified, you can create inconsistancies in our index.
-    
+
     %div.indent-1
       %p
         The methods that give you direct access are:
 
         %ul
           %li
-            %a{ :href => '/dataset/api.html#misodataview_i_column' }
+            %a{ :href => '/dataset/api/Miso.Dataset.DataView.html#column' }
               <code>ds.column(name)</code>
             %br
             This returns the actual column object. Note that because the order of columns
             is not guaranteed (or should matter,) the fetching of columns is always done by name.
-          
+
           %li
             <code>col.data</code>
             %br
@@ -42,14 +42,14 @@
             <code>col.type</code>
             %br
             After fetching a column using <code>ds.column(name)</code>, you can get a hold of the column name directly.
-            
+
 
 
     %h3 Indirect Access
     %p
       The following methods give you access to the content, but it is first separated form the actual Dataset. This is
-      for two reasons: First, because 'rows' are a more logical interaction unit it makes more sense to provide an API 
-      that can access data in this way. Because we don't actually store the data in this way, we have to make the row 
+      for two reasons: First, because 'rows' are a more logical interaction unit it makes more sense to provide an API
+      that can access data in this way. Because we don't actually store the data in this way, we have to make the row
       objects. The actual data is stored in column arrays and is only tied together by position.
 
     %div.indent-1
@@ -58,26 +58,26 @@
 
         %ul
           %li
-            %a{ :href => '/dataset/api.html#misodataview_i_column' }
+            %a{ :href => '/dataset/api/Miso.Dataset.html#columnNames' }
               <code>ds.columnNames()</code>
             %br
             Returns an array of column names.
-          
+
           %li
-            %a{ :href => '/dataset/api.html#misodataview_i_rowbyposition' }
+            %a{ :href => '/dataset/api/Miso.Dataset.html#rowByPosition' }
               <code>ds.rowByPosition(pos)</code>
             %br
             To get the Nth row in your dataset, just pass the position into rowByPosition. An object representing
-            the row will be returned. 
+            the row will be returned.
           %li
-            %a{ :href => '/dataset/api.html#misodataview_i_rowbyid' }
+            %a{ :href => '/dataset/api/Miso.Dataset.html#rowById' }
               <code>ds.rowById(id)</code>
             %br
             To get the row with a specfic _id value. An object representing
             the row will be returned. Note, the _id value is an auto generated value and should
             never be changed.
           %li
-            %a{ :href => '/dataset/api.html#misodataview_i_each' }
+            %a{ :href => '/dataset/api/Miso.Dataset.html#each' }
               <code>ds.each(iterator, context)</code>
             %br
             Iterates over all rows.
@@ -89,7 +89,7 @@
               </pre>
 
           %li
-            %a{ :href => '/dataset/api.html#misodataview_i_column' }
+            %a{ :href => '/dataset/api/Miso.Dataset.html#eachColumn' }
               <code>ds.eachColumn(iterator, context)</code>
             %br
             Iterates over available columns (not including _id column.)
@@ -99,14 +99,14 @@
                 // do what you need here.
               });
               </pre>
-    
+
     %h3 Data Views
     %p
-      Dataset offers a pretty versatile selection mechanism. To allow for an interface identical to your 
+      Dataset offers a pretty versatile selection mechanism. To allow for an interface identical to your
       Dataset's instance, while operating on a subset we return a DataView object.
-      A DataView functions very much like Dataset (in fact Dataset inherits from DataView). 
-      The major difference is that DataViews are <b>immutable</b> - they 
-      do not offer any way to change the selected data. This is because they are tied to the original data. 
+      A DataView functions very much like Dataset (in fact Dataset inherits from DataView).
+      The major difference is that DataViews are <b>immutable</b> - they
+      do not offer any way to change the selected data. This is because they are tied to the original data.
 
     %div.indent-1
       %p
@@ -114,25 +114,25 @@
 
         %ul
           %li
-            %a{ :href => '/dataset/api.html#misodataview_i_where' }
+            %a{ :href => '/dataset/api/Miso.Dataset.DataView.html#where' }
               <code>ds.where(filter, options)</code>
             %br
             Returns a subset of rows that meet the specified filter requirement.
           %li
-            %a{ :href => '/dataset/api.html#misodataview_i_columns' }
+            %a{ :href => '/dataset/api/Miso.Dataset.DataView.html#columns' }
               <code>ds.columns(nameArray)</code>
             %br
             Returns a subset of columns. Shorthand for <code>ds.where({ columns : nameArray })</code>
           %li
-            %a{ :href => '/dataset/api.html#misodataview_i_rows' }
+            %a{ :href => '/dataset/api/Miso.Dataset.DataView.html#rows' }
               <code>ds.rows(rowFilter, options)</code>
             %br
-            Returns a subset of rows. Shorthand for <code>ds.where({ rows : rowFilter })</code>          
+            Returns a subset of rows. Shorthand for <code>ds.where({ rows : rowFilter })</code>
           %li
             <code>dv.parent</code>
             %br
             Assume dv is an existing selection that was created using one of the above methods.
-            Calling <code>parent</code> returns a handle to the original parent dataset or dataview 
+            Calling <code>parent</code> returns a handle to the original parent dataset or dataview
             from which this selection was created.
 
     %h4 Synchronization
@@ -152,4 +152,4 @@
 
     %a{ :href => '/dataset/tutorials/events', :style => 'float:right;' }
       %h2
-        Syncronization & Events &raquo;     
+        Syncronization & Events &raquo;
