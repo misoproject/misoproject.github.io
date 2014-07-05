@@ -44,7 +44,7 @@ check_working_dir:
 
 .PHONY: deploy
 deploy: check_working_dir clean build
-	git checkout -B gh-pages
+	git checkout -B master
 	# Keep untracked files and .gitignore
 	git ls-files -z * | xargs -0 git rm
 	mv site/* .
