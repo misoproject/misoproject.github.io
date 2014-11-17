@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+  <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+  <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src='http://use.typekit.com/aow5drr.js' type='text/javascript'></script>
+    <script type='text/javascript'>
+      try{ Typekit.load(); } catch(e) {}
+    </script>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='The Miso Project' name='description' />
+    <meta content='The Miso Project' name='name' />
+    <meta content='width=device-width' name='viewport' />
+    <title>The Miso Project :: Storyboard :: API Reference</title>
+    <link href='/stylesheets/screen.css' rel='stylesheet' />
+    <link href='/stylesheets/codemirror.css' rel='stylesheet' />
+    
+  </head>
+  <body>
+    <nav>
+      <span class='miso'>
+        <a href='/'>
+          &larr; Miso Home
+        </a>
+      </span>
+      <span>
+        <a href='/storyboard'>
+          Home
+        </a>
+      </span>
+      <span>
+        <a href='/storyboard/tutorials.html'>
+          Tutorials
+        </a>
+      </span>
+      <span>
+        <a href='/storyboard/api/index.html'>
+          API Doc
+        </a>
+      </span>
+      <span>
+        <a href='http://www.github.com/misoproject/storyboard'>
+          Code (Github)
+        </a>
+      </span>
+    </nav>
+    <article class='api storyboard'>
+      <div class='api_wrapper'>
+        
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>/* global _ */
+(function(global, _) {
+
+  var Miso = global.Miso = (global.Miso || {});
+
+  /**
+   * Miso Events is a small set of methods that can be mixed into any object to
+   * make it evented. It allows one to then subscribe to specific object
+   * events, to publish events, unsubscribe and subscribeOnce.
+   *
+   * @namespace Events
+   * @memberof Miso
+   */
+  Miso.Events =
+    /** @lends Miso.Events */
+    {
+
+    /**
+     * Triggers a specific event and passes any additional arguments
+     * to the callbacks subscribed to that event.
+     *
+     * @param {String} name - the name of the event to trigger
+     * @param {...mixed} - any additional arguments to pass to callbacks.
+     */
+    publish : function(name) {
+      var args = _.toArray(arguments);
+      args.shift();
+
+      if (this._events &amp;&amp; this._events[name]) {
+        _.each(this._events[name], function(subscription) {
+          subscription.callback.apply(subscription.context || this, args);
+        }, this);
+      }
+      return this;
+    },
+
+    /**
+     * Allows subscribing on an evented object to a specific name.  Provide a
+     * callback to trigger.
+     *
+     * @param {String} name - event to subscribe to
+     * @param {Function} callback - callback to trigger
+     * @param {Object} [options]
+     * @param {Number} [options.priority] - allows rearranging of existing
+     *                                      callbacks based on priority
+     * @param {Object} [options.context] - allows attaching diff context to
+     *                                     callback
+     * @param {String} [options.token] - allows callback identification by
+     *                                   token.
+     */
+    subscribe : function(name, callback, options) {
+      options = options || {};
+      this._events = this._events || {};
+      this._events[name] = this._events[name] || [];
+
+      var subscription = {
+        callback : callback,
+        priority : options.priority || 0,
+        token : options.token || _.uniqueId("t"),
+        context : options.context || this
+      };
+      var position;
+      _.each(this._events[name], function(event, index) {
+        if (!_.isUndefined(position)) { return; }
+        if (event.priority &lt;= subscription.priority) {
+          position = index;
+        }
+      });
+
+      this._events[name].splice(position, 0, subscription);
+      return subscription.token;
+    },
+
+    /**
+     * Allows subscribing to an event once. When the event is triggered this
+     * subscription will be removed.
+     *
+     * @param {String} name - name of event
+     * @param {Function}  callback - The callback to trigger
+     */
+    subscribeOnce : function(name, callback) {
+      this._events = this._events || {};
+      var token = _.uniqueId("t");
+      return this.subscribe(name, function() {
+        this.unsubscribe(name, { token : token });
+        callback.apply(this, arguments);
+      }, this, token);
+    },
+
+    /**
+     * Allows unsubscribing from a specific event
+     *
+     * @param {String} name - event to unsubscribe from
+     * @param {Function|String} identifier - callback to remove OR token.
+     */
+    unsubscribe : function(name, identifier) {
+
+      if (_.isUndefined(this._events[name])) { return this; }
+
+      if (_.isFunction(identifier)) {
+        this._events[name] = _.reject(this._events[name], function(b) {
+          return b.callback === identifier;
+        });
+
+      } else if ( _.isString(identifier)) {
+        this._events[name] = _.reject(this._events[name], function(b) {
+          return b.token === identifier;
+        });
+
+      } else {
+        this._events[name] = [];
+      }
+      return this;
+    }
+
+  };
+
+}(this, _));
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+      </div>
+      <div class='nav_wrapper'>
+        <div class='nav'>
+          <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Miso.Storyboard.html">Miso.Storyboard</a><ul><li><a href="Miso.Storyboard.html#attach">attach</a></li><li><a href="Miso.Storyboard.html#cancelTransition">cancelTransition</a></li><li><a href="Miso.Storyboard.html#clone">clone</a></li><li><a href="Miso.Storyboard.html#inTransition">inTransition</a></li><li><a href="Miso.Storyboard.html#is">is</a></li><li><a href="Miso.Storyboard.html#scene">scene</a></li><li><a href="Miso.Storyboard.html#setContext">setContext</a></li><li><a href="Miso.Storyboard.html#start">start</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="Miso.Events.html">Events</a></li></ul>
+        </div>
+      </div>
+    </article>
+    <footer>
+      <div class='container'>
+        <section>
+          <h2>
+            A joint project between
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/profile/guardian-interactive-department'>
+              <img alt="Guardian" src="/images/guardian.png"/>
+            </a>
+            <a href='http://www.bocoup.com'>
+              <img alt="Bocoup horizontal 614" src="/images/bocoup-horizontal-614.gif"/>
+            </a>
+          </div>
+        </section>
+        <section>
+          <h2>
+            Supported by
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/development'>
+              <img alt="Global dev" src="/images/global-dev.png"/>
+            </a>
+            <a href='http://www.gatesfoundation.org/'>
+              <img alt="Gates" src="/images/gates.png"/>
+            </a>
+          </div>
+        </section>
+      </div>
+    </footer>
+    <script src='/js/jquery.min.js'></script>
+    <script src='/js/nav.js'></script>
+    <script src='/js/miso.storyboard.deps.js'></script>
+    <script src='/js/bootstrap/transition.js'></script>
+    <script src='/js/bootstrap/collapse.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30531498-1']);
+      _gaq.push(['_setDomainName', 'misoproject.com']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>

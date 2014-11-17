@@ -1,0 +1,2623 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+  <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+  <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src='http://use.typekit.com/aow5drr.js' type='text/javascript'></script>
+    <script type='text/javascript'>
+      try{ Typekit.load(); } catch(e) {}
+    </script>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='The Miso Project' name='description' />
+    <meta content='The Miso Project' name='name' />
+    <meta content='width=device-width' name='viewport' />
+    <title>The Miso Project :: d3.chart :: API Reference</title>
+    <link href='/stylesheets/screen.css' rel='stylesheet' />
+    <link href='/stylesheets/codemirror.css' rel='stylesheet' />
+    
+  </head>
+  <body>
+    <nav>
+      <span class='miso'>
+        <a href='/'>
+          &larr; Miso Home
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart'>
+          Home
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart/examples.html'>
+          Examples
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart/tutorials.html'>
+          Tutorials
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart/api/index.html'>
+          API Doc
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart/charts.html'>
+          Charts
+        </a>
+      </span>
+      <span>
+        <a href='http://www.github.com/misoproject/d3.chart'>
+          Code (Github)
+        </a>
+      </span>
+    </nav>
+    <article class='api d3-chart'>
+      <div class='api_wrapper'>
+        
+
+
+
+<section>
+
+<header>
+    <h2>
+    Chart
+    </h2>
+    
+</header>
+
+    <div class="container-overview">
+    
+
+    
+        
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="Chart">
+      <span class="type-signature"></span>new Chart
+      ( selection, chartOptions )
+    </h3>
+    <span class="returns">
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Create a d3.chart</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">d3.chart("CircleChart", {
+  initialize: function() {
+    log("Hi! I'm a chart");
+  }
+});
+
+var chart = d3.select(output)
+  .chart("CircleChart");
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>selection</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type"><a href="d3.selection.html">d3.selection</a></span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>The chart's &quot;base&quot; DOM node. This should
+       contain any nodes that the chart generates.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>chartOptions</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">mixed</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>A value for controlling how the chart should be
+       created. This value will be forwarded to <a href="Chart.html#initialize">Chart#initialize</a>, so
+       charts may define additional properties for consumers to modify their
+       behavior during initialization. The following attributes will be
+       copied onto the chart instance (if present):</p>
+                <h6>Properties</h6>
+                
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>transform</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">function</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>A data transformation function
+       unique to the Chart instance being created. If specified, this
+       function will be invoked after all inherited implementations as part
+       of the <code>Chart#draw</code> operation.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>demux</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">function</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>A data filtering function for
+       attachment charts. If specified, this function will be invoked with
+       every <a href="Chart.html#draw">draw</a> operation and provided with two
+       arguments: the attachment name (see <a href="Chart.html#attach">Chart#attach</a>) and the
+       data.</p></div>
+        </li>
+
+	
+</ul>
+
+            </div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js">chart.js</a>, <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js#L98">line 98</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="extend">
+      <span class="type-signature">&lt;static> </span>extend
+      ( name, protoProps, staticProps )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object">function
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Create a new <a href="Chart.html">Chart</a> constructor with the provided options acting as
+&quot;overrides&quot; for the default chart instance methods. Allows for basic
+inheritance so that new chart constructors may be defined in terms of
+existing chart constructors. Based on the <code>extend</code> function defined by
+<a href="http://backbonejs.org/">Backbone.js</a>.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">d3.chart("CircleChart", {
+  initialize: function() {
+    log("Hi! I'm a chart");
+  }
+});
+
+d3.chart("CircleChart").extend("OtherCircleChart", {
+  initialize: function() {
+    log("I am a circle chart based on the one above!");
+  }
+});
+
+var chart = d3.select(output)
+  .chart("OtherCircleChart");
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>name</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Identifier for the new Chart constructor.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>protoProps</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Properties to set on the new chart's prototype.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>staticProps</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Properties to set on the chart constructor
+       itself.</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>A new Chart constructor</p>
+</div>
+
+
+
+Type: 
+<span class="param-type">function</span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js">chart.js</a>, <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js#L429">line 429</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="attach">
+      <span class="type-signature"></span>attach
+      ( attachmentName, <span class="optional">chart</span> )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Chart.html">Chart</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Register or retrieve an &quot;attachment&quot; Chart. The &quot;attachment&quot; chart's <code>draw</code>
+method will be invoked whenever the containing chart's <code>draw</code> method is
+invoked.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" showConsole="false" buttons="none"' autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">d3.chart("PieBars", {
+  initialize: function() {
+    var barchart = this.base.append("svg")
+      .chart("BarChart");
+
+    var piechart = this.base.append("svg")
+      .chart("PieChart")
+      .radius(10);
+
+    this.attach("bars", barchart);
+    this.attach("piechart", piechart);
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>attachmentName</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Name of the attachment</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>chart</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type"><a href="Chart.html">Chart</a></span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>d3.chart to register as a mix in of this chart. When
+       unspecified, this method will return the attachment previously
+       registered with the specified <code>attachmentName</code> (if any).</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>Reference to this chart (chainable).</p>
+</div>
+
+
+
+Type: 
+<span class="param-type"><a href="Chart.html">Chart</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js">chart.js</a>, <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js#L213">line 213</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="draw">
+      <span class="type-signature"></span>draw
+      ( data )
+    </h3>
+    <span class="returns">
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Update the chart's representation in the DOM, drawing all of its layers and
+any &quot;attachment&quot; charts (as attached via <a href="Chart.html#attach">Chart#attach</a>).</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" showConsole="false" buttons="none"' autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">// assume previously defined d3.chart called
+// CircleChart
+
+// create an instance of the chart on a d3 selection
+var chart = d3.select(output)
+  .append("svg")
+  .attr("height", 30)
+  .attr("width", 400)
+  .chart("CircleChart");
+
+// render it with some data
+chart.draw([1,4,6,9,12,13,30]);
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>data</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Data to pass to the <a href="Layer.html#draw">draw method</a> of
+       this cart's <a href="Layer.html">layers</a> (if any) and the <a href="Chart.html#draw">draw method</a> of this chart's attachments (if any).</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js">chart.js</a>, <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js#L252">line 252</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="initialize">
+      <span class="type-signature"></span>initialize
+      (  )
+    </h3>
+    <span class="returns">
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Set up a chart instance. This method is intended to be overridden by Charts
+authored with this library. It will be invoked with a single argument: the
+<code>options</code> value supplied to the <a href="Chart.html">constructor</a>.</p>
+<p>For charts that are defined as extensions of other charts using
+<code>Chart.extend</code>, each chart's <code>initilize</code> method will be invoked starting
+with the &quot;oldest&quot; ancestor (see the private initCascade function for
+more details).</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js">chart.js</a>, <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js#L121">line 121</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="layer">
+      <span class="type-signature"></span>layer
+      ( name, <span class="optional">selection</span>, <span class="optional">options</span> )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Layer.html">Layer</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Interact with the chart's <a href="Layer.html">layers</a>.</p>
+<p>If only a <code>name</code> is provided, simply return the layer registered to that
+name (if any).</p>
+<p>If a <code>name</code> and <code>selection</code> are provided, treat the <code>selection</code> as a
+previously-created layer and attach it to the chart with the specified
+<code>name</code>.</p>
+<p>If all three arguments are specified, initialize a new <a href="Layer.html">Layer</a> using
+the specified <code>selection</code> as a base passing along the specified <code>options</code>.</p>
+<p>The Layer.draw method of attached layers will be invoked
+whenever this chart's <a href="Chart.html#draw">Chart#draw</a> is invoked and will receive the
+data (optionally modified by the chart's <a href="Chart.html#transform">Chart#transform</a> method.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" showConsole="false" buttons="none"' autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">d3.chart("CircleChart", {
+  initialize: function() {
+    // add a circles layer
+    var circleLayer = this.unlayer("circles");
+
+    // reattach layer
+    this.layer("circles", circleLayer);
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>name</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Name of the layer to attach or retrieve.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>selection</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type"><a href="d3.selection.html">d3.selection</a></span>
+|
+
+<span class="param-type"><a href="Layer.html">Layer</a></span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>The layer's base or a
+       previously-created <a href="Layer.html">Layer</a>.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>options</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Options to be forwarded to <a href="Layer.html">the Layer        constructor</a></p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type"><a href="Layer.html">Layer</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js">chart.js</a>, <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js#L168">line 168</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="off">
+      <span class="type-signature"></span>off
+      ( <span class="optional">name</span>, <span class="optional">callback</span>, <span class="optional">context</span> )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Chart.html">Chart</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Unsubscribe one or more callback functions from an event triggered on the
+chart. When no arguments are specified, <em>all</em> handlers will be unsubscribed.
+When only a <code>name</code> is specified, all handlers subscribed to that event will
+be unsubscribed. When a <code>name</code> and <code>callback</code> are specified, only that
+function will be unsubscribed from that event. When a <code>name</code> and <code>context</code>
+are specified (but <code>callback</code> is omitted), all events bound to the given
+event with the given context will be unsubscribed.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">d3.chart("CircleChart", {
+  initialize: function() {
+
+  },
+  action: function() {
+    this.trigger("acted", "action executed!");
+  }
+});
+
+var chart = d3.select(output)
+  .chart("CircleChart");
+
+chart.on("acted", function(message){
+  log(message);
+});
+
+// will trigger
+chart.action();
+
+chart.off();
+
+// won't trigger
+chart.action();
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>name</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Name of the event to be unsubscribed</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>callback</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type"><a href="global.html#ChartEventHandler">ChartEventHandler</a></span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Function to be unsubscribed</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>context</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Contexts to be unsubscribe</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>A reference to this chart (chainable).</p>
+</div>
+
+
+
+Type: 
+<span class="param-type"><a href="Chart.html">Chart</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js">chart.js</a>, <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js#L347">line 347</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="on">
+      <span class="type-signature"></span>on
+      ( name, callback, <span class="optional">context</span> )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Chart.html">Chart</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Subscribe a callback function to an event triggered on the chart. See <a href="Chart.html#once">Chart#once</a> to subscribe a callback function to an event for one occurence.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">d3.chart("CircleChart", {
+  initialize: function() {
+  },
+  action: function() {
+    this.trigger("acted", "action executed!");
+  }
+});
+
+var chart = d3.select(output)
+  .chart("CircleChart");
+
+chart.on("acted", function(message){
+  log(message);
+});
+
+chart.action();
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>name</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Name of the event</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>callback</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type"><a href="global.html#ChartEventHandler">ChartEventHandler</a></span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Function to be invoked when the event
+       occurs</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>context</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Value to set as <code>this</code> when invoking the
+       <code>callback</code>. Defaults to the chart instance.</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>A reference to this chart (chainable).</p>
+</div>
+
+
+
+Type: 
+<span class="param-type"><a href="Chart.html">Chart</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js">chart.js</a>, <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js#L295">line 295</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="once">
+      <span class="type-signature"></span>once
+      ( name, callback, <span class="optional">context</span> )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Chart.html">Chart</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Subscribe a callback function to an event triggered on the chart. This
+function will be invoked at the next occurance of the event and immediately
+unsubscribed. See <a href="Chart.html#on">Chart#on</a> to subscribe a callback function to an
+event indefinitely.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">d3.chart("CircleChart", {
+  initialize: function() {
+
+  },
+  action: function() {
+    this.trigger("acted", "action executed!");
+  }
+});
+
+var chart = d3.select(output)
+  .chart("CircleChart");
+
+chart.once("acted", function(message){
+  log(message);
+});
+
+// will only call the above callback once even
+// though we will trigger twice
+chart.action();
+chart.action();
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>name</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Name of the event</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>callback</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type"><a href="global.html#ChartEventHandler">ChartEventHandler</a></span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Function to be invoked when the event
+       occurs</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>context</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Value to set as <code>this</code> when invoking the
+       <code>callback</code>. Defaults to the chart instance</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>A reference to this chart (chainable)</p>
+</div>
+
+
+
+Type: 
+<span class="param-type"><a href="Chart.html">Chart</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js">chart.js</a>, <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js#L321">line 321</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="transform">
+      <span class="type-signature"></span>transform
+      ( data )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object">mixed
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>A &quot;hook&quot; method that you may define to modify input data before it is used
+to draw the chart's layers and attachments. This method will be used by all
+sub-classes (see transformCascade for details).</p>
+<p>Note you will most likely never call this method directly, but rather
+include it as part of a chart definition, and then rely on d3.chart to
+invoke it when you draw the chart with <a href="Chart.html#draw">Chart#draw</a>.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">d3.chart("CircleChart", {
+  initialize: function() {
+    // assume we create layers and such here.
+  },
+  transform: function(data) {
+    // assume we recieve an object that has 
+    // the data array under a values property like so:
+    // { values: [...] }
+    return data.values;
+  }
+});
+
+var chart = d3.select(output)
+  .append("svg")
+  .attr("height", 30)
+  .attr("width", 400)
+  .chart("CircleChart");
+
+// render it with some data
+log(chart.transform({ values: [1,4,6,9,12,13,30]}));
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>data</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Array</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Input data provided to @link Chart#draw}.</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>Data to be used in drawing the chart's layers and
+                 attachments.</p>
+</div>
+
+
+
+Type: 
+<span class="param-type">mixed</span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js">chart.js</a>, <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js#L238">line 238</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="trigger">
+      <span class="type-signature"></span>trigger
+      ( name, arguments )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Chart.html">Chart</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Publish an event on this chart with the given <code>name</code>.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">d3.chart("CircleChart", {
+  initialize: function() {
+
+  },
+  action: function() {
+    this.trigger("acted", "action executed!");
+  }
+});
+
+var chart = d3.select(output)
+  .chart("CircleChart");
+
+chart.on("acted", function(message){
+  log(message);
+});
+
+chart.action();
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>name</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Name of the event to publish</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>arguments</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">*</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+                  &lt;repeatable><br>
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Values with which to invoke the registered
+       callbacks.</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>A reference to this chart (chainable).</p>
+</div>
+
+
+
+Type: 
+<span class="param-type"><a href="Chart.html">Chart</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js">chart.js</a>, <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js#L397">line 397</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="unlayer">
+      <span class="type-signature"></span>unlayer
+      ( name )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Layer.html">Layer</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Remove a layer from the chart.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" showConsole="false" buttons="none"' autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">d3.chart("CircleChart", {
+  initialize: function() {
+    // add a circles layer
+    var circleLayer = this.unlayer("circles");
+
+    // reattach layer
+    this.layer("circles", circleLayer);
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>name</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>The name of the layer to remove.</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>The layer removed by this operation.</p>
+</div>
+
+
+
+Type: 
+<span class="param-type"><a href="Layer.html">Layer</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js">chart.js</a>, <a href="https://github.com/misoproject/d3.chart/blob/290aef776d6c7f0bf199f51bb6ef4505f844067e/src/chart.js#L132">line 132</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+    
+
+    
+
+    
+
+</section>
+
+
+
+
+      </div>
+      <div class='nav_wrapper'>
+        <div class='nav'>
+          <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Chart.html">Chart</a><ul><li><a href="Chart.html#extend">extend</a></li><li><a href="Chart.html#attach">attach</a></li><li><a href="Chart.html#draw">draw</a></li><li><a href="Chart.html#initialize">initialize</a></li><li><a href="Chart.html#layer">layer</a></li><li><a href="Chart.html#off">off</a></li><li><a href="Chart.html#on">on</a></li><li><a href="Chart.html#once">once</a></li><li><a href="Chart.html#transform">transform</a></li><li><a href="Chart.html#trigger">trigger</a></li><li><a href="Chart.html#unlayer">unlayer</a></li></ul></li><li><a href="d3.selection.html">d3.selection</a><ul><li><a href="d3.selection.html#chart">chart</a></li><li><a href="d3.selection.html#layer">layer</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="d3.html">d3</a></li></ul><h3><a href="global.html">Global</a></h3>
+        </div>
+      </div>
+    </article>
+    <footer>
+      <div class='container'>
+        <section>
+          <h2>
+            A joint project between
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/profile/guardian-interactive-department'>
+              <img alt="Guardian" src="/images/guardian.png"/>
+            </a>
+            <a href='http://www.bocoup.com'>
+              <img alt="Bocoup horizontal 614" src="/images/bocoup-horizontal-614.gif"/>
+            </a>
+          </div>
+        </section>
+        <section>
+          <h2>
+            Formally supported by
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/development'>
+              <img alt="Global dev" src="/images/global-dev.png"/>
+            </a>
+            <a href='http://www.gatesfoundation.org/'>
+              <img alt="Gates" src="/images/gates.png"/>
+            </a>
+          </div>
+        </section>
+      </div>
+    </footer>
+    <script src='/js/jquery.min.js'></script>
+    <script src='/js/nav.js'></script>
+    <script src='/js/lodash.js'></script>
+    <script src='/js/underscore.deferred.js'></script>
+    <script charset='utf-8' src='/js/d3/d3.v3.min.js'></script>
+    <script src='/js/d3.chart.js'></script>
+    <script src='/js/bootstrap/transition.js'></script>
+    <script src='/js/bootstrap/collapse.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30531498-1']);
+      _gaq.push(['_setDomainName', 'misoproject.com']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>

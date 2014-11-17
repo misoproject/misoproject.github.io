@@ -1,0 +1,1181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+  <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+  <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src='http://use.typekit.com/aow5drr.js' type='text/javascript'></script>
+    <script type='text/javascript'>
+      try{ Typekit.load(); } catch(e) {}
+    </script>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='The Miso Project' name='description' />
+    <meta content='The Miso Project' name='name' />
+    <meta content='width=device-width' name='viewport' />
+    <title>The Miso Project :: Storyboard :: API Reference</title>
+    <link href='/stylesheets/screen.css' rel='stylesheet' />
+    <link href='/stylesheets/codemirror.css' rel='stylesheet' />
+    
+  </head>
+  <body>
+    <nav>
+      <span class='miso'>
+        <a href='/'>
+          &larr; Miso Home
+        </a>
+      </span>
+      <span>
+        <a href='/storyboard'>
+          Home
+        </a>
+      </span>
+      <span>
+        <a href='/storyboard/tutorials.html'>
+          Tutorials
+        </a>
+      </span>
+      <span>
+        <a href='/storyboard/api/index.html'>
+          API Doc
+        </a>
+      </span>
+      <span>
+        <a href='http://www.github.com/misoproject/storyboard'>
+          Code (Github)
+        </a>
+      </span>
+    </nav>
+    <article class='api storyboard'>
+      <div class='api_wrapper'>
+        
+
+
+
+<section>
+
+<header>
+    <h2>
+    Storyboard
+    </h2>
+    
+</header>
+
+    <div class="container-overview">
+    
+
+    
+        
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="Storyboard">
+      <span class="type-signature"></span>new Storyboard
+      ( <span class="optional">options</span> )
+    </h3>
+    <span class="returns">
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Creates a new storyboard.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>options</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last">
+                <h6>Properties</h6>
+                
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>context</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Set a different context for the
+                                    storyboard.  by default it's the scene
+                                    that is being executed.</p></div>
+        </li>
+
+	
+</ul>
+
+            </div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/storyboard/blob/9340367511c86495c538c02170433d7fca6b6f86/src/storyboard.js">storyboard.js</a>, <a href="https://github.com/misoproject/storyboard/blob/9340367511c86495c538c02170433d7fca6b6f86/src/storyboard.js#L10">line 10</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="attach">
+      <span class="type-signature"></span>attach
+      ( name, parent )
+    </h3>
+    <span class="returns">
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Attach a new scene to an existing storyboard.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>name</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>The name of the scene</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>parent</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type"><a href="Miso.Storyboard.html">Miso.Storyboard</a></span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>The storyboard to attach this current
+                                  scene to.</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/storyboard/blob/9340367511c86495c538c02170433d7fca6b6f86/src/storyboard.js">storyboard.js</a>, <a href="https://github.com/misoproject/storyboard/blob/9340367511c86495c538c02170433d7fca6b6f86/src/storyboard.js#L147">line 147</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="cancelTransition">
+      <span class="type-signature"></span>cancelTransition
+      (  )
+    </h3>
+    <span class="returns">
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Cancels a transition in action. This doesn't actually kill the function
+that is currently in play! It does reject the deferred one was awaiting
+from that transition.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/storyboard/blob/9340367511c86495c538c02170433d7fca6b6f86/src/storyboard.js">storyboard.js</a>, <a href="https://github.com/misoproject/storyboard/blob/9340367511c86495c538c02170433d7fca6b6f86/src/storyboard.js#L186">line 186</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="clone">
+      <span class="type-signature"></span>clone
+      (  )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Miso.Storyboard.html">Miso.Storyboard</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Allows for cloning of a storyboard</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type"><a href="Miso.Storyboard.html">Miso.Storyboard</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/storyboard/blob/9340367511c86495c538c02170433d7fca6b6f86/src/storyboard.js">storyboard.js</a>, <a href="https://github.com/misoproject/storyboard/blob/9340367511c86495c538c02170433d7fca6b6f86/src/storyboard.js#L126">line 126</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="inTransition">
+      <span class="type-signature"></span>inTransition
+      (  )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object">Boolean
+      
+    </span>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>true if storyboard is in the middle of a transition.</p>
+</div>
+
+
+
+Type: 
+<span class="param-type">Boolean</span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/storyboard/blob/9340367511c86495c538c02170433d7fca6b6f86/src/storyboard.js">storyboard.js</a>, <a href="https://github.com/misoproject/storyboard/blob/9340367511c86495c538c02170433d7fca6b6f86/src/storyboard.js#L215">line 215</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="is">
+      <span class="type-signature"></span>is
+      ( scene )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object">Boolean
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Checks if the current scene is of a specific name.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>scene</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>scene to check as to whether it is the current
+                        scene</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>true if it is, false otherwise.</p>
+</div>
+
+
+
+Type: 
+<span class="param-type">Boolean</span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/storyboard/blob/9340367511c86495c538c02170433d7fca6b6f86/src/storyboard.js">storyboard.js</a>, <a href="https://github.com/misoproject/storyboard/blob/9340367511c86495c538c02170433d7fca6b6f86/src/storyboard.js#L208">line 208</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="scene">
+      <span class="type-signature"></span>scene
+      (  )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object">String|null
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Returns the current scene.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>current scene name</p>
+</div>
+
+
+
+Type: 
+<span class="param-type">String</span>
+|
+
+<span class="param-type">null</span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/storyboard/blob/9340367511c86495c538c02170433d7fca6b6f86/src/storyboard.js">storyboard.js</a>, <a href="https://github.com/misoproject/storyboard/blob/9340367511c86495c538c02170433d7fca6b6f86/src/storyboard.js#L196">line 196</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="setContext">
+      <span class="type-signature"></span>setContext
+      (  )
+    </h3>
+    <span class="returns">
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Allows the changing of context. This will alter what &quot;this&quot; will be set
+to inside the transition methods.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/storyboard/blob/9340367511c86495c538c02170433d7fca6b6f86/src/storyboard.js">storyboard.js</a>, <a href="https://github.com/misoproject/storyboard/blob/9340367511c86495c538c02170433d7fca6b6f86/src/storyboard.js#L223">line 223</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="start">
+      <span class="type-signature"></span>start
+      (  )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object">Deferred
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Instruct a storyboard to kick off its initial scene.
+If the initial scene is asynchronous, you will need to define a .then
+callback to wait on the start scene to end its enter transition.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type">Deferred</span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/storyboard/blob/9340367511c86495c538c02170433d7fca6b6f86/src/storyboard.js">storyboard.js</a>, <a href="https://github.com/misoproject/storyboard/blob/9340367511c86495c538c02170433d7fca6b6f86/src/storyboard.js#L172">line 172</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+    
+
+    
+
+    
+
+</section>
+
+
+
+
+      </div>
+      <div class='nav_wrapper'>
+        <div class='nav'>
+          <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Miso.Storyboard.html">Miso.Storyboard</a><ul><li><a href="Miso.Storyboard.html#attach">attach</a></li><li><a href="Miso.Storyboard.html#cancelTransition">cancelTransition</a></li><li><a href="Miso.Storyboard.html#clone">clone</a></li><li><a href="Miso.Storyboard.html#inTransition">inTransition</a></li><li><a href="Miso.Storyboard.html#is">is</a></li><li><a href="Miso.Storyboard.html#scene">scene</a></li><li><a href="Miso.Storyboard.html#setContext">setContext</a></li><li><a href="Miso.Storyboard.html#start">start</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="Miso.Events.html">Events</a></li></ul>
+        </div>
+      </div>
+    </article>
+    <footer>
+      <div class='container'>
+        <section>
+          <h2>
+            A joint project between
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/profile/guardian-interactive-department'>
+              <img alt="Guardian" src="/images/guardian.png"/>
+            </a>
+            <a href='http://www.bocoup.com'>
+              <img alt="Bocoup horizontal 614" src="/images/bocoup-horizontal-614.gif"/>
+            </a>
+          </div>
+        </section>
+        <section>
+          <h2>
+            Supported by
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/development'>
+              <img alt="Global dev" src="/images/global-dev.png"/>
+            </a>
+            <a href='http://www.gatesfoundation.org/'>
+              <img alt="Gates" src="/images/gates.png"/>
+            </a>
+          </div>
+        </section>
+      </div>
+    </footer>
+    <script src='/js/jquery.min.js'></script>
+    <script src='/js/nav.js'></script>
+    <script src='/js/miso.storyboard.deps.js'></script>
+    <script src='/js/bootstrap/transition.js'></script>
+    <script src='/js/bootstrap/collapse.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30531498-1']);
+      _gaq.push(['_setDomainName', 'misoproject.com']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>

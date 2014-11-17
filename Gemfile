@@ -1,6 +1,0 @@
-source 'https://rubygems.org'
-gem 'haml', '3.1.7'
-gem 'compass', '0.11.7'
-gem 'chunky_png', '1.3.0'
-gem 'sass', '3.2.14'
-gem 'staticmatic', '0.11.1'

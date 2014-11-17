@@ -1,0 +1,6680 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+  <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+  <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src='http://use.typekit.com/aow5drr.js' type='text/javascript'></script>
+    <script type='text/javascript'>
+      try{ Typekit.load(); } catch(e) {}
+    </script>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='The Miso Project' name='description' />
+    <meta content='The Miso Project' name='name' />
+    <meta content='width=device-width' name='viewport' />
+    <title>The Miso Project :: Dataset :: API Reference</title>
+    <link href='/stylesheets/screen.css' rel='stylesheet' />
+    <link href='/stylesheets/codemirror.css' rel='stylesheet' />
+    
+  </head>
+  <body>
+    <nav>
+      <span class='miso'>
+        <a href='/'>
+          &larr; Miso Home
+        </a>
+      </span>
+      <span>
+        <a href='/dataset'>
+          Home
+        </a>
+      </span>
+      <span>
+        <a href='/dataset/examples.html'>
+          Examples
+        </a>
+      </span>
+      <span>
+        <a href='/dataset/tutorials.html'>
+          Tutorials
+        </a>
+      </span>
+      <span>
+        <a href='/dataset/api/index.html'>
+          API Doc
+        </a>
+      </span>
+      <span>
+        <a href='/dataset/extensions.html'>
+          Extensions
+        </a>
+      </span>
+      <span>
+        <a href='http://www.github.com/misoproject/dataset'>
+          Code (Github)
+        </a>
+      </span>
+    </nav>
+    <article class='api dataset'>
+      <div class='api_wrapper'>
+        
+
+
+
+<section>
+
+<header>
+    <h2>
+        <span class="ancestors"><a href="Miso.html">Miso</a>.</span>
+    
+    Dataset
+    </h2>
+    
+</header>
+
+    <div class="container-overview">
+    
+
+    
+        
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="Dataset">
+      <span class="type-signature"></span>new Dataset
+      ( <span class="optional">options</span> )
+    </h3>
+    <span class="returns">
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Miso.Dataset is the main object you will instantiate to create a new
+dataset. A <code>Miso.Dataset</code> also extends from <a href="Miso.Dataset.DataView.html">Miso.Dataset.DataView</a>.
+All the methods available on a <a href="Miso.Dataset.DataView.html">Miso.Dataset.DataView</a> will also be
+available on the dataset.</p>
+<p>See <a href="http://misoproject.com/dataset/tutorials/creating">the creating datasets
+guide</a> for detailed
+information.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 }
+  ]
+});
+
+var ds2 = new Miso.Dataset({
+  url: '/data/simple.json'
+});
+
+log( ds instanceof Miso.Dataset );
+log( ds2 instanceof Miso.Dataset );
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>options</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>optional parameters.</p>
+                <h6>Properties</h6>
+                
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>data</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>an actual javascript object that already
+                                  contains the data</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>url</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+|
+
+<span class="param-type">function</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>The url of a remote file or a
+                                       function returning a string for a
+                                       url containing your data, used for
+                                       remote importers</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>sync</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Boolean</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Set to true to be able to bind to dataset
+                                changes. False by default. See <a href="http://misoproject.com/dataset/dataset/tutorials/events">the
+                                Syncronization &amp; Events
+                                guide</a>
+                                for detailed information</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>callback</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>By default, If making a jsonp request,
+                                   you can use this parameter to specify
+                                   an alternate callback function name
+                                   than the one that would be auto
+                                   generated for you.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>jsonp</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Boolean</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Whether a remote request should use jsonp
+                                 to enable cross-domain requests.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>delimiter</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>When using the                                     Delimeted parser this is used to set
+                                    a custom field delimiter such as
+                                    <code>delimiter: '||'</code> for CSV files such
+                                    as <code>value1||value2</code></p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>strict</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Boolean</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Whether to expect the json in our format
+                                  or whether to interpret as raw array of
+                                  objects; shorthand for using the Strict                                   parser; default <code>false</code></p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>extract</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">function</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>function used to pre-process raw data,
+                                    see <a href="http://misoproject.com/dataset/dataset/tutorials/creating">the creating a dataset
+                                    guide</a>
+                                    for more information.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>ready</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">function</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>the callback function to act on once the
+                                  data is fetched. Isn't reuired for local
+                                  imports but is required for remote url
+                                  fetching.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>columns</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Array</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>A way to manually override column type
+                                 detection. Expects an array of objects of
+                                 the following structure: <code>{ name :
+                                 'columnname', type: 'columntype', ...
+                                 (additional params required for type
+                                 here.) }</code></p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>comparator</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">function</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>A function to sort the data by. It
+                                       will be sorted on fetch and on any
+                                       successive addition. See <a href="Miso.Dataset.DataView.html#sort">the sort                                        function</a> for more information.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>deferred</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">function</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>by default we use
+                                     underscore.deferred, but if you want
+                                     to pass your own (like jquery's) just
+                                     pass it here.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>importer</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>The classname of any importer (passes
+                                   through auto detection based on
+                                   parameters). For example:
+                                   <code>Miso.Importers.Polling</code>. See <a href="http://misoproject.com/dataset/dataset/tutorials/creating">the
+                                   Creating a dataset
+                                   guide</a>
+                                   for more information.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>parser</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>The classname of any parser (passes
+                                 through auto detection based on
+                                 parameters). For example:
+                                 <code>Miso.Parsers.Delimited</code>. See <a href="http://misoproject.com/dataset/dataset/tutorials/creating">the
+                                 Creating a dataset
+                                 guide</a>
+                                 for more information.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>resetOnFetch</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Boolean</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>set to true if any subsequent
+                                        fetches after first one should
+                                        overwrite the current data.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>uniqueAgainst</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Set to a column name to check for
+                                        duplication on subsequent fetches.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>interval</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Number</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Polling interval. Set to any value in
+                                   milliseconds to enable polling on a
+                                   url.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>idAttribute</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>By default all ids are stored in a
+                                      column called '_id'. If there is an
+                                      alternate column in the dataset that
+                                      already includes a unique
+                                      identifier, specify its name here.
+                                      Note that the row objects will no
+                                      longer have an _id property.</p></div>
+        </li>
+
+	
+</ul>
+
+            </div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/constructor.js">constructor.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/constructor.js#L8">line 8</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        <ul>
+            <li><a href="Miso.Dataset.DataView.html">Miso.Dataset.DataView</a></li>
+        </ul>
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="Miso.Dataset.Column.html">Column</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Miso.Dataset.DataView.html">DataView</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Miso.Dataset.Derived.html">Derived</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Miso.Dataset.Event.html">Event</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Miso.Dataset.Importers.html">Importers</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Miso.Dataset.Parsers.html">Parsers</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Miso.Dataset.Product.html">Product</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+    
+        <h3 class="subsection-title">Namespaces</h3>
+
+        <dl>
+            <dt><a href="namespaces.html#Miso.Dataset.Builder"><a href="Miso.Dataset.Builder.html">Builder</a></a></dt>
+            <dd></dd>
+        
+            <dt><a href="namespaces.html#Miso.Dataset.types"><a href="Miso.Dataset.types.html">types</a></a></dt>
+            <dd></dd>
+        </dl>
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="name" id="typeOf"><span class="type-signature">&lt;static> </span>typeOf<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Tests the type of a given input against the registered Miso types and
+returns the closest match.</p>
+    </div>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/types.js">types.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/types.js#L5">line 5</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="add">
+      <span class="type-signature"></span>add
+      ( rows, <span class="optional">options</span> )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Miso.Dataset.html">Miso.Dataset</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Add a row to the dataset. Triggers <code>add</code> and <code>change</code> events on a
+syncable dataset.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 }
+  ]
+});
+ds.fetch({
+  success: function() {
+    this.add({ one: 44, two: 9 });
+    log( this.column('two').data );
+    log( this.column('three').data );
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>rows</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>an object representing a row</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>options</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last">
+                <h6>Properties</h6>
+                
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>silent</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Boolean</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>do not trigger an add (and thus view
+                                  updates) event</p></div>
+        </li>
+
+	
+</ul>
+
+            </div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type"><a href="Miso.Dataset.html">Miso.Dataset</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/dataset.js">dataset.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/dataset.js#L479">line 479</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="addColumn">
+      <span class="type-signature"></span>addColumn
+      ( column )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Miso.Dataset.Column.html">Miso.Dataset.Column</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Creates a new column and adds it to the dataset.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>column</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>a set of properties describing a <a href="Miso.Dataset.Column.html">Miso.Dataset.Column</a></p>
+                <h6>Properties</h6>
+                
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>name</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Column name</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>type</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>String name of column type</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>format</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Only used for columns of the type
+                                 <code>time</code>. The moment.js format describing
+                                 the input dates.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>_id</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Sets a custom column _id. We assign one
+                               by default.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>data</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Array</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Column data. By default, set to an empty
+                               array.</p></div>
+        </li>
+
+	
+</ul>
+
+            </div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type"><a href="Miso.Dataset.Column.html">Miso.Dataset.Column</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/dataset.js">dataset.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/dataset.js#L402">line 402</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="addColumns">
+      <span class="type-signature"></span>addColumns
+      (  )
+    </h3>
+    <span class="returns">
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Adds columns to the dataset.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/dataset.js">dataset.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/dataset.js#L332">line 332</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="addComputedColumn">
+      <span class="type-signature"></span>addComputedColumn
+      ( name, type, func )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Miso.Dataset.Column.html">Miso.Dataset.Column</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Creates a new column that is computationally derived from the rest of
+the row. See <a href="http://misoproject.com/dataset/tutorials/computed.html">the Computed columns
+tutorial</a> for
+more information.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 }
+  ]
+});
+ds.fetch({
+  success: function() {
+    this.addColumn({
+      type: 'string',
+      name: 'four'
+    });
+
+    log(this.columnNames());
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>name</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>name of new column</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>type</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>The type of the column based on existing</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>func</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">function</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>The way that the column is derived. It takes a
+                         row as a parameter.</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type"><a href="Miso.Dataset.Column.html">Miso.Dataset.Column</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/dataset.js">dataset.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/dataset.js#L353">line 353</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="column">
+      <span class="type-signature"></span>column
+      ( name )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Miso.Dataset.Column.html">Miso.Dataset.Column</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 }
+  ]
+});
+
+ds.fetch({
+  success: function() {
+    log(this.column('one').data);
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>name</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>name of the column to be selected</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>View of the given column name</p>
+</div>
+
+
+
+Type: 
+<span class="param-type"><a href="Miso.Dataset.Column.html">Miso.Dataset.Column</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#column">Miso.Dataset.DataView#column</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js">view.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js#L429">line 429</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="columnNames">
+      <span class="type-signature"></span>columnNames
+      (  )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object">Array.&lt;String>
+      
+    </span>
+</div>
+
+
+
+
+
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 }
+  ]
+});
+
+ds.fetch({
+  success: function() {
+    log(this.columnNames());
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>the names of all columns, not including id column</p>
+</div>
+
+
+
+Type: 
+<span class="param-type">Array.&lt;String></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#columnNames">Miso.Dataset.DataView#columnNames</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js">view.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js#L458">line 458</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="columns">
+      <span class="type-signature"></span>columns
+      ( columnsArray )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Miso.Dataset.DataView.html">Miso.Dataset.DataView</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 }
+  ]
+});
+
+ds.fetch({
+  success: function() {
+    var oneTwo = this.columns(['one','two']);
+    log(this.columnNames());
+    log(oneTwo.columnNames());
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>columnsArray</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Array.&lt;String></span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>an array of column names</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>dataset view of the given columns</p>
+</div>
+
+
+
+Type: 
+<span class="param-type"><a href="Miso.Dataset.DataView.html">Miso.Dataset.DataView</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#columns">Miso.Dataset.DataView#columns</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js">view.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js#L446">line 446</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="countBy">
+      <span class="type-signature"></span>countBy
+      ( byColumn, <span class="optional">options</span> )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Miso.Dataset.Derived.html">Miso.Dataset.Derived</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Returns a new derived dataset that contains the original byColumn and a
+count column that returns the number of occurances each unique value in
+the byColumn contained.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 },
+    { one : 1, two : 5, three : 8 }
+  ]
+});
+
+ds.fetch({
+  success: function() {
+    log(this.countBy('one').toJSON());
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>byColumn</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>The column to count instances again.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>options</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type"><a href="Miso.Dataset.Derived.html">Miso.Dataset.Derived</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#countBy">Miso.Dataset.DataView#countBy</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/derived.js">derived.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/derived.js#L170">line 170</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="each">
+      <span class="type-signature"></span>each
+      ( iterator, <span class="optional">context</span> )
+    </h3>
+    <span class="returns">
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Iterates over all rows in the dataset. Each row is not a direct
+reference to the data and thus should not be altered in any way.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data : [
+    { one : 12,  two : 40},
+    { one : 1,   two : 40},
+    { one : 102, two : 430}
+  ]
+});
+ds.fetch({
+  success : function() {
+    this.each(function(row) {
+      log(JSON.stringify(row));
+    });
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>iterator</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type"><a href="Miso.Dataset.DataView.html#rowIterator">Miso.Dataset.DataView~rowIterator</a></span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>function that is
+                                                      passed each row</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>context</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>The context to be bound to the iterator.</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#each">Miso.Dataset.DataView#each</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js">view.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js#L488">line 488</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="eachColumn">
+      <span class="type-signature"></span>eachColumn
+      ( iterator, <span class="optional">context</span> )
+    </h3>
+    <span class="returns">
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Iterates over each column. Direct column references, not arrays so
+modifying data may cause internal inconsistencies.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 }
+  ]
+});
+
+ds.fetch({
+  success: function() {
+    this.eachColumn(function(colName, colObject, index) {
+      log(colName);
+    });
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>iterator</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type"><a href="Miso.Dataset.DataView.html#columnIterator">Miso.Dataset.DataView~columnIterator</a></span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>function that
+                                                         is passed each
+                                                         column</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>context</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>The context to be bound to the iterator.</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#eachColumn">Miso.Dataset.DataView#eachColumn</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js">view.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js#L522">line 522</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="fetch">
+      <span class="type-signature"></span>fetch
+      ( <span class="optional">options</span> )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object">Deferred
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Responsible for actually fetching the data based on the initialized
+dataset. Note that this needs to be called for either local or remote
+data.</p>
+<p>There are three different ways to use this method:</p>
+<pre class="prettyprint source"><code>ds.fetch();</code></pre><p>will just fetch the data based on the importer. Note that for async
+fetching this isn't blocking so don't put your next set of instructions
+expecting the data to be there.</p>
+<pre class="prettyprint source"><code>ds.fetch({
+  success: function() {
+    // do stuff
+    // this is the dataset.
+  },
+  error : function(e) {
+    // do stuff
+  }
+});</code></pre><p>Allows you to pass success and error callbacks that will be called once
+data is property fetched.</p>
+<pre class="prettyprint source"><code>_.when(ds.fetch(), function() {
+  // do stuff
+  // note 'this' is NOT the dataset.
+});</code></pre><p>Allows you to use deferred behavior to potentially chain multiple
+datasets.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 }
+  ]
+}).fetch({
+  success: function() {
+    log( this.column('one').data );
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>options</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last">
+                <h6>Properties</h6>
+                
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>success</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">function</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Success callback to be called when
+                                    data is fetched. Context is the
+                                    dataset.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>failure</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">function</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Error callback to be called when
+                                    data fetching fails. Context is the
+                                    dataset.</p></div>
+        </li>
+
+	
+</ul>
+
+            </div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type">Deferred</span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/dataset.js">dataset.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/dataset.js#L169">line 169</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="groupBy">
+      <span class="type-signature"></span>groupBy
+      ( byColumn, columns, <span class="optional">options</span> )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Miso.Dataset.Derived.html">Miso.Dataset.Derived</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Group rows by values in a given column</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 },
+    { one : 6, two : 8, three : 55 }
+  ]
+});
+
+ds.fetch({
+  success: function() {
+    log(this.groupBy('one', ['two']));
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>byColumn</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>The column by which rows will be grouped</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>columns</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Array.&lt;String></span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>The columns to be included</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>options</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last">
+                <h6>Properties</h6>
+                
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>method</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">function</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Function that specifies the way in
+                                   which the columns are aggregated. The
+                                   default is sum. The function
+                                   signature is <code>function(arr)</code>. It
+                                   should return a single result.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>preprocess</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">function</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>specify a normalization function
+                                       for the byColumn values if you
+                                       need to group by some kind of
+                                       derivation of those values that
+                                       are not just equality based.</p></div>
+        </li>
+
+	
+</ul>
+
+            </div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type"><a href="Miso.Dataset.Derived.html">Miso.Dataset.Derived</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#groupBy">Miso.Dataset.DataView#groupBy</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/derived.js">derived.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/derived.js#L243">line 243</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="hasColumn">
+      <span class="type-signature"></span>hasColumn
+      ( name )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object">Boolean
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Checks for the existance of a column and returns true/false</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 }
+  ]
+});
+ds.fetch({
+  success : function() {
+    log(this.hasColumn('three'));
+    log(this.hasColumn('otter'));
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>name</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Name of column to check for</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>true if a column exists, false otherwise.</p>
+</div>
+
+
+
+Type: 
+<span class="param-type">Boolean</span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#hasColumn">Miso.Dataset.DataView#hasColumn</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js">view.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js#L474">line 474</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="max">
+      <span class="type-signature"></span>max
+      ( columns )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Miso.Dataset.Product.html">Miso.Dataset.Product</a>|Number
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>If the dataset has <code>sync</code> enabled this will return a
+<code>Miso.Dataset.Product</code> that can be used to bind events to and access the
+current value.  Otherwise it will return the current value - the highest
+numeric value in that column.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 },
+    { one : 6, two : 8, three : 55 }
+  ]
+});
+
+ds.fetch({
+  success: function() {
+    log( "Column 'one' max: " + this.max('one') );
+    log( "Column 'two' max: " + this.max('two') );
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>columns</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+|
+
+<span class="param-type">Array.&lt;String></span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>column name(s) on which the value is
+                                  calculated</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type"><a href="Miso.Dataset.Product.html">Miso.Dataset.Product</a></span>
+|
+
+<span class="param-type">Number</span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#max">Miso.Dataset.DataView#max</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/product.js">product.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/product.js#L202">line 202</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="mean">
+      <span class="type-signature"></span>mean
+      ( columns )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Miso.Dataset.Product.html">Miso.Dataset.Product</a>|Number
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>If the dataset has <code>sync</code> enabled this will return a
+<code>Miso.Dataset.Product</code> that can be used to bind events to and access the
+current value.  Otherwise it will return the current value - the mean or
+average of the numeric form of the values in the column.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 },
+    { one : 6, two : 8, three : 55 }
+  ]
+});
+
+ds.fetch({
+  success: function() {
+    log( "Column 'one' mean: " + this.mean('one') );
+    log( "Column 'three' mean: " + this.mean('three') );
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>columns</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Array.&lt;String></span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>array of column names on which the value is
+                            calculated</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type"><a href="Miso.Dataset.Product.html">Miso.Dataset.Product</a></span>
+|
+
+<span class="param-type">Number</span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#mean">Miso.Dataset.DataView#mean</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/product.js">product.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/product.js#L245">line 245</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="min">
+      <span class="type-signature"></span>min
+      ( columns )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Miso.Dataset.Product.html">Miso.Dataset.Product</a>|Number
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>If the dataset has <code>sync</code> enabled this will return a
+<code>Miso.Dataset.Product</code> that can be used to bind events to and access the
+current value.  Otherwise it will return the current value - the lowest
+numeric value in that column.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 },
+    { one : 6, two : 8, three : 55 }
+  ]
+});
+
+ds.fetch({
+  success: function() {
+    log( "Column 'one' min: " + this.min('one') );
+    log( "Column 'two' min: " + this.min('two') );
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>columns</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Array.&lt;String></span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>array of column names on which the value is
+                            calculated</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type"><a href="Miso.Dataset.Product.html">Miso.Dataset.Product</a></span>
+|
+
+<span class="param-type">Number</span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#min">Miso.Dataset.DataView#min</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/product.js">product.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/product.js#L224">line 224</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="movingAverage">
+      <span class="type-signature"></span>movingAverage
+      ( columns, size, <span class="optional">options</span> )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Miso.Dataset.Derived.html">Miso.Dataset.Derived</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Returns a derived dataset in which the specified columns have a moving
+average computed over them of a specified size.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>columns</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Dataset.Column</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>The column on which to calculate the
+                                  average</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>size</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Number</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>The window size to utilize for the moving
+                        average (the number of rows to average per row.)</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>options</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last">
+                <h6>Properties</h6>
+                
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>method</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">function</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>the method to apply to all values in
+                                   a window. Mean by default.</p></div>
+        </li>
+
+	
+</ul>
+
+            </div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type"><a href="Miso.Dataset.Derived.html">Miso.Dataset.Derived</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#movingAverage">Miso.Dataset.DataView#movingAverage</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/derived.js">derived.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/derived.js#L89">line 89</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="remove">
+      <span class="type-signature"></span>remove
+      ( filter, <span class="optional">options</span> )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Miso.Dataset.html">Miso.Dataset</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Remove all rows that match the filter. Fires <code>remove</code> and <code>change</code>
+events on a syncable dataset.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 }
+  ]
+});
+ds.fetch({
+  success: function() {
+    log(this.column('two').data);
+
+    this.remove(function(row) {
+      return row.three === 7;
+    });
+
+    log(this.column('two').data);
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>filter</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">function</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>can be one of two things: A row id, or
+                                  a filter function that takes a row and
+                                  returns true if that row should be
+                                  removed or false otherwise.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>options</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last">
+                <h6>Properties</h6>
+                
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>silent</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Boolean</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>do not trigger an add (and thus view
+                                  updates) event</p></div>
+        </li>
+
+	
+</ul>
+
+            </div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type"><a href="Miso.Dataset.html">Miso.Dataset</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/dataset.js">dataset.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/dataset.js#L528">line 528</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="reset">
+      <span class="type-signature"></span>reset
+      ( <span class="optional">options</span> )
+    </h3>
+    <span class="returns">
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Clears all the rows. Fires a <code>reset</code> event.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 }
+  ]
+});
+
+ds.fetch({
+  success: function() {
+    log( this.column('two').data );
+    this.reset();
+    log( this.column('two').data );
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>options</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last">
+                <h6>Properties</h6>
+                
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>silent</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Boolean</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"></div>
+        </li>
+
+	
+</ul>
+
+            </div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/dataset.js">dataset.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/dataset.js#L678">line 678</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="reverseEach">
+      <span class="type-signature"></span>reverseEach
+      ( iterator, <span class="optional">context</span> )
+    </h3>
+    <span class="returns">
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Iterates over all rows in the dataset in reverse order.  Each row is not
+a direct reference to the data and thus should not be altered in any
+way.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data : [
+    { one : 12,  two : 4},
+    { one : 1,   two : 40},
+    { one : 102, two : 430}
+  ]
+});
+ds.fetch({
+  success : function() {
+    this.reverseEach(function(row) {
+      log(JSON.stringify(row));
+    });
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>iterator</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type"><a href="Miso.Dataset.DataView.html#rowIterator">Miso.Dataset.DataView~rowIterator</a></span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>function that is
+                                                       passed each row</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>context</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>The context to be bound to the iterator.</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#reverseEach">Miso.Dataset.DataView#reverseEach</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js">view.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js#L505">line 505</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="rowById">
+      <span class="type-signature"></span>rowById
+      ( id )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object">Object
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Fetches a row object with a specific _id. Note that the returned row
+object is NOT a direct reference to the data and thus any changes to it
+will not alter the original data.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 }
+  ]
+});
+
+ds.fetch({
+  success: function() {
+    var rowOneID = this.column('_id').data[1];
+    log(ds.rowById(rowOneID));
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>id</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Number</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>unique id</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>a single row based on its id (NOT Position.)</p>
+</div>
+
+
+
+Type: 
+<span class="param-type">Object</span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#rowById">Miso.Dataset.DataView#rowById</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js">view.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js#L556">line 556</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="rowByPosition">
+      <span class="type-signature"></span>rowByPosition
+      ( i )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object">Object
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Fetches a row object at a specified position. Note that the returned row
+object is NOT a direct reference to the data and thus any changes to it
+will not alter the original data.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 }
+  ]
+});
+ds.fetch({
+  success : function() {
+    log(ds.rowByPosition(1));
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>i</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Number</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>position index</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>a single row based on its position (NOT ID.)</p>
+</div>
+
+
+
+Type: 
+<span class="param-type">Object</span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#rowByPosition">Miso.Dataset.DataView#rowByPosition</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js">view.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js#L541">line 541</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="rows">
+      <span class="type-signature"></span>rows
+      ( filter )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Miso.Dataset.DataView.html">Miso.Dataset.DataView</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Shorthand for <a href="Miso.Dataset.DataView.html#where">ds.where({ rows : rowFilter </a>);} If run with no filter will return all rows.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 }
+  ]
+});
+
+ds.fetch({
+  success: function() {
+
+    var rowTwo = ds.rows(function(row) {
+      return row.one === 2;
+    });
+
+    log(rowTwo.columnNames());
+    log(rowTwo.length);
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>filter</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">function</span>
+|
+
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>a filter function or object, the same
+                                  as <a href="Miso.Dataset.DataView.html#where">Miso.Dataset.DataView#where</a></p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>a dataset view of filtered rows</p>
+</div>
+
+
+
+Type: 
+<span class="param-type"><a href="Miso.Dataset.DataView.html">Miso.Dataset.DataView</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#rows">Miso.Dataset.DataView#rows</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js">view.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js#L697">line 697</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="sort">
+      <span class="type-signature"></span>sort
+      ( <span class="optional">args</span> )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Miso.Dataset.DataView.html">Miso.Dataset.DataView</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Sorts the dataset according to the comparator. A comparator can either be
+passed in as part of the options object or have been defined on the
+dataset already, for example as part of the initialization block.</p>
+<p>roughly taken from here:
+http://jxlib.googlecode.com/svn-history/r977/trunk/src/Source/Data/heapsort.js
+License:
+  Copyright (c) 2009, Jon Bomgardner.
+  This file is licensed under an MIT style license</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 },
+    { one : 9, two : 10, three : 11 }
+  ]
+});
+
+ds.fetch({ success: function() {
+  log("Before Sort", this.toJSON());
+
+  this.sort(function(rowA, rowB) {
+    if (rowA.three > rowB.three) {
+      return -1;
+    }
+    if (rowA.three < rowB.three) {
+      return 1;
+    }
+    return 0;
+  });
+
+  log("After Sort", this.toJSON());
+}});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>args</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+|
+
+<span class="param-type">function</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Comparator Function OR Options object</p>
+                <h6>Properties</h6>
+                
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>comparator</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">function</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Function used to sort the dataset,
+                                    uses the same return structure as a
+                                    standard <a href="http://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/sort">JavaScript
+                                    sort</a></p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>silent</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Boolean</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Default false, set true to supress the
+                               firing of a sort event.</p></div>
+        </li>
+
+	
+</ul>
+
+            </div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type"><a href="Miso.Dataset.DataView.html">Miso.Dataset.DataView</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#sort">Miso.Dataset.DataView#sort</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js">view.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js#L727">line 727</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="sum">
+      <span class="type-signature"></span>sum
+      ( columns )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Miso.Dataset.Product.html">Miso.Dataset.Product</a>|Number
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>If the dataset has <code>sync</code> enabled this will return a
+<code>Miso.Dataset.Product</code> that can be used to bind events to and access the
+current value.  Otherwise it will return the current value - the sum of
+the numeric form of the values in the column.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 },
+    { one : 6, two : 8, three : 55 }
+  ]
+});
+
+ds.fetch({
+  success: function() {
+    log( "Column 'one' sum: " + this.sum('one') );
+    log( "Column 'two' sum: " + this.sum('two') );
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>columns</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+|
+
+<span class="param-type">Array.&lt;String></span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>column name(s) on which the value is
+                                   calculated</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type"><a href="Miso.Dataset.Product.html">Miso.Dataset.Product</a></span>
+|
+
+<span class="param-type">Number</span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#sum">Miso.Dataset.DataView#sum</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/product.js">product.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/product.js#L178">line 178</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="toJSON">
+      <span class="type-signature"></span>toJSON
+      (  )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object">Array
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Exports a version of the dataset in json format.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>Array of rows.</p>
+</div>
+
+
+
+Type: 
+<span class="param-type">Array</span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#toJSON">Miso.Dataset.DataView#toJSON</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js">view.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js#L778">line 778</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="update">
+      <span class="type-signature"></span>update
+      ( rowsOrFunction, <span class="optional">options</span> )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Miso.Dataset.html">Miso.Dataset</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Updates one or more rows in a dataset. You can pass either a row object
+that contains an the identifying id property and altered property, an
+array of objects of the same form or a function that will be first
+applied to all rows. The function should take a <code>row</code> object for each
+row in the dataset. If a row shouldn't be modified, the function can
+return false for that row. This will fire update and change events on a
+syncable dataset.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 }
+  ]
+});
+
+ds.fetch({
+  success: function() {
+
+    log(this.column('two').data);
+
+    // update just the first row
+    var firstRow = this.rowByPosition(0);
+    this.update({ _id : firstRow._id, one : 100 });
+
+    log(this.rowByPosition(0));
+
+    // update all rows where col three == 7
+    this.update(function(row) {
+      if (row.three === 7) {
+        row.two = 99;
+        return row;
+      } else {
+        return false;
+      }
+    });
+
+    log(this.column('two').data);
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>rowsOrFunction</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">function</span>
+|
+
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Can be one of two things: A
+                                          row id, or a filter function
+                                          that takes a row and returns
+                                          true if that row should be
+                                          removed or false otherwise.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>options</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last">
+                <h6>Properties</h6>
+                
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>silent</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Boolean</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Set to true to disable event firing</p></div>
+        </li>
+
+	
+</ul>
+
+            </div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type"><a href="Miso.Dataset.html">Miso.Dataset</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/dataset.js">dataset.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/dataset.js#L650">line 650</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="where">
+      <span class="type-signature"></span>where
+      ( <span class="optional">filter</span>, <span class="optional">options</span> )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object"><a href="Miso.Dataset.DataView.html">Miso.Dataset.DataView</a>
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Used to create Dataviews, subsets of data based on a set of filters.
+Filtration can be applied to both rows &amp; columns and for syncing
+datasets changes in the parent dataset from which the dataview was
+created will be reflected in the dataview.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var ds = new Miso.Dataset({
+  data: [
+    { one : 1, two : 4, three : 7 },
+    { one : 2, two : 5, three : 8 }
+  ]
+});
+
+ds.fetch({
+  success: function() {
+    var oneTwo = this.where({
+      // copy over the one column
+      columns: ['one'],
+      // and only where the values are > 1
+      rows: function(row) {
+        return row.one > 1;
+      }
+    });
+
+    log(oneTwo.length, oneTwo.toJSON());
+  }
+});
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>filter</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">function</span>
+|
+
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>a function that takes in a row or an
+                                    options object that can contain the
+                                    following parameters.</p>
+                <h6>Properties</h6>
+                
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>columns</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+|
+
+<span class="param-type">Array.&lt;String></span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>A filter for columns. A
+                                            single or multiple column
+                                            names.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>filter</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+|
+
+<span class="param-type">function</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>A filter for rows. A rowId or
+                                           a filter function that takes
+                                           in a row and returns true if
+                                           it passes the criteria.</p></div>
+        </li>
+
+	
+</ul>
+
+            </div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>options</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type"><a href="Miso.Dataset.DataView.html">Miso.Dataset.DataView</a></span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="Miso.Dataset.DataView.html#where">Miso.Dataset.DataView#where</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js">view.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js#L313">line 313</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+    
+
+    
+
+    
+
+</section>
+
+
+
+
+      </div>
+      <div class='nav_wrapper'>
+        <div class='nav'>
+          <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Miso.Dataset.html">Miso.Dataset</a><ul><li><a href="Miso.Dataset.html#add">add</a></li><li><a href="Miso.Dataset.html#addColumn">addColumn</a></li><li><a href="Miso.Dataset.html#addColumns">addColumns</a></li><li><a href="Miso.Dataset.html#addComputedColumn">addComputedColumn</a></li><li><a href="Miso.Dataset.html#column">column</a></li><li><a href="Miso.Dataset.html#columnNames">columnNames</a></li><li><a href="Miso.Dataset.html#columns">columns</a></li><li><a href="Miso.Dataset.html#countBy">countBy</a></li><li><a href="Miso.Dataset.html#each">each</a></li><li><a href="Miso.Dataset.html#eachColumn">eachColumn</a></li><li><a href="Miso.Dataset.html#fetch">fetch</a></li><li><a href="Miso.Dataset.html#groupBy">groupBy</a></li><li><a href="Miso.Dataset.html#hasColumn">hasColumn</a></li><li><a href="Miso.Dataset.html#max">max</a></li><li><a href="Miso.Dataset.html#mean">mean</a></li><li><a href="Miso.Dataset.html#min">min</a></li><li><a href="Miso.Dataset.html#movingAverage">movingAverage</a></li><li><a href="Miso.Dataset.html#remove">remove</a></li><li><a href="Miso.Dataset.html#reset">reset</a></li><li><a href="Miso.Dataset.html#reverseEach">reverseEach</a></li><li><a href="Miso.Dataset.html#rowById">rowById</a></li><li><a href="Miso.Dataset.html#rowByPosition">rowByPosition</a></li><li><a href="Miso.Dataset.html#rows">rows</a></li><li><a href="Miso.Dataset.html#sort">sort</a></li><li><a href="Miso.Dataset.html#sum">sum</a></li><li><a href="Miso.Dataset.html#toJSON">toJSON</a></li><li><a href="Miso.Dataset.html#update">update</a></li><li><a href="Miso.Dataset.html#where">where</a></li></ul></li><li><a href="Miso.Dataset.Column.html">Miso.Dataset.Column</a><ul><li><a href="Miso.Dataset.Column.html#coerce">coerce</a></li><li><a href="Miso.Dataset.Column.html#compute">compute</a></li><li><a href="Miso.Dataset.Column.html#isComputed">isComputed</a></li><li><a href="Miso.Dataset.Column.html#numericAt">numericAt</a></li><li><a href="Miso.Dataset.Column.html#toNumeric">toNumeric</a></li></ul></li><li><a href="Miso.Dataset.DataView.html">Miso.Dataset.DataView</a><ul><li><a href="Miso.Dataset.DataView.html#column">column</a></li><li><a href="Miso.Dataset.DataView.html#columnNames">columnNames</a></li><li><a href="Miso.Dataset.DataView.html#columns">columns</a></li><li><a href="Miso.Dataset.DataView.html#countBy">countBy</a></li><li><a href="Miso.Dataset.DataView.html#each">each</a></li><li><a href="Miso.Dataset.DataView.html#eachColumn">eachColumn</a></li><li><a href="Miso.Dataset.DataView.html#groupBy">groupBy</a></li><li><a href="Miso.Dataset.DataView.html#hasColumn">hasColumn</a></li><li><a href="Miso.Dataset.DataView.html#max">max</a></li><li><a href="Miso.Dataset.DataView.html#mean">mean</a></li><li><a href="Miso.Dataset.DataView.html#min">min</a></li><li><a href="Miso.Dataset.DataView.html#movingAverage">movingAverage</a></li><li><a href="Miso.Dataset.DataView.html#reverseEach">reverseEach</a></li><li><a href="Miso.Dataset.DataView.html#rowById">rowById</a></li><li><a href="Miso.Dataset.DataView.html#rowByPosition">rowByPosition</a></li><li><a href="Miso.Dataset.DataView.html#rows">rows</a></li><li><a href="Miso.Dataset.DataView.html#sort">sort</a></li><li><a href="Miso.Dataset.DataView.html#sum">sum</a></li><li><a href="Miso.Dataset.DataView.html#toJSON">toJSON</a></li><li><a href="Miso.Dataset.DataView.html#where">where</a></li></ul></li><li><a href="Miso.Dataset.Derived.html">Miso.Dataset.Derived</a><ul><li><a href="Miso.Dataset.Derived.html#add">add</a></li><li><a href="Miso.Dataset.Derived.html#addColumn">addColumn</a></li><li><a href="Miso.Dataset.Derived.html#addColumns">addColumns</a></li><li><a href="Miso.Dataset.Derived.html#addComputedColumn">addComputedColumn</a></li><li><a href="Miso.Dataset.Derived.html#column">column</a></li><li><a href="Miso.Dataset.Derived.html#columnNames">columnNames</a></li><li><a href="Miso.Dataset.Derived.html#columns">columns</a></li><li><a href="Miso.Dataset.Derived.html#countBy">countBy</a></li><li><a href="Miso.Dataset.Derived.html#each">each</a></li><li><a href="Miso.Dataset.Derived.html#eachColumn">eachColumn</a></li><li><a href="Miso.Dataset.Derived.html#fetch">fetch</a></li><li><a href="Miso.Dataset.Derived.html#groupBy">groupBy</a></li><li><a href="Miso.Dataset.Derived.html#hasColumn">hasColumn</a></li><li><a href="Miso.Dataset.Derived.html#max">max</a></li><li><a href="Miso.Dataset.Derived.html#mean">mean</a></li><li><a href="Miso.Dataset.Derived.html#min">min</a></li><li><a href="Miso.Dataset.Derived.html#movingAverage">movingAverage</a></li><li><a href="Miso.Dataset.Derived.html#remove">remove</a></li><li><a href="Miso.Dataset.Derived.html#reset">reset</a></li><li><a href="Miso.Dataset.Derived.html#reverseEach">reverseEach</a></li><li><a href="Miso.Dataset.Derived.html#rowById">rowById</a></li><li><a href="Miso.Dataset.Derived.html#rowByPosition">rowByPosition</a></li><li><a href="Miso.Dataset.Derived.html#rows">rows</a></li><li><a href="Miso.Dataset.Derived.html#sort">sort</a></li><li><a href="Miso.Dataset.Derived.html#sum">sum</a></li><li><a href="Miso.Dataset.Derived.html#toJSON">toJSON</a></li><li><a href="Miso.Dataset.Derived.html#update">update</a></li><li><a href="Miso.Dataset.Derived.html#where">where</a></li></ul></li><li><a href="Miso.Dataset.Event.html">Miso.Dataset.Event</a><ul><li><a href="Miso.Dataset.Event.html#isAdd">isAdd</a></li><li><a href="Miso.Dataset.Event.html#isRemove">isRemove</a></li><li><a href="Miso.Dataset.Event.html#isUpdate">isUpdate</a></li></ul></li><li><a href="Miso.Dataset.Importers.html">Miso.Dataset.Importers</a></li><li><a href="Miso.Dataset.Parsers.html">Miso.Dataset.Parsers</a><ul><li><a href="Miso.Dataset.Parsers.html#parse">parse</a></li></ul></li><li><a href="Miso.Dataset.Product.html">Miso.Dataset.Product</a><ul><li><a href="Miso.Dataset.Product.html#Dataset.Product.define">Dataset.Product.define</a></li><li><a href="Miso.Dataset.Product.html#type">type</a></li><li><a href="Miso.Dataset.Product.html#val">val</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="Miso.html">Miso</a></li><li><a href="Miso.Dataset.Builder.html">Builder</a></li><li><a href="Miso.Dataset.types.html">types</a></li><li><a href="Miso.Dataset.types.boolean.html">boolean</a></li><li><a href="Miso.Dataset.types.mixed.html">mixed</a></li><li><a href="Miso.Dataset.types.number.html">number</a></li><li><a href="Miso.Dataset.types.string.html">string</a></li><li><a href="Miso.Dataset.types.time.html">time</a></li></ul><h3>Global</h3><ul><li><a href="global.html#affectedColumns">affectedColumns</a></li></ul>
+        </div>
+      </div>
+    </article>
+    <footer>
+      <div class='container'>
+        <section>
+          <h2>
+            A joint project between
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/profile/guardian-interactive-department'>
+              <img alt="Guardian" src="/images/guardian.png"/>
+            </a>
+            <a href='http://www.bocoup.com'>
+              <img alt="Bocoup horizontal 614" src="/images/bocoup-horizontal-614.gif"/>
+            </a>
+          </div>
+        </section>
+        <section>
+          <h2>
+            Supported by
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/development'>
+              <img alt="Global dev" src="/images/global-dev.png"/>
+            </a>
+            <a href='http://www.gatesfoundation.org/'>
+              <img alt="Gates" src="/images/gates.png"/>
+            </a>
+          </div>
+        </section>
+      </div>
+    </footer>
+    <script src='/js/jquery.min.js'></script>
+    <script src='/js/nav.js'></script>
+    <script src='/js/miso.ds.deps.js'></script>
+    <script src='/js/bootstrap/transition.js'></script>
+    <script src='/js/bootstrap/collapse.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30531498-1']);
+      _gaq.push(['_setDomainName', 'misoproject.com']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>

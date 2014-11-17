@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+  <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+  <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src='http://use.typekit.com/aow5drr.js' type='text/javascript'></script>
+    <script type='text/javascript'>
+      try{ Typekit.load(); } catch(e) {}
+    </script>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='The Miso Project' name='description' />
+    <meta content='The Miso Project' name='name' />
+    <meta content='width=device-width' name='viewport' />
+    <title>The Miso Project :: d3.chart :: API Reference</title>
+    <link href='/stylesheets/screen.css' rel='stylesheet' />
+    <link href='/stylesheets/codemirror.css' rel='stylesheet' />
+    
+  </head>
+  <body>
+    <nav>
+      <span class='miso'>
+        <a href='/'>
+          &larr; Miso Home
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart'>
+          Home
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart/examples.html'>
+          Examples
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart/tutorials.html'>
+          Tutorials
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart/api/index.html'>
+          API Doc
+        </a>
+      </span>
+      <span>
+        <a href='/d3-chart/charts.html'>
+          Charts
+        </a>
+      </span>
+      <span>
+        <a href='http://www.github.com/misoproject/d3.chart'>
+          Code (Github)
+        </a>
+      </span>
+    </nav>
+    <article class='api d3-chart'>
+      <div class='api_wrapper'>
+        
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>"use strict";
+
+/**
+ * Create a new layer on the d3 selection from which it is called.
+ *
+ * @static
+ *
+ * @param {Object} [options] Options to be forwarded to {@link Layer|the Layer
+ *        constructor}
+ * @returns {d3.selection}
+ */
+d3.selection.prototype.layer = function(options) {
+	var layer = new Layer(this);
+	var eventName;
+
+	// Set layer methods (required)
+	layer.dataBind = options.dataBind;
+	layer.insert = options.insert;
+
+	// Bind events (optional)
+	if ("events" in options) {
+		for (eventName in options.events) {
+			layer.on(eventName, options.events[eventName]);
+		}
+	}
+
+	// Mix the public methods into the D3.js selection (bound appropriately)
+	this.on = function() { return layer.on.apply(layer, arguments); };
+	this.off = function() { return layer.off.apply(layer, arguments); };
+	this.draw = function() { return layer.draw.apply(layer, arguments); };
+
+	return this;
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+      </div>
+      <div class='nav_wrapper'>
+        <div class='nav'>
+          <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Chart.html">Chart</a><ul><li><a href="Chart.html#extend">extend</a></li><li><a href="Chart.html#attach">attach</a></li><li><a href="Chart.html#draw">draw</a></li><li><a href="Chart.html#initialize">initialize</a></li><li><a href="Chart.html#layer">layer</a></li><li><a href="Chart.html#off">off</a></li><li><a href="Chart.html#on">on</a></li><li><a href="Chart.html#once">once</a></li><li><a href="Chart.html#transform">transform</a></li><li><a href="Chart.html#trigger">trigger</a></li><li><a href="Chart.html#unlayer">unlayer</a></li></ul></li><li><a href="d3.selection.html">d3.selection</a><ul><li><a href="d3.selection.html#chart">chart</a></li><li><a href="d3.selection.html#layer">layer</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="d3.html">d3</a></li></ul><h3><a href="global.html">Global</a></h3>
+        </div>
+      </div>
+    </article>
+    <footer>
+      <div class='container'>
+        <section>
+          <h2>
+            A joint project between
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/profile/guardian-interactive-department'>
+              <img alt="Guardian" src="/images/guardian.png"/>
+            </a>
+            <a href='http://www.bocoup.com'>
+              <img alt="Bocoup horizontal 614" src="/images/bocoup-horizontal-614.gif"/>
+            </a>
+          </div>
+        </section>
+        <section>
+          <h2>
+            Formally supported by
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/development'>
+              <img alt="Global dev" src="/images/global-dev.png"/>
+            </a>
+            <a href='http://www.gatesfoundation.org/'>
+              <img alt="Gates" src="/images/gates.png"/>
+            </a>
+          </div>
+        </section>
+      </div>
+    </footer>
+    <script src='/js/jquery.min.js'></script>
+    <script src='/js/nav.js'></script>
+    <script src='/js/lodash.js'></script>
+    <script src='/js/underscore.deferred.js'></script>
+    <script charset='utf-8' src='/js/d3/d3.v3.min.js'></script>
+    <script src='/js/d3.chart.js'></script>
+    <script src='/js/bootstrap/transition.js'></script>
+    <script src='/js/bootstrap/collapse.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30531498-1']);
+      _gaq.push(['_setDomainName', 'misoproject.com']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>

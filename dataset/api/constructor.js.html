@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+  <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+  <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src='http://use.typekit.com/aow5drr.js' type='text/javascript'></script>
+    <script type='text/javascript'>
+      try{ Typekit.load(); } catch(e) {}
+    </script>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='The Miso Project' name='description' />
+    <meta content='The Miso Project' name='name' />
+    <meta content='width=device-width' name='viewport' />
+    <title>The Miso Project :: Dataset :: API Reference</title>
+    <link href='/stylesheets/screen.css' rel='stylesheet' />
+    <link href='/stylesheets/codemirror.css' rel='stylesheet' />
+    
+  </head>
+  <body>
+    <nav>
+      <span class='miso'>
+        <a href='/'>
+          &larr; Miso Home
+        </a>
+      </span>
+      <span>
+        <a href='/dataset'>
+          Home
+        </a>
+      </span>
+      <span>
+        <a href='/dataset/examples.html'>
+          Examples
+        </a>
+      </span>
+      <span>
+        <a href='/dataset/tutorials.html'>
+          Tutorials
+        </a>
+      </span>
+      <span>
+        <a href='/dataset/api/index.html'>
+          API Doc
+        </a>
+      </span>
+      <span>
+        <a href='/dataset/extensions.html'>
+          Extensions
+        </a>
+      </span>
+      <span>
+        <a href='http://www.github.com/misoproject/dataset'>
+          Code (Github)
+        </a>
+      </span>
+    </nav>
+    <article class='api dataset'>
+      <div class='api_wrapper'>
+        
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>(function(global) {
+
+  /**
+   * @namespace Miso
+   */
+  global.Miso = global.Miso || {};
+
+  /**
+   * Miso.Dataset is the main object you will instantiate to create a new
+   * dataset. A `Miso.Dataset` also extends from {@link Miso.Dataset.DataView}.
+   * All the methods available on a {@link Miso.Dataset.DataView} will also be
+   * available on the dataset.
+   *
+   * See [the creating datasets
+   * guide](http://misoproject.com/dataset/tutorials/creating) for detailed
+   * information.
+   *
+   * @constructor
+   * @memberof Miso
+   * @name Dataset
+   * @augments Miso.Dataset.DataView
+   *
+   * @param {Object} [options] - optional parameters.
+   * @param {Object} options.data - an actual javascript object that already
+   *                                   contains the data
+   * @param {String|Function} options.url - The url of a remote file or a
+   *                                        function returning a string for a
+   *                                        url containing your data, used for
+   *                                        remote importers
+   * @param {Boolean} options.sync - Set to true to be able to bind to dataset
+   *                                 changes. False by default. See [the
+   *                                 Syncronization &amp; Events
+   *                                 guide](http://misoproject.com/dataset/dataset/tutorials/events)
+   *                                 for detailed information
+   * @param {String} options.callback - By default, If making a jsonp request,
+   *                                    you can use this parameter to specify
+   *                                    an alternate callback function name
+   *                                    than the one that would be auto
+   *                                    generated for you.
+   * @param {Boolean} options.jsonp - Whether a remote request should use jsonp
+   *                                  to enable cross-domain requests.
+   * @param {String} options.delimiter - When using {@link
+   *                                     Miso.Dataset.Parsers.Delimited|the
+   *                                     Delimeted parser} this is used to set
+   *                                     a custom field delimiter such as
+   *                                     `delimiter: '||'` for CSV files such
+   *                                     as `value1||value2`
+   * @param {Boolean} options.strict - Whether to expect the json in our format
+   *                                   or whether to interpret as raw array of
+   *                                   objects; shorthand for using {@link
+   *                                   Miso.Dataset.Parsers.Strict|the Strict
+   *                                   parser}; default `false`
+   * @param {Function} options.extract - function used to pre-process raw data,
+   *                                     see [the creating a dataset
+   *                                     guide](http://misoproject.com/dataset/dataset/tutorials/creating)
+   *                                     for more information.
+   * @param {Function} options.ready - the callback function to act on once the
+   *                                   data is fetched. Isn't reuired for local
+   *                                   imports but is required for remote url
+   *                                   fetching.
+   * @param {Array} options.columns - A way to manually override column type
+   *                                  detection. Expects an array of objects of
+   *                                  the following structure: `{ name :
+   *                                  'columnname', type: 'columntype', ...
+   *                                  (additional params required for type
+   *                                  here.) }`
+   * @param {Function} options.comparator - A function to sort the data by. It
+   *                                        will be sorted on fetch and on any
+   *                                        successive addition. See {@link
+   *                                        Miso.Dataset.DataView#sort|the sort
+   *                                        function} for more information.
+   * @param {Function} options.deferred - by default we use
+   *                                      underscore.deferred, but if you want
+   *                                      to pass your own (like jquery's) just
+   *                                      pass it here.
+   * @param {String} options.importer - The classname of any importer (passes
+   *                                    through auto detection based on
+   *                                    parameters). For example:
+   *                                    `Miso.Importers.Polling`. See [the
+   *                                    Creating a dataset
+   *                                    guide](http://misoproject.com/dataset/dataset/tutorials/creating)
+   *                                    for more information.
+   * @param {String} options.parser - The classname of any parser (passes
+   *                                  through auto detection based on
+   *                                  parameters). For example:
+   *                                  `Miso.Parsers.Delimited`. See [the
+   *                                  Creating a dataset
+   *                                  guide](http://misoproject.com/dataset/dataset/tutorials/creating)
+   *                                  for more information.
+   * @param {Boolean} options.resetOnFetch - set to true if any subsequent
+   *                                         fetches after first one should
+   *                                         overwrite the current data.
+   * @param {String} options.uniqueAgainst - Set to a column name to check for
+   *                                         duplication on subsequent fetches.
+   * @param {Number} options.interval - Polling interval. Set to any value in
+   *                                    milliseconds to enable polling on a
+   *                                    url.
+   * @param {String} options.idAttribute - By default all ids are stored in a
+   *                                       column called '_id'. If there is an
+   *                                       alternate column in the dataset that
+   *                                       already includes a unique
+   *                                       identifier, specify its name here.
+   *                                       Note that the row objects will no
+   *                                       longer have an _id property.
+   *
+   * @externalExample {runnable} dataset
+   */
+  global.Miso.Dataset = function(options) {
+    
+    options = options || {};
+
+    this.length = 0;
+    
+    this._columns = [];
+    this._columnPositionByName = {};
+    this._computedColumns = [];
+    
+    this._initialize(options);
+  };
+}(this));
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+      </div>
+      <div class='nav_wrapper'>
+        <div class='nav'>
+          <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Miso.Dataset.html">Miso.Dataset</a><ul><li><a href="Miso.Dataset.html#add">add</a></li><li><a href="Miso.Dataset.html#addColumn">addColumn</a></li><li><a href="Miso.Dataset.html#addColumns">addColumns</a></li><li><a href="Miso.Dataset.html#addComputedColumn">addComputedColumn</a></li><li><a href="Miso.Dataset.html#column">column</a></li><li><a href="Miso.Dataset.html#columnNames">columnNames</a></li><li><a href="Miso.Dataset.html#columns">columns</a></li><li><a href="Miso.Dataset.html#countBy">countBy</a></li><li><a href="Miso.Dataset.html#each">each</a></li><li><a href="Miso.Dataset.html#eachColumn">eachColumn</a></li><li><a href="Miso.Dataset.html#fetch">fetch</a></li><li><a href="Miso.Dataset.html#groupBy">groupBy</a></li><li><a href="Miso.Dataset.html#hasColumn">hasColumn</a></li><li><a href="Miso.Dataset.html#max">max</a></li><li><a href="Miso.Dataset.html#mean">mean</a></li><li><a href="Miso.Dataset.html#min">min</a></li><li><a href="Miso.Dataset.html#movingAverage">movingAverage</a></li><li><a href="Miso.Dataset.html#remove">remove</a></li><li><a href="Miso.Dataset.html#reset">reset</a></li><li><a href="Miso.Dataset.html#reverseEach">reverseEach</a></li><li><a href="Miso.Dataset.html#rowById">rowById</a></li><li><a href="Miso.Dataset.html#rowByPosition">rowByPosition</a></li><li><a href="Miso.Dataset.html#rows">rows</a></li><li><a href="Miso.Dataset.html#sort">sort</a></li><li><a href="Miso.Dataset.html#sum">sum</a></li><li><a href="Miso.Dataset.html#toJSON">toJSON</a></li><li><a href="Miso.Dataset.html#update">update</a></li><li><a href="Miso.Dataset.html#where">where</a></li></ul></li><li><a href="Miso.Dataset.Column.html">Miso.Dataset.Column</a><ul><li><a href="Miso.Dataset.Column.html#coerce">coerce</a></li><li><a href="Miso.Dataset.Column.html#compute">compute</a></li><li><a href="Miso.Dataset.Column.html#isComputed">isComputed</a></li><li><a href="Miso.Dataset.Column.html#numericAt">numericAt</a></li><li><a href="Miso.Dataset.Column.html#toNumeric">toNumeric</a></li></ul></li><li><a href="Miso.Dataset.DataView.html">Miso.Dataset.DataView</a><ul><li><a href="Miso.Dataset.DataView.html#column">column</a></li><li><a href="Miso.Dataset.DataView.html#columnNames">columnNames</a></li><li><a href="Miso.Dataset.DataView.html#columns">columns</a></li><li><a href="Miso.Dataset.DataView.html#countBy">countBy</a></li><li><a href="Miso.Dataset.DataView.html#each">each</a></li><li><a href="Miso.Dataset.DataView.html#eachColumn">eachColumn</a></li><li><a href="Miso.Dataset.DataView.html#groupBy">groupBy</a></li><li><a href="Miso.Dataset.DataView.html#hasColumn">hasColumn</a></li><li><a href="Miso.Dataset.DataView.html#max">max</a></li><li><a href="Miso.Dataset.DataView.html#mean">mean</a></li><li><a href="Miso.Dataset.DataView.html#min">min</a></li><li><a href="Miso.Dataset.DataView.html#movingAverage">movingAverage</a></li><li><a href="Miso.Dataset.DataView.html#reverseEach">reverseEach</a></li><li><a href="Miso.Dataset.DataView.html#rowById">rowById</a></li><li><a href="Miso.Dataset.DataView.html#rowByPosition">rowByPosition</a></li><li><a href="Miso.Dataset.DataView.html#rows">rows</a></li><li><a href="Miso.Dataset.DataView.html#sort">sort</a></li><li><a href="Miso.Dataset.DataView.html#sum">sum</a></li><li><a href="Miso.Dataset.DataView.html#toJSON">toJSON</a></li><li><a href="Miso.Dataset.DataView.html#where">where</a></li></ul></li><li><a href="Miso.Dataset.Derived.html">Miso.Dataset.Derived</a><ul><li><a href="Miso.Dataset.Derived.html#add">add</a></li><li><a href="Miso.Dataset.Derived.html#addColumn">addColumn</a></li><li><a href="Miso.Dataset.Derived.html#addColumns">addColumns</a></li><li><a href="Miso.Dataset.Derived.html#addComputedColumn">addComputedColumn</a></li><li><a href="Miso.Dataset.Derived.html#column">column</a></li><li><a href="Miso.Dataset.Derived.html#columnNames">columnNames</a></li><li><a href="Miso.Dataset.Derived.html#columns">columns</a></li><li><a href="Miso.Dataset.Derived.html#countBy">countBy</a></li><li><a href="Miso.Dataset.Derived.html#each">each</a></li><li><a href="Miso.Dataset.Derived.html#eachColumn">eachColumn</a></li><li><a href="Miso.Dataset.Derived.html#fetch">fetch</a></li><li><a href="Miso.Dataset.Derived.html#groupBy">groupBy</a></li><li><a href="Miso.Dataset.Derived.html#hasColumn">hasColumn</a></li><li><a href="Miso.Dataset.Derived.html#max">max</a></li><li><a href="Miso.Dataset.Derived.html#mean">mean</a></li><li><a href="Miso.Dataset.Derived.html#min">min</a></li><li><a href="Miso.Dataset.Derived.html#movingAverage">movingAverage</a></li><li><a href="Miso.Dataset.Derived.html#remove">remove</a></li><li><a href="Miso.Dataset.Derived.html#reset">reset</a></li><li><a href="Miso.Dataset.Derived.html#reverseEach">reverseEach</a></li><li><a href="Miso.Dataset.Derived.html#rowById">rowById</a></li><li><a href="Miso.Dataset.Derived.html#rowByPosition">rowByPosition</a></li><li><a href="Miso.Dataset.Derived.html#rows">rows</a></li><li><a href="Miso.Dataset.Derived.html#sort">sort</a></li><li><a href="Miso.Dataset.Derived.html#sum">sum</a></li><li><a href="Miso.Dataset.Derived.html#toJSON">toJSON</a></li><li><a href="Miso.Dataset.Derived.html#update">update</a></li><li><a href="Miso.Dataset.Derived.html#where">where</a></li></ul></li><li><a href="Miso.Dataset.Event.html">Miso.Dataset.Event</a><ul><li><a href="Miso.Dataset.Event.html#isAdd">isAdd</a></li><li><a href="Miso.Dataset.Event.html#isRemove">isRemove</a></li><li><a href="Miso.Dataset.Event.html#isUpdate">isUpdate</a></li></ul></li><li><a href="Miso.Dataset.Importers.html">Miso.Dataset.Importers</a></li><li><a href="Miso.Dataset.Parsers.html">Miso.Dataset.Parsers</a><ul><li><a href="Miso.Dataset.Parsers.html#parse">parse</a></li></ul></li><li><a href="Miso.Dataset.Product.html">Miso.Dataset.Product</a><ul><li><a href="Miso.Dataset.Product.html#Dataset.Product.define">Dataset.Product.define</a></li><li><a href="Miso.Dataset.Product.html#type">type</a></li><li><a href="Miso.Dataset.Product.html#val">val</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="Miso.html">Miso</a></li><li><a href="Miso.Dataset.Builder.html">Builder</a></li><li><a href="Miso.Dataset.types.html">types</a></li><li><a href="Miso.Dataset.types.boolean.html">boolean</a></li><li><a href="Miso.Dataset.types.mixed.html">mixed</a></li><li><a href="Miso.Dataset.types.number.html">number</a></li><li><a href="Miso.Dataset.types.string.html">string</a></li><li><a href="Miso.Dataset.types.time.html">time</a></li></ul><h3>Global</h3><ul><li><a href="global.html#affectedColumns">affectedColumns</a></li></ul>
+        </div>
+      </div>
+    </article>
+    <footer>
+      <div class='container'>
+        <section>
+          <h2>
+            A joint project between
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/profile/guardian-interactive-department'>
+              <img alt="Guardian" src="/images/guardian.png"/>
+            </a>
+            <a href='http://www.bocoup.com'>
+              <img alt="Bocoup horizontal 614" src="/images/bocoup-horizontal-614.gif"/>
+            </a>
+          </div>
+        </section>
+        <section>
+          <h2>
+            Supported by
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/development'>
+              <img alt="Global dev" src="/images/global-dev.png"/>
+            </a>
+            <a href='http://www.gatesfoundation.org/'>
+              <img alt="Gates" src="/images/gates.png"/>
+            </a>
+          </div>
+        </section>
+      </div>
+    </footer>
+    <script src='/js/jquery.min.js'></script>
+    <script src='/js/nav.js'></script>
+    <script src='/js/miso.ds.deps.js'></script>
+    <script src='/js/bootstrap/transition.js'></script>
+    <script src='/js/bootstrap/collapse.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30531498-1']);
+      _gaq.push(['_setDomainName', 'misoproject.com']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>

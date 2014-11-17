@@ -1,0 +1,400 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+  <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+  <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src='http://use.typekit.com/aow5drr.js' type='text/javascript'></script>
+    <script type='text/javascript'>
+      try{ Typekit.load(); } catch(e) {}
+    </script>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='The Miso Project' name='description' />
+    <meta content='The Miso Project' name='name' />
+    <meta content='width=device-width' name='viewport' />
+    <title>The Miso Project :: Dataset :: API Reference</title>
+    <link href='/stylesheets/screen.css' rel='stylesheet' />
+    <link href='/stylesheets/codemirror.css' rel='stylesheet' />
+    
+  </head>
+  <body>
+    <nav>
+      <span class='miso'>
+        <a href='/'>
+          &larr; Miso Home
+        </a>
+      </span>
+      <span>
+        <a href='/dataset'>
+          Home
+        </a>
+      </span>
+      <span>
+        <a href='/dataset/examples.html'>
+          Examples
+        </a>
+      </span>
+      <span>
+        <a href='/dataset/tutorials.html'>
+          Tutorials
+        </a>
+      </span>
+      <span>
+        <a href='/dataset/api/index.html'>
+          API Doc
+        </a>
+      </span>
+      <span>
+        <a href='/dataset/extensions.html'>
+          Extensions
+        </a>
+      </span>
+      <span>
+        <a href='http://www.github.com/misoproject/dataset'>
+          Code (Github)
+        </a>
+      </span>
+    </nav>
+    <article class='api dataset'>
+      <div class='api_wrapper'>
+        
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source"><code>(function(global, _) {
+
+  var Miso = global.Miso || (global.Miso = {});
+  var Dataset = global.Miso.Dataset;
+
+  /**
+   * A Miso.Product is a single computed value that can be obtained from a
+   * Miso.Dataset. When a dataset is syncable, it will be an object that one
+   * can subscribe to the changes of. Otherwise, it returns the actual computed
+   * value.
+   *
+   * @constructor
+   * @name Product
+   * @memberof Miso.Dataset
+   *
+   * @param {Object} [options]
+   * @param {Function} options.func - the function that derives the computation
+   * @param {mixed} options.columns - the columns from which the function
+   *                                  derives the computation
+   */
+  Dataset.Product = function(options) {
+    options = options || {};
+
+    // save column name. This will be necessary later
+    // when we decide whether we need to update the column
+    // when sync is called.
+    this.func = options.func;
+
+    // determine the product type (numeric, string, time etc.)
+    if (options.columns) {
+      var column = options.columns;
+      if (_.isArray(options.columns)) {
+        column = options.columns[0];
+      }
+
+      this.valuetype = column.type;
+      this.numeric = function() {
+        return column.toNumeric(this.value);
+      };
+    }
+
+    this.func({ silent : true });
+    return this;
+  };
+
+  _.extend(Dataset.Product.prototype, Miso.Events,
+    /** @lends Miso.Dataset.Product.prototype */
+    {
+
+    /**
+     * @externalExample {runnable} product/val
+     *
+     * @returns {mixed} the raw value of the product, most likely a number
+     */
+    val : function() {
+      return this.value;
+    },
+
+    /**
+     * @returns the type of product this is (numeric, time etc.) Matches the
+     *          name of one of the Miso.types.
+     */
+    type : function() {
+      return this.valuetype;
+    },
+
+    //This is a callback method that is responsible for recomputing
+    //the value based on the column its closed on.
+    _sync : function(event) {
+      this.func();
+    },
+
+    // builds a delta object.
+    _buildDelta : function(old, changed) {
+      return {
+        old : old,
+        changed : changed
+      };
+    }
+  });
+
+  /**
+   * Use this method to define a new product.
+   *
+   * @memberof Miso.Dataset.Product
+   *
+   * @param {Function} func - The function which will be wrapped to create a
+   *                          product. Function signature is function(columns,
+   *                          options)
+   *
+   * @externalExample {runnable} product/define
+   *
+   * @returns {Function}
+   */
+  Dataset.Product.define = function(func) {
+    return function(columns, options) {
+      options = options || {};
+      var columnObjects = this._findColumns(columns);
+      var _self = this;
+      options.type = options.type || columnObjects[0].type;
+      options.typeOptions = options.typeOptions || columnObjects[0].typeOptions;
+
+      //define wrapper function to handle coercion
+      var producer = function() {
+        var val = func.call(_self, columnObjects, options);
+        return Dataset.types[options.type].coerce(val, options.typeOptions);
+      };
+
+      if (this.syncable) {
+        //create product object to pass back for syncable datasets/views
+        var prod = new Dataset.Product({
+          columns : columnObjects,
+          func : function(options) {
+            options = options || {};
+            var delta = this._buildDelta(this.value, producer.call(_self));
+            this.value = delta.changed;
+            if (_self.syncable) {
+              var event = Dataset.Events._buildEvent(delta, this);
+              if (!_.isUndefined(delta.old) &amp;&amp; !options.silent &amp;&amp; delta.old !== delta.changed) {
+                this.publish("change", event);
+              }
+            }
+          }
+        });
+        this.subscribe("change", prod._sync, { context : prod });
+        return prod;
+
+      } else {
+        return producer.call(_self);
+      }
+
+    };
+  };
+
+
+  _.extend(Dataset.DataView.prototype,
+    /** @lends Miso.Dataset.DataView.prototype */
+    {
+
+    // finds the column objects that match the single/multiple
+    // input columns. Helper method.
+    _findColumns : function(columns) {
+      var columnObjects = [];
+
+      // if no column names were specified, get all column names.
+      if (_.isUndefined(columns)) {
+        columns = this.columnNames();
+      }
+
+      // convert columns to an array in case we only got one column name.
+      columns = _.isArray(columns) ? columns : [columns];
+
+      // assemble actual column objecets together.
+      _.each(columns, function(column) {
+        column = this._columns[this._columnPositionByName[column]];
+        columnObjects.push(column);
+      }, this);
+
+      return columnObjects;
+    },
+
+    /**
+     * If the dataset has `sync` enabled this will return a
+     * `Miso.Dataset.Product` that can be used to bind events to and access the
+     * current value.  Otherwise it will return the current value - the sum of
+     * the numeric form of the values in the column.
+     *
+     * @method
+     *
+     *
+     * @param {String|String[]} columns - column name(s) on which the value is
+     *                                    calculated
+     *
+     * @externalExample {runnable} dataview/sum
+     *
+     * @returns {Miso.Dataset.Product|Number}
+     */
+    sum : Dataset.Product.define( function(columns) {
+      _.each(columns, function(col) {
+        if (col.type === Dataset.types.time.name) {
+          throw new Error("Can't sum up time");
+        }
+      });
+      return _.sum(_.map(columns, function(c) { return c._sum(); }));
+    }),
+
+    /**
+     * If the dataset has `sync` enabled this will return a
+     * `Miso.Dataset.Product` that can be used to bind events to and access the
+     * current value.  Otherwise it will return the current value - the highest
+     * numeric value in that column.
+     *
+     * @method
+     *
+     * @param {String|String[]} columns - column name(s) on which the value is
+     *                                   calculated
+     *
+     * @externalExample {runnable} dataview/max
+     *
+     * @returns {Miso.Dataset.Product|Number}
+     */
+    max : Dataset.Product.define( function(columns) {
+      return _.max(_.map(columns, function(c) {
+        return c._max();
+      }));
+    }),
+
+
+    /**
+     * If the dataset has `sync` enabled this will return a
+     * `Miso.Dataset.Product` that can be used to bind events to and access the
+     * current value.  Otherwise it will return the current value - the lowest
+     * numeric value in that column.
+     *
+     * @method
+     *
+     * @param {String[]} columns - array of column names on which the value is
+     *                             calculated
+     *
+     * @externalExample {runnable} dataview/min
+     *
+     * @returns {Miso.Dataset.Product|Number}
+     */
+    min : Dataset.Product.define( function(columns) {
+      return _.min(_.map(columns, function(c) {
+        return c._min();
+      }));
+    }),
+
+    /**
+     * If the dataset has `sync` enabled this will return a
+     * `Miso.Dataset.Product` that can be used to bind events to and access the
+     * current value.  Otherwise it will return the current value - the mean or
+     * average of the numeric form of the values in the column.
+     *
+     * @method
+     *
+     * @param {String[]} columns - array of column names on which the value is
+     *                             calculated
+     *
+     * @externalExample {runnable} dataview/mean
+     *
+     * @returns {Miso.Dataset.Product|Number}
+     */
+    mean : Dataset.Product.define( function(columns, options) {
+      var vals = [];
+      _.each(columns, function(col) {
+        vals.push(col.data);
+      });
+
+      vals = _.flatten(vals);
+
+      // save types and type options to later coerce
+      var type = columns[0].type;
+
+      // convert the values to their appropriate numeric value
+      vals = _.map(vals, function(v) { return Dataset.types[type].numeric(v); });
+      return _.mean(vals);
+    })
+
+  });
+
+}(this, _));
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+      </div>
+      <div class='nav_wrapper'>
+        <div class='nav'>
+          <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Miso.Dataset.html">Miso.Dataset</a><ul><li><a href="Miso.Dataset.html#add">add</a></li><li><a href="Miso.Dataset.html#addColumn">addColumn</a></li><li><a href="Miso.Dataset.html#addColumns">addColumns</a></li><li><a href="Miso.Dataset.html#addComputedColumn">addComputedColumn</a></li><li><a href="Miso.Dataset.html#column">column</a></li><li><a href="Miso.Dataset.html#columnNames">columnNames</a></li><li><a href="Miso.Dataset.html#columns">columns</a></li><li><a href="Miso.Dataset.html#countBy">countBy</a></li><li><a href="Miso.Dataset.html#each">each</a></li><li><a href="Miso.Dataset.html#eachColumn">eachColumn</a></li><li><a href="Miso.Dataset.html#fetch">fetch</a></li><li><a href="Miso.Dataset.html#groupBy">groupBy</a></li><li><a href="Miso.Dataset.html#hasColumn">hasColumn</a></li><li><a href="Miso.Dataset.html#max">max</a></li><li><a href="Miso.Dataset.html#mean">mean</a></li><li><a href="Miso.Dataset.html#min">min</a></li><li><a href="Miso.Dataset.html#movingAverage">movingAverage</a></li><li><a href="Miso.Dataset.html#remove">remove</a></li><li><a href="Miso.Dataset.html#reset">reset</a></li><li><a href="Miso.Dataset.html#reverseEach">reverseEach</a></li><li><a href="Miso.Dataset.html#rowById">rowById</a></li><li><a href="Miso.Dataset.html#rowByPosition">rowByPosition</a></li><li><a href="Miso.Dataset.html#rows">rows</a></li><li><a href="Miso.Dataset.html#sort">sort</a></li><li><a href="Miso.Dataset.html#sum">sum</a></li><li><a href="Miso.Dataset.html#toJSON">toJSON</a></li><li><a href="Miso.Dataset.html#update">update</a></li><li><a href="Miso.Dataset.html#where">where</a></li></ul></li><li><a href="Miso.Dataset.Column.html">Miso.Dataset.Column</a><ul><li><a href="Miso.Dataset.Column.html#coerce">coerce</a></li><li><a href="Miso.Dataset.Column.html#compute">compute</a></li><li><a href="Miso.Dataset.Column.html#isComputed">isComputed</a></li><li><a href="Miso.Dataset.Column.html#numericAt">numericAt</a></li><li><a href="Miso.Dataset.Column.html#toNumeric">toNumeric</a></li></ul></li><li><a href="Miso.Dataset.DataView.html">Miso.Dataset.DataView</a><ul><li><a href="Miso.Dataset.DataView.html#column">column</a></li><li><a href="Miso.Dataset.DataView.html#columnNames">columnNames</a></li><li><a href="Miso.Dataset.DataView.html#columns">columns</a></li><li><a href="Miso.Dataset.DataView.html#countBy">countBy</a></li><li><a href="Miso.Dataset.DataView.html#each">each</a></li><li><a href="Miso.Dataset.DataView.html#eachColumn">eachColumn</a></li><li><a href="Miso.Dataset.DataView.html#groupBy">groupBy</a></li><li><a href="Miso.Dataset.DataView.html#hasColumn">hasColumn</a></li><li><a href="Miso.Dataset.DataView.html#max">max</a></li><li><a href="Miso.Dataset.DataView.html#mean">mean</a></li><li><a href="Miso.Dataset.DataView.html#min">min</a></li><li><a href="Miso.Dataset.DataView.html#movingAverage">movingAverage</a></li><li><a href="Miso.Dataset.DataView.html#reverseEach">reverseEach</a></li><li><a href="Miso.Dataset.DataView.html#rowById">rowById</a></li><li><a href="Miso.Dataset.DataView.html#rowByPosition">rowByPosition</a></li><li><a href="Miso.Dataset.DataView.html#rows">rows</a></li><li><a href="Miso.Dataset.DataView.html#sort">sort</a></li><li><a href="Miso.Dataset.DataView.html#sum">sum</a></li><li><a href="Miso.Dataset.DataView.html#toJSON">toJSON</a></li><li><a href="Miso.Dataset.DataView.html#where">where</a></li></ul></li><li><a href="Miso.Dataset.Derived.html">Miso.Dataset.Derived</a><ul><li><a href="Miso.Dataset.Derived.html#add">add</a></li><li><a href="Miso.Dataset.Derived.html#addColumn">addColumn</a></li><li><a href="Miso.Dataset.Derived.html#addColumns">addColumns</a></li><li><a href="Miso.Dataset.Derived.html#addComputedColumn">addComputedColumn</a></li><li><a href="Miso.Dataset.Derived.html#column">column</a></li><li><a href="Miso.Dataset.Derived.html#columnNames">columnNames</a></li><li><a href="Miso.Dataset.Derived.html#columns">columns</a></li><li><a href="Miso.Dataset.Derived.html#countBy">countBy</a></li><li><a href="Miso.Dataset.Derived.html#each">each</a></li><li><a href="Miso.Dataset.Derived.html#eachColumn">eachColumn</a></li><li><a href="Miso.Dataset.Derived.html#fetch">fetch</a></li><li><a href="Miso.Dataset.Derived.html#groupBy">groupBy</a></li><li><a href="Miso.Dataset.Derived.html#hasColumn">hasColumn</a></li><li><a href="Miso.Dataset.Derived.html#max">max</a></li><li><a href="Miso.Dataset.Derived.html#mean">mean</a></li><li><a href="Miso.Dataset.Derived.html#min">min</a></li><li><a href="Miso.Dataset.Derived.html#movingAverage">movingAverage</a></li><li><a href="Miso.Dataset.Derived.html#remove">remove</a></li><li><a href="Miso.Dataset.Derived.html#reset">reset</a></li><li><a href="Miso.Dataset.Derived.html#reverseEach">reverseEach</a></li><li><a href="Miso.Dataset.Derived.html#rowById">rowById</a></li><li><a href="Miso.Dataset.Derived.html#rowByPosition">rowByPosition</a></li><li><a href="Miso.Dataset.Derived.html#rows">rows</a></li><li><a href="Miso.Dataset.Derived.html#sort">sort</a></li><li><a href="Miso.Dataset.Derived.html#sum">sum</a></li><li><a href="Miso.Dataset.Derived.html#toJSON">toJSON</a></li><li><a href="Miso.Dataset.Derived.html#update">update</a></li><li><a href="Miso.Dataset.Derived.html#where">where</a></li></ul></li><li><a href="Miso.Dataset.Event.html">Miso.Dataset.Event</a><ul><li><a href="Miso.Dataset.Event.html#isAdd">isAdd</a></li><li><a href="Miso.Dataset.Event.html#isRemove">isRemove</a></li><li><a href="Miso.Dataset.Event.html#isUpdate">isUpdate</a></li></ul></li><li><a href="Miso.Dataset.Importers.html">Miso.Dataset.Importers</a></li><li><a href="Miso.Dataset.Parsers.html">Miso.Dataset.Parsers</a><ul><li><a href="Miso.Dataset.Parsers.html#parse">parse</a></li></ul></li><li><a href="Miso.Dataset.Product.html">Miso.Dataset.Product</a><ul><li><a href="Miso.Dataset.Product.html#Dataset.Product.define">Dataset.Product.define</a></li><li><a href="Miso.Dataset.Product.html#type">type</a></li><li><a href="Miso.Dataset.Product.html#val">val</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="Miso.html">Miso</a></li><li><a href="Miso.Dataset.Builder.html">Builder</a></li><li><a href="Miso.Dataset.types.html">types</a></li><li><a href="Miso.Dataset.types.boolean.html">boolean</a></li><li><a href="Miso.Dataset.types.mixed.html">mixed</a></li><li><a href="Miso.Dataset.types.number.html">number</a></li><li><a href="Miso.Dataset.types.string.html">string</a></li><li><a href="Miso.Dataset.types.time.html">time</a></li></ul><h3>Global</h3><ul><li><a href="global.html#affectedColumns">affectedColumns</a></li></ul>
+        </div>
+      </div>
+    </article>
+    <footer>
+      <div class='container'>
+        <section>
+          <h2>
+            A joint project between
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/profile/guardian-interactive-department'>
+              <img alt="Guardian" src="/images/guardian.png"/>
+            </a>
+            <a href='http://www.bocoup.com'>
+              <img alt="Bocoup horizontal 614" src="/images/bocoup-horizontal-614.gif"/>
+            </a>
+          </div>
+        </section>
+        <section>
+          <h2>
+            Supported by
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/development'>
+              <img alt="Global dev" src="/images/global-dev.png"/>
+            </a>
+            <a href='http://www.gatesfoundation.org/'>
+              <img alt="Gates" src="/images/gates.png"/>
+            </a>
+          </div>
+        </section>
+      </div>
+    </footer>
+    <script src='/js/jquery.min.js'></script>
+    <script src='/js/nav.js'></script>
+    <script src='/js/miso.ds.deps.js'></script>
+    <script src='/js/bootstrap/transition.js'></script>
+    <script src='/js/bootstrap/collapse.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30531498-1']);
+      _gaq.push(['_setDomainName', 'misoproject.com']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+  <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+  <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src='http://use.typekit.com/aow5drr.js' type='text/javascript'></script>
+    <script type='text/javascript'>
+      try{ Typekit.load(); } catch(e) {}
+    </script>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='The Miso Project' name='description' />
+    <meta content='The Miso Project' name='name' />
+    <meta content='width=device-width' name='viewport' />
+    <title>The Miso Project :: Dataset :: API Reference</title>
+    <link href='/stylesheets/screen.css' rel='stylesheet' />
+    <link href='/stylesheets/codemirror.css' rel='stylesheet' />
+    
+  </head>
+  <body>
+    <nav>
+      <span class='miso'>
+        <a href='/'>
+          &larr; Miso Home
+        </a>
+      </span>
+      <span>
+        <a href='/dataset'>
+          Home
+        </a>
+      </span>
+      <span>
+        <a href='/dataset/examples.html'>
+          Examples
+        </a>
+      </span>
+      <span>
+        <a href='/dataset/tutorials.html'>
+          Tutorials
+        </a>
+      </span>
+      <span>
+        <a href='/dataset/api/index.html'>
+          API Doc
+        </a>
+      </span>
+      <span>
+        <a href='/dataset/extensions.html'>
+          Extensions
+        </a>
+      </span>
+      <span>
+        <a href='http://www.github.com/misoproject/dataset'>
+          Code (Github)
+        </a>
+      </span>
+    </nav>
+    <article class='api dataset'>
+      <div class='api_wrapper'>
+        
+
+
+
+<section>
+
+<header>
+    <h2>
+        <span class="ancestors"><a href="Miso.html">Miso</a><a href="Miso.Dataset.html">.Dataset</a>.</span>
+    
+    Column
+    </h2>
+    
+</header>
+
+    <div class="container-overview">
+    
+
+    
+        
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="Column">
+      <span class="type-signature"></span>new Column
+      ( options )
+    </h3>
+    <span class="returns">
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p><code>Miso.Dataset.Column</code> objects make up the columns contained in a dataset and
+are returned by some methods such as .column on <a href="Miso.Dataset.html">Miso.Dataset</a> and
+<a href="Miso.Dataset.DataView.html">Miso.Dataset.DataView</a></p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var col = new Miso.Dataset.Column({
+  name: 'inoculated',
+  type: 'boolean',
+  data: [true, false, false, true]
+});
+
+log(col.data);
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>options</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last">
+                <h6>Properties</h6>
+                
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>name</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">String</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Column name</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>type</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Column type (from Miso.types)</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>data</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>A set of data. By default, set to an
+                                 empty array.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>before</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">function</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>A function to pre-process a column's
+                                     value before it is coerced. Signature
+                                     is <code>function(value)</code></p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>format</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">function</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Optional. Only set if time type. The
+                                     moment.js format describing the input
+                                     dates.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>id</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Number</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>Sets a custom column _id. We assign one by
+                               default.</p></div>
+        </li>
+
+	
+</ul>
+
+            </div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js">view.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js#L6">line 6</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="coerce">
+      <span class="type-signature"></span>coerce
+      (  )
+    </h3>
+    <span class="returns">
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Coerces all the data in the column's data array to the appropriate type.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var col = new Miso.Dataset.Column({
+  name: 'amount',
+  type: 'number',
+  data: [2, 3, '4']
+});
+
+log (col.data);
+col.coerce();
+log (col.data);
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js">view.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js#L75">line 75</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="compute">
+      <span class="type-signature"></span>compute
+      ( row, <span class="optional">i</span> )
+    </h3>
+    <span class="returns">
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>If this is a computed column, it calculates the value for this column
+and adds it to the data.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>row</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Object</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>the row from which column is computed.</p></div>
+        </li>
+
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>i</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Number</span>
+
+
+            </span>
+            
+
+            
+            <span class="optional">
+              optional
+            </span>
+
+            
+              <span class="attributes">
+              
+
+              
+              </span>
+            
+          </div>
+
+            
+
+            <div class="description last"><p>the index at which this value will get added.</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>the computed value</p>
+</div>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js">view.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js#L90">line 90</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="isComputed">
+      <span class="type-signature"></span>isComputed
+      (  )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object">Boolean
+      
+    </span>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+<div class="param-desc">
+    <p>true if this is a computed column. False otherwise.</p>
+</div>
+
+
+
+Type: 
+<span class="param-type">Boolean</span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js">view.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js#L106">line 106</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="numericAt">
+      <span class="type-signature"></span>numericAt
+      ( index )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object">Number
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Internal function used to return the numeric value of a given input in a
+column. Index is used as this is currently the return value for numeric
+coercion of string values.</p>
+</div>
+
+
+
+    
+        <div class="codeblock">
+          <textarea name="codehelper" class="code" mode="" runnable="true" showConsole="true" buttons="run,reset,clear" autorun="" callbacks-clear="" callbacks-reset="" callbacks-run="">var col = new Miso.Dataset.Column({
+  name: 'inoculated',
+  type: 'boolean',
+  data: [true, false, false, true]
+});
+
+log (col.numericAt(0));
+log (col.numericAt(1));
+</textarea>
+          <div class="helptext">
+            You can edit the code in this block and rerun it.
+          </div>
+        </div>
+    
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>index</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">Number</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"><p>index position of the row you want the numeric
+                        value for</p></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type">Number</span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js">view.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js#L66">line 66</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+            
+
+<div class="method">
+
+<div class="bar">
+    <h3 id="toNumeric">
+      <span class="type-signature"></span>toNumeric
+      ( value )
+    </h3>
+    <span class="returns">
+      
+        Returns: <span class="object">Number
+      
+    </span>
+</div>
+
+
+
+
+
+
+<div class="description">
+    <p>Converts any value to this column's type for a given position in some
+source array.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h3>Parameters</h3>
+    
+
+<ul class="parameters">
+	
+
+        <li>
+          <div class="head">
+            
+                <span class="name"><code>value</code></span>
+            
+
+            
+            <span class="type">
+              
+<span class="param-type">mixed</span>
+
+
+            </span>
+            
+
+            
+            <span class="required">
+              required
+            </span>
+
+            
+          </div>
+
+            
+
+            <div class="description last"></div>
+        </li>
+
+	
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+<h3>Returns</h3>
+
+        
+
+
+Type: 
+<span class="param-type">Number</span>
+
+
+
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js">view.js</a>, <a href="https://github.com/misoproject/dataset/blob/7b40fffbf4803ef630e979594686c4401321ebfa/src/view.js#L50">line 50</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+</div>
+
+        
+    
+
+    
+
+    
+
+</section>
+
+
+
+
+      </div>
+      <div class='nav_wrapper'>
+        <div class='nav'>
+          <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Miso.Dataset.html">Miso.Dataset</a><ul><li><a href="Miso.Dataset.html#add">add</a></li><li><a href="Miso.Dataset.html#addColumn">addColumn</a></li><li><a href="Miso.Dataset.html#addColumns">addColumns</a></li><li><a href="Miso.Dataset.html#addComputedColumn">addComputedColumn</a></li><li><a href="Miso.Dataset.html#column">column</a></li><li><a href="Miso.Dataset.html#columnNames">columnNames</a></li><li><a href="Miso.Dataset.html#columns">columns</a></li><li><a href="Miso.Dataset.html#countBy">countBy</a></li><li><a href="Miso.Dataset.html#each">each</a></li><li><a href="Miso.Dataset.html#eachColumn">eachColumn</a></li><li><a href="Miso.Dataset.html#fetch">fetch</a></li><li><a href="Miso.Dataset.html#groupBy">groupBy</a></li><li><a href="Miso.Dataset.html#hasColumn">hasColumn</a></li><li><a href="Miso.Dataset.html#max">max</a></li><li><a href="Miso.Dataset.html#mean">mean</a></li><li><a href="Miso.Dataset.html#min">min</a></li><li><a href="Miso.Dataset.html#movingAverage">movingAverage</a></li><li><a href="Miso.Dataset.html#remove">remove</a></li><li><a href="Miso.Dataset.html#reset">reset</a></li><li><a href="Miso.Dataset.html#reverseEach">reverseEach</a></li><li><a href="Miso.Dataset.html#rowById">rowById</a></li><li><a href="Miso.Dataset.html#rowByPosition">rowByPosition</a></li><li><a href="Miso.Dataset.html#rows">rows</a></li><li><a href="Miso.Dataset.html#sort">sort</a></li><li><a href="Miso.Dataset.html#sum">sum</a></li><li><a href="Miso.Dataset.html#toJSON">toJSON</a></li><li><a href="Miso.Dataset.html#update">update</a></li><li><a href="Miso.Dataset.html#where">where</a></li></ul></li><li><a href="Miso.Dataset.Column.html">Miso.Dataset.Column</a><ul><li><a href="Miso.Dataset.Column.html#coerce">coerce</a></li><li><a href="Miso.Dataset.Column.html#compute">compute</a></li><li><a href="Miso.Dataset.Column.html#isComputed">isComputed</a></li><li><a href="Miso.Dataset.Column.html#numericAt">numericAt</a></li><li><a href="Miso.Dataset.Column.html#toNumeric">toNumeric</a></li></ul></li><li><a href="Miso.Dataset.DataView.html">Miso.Dataset.DataView</a><ul><li><a href="Miso.Dataset.DataView.html#column">column</a></li><li><a href="Miso.Dataset.DataView.html#columnNames">columnNames</a></li><li><a href="Miso.Dataset.DataView.html#columns">columns</a></li><li><a href="Miso.Dataset.DataView.html#countBy">countBy</a></li><li><a href="Miso.Dataset.DataView.html#each">each</a></li><li><a href="Miso.Dataset.DataView.html#eachColumn">eachColumn</a></li><li><a href="Miso.Dataset.DataView.html#groupBy">groupBy</a></li><li><a href="Miso.Dataset.DataView.html#hasColumn">hasColumn</a></li><li><a href="Miso.Dataset.DataView.html#max">max</a></li><li><a href="Miso.Dataset.DataView.html#mean">mean</a></li><li><a href="Miso.Dataset.DataView.html#min">min</a></li><li><a href="Miso.Dataset.DataView.html#movingAverage">movingAverage</a></li><li><a href="Miso.Dataset.DataView.html#reverseEach">reverseEach</a></li><li><a href="Miso.Dataset.DataView.html#rowById">rowById</a></li><li><a href="Miso.Dataset.DataView.html#rowByPosition">rowByPosition</a></li><li><a href="Miso.Dataset.DataView.html#rows">rows</a></li><li><a href="Miso.Dataset.DataView.html#sort">sort</a></li><li><a href="Miso.Dataset.DataView.html#sum">sum</a></li><li><a href="Miso.Dataset.DataView.html#toJSON">toJSON</a></li><li><a href="Miso.Dataset.DataView.html#where">where</a></li></ul></li><li><a href="Miso.Dataset.Derived.html">Miso.Dataset.Derived</a><ul><li><a href="Miso.Dataset.Derived.html#add">add</a></li><li><a href="Miso.Dataset.Derived.html#addColumn">addColumn</a></li><li><a href="Miso.Dataset.Derived.html#addColumns">addColumns</a></li><li><a href="Miso.Dataset.Derived.html#addComputedColumn">addComputedColumn</a></li><li><a href="Miso.Dataset.Derived.html#column">column</a></li><li><a href="Miso.Dataset.Derived.html#columnNames">columnNames</a></li><li><a href="Miso.Dataset.Derived.html#columns">columns</a></li><li><a href="Miso.Dataset.Derived.html#countBy">countBy</a></li><li><a href="Miso.Dataset.Derived.html#each">each</a></li><li><a href="Miso.Dataset.Derived.html#eachColumn">eachColumn</a></li><li><a href="Miso.Dataset.Derived.html#fetch">fetch</a></li><li><a href="Miso.Dataset.Derived.html#groupBy">groupBy</a></li><li><a href="Miso.Dataset.Derived.html#hasColumn">hasColumn</a></li><li><a href="Miso.Dataset.Derived.html#max">max</a></li><li><a href="Miso.Dataset.Derived.html#mean">mean</a></li><li><a href="Miso.Dataset.Derived.html#min">min</a></li><li><a href="Miso.Dataset.Derived.html#movingAverage">movingAverage</a></li><li><a href="Miso.Dataset.Derived.html#remove">remove</a></li><li><a href="Miso.Dataset.Derived.html#reset">reset</a></li><li><a href="Miso.Dataset.Derived.html#reverseEach">reverseEach</a></li><li><a href="Miso.Dataset.Derived.html#rowById">rowById</a></li><li><a href="Miso.Dataset.Derived.html#rowByPosition">rowByPosition</a></li><li><a href="Miso.Dataset.Derived.html#rows">rows</a></li><li><a href="Miso.Dataset.Derived.html#sort">sort</a></li><li><a href="Miso.Dataset.Derived.html#sum">sum</a></li><li><a href="Miso.Dataset.Derived.html#toJSON">toJSON</a></li><li><a href="Miso.Dataset.Derived.html#update">update</a></li><li><a href="Miso.Dataset.Derived.html#where">where</a></li></ul></li><li><a href="Miso.Dataset.Event.html">Miso.Dataset.Event</a><ul><li><a href="Miso.Dataset.Event.html#isAdd">isAdd</a></li><li><a href="Miso.Dataset.Event.html#isRemove">isRemove</a></li><li><a href="Miso.Dataset.Event.html#isUpdate">isUpdate</a></li></ul></li><li><a href="Miso.Dataset.Importers.html">Miso.Dataset.Importers</a></li><li><a href="Miso.Dataset.Parsers.html">Miso.Dataset.Parsers</a><ul><li><a href="Miso.Dataset.Parsers.html#parse">parse</a></li></ul></li><li><a href="Miso.Dataset.Product.html">Miso.Dataset.Product</a><ul><li><a href="Miso.Dataset.Product.html#Dataset.Product.define">Dataset.Product.define</a></li><li><a href="Miso.Dataset.Product.html#type">type</a></li><li><a href="Miso.Dataset.Product.html#val">val</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="Miso.html">Miso</a></li><li><a href="Miso.Dataset.Builder.html">Builder</a></li><li><a href="Miso.Dataset.types.html">types</a></li><li><a href="Miso.Dataset.types.boolean.html">boolean</a></li><li><a href="Miso.Dataset.types.mixed.html">mixed</a></li><li><a href="Miso.Dataset.types.number.html">number</a></li><li><a href="Miso.Dataset.types.string.html">string</a></li><li><a href="Miso.Dataset.types.time.html">time</a></li></ul><h3>Global</h3><ul><li><a href="global.html#affectedColumns">affectedColumns</a></li></ul>
+        </div>
+      </div>
+    </article>
+    <footer>
+      <div class='container'>
+        <section>
+          <h2>
+            A joint project between
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/profile/guardian-interactive-department'>
+              <img alt="Guardian" src="/images/guardian.png"/>
+            </a>
+            <a href='http://www.bocoup.com'>
+              <img alt="Bocoup horizontal 614" src="/images/bocoup-horizontal-614.gif"/>
+            </a>
+          </div>
+        </section>
+        <section>
+          <h2>
+            Supported by
+          </h2>
+          <div class='content'>
+            <a href='http://www.guardian.co.uk/development'>
+              <img alt="Global dev" src="/images/global-dev.png"/>
+            </a>
+            <a href='http://www.gatesfoundation.org/'>
+              <img alt="Gates" src="/images/gates.png"/>
+            </a>
+          </div>
+        </section>
+      </div>
+    </footer>
+    <script src='/js/jquery.min.js'></script>
+    <script src='/js/nav.js'></script>
+    <script src='/js/miso.ds.deps.js'></script>
+    <script src='/js/bootstrap/transition.js'></script>
+    <script src='/js/bootstrap/collapse.js'></script>
+    <script charset='utf-8' src='/js/ace-min/ace.js' type='text/javascript'></script>
+    <script src='/js/acify.js'></script>
+    
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30531498-1']);
+      _gaq.push(['_setDomainName', 'misoproject.com']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
+</html>
