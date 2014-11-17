@@ -52,5 +52,5 @@ deploy: check_working_dir clean build
 	touch .nojekyll
 	git add .
 	git commit -m "Deploy site"
-	git push --force ${UPSTREAM} gh-pages
+	git push --force ${UPSTREAM} master
 	git checkout -
